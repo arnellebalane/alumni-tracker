@@ -14,6 +14,7 @@
 <head lang="en">
   <meta charset="utf-8" />
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/reset.css'; ?>" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/fonts.css'; ?>" />
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/application.css'; ?>" />
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/questionnaire.css'; ?>" />
   <script src="<?= base_url() . 'assets/javascripts/jquery-2'; ?>.js"></script>

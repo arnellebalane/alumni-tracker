@@ -96,40 +96,26 @@
           <div class="field">
             <label>Degree Program</label>
             <select name="educational_background[degree_program]">
-              <option value="1">BS Mathematics - Pure Math</option>
-              <option value="2">BS Mathematics - Math/Computer Science</option>
-              <option value="3">BS Computer Science</option>
-              <option value="4">BS Biology</option>
-              <option value="5">BS Management</option>
-              <option value="6">BA Political Science</option>
-              <option value="7">BA Pyschology</option>
-              <option value="8">BA Mass Communication</option>
-              <option value="9">Bachelor of Fine Arts</option>
-              <option value="10">Certificate in Fine Arts</option>
+              <?foreach ($programs as $var) : ?>
+                <option value="<?=$var->id?>"><?=$var->name?></option>
+              <? endforeach;?>              
             </select>
           </div>
           <div class="field">
             <label>Semester/Summer and Year Graduated</label>
             <select name="educational_background[graduated][semester]">
-              <option value="1st Semester">1st Semester</option>
-              <option value="2nd Semester">2nd Semester</option>
-              <option value="Summer">Summer</option>
+              <option value="1">1st Semester</option>
+              <option value="2">2nd Semester</option>
+              <option value="3">Summer</option>
             </select>
             <select name="educational_background[graduated][academic_year]">
-              <option value="2000 - 2001">2000 - 2001</option>
-              <option value="2001 - 2002">2001 - 2002</option>
-              <option value="2002 - 2003">2002 - 2003</option>
-              <option value="2003 - 2004">2003 - 2004</option>
-              <option value="2004 - 2005">2004 - 2005</option>
-              <option value="2005 - 2006">2005 - 2006</option>
-              <option value="2006 - 2007">2006 - 2007</option>
-              <option value="2007 - 2008">2007 - 2008</option>
-              <option value="2008 - 2009">2008 - 2009</option>
-              <option value="2009 - 2010">2009 - 2010</option>
-              <option value="2010 - 2011">2010 - 2011</option>
-              <option value="2011 - 2012">2011 - 2012</option>
-              <option value="2012 - 2013">2012 - 2013</option>
-              <option value="2013 - 2014">2013 - 2014</option>
+              <? $ctr = date('Y');
+                while ($ctr > 1980) { 
+              ?>
+                <option value="<?echo ($ctr-1).'-'.$ctr;?>"><?echo ($ctr-1).' - '.$ctr;?></option>
+              <? $ctr--;
+                }
+              ?>                            
             </select>
           </div>
           <div class="field">

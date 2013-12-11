@@ -69,7 +69,7 @@
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" required />
+            <input type="email" name="personal_information[email_address]" />
           </div>
           <span>Social Network Contact Information</span>
           <div class="field indented">

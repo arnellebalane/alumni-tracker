@@ -1,0 +1,263 @@
+.wrapper {
+  padding: 50px 0;
+}
+
+aside {
+  float: left;
+  width: 225px;
+  padding: 15px 0;
+  margin-top: 33px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+aside li {
+  font: normal 1.5rem "Open Sans Light";
+  color: #333333;
+  text-align: right;
+  padding: 20px 25px 20px 0;
+  position: relative;
+}
+
+aside li.current {
+  color: #399B28;
+}
+
+aside li.visited:after {
+  background-color: #399B28;
+}
+
+aside li:before {
+  content: "";
+  position: absolute;
+  top: -27px;
+  right: -2px;
+  width: 2px;
+  height: 55px;
+  background-color: #eeeeee;
+}
+
+aside li:first-of-type:before {
+  display: none;
+}
+
+aside li.visited:before {
+  background-color: #399B28;
+}
+
+aside li:after {
+  content: "";
+  position: absolute;
+  top: 25px;
+  right: -7px;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #eeeeee;
+}
+
+.content {
+  float: right;
+  width: 700px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.content h1 {
+  font: normal 2.4rem "Open Sans Light";
+  color: #8B242A;
+  margin-bottom: 5px;
+}
+
+.content p {
+  font: italic normal 1.5rem/1 "Open Sans Light";
+  color: #777777;
+  margin-bottom: 40px;
+}
+
+.content .field {
+  margin-bottom: 5px;
+}
+
+.content label {
+  display: inline-block;
+  width: 275px;
+  font: normal 1.4rem "Open Sans Light";
+  color: #333333;
+}
+
+.content span {
+  display: block;
+  font: normal 1.4rem "Open Sans Light";
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.content .field input[type="text"], 
+.content .field input[type="email"], 
+.content .field select,
+.content .field textarea {
+  width: 270px;
+  font: normal 1.4rem "Open Sans Light";
+  color: #333333;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  outline: none;
+  margin: 0;
+  -webkit-transition: box-shadow 250ms ease;
+  -moz-transition: box-shadow 250ms ease;
+  -o-transition: box-shadow 250ms ease;
+  -ms-transition: box-shadow 250ms ease;
+  transition: box-shadow 250ms ease;
+}
+
+.content .field input[type="text"]:focus, 
+.content .field input[type="email"]:focus, 
+.content .field select:focus,
+.content .field textarea:focus {
+  box-shadow: 0 0 3px #30FC0D;
+}
+
+.content .field select {
+  width: 282px;
+}
+
+.content .field textarea {
+  resize: none;
+}
+
+.content .field input[type="radio"] + label {
+  width: 60px;
+  padding-left: 5px;
+}
+
+.content .field input[type="checkbox"] + label {
+  width: 200px;
+  padding-left: 5px;
+}
+
+.content .field.indented > label:first-of-type {
+  width: 250px;
+  margin-left: 25px;
+}
+
+.content .field.textarea label {
+  vertical-align: top;
+  margin-top: 7px;
+}
+
+.content .actions {
+  text-align: right;
+  padding-right: 140px;
+  margin-top: 20px;
+}
+
+.content .actions .button {
+  font: normal 1.5rem "Open Sans Light";
+  color: #ffffff;
+  background-color: #308422;
+  margin: 0;
+  border: none;
+  border-radius: 3px;
+  padding: 4px 10px;
+  cursor: pointer;
+  margin-left: 2px;
+  outline: none;
+  -webkit-transition: background-color 300ms ease;
+  -moz-transition: background-color 300ms ease;
+  -o-transition: background-color 300ms ease;
+  -ms-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+
+.content .actions .button:hover, 
+.content .actions .button:focus {
+  background-color: #399B28;
+}
+
+.content .slide[data-name="educational-background"] select[name^="graduated"] {
+  width: 139px;
+  margin-right: 1px;
+}
+
+.content .slide[data-name="employment-history"] select.narrow {
+  width: 130px;
+}
+
+.content .slide[data-name="employment-history"] .job-form {
+  margin-top: 30px;
+}
+
+.content .slide[data-name="employment-history"] .job-form:first-of-type {
+  margin-top: 0;
+}
+
+.content .slide[data-name="employment-history"] .job-form i {
+  display: inline;
+  font: normal 1.4rem "Open Sans Light";
+  color: #777777;
+  margin: 0 1px 0 2px;
+}
+
+.content .slide[data-name="employment-history"] .field[data-field="another-job"] {
+  margin-top: 25px;
+}
+
+.content .slide[data-name="others"] .field {
+  margin-bottom: 30px;
+}
+
+.content .slide[data-name="others"] .field > label:first-of-type {
+  display: block;
+  width: 500px;
+  margin-bottom: 5px;
+}
+
+.content .slide[data-name="others"] .course {
+  display: inline-block;
+  vertical-align: top;
+  width: 300;
+  margin-top: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.content .slide[data-name="others"] .course label {
+  display: inline-block;
+  vertical-align: top;
+  width: 270px;
+}
+
+.content .slide[data-name="others"] .course label p {
+  font: normal 1.4rem/1 "Open Sans Light";
+  color: #333333;
+  margin: 3px 0 0 0;
+}
+
+.content .slide[data-name="others"] .course label span {
+  display: inline-block;
+  font: italic normal 1.4rem/1 "Open Sans Light";
+  color: #777777;
+  margin-top: 5px;
+}
+
+.content .slide[data-name="others"] textarea {
+  width: 548px;
+}
+
+.content .slide[data-name="others"] em {
+  display: block;
+  font: italic normal 1.3rem "Open Sans Light";
+  color: #777777;
+}

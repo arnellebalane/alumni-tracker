@@ -1,0 +1,38 @@
+.pages.index {
+  text-align: center;
+}
+
+h1 {
+  font: normal 8rem "Alegreya";
+  color: #555555;
+  text-transform: lowercase;
+  margin-top: 170px;
+}
+
+p {
+  width: 600px;
+  font: normal 1.5rem "Open Sans Light";
+  color: #777777;
+  margin: 15px auto 0 auto;
+}
+
+a {
+  display: inline-block;
+  font: normal 1.8rem "Open Sans Light";
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 25px;
+  margin-top: 15px;
+  background-color: #308422;
+  border-radius: 3px;
+  outline: none;
+  -webkit-transition: background-color 300ms ease;
+  -moz-transition: background-color 300ms ease;
+  -o-transition: background-color 300ms ease;
+  -ms-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+
+a:hover, a:focus {
+  background-color: #399B28;
+}

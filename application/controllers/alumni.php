@@ -17,7 +17,7 @@
 
 		public function addPersonalInformation($user_id, $info) {
 			
-		}	
+		}
 		
 		public function addEducationBackground($info, $email) {
 			print_r($email);

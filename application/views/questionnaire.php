@@ -1,14 +1,3 @@
-<?php
-
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
-    exit;
-  }
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -80,7 +69,7 @@
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" />
+            <input type="email" name="personal_information[email_address]" required />
           </div>
           <span>Social Network Contact Information</span>
           <div class="field indented">

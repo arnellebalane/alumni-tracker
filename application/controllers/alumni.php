@@ -7,6 +7,9 @@
 		}
 
 		public function add() {
+			echo '<pre>';
+		  print_r($_POST);
+		  echo '</pre>';
 			$this->addPersonalInformation($_POST['personal_information']);
 		}
 

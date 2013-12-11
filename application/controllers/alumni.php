@@ -13,7 +13,7 @@
 			$this->addPersonalInformation($_POST['personal_information']);
 		}
 
-		public function addPersonalInformation($info) {
+		public function addPersonalInformation($user_id, $info) {
 			
 		}
 		

@@ -49,7 +49,7 @@
             <label>Country/State of Present Address</label>
             <select name="personal_information[country]" class="specifiable">
               <?foreach ($countries as $var) : ?>
-                <option value="<?$var->id?>"><?=$var->name?></option>
+                <option value="<?=$var->id?>"><?=$var->name?></option>
               <? endforeach; ?>              
               <option value="others">Others</option>
             </select>
@@ -69,7 +69,7 @@
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" required />
+            <input type="email" name="personal_information[email_address]" />
           </div>
           <span>Social Network Contact Information</span>
           <div class="field indented">

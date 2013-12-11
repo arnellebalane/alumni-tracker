@@ -1,12 +1,23 @@
+<?php
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
+    exit;
+  }
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="<?=base_url()?>assets/stylesheets/reset.css" />
-  <link rel="stylesheet" href="<?=base_url()?>assets/stylesheets/application.css" />
-  <link rel="stylesheet" href="<?=base_url()?>assets/stylesheets/questionnaire.css" />
-  <script src="<?=base_url()?>assets/javascripts/jquery-2.js"></script>
-  <script src="<?=base_url()?>assets/javascripts/application.js"></script>
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/reset.css'; ?>" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/application.css'; ?>" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/questionnaire.css'; ?>" />
+  <script src="<?= base_url() . 'assets/javascripts/jquery-2'; ?>.js"></script>
+  <script src="<?= base_url() . 'assets/javascripts/application.js'; ?>"></script>
   <title>Alumni Tracker</title>
 </head>
 
@@ -28,25 +39,25 @@
           <p>Rest assured that these information will be treated with high confidentiality.</p>
 
           <div class="field">
-            <label>Firstname</label>
-            <input type="text" name="firstname" />
+            <label>First Name</label>
+            <input type="text" name="personal_information[firstname]" />
           </div>
           <div class="field">
-            <label>Lastname</label>
-            <input type="text" name="lastname" />
+            <label>Last Name</label>
+            <input type="text" name="personal_information[lastname]" />
           </div>
           <div class="field">
             <label>Gender</label>
-            <input type="radio" name="gender" value="male" id="g-male" /><label for="g-male">Male</label>
-            <input type="radio" name="gender" value="female" id="g-female" /><label for="g-female">Female</label>
+            <input type="radio" name="personal_information[gender]" value="male" id="g-male" /><label for="g-male">Male</label>
+            <input type="radio" name="personal_information[gender]" value="female" id="g-female" /><label for="g-female">Female</label>
           </div>
           <div class="field">
             <label>Present Address</label>
-            <input type="text" name="present_address" />
+            <input type="text" name="personal_information[present_address]" />
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <select name="country">
+            <select name="personal_information[country]" class="specifiable">
               <option value="1">Philippines</option>
               <option value="2">Singapore</option>
               <option value="3">Japan</option>
@@ -56,31 +67,32 @@
               <option value="7">Australia</option>
               <option value="others">Others</option>
             </select>
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
-            <input type="text" name="present_address_contact_number" />
+            <input type="text" name="personal_information[present_address_contact_number]" />
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <input type="text" name="permanent_address" />
+            <input type="text" name="personal_information[permanent_address]" />
           </div>
           <div class="field">
             <label>Contact Number in Permanent Address</label>
-            <input type="text" name="permanent_address_contact_number" />
+            <input type="text" name="personal_information[permanent_address_contact_number]" />
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="email_address" />
+            <input type="email" name="personal_information[email_address]" />
           </div>
           <span>Social Network Contact Information</span>
           <div class="field indented">
             <label>Facebook Account</label>
-            <input type="text" name="facebook_account" />
+            <input type="text" name="personal_information[social_networks][facebook]" />
           </div>
           <div class="field indented">
             <label>Twitter Account</label>
-            <input type="text" name="twitter_account" />
+            <input type="text" name="personal_information[social_networks][twitter]" />
           </div>
           <div class="field actions">
             <input type="button" value="Continue" class="button continue" />
@@ -93,11 +105,11 @@
 
           <div class="field">
             <label>Student Number</label>
-            <input type="text" name="student_number" />
+            <input type="text" name="educational_background[student_number]" />
           </div>
           <div class="field">
             <label>Degree Program</label>
-            <select name="degree_program">
+            <select name="educational_background[degree_program]">
               <option value="1">BS Mathematics - Pure Math</option>
               <option value="2">BS Mathematics - Math/Computer Science</option>
               <option value="3">BS Computer Science</option>
@@ -112,12 +124,12 @@
           </div>
           <div class="field">
             <label>Semester/Summer and Year Graduated</label>
-            <select name="graduated[semester]">
+            <select name="educational_background[graduated][semester]">
               <option value="1st Semester">1st Semester</option>
               <option value="2nd Semester">2nd Semester</option>
               <option value="Summer">Summer</option>
             </select>
-            <select name="graduated[academic_year]">
+            <select name="educational_background[graduated][academic_year]">
               <option value="2000 - 2001">2000 - 2001</option>
               <option value="2001 - 2002">2001 - 2002</option>
               <option value="2002 - 2003">2002 - 2003</option>
@@ -136,7 +148,7 @@
           </div>
           <div class="field">
             <label>Honor Received</label>
-            <select name="honor_received">
+            <select name="educational_background[honor_received]">
               <option value="summa cum laude">Summa Cum Laude</option>
               <option value="magna cum laude">Magna Cum Laude</option>
               <option value="cum laude">Cum Laude</option>
@@ -157,20 +169,20 @@
             <span>Current Job Information</span>
             <div class="field indented">
               <label>Are you self-employed?</label>
-              <input type="radio" name="jobs[0][self_employed]" value="yes" id="jobs[0][se-yes]" data-behavior="toggle-self-employed" /><label for="jobs[0][se-yes]">Yes</label>
-              <input type="radio" name="jobs[0][self_employed]" value="no" id="jobs[0][se-no]" data-behavior="toggle-self-employed" checked /><label for="jobs[0][se-no]">No</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="yes" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[0][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="no" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[0][se-no]">No</label>
             </div>
             <div class="field indented hidden" data-field="business-name">
               <label>What is your business/work?</label>
-              <input type="text" name="jobs[0][business_name]" />
+              <input type="text" name="employment_history[0][business_name]" />
             </div>
             <div class="field indented" data-field="employer">
               <label>Employer</label>
-              <input type="text" name="jobs[0][employer]" />
+              <input type="text" name="employment_history[0][employer]" />
             </div>
             <div class="field indented">
               <label>Employer/Business Type</label>
-              <select name="jobs[0][employer_type]">
+              <select name="employment_history[0][employer_type]" class="specifiable">
                 <option value="1">IT Industry</option>
                 <option value="2">Business Process Outsourcing (BPO) - Voice</option>
                 <option value="3">Business Process Outsourcing (BPO) - Non-Voice</option>
@@ -183,14 +195,15 @@
                 <option value="10">Hospital</option>
                 <option value="others">Others</option>
               </select>
+              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" />
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
-              <input type="text" name="jobs[0][job_title]" />
+              <input type="text" name="employment_history[0][job_title]" />
             </div>
             <div class="field indented">
               <label>Monthly Salary (in Philippine Peso)</label>
-              <select name="jobs[0][monthly_salary]">
+              <select name="employment_history[0][monthly_salary]">
                 <option value="1">10,000 and below</option>
                 <option value="2">10,001 - 20,000</option>
                 <option value="3">20,001 - 30,000</option>
@@ -203,7 +216,7 @@
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
-              <select name="jobs[0][employment_duration][start_year]" class="narrow">
+              <select name="employment_history[0][employment_duration][start_year]" class="narrow">
                 <option value="2000">2000</option>
                 <option value="2001">2001</option>
                 <option value="2002">2002</option>
@@ -220,7 +233,7 @@
                 <option value="2013">2013</option>
               </select>
               <i>to</i>
-              <select name="jobs[0][employment_duration][end_year]" class="narrow">
+              <select name="employment_history[0][employment_duration][end_year]" class="narrow">
                 <option value="ongoing">ongoing</option>
                 <option value="2000">2000</option>
                 <option value="2001">2001</option>
@@ -240,37 +253,37 @@
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
-              <input type="radio" name="jobs[0][satisfied_with_job]" value="yes" id="jobs[0][swj-yes]" /><label for="jobs[0][swj-yes]">Yes</label>
-              <input type="radio" name="jobs[0][satisfied_with_job]" value="no" id="jobs[0][swj-no]" /><label for="jobs[0][swj-no]">No</label>
+              <input type="radio" name="employment_history[0][satisfied_with_job]" value="yes" id="employment_history[0][swj-yes]" /><label for="employment_history[0][swj-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][satisfied_with_job]" value="no" id="employment_history[0][swj-no]" /><label for="employment_history[0][swj-no]">No</label>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
-              <textarea name="jobs[0][satisfaction_reason]"></textarea>
+              <textarea name="employment_history[0][satisfaction_reason]"></textarea>
             </div>
             <div class="field indented">
               <label>Is this your first job?</label>
-              <input type="radio" name="jobs[0][first_job]" value="yes" id="fj-yes" data-behavior="toggle-first-job" /><label for="fj-yes">Yes</label>
-              <input type="radio" name="jobs[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" /><label for="fj-no">No</label>
+              <input type="radio" name="employment_history[0][first_job]" value="yes" id="fj-yes" data-behavior="toggle-first-job" /><label for="fj-yes">Yes</label>
+              <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" /><label for="fj-no">No</label>
             </div>
           </div>
           <div class="job-form hidden" data-job-form="first-job">
             <span>First Job Information</span>
             <div class="field indented">
               <label>Were you self-employed?</label>
-              <input type="radio" name="jobs[1][self_employed]" value="yes" id="jobs[1][se-yes]" data-behavior="toggle-self-employed" /><label for="jobs[1][se-yes]">Yes</label>
-              <input type="radio" name="jobs[1][self_employed]" value="no" id="jobs[1][se-no]" data-behavior="toggle-self-employed" checked /><label for="jobs[1][se-no]">No</label>
+              <input type="radio" name="employment_history[1][self_employed]" value="yes" id="employment_history[1][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[1][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[1][self_employed]" value="no" id="employment_history[1][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[1][se-no]">No</label>
             </div>
             <div class="field indented hidden" data-field="business-name">
               <label>What is your business/work?</label>
-              <input type="text" name="jobs[1][business_name]" />
+              <input type="text" name="employment_history[1][business_name]" />
             </div>
             <div class="field indented" data-field="employer">
               <label>Employer</label>
-              <input type="text" name="jobs[1][employer]" />
+              <input type="text" name="employment_history[1][employer]" />
             </div>
             <div class="field indented">
               <label>Employer/Business Type</label>
-              <select name="jobs[1][employer_type]">
+              <select name="employment_history[1][employer_type]" class="specifiable">
                 <option value="1">IT Industry</option>
                 <option value="2">Business Process Outsourcing (BPO) - Voice</option>
                 <option value="3">Business Process Outsourcing (BPO) - Non-Voice</option>
@@ -283,14 +296,15 @@
                 <option value="10">Hospital</option>
                 <option value="others">Others</option>
               </select>
+              <input type="text" name="employment_history[1][specified_employer_type]" placeholder="Employer/Business Type" />
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
-              <input type="text" name="jobs[1][job_title]" />
+              <input type="text" name="employment_history[1][job_title]" />
             </div>
             <div class="field indented">
               <label>Monthly Salary (in Philippine Peso)</label>
-              <select name="jobs[1][monthly_salary]">
+              <select name="employment_history[1][monthly_salary]">
                 <option value="1">10,000 and below</option>
                 <option value="2">10,001 - 20,000</option>
                 <option value="3">20,001 - 30,000</option>
@@ -303,7 +317,7 @@
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
-              <select name="jobs[1][employment_duration][start_year]" class="narrow">
+              <select name="employment_history[1][employment_duration][start_year]" class="narrow">
                 <option value="2000">2000</option>
                 <option value="2001">2001</option>
                 <option value="2002">2002</option>
@@ -320,7 +334,7 @@
                 <option value="2013">2013</option>
               </select>
               <i>to</i>
-              <select name="jobs[1][employment_duration][end_year]" class="narrow">
+              <select name="employment_history[1][employment_duration][end_year]" class="narrow">
                 <option value="ongoing">ongoing</option>
                 <option value="2000">2000</option>
                 <option value="2001">2001</option>
@@ -340,18 +354,18 @@
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
-              <input type="radio" name="jobs[1][satisfied_with_job]" value="yes" id="jobs[1][swj-yes]" /><label for="jobs[1][swj-yes]">Yes</label>
-              <input type="radio" name="jobs[1][satisfied_with_job]" value="no" id="jobs[1][swj-no]" /><label for="jobs[1][swj-no]">No</label>
+              <input type="radio" name="employment_history[1][satisfied_with_job]" value="yes" id="employment_history[1][swj-yes]" /><label for="employment_history[1][swj-yes]">Yes</label>
+              <input type="radio" name="employment_history[1][satisfied_with_job]" value="no" id="employment_history[1][swj-no]" /><label for="employment_history[1][swj-no]">No</label>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
-              <textarea name="jobs[1][satisfaction_reason]"></textarea>
+              <textarea name="employment_history[1][satisfaction_reason]"></textarea>
             </div>
           </div>
           <div class="field indented hidden" data-field="another-job">
-            <label>Did you have another have?</label>
+            <label>Did you have another job?</label>
             <input type="radio" value="yes" id="aj-yes" data-behavior="add-another-job" /><label for="aj-yes">Yes</label>
-            <input type="radio" value="no" id="aj-no" data-behavior="add-another-job" /><label for="aj-no">No</label>
+            <input type="radio" value="no" id="aj-no" data-behavior="add-another-job" checked /><label for="aj-no">No</label>
           </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />
@@ -365,37 +379,25 @@
 
           <div class="field">
             <label>Is any of your jobs related to the degree program you finished?</label>
-            <input type="radio" name="jobs_related" value="yes" id="jr_yes" /><label for="jr_yes">Yes</label>
-            <input type="radio" name="jobs_related" value="no" id="jr_no" /><label for="jr_no">No</label>
+            <em>(examples of degree programs: BS Mathematics, BS Computer Science, etc)</em>
+            <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" /><label for="jr_yes">Yes</label>
+            <input type="radio" name="others[jobs_related]" value="no" id="jr_no" /><label for="jr_no">No</label>
           </div>
           <div class="field">
             <label>What courses did you take in the curriculum that are/were useful in your job?</label>
-            <div class="course">
-              <input type="checkbox" name="useful_courses[0]" value="cmsc11" id="uc-cmsc11" />
-              <label for="uc-cmsc11">
-                <p>CMSC 11</p>
-                <p>Introduction to Computer Programming</p>
-                <span>Lorem ipsum Tempor ad eu cillum velit in nulla in Ut deserunt sit Duis labore Ut.</span>
-              </label>
-            </div>
-            <div class="course">
-              <input type="checkbox" name="useful_courses[1]" value="cmsc21" id="uc-cmsc21" />
-              <label for="uc-cmsc21">
-                <p>CMSC 21</p>
-                <p>Introduction to Computer Programming</p>
-                <span>Lorem ipsum Tempor ad eu cillum velit in nulla in Ut deserunt sit Duis labore Ut.</span>
-              </label>
-            </div>
+            <em>(examples of courses: MATH17, CMSC11, etc)</em>
+            <textarea name="others[useful_courses]"></textarea>
+            <em>(courses must be separated by comma)</em>
           </div>
           <div class="field">
             <label>What courses would you suggest that are useful in the curriculum but are not offered in your program?</label>
-            <textarea name="course_suggestions"></textarea>
-            <em>(course suggestions must be comma separated)</em>
+            <textarea name="others[course_suggestions]"></textarea>
+            <em>(course suggestions must be separated by comma)</em>
           </div>
           <div class="field">
             <label>What GE/RGEP courses did you find useful in your job?</label>
             <div class="course">
-              <input type="checkbox" name="useful_ge[0]" value="envi10" id="ug-envi10" />
+              <input type="checkbox" name="others[useful_ge][0]" value="envi10" id="ug-envi10" />
               <label for="ug-envi10">
                 <p>Envi 10</p>
                 <p>Environmental Science</p>
@@ -403,7 +405,7 @@
               </label>
             </div>
             <div class="course">
-              <input type="checkbox" name="useful_ge[1]" value="natsci1" id="ug-natsci1" />
+              <input type="checkbox" name="others[useful_ge][1]" value="natsci1" id="ug-natsci1" />
               <label for="ug-natsci1">
                 <p>Nat Sci 1</p>
                 <p>Natural Science 1</p>

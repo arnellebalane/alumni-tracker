@@ -144,6 +144,11 @@ aside li:after {
   padding-left: 5px;
 }
 
+.content .field select.specifiable + input[type="text"] {
+  display: none;
+  margin: 5px 0 0 278px;
+}
+
 .content .field.indented > label:first-of-type {
   width: 250px;
   margin-left: 25px;
@@ -183,7 +188,7 @@ aside li:after {
   background-color: #399B28;
 }
 
-.content .slide[data-name="educational-background"] select[name^="graduated"] {
+.content .slide[data-name="educational-background"] select[name^="educational_background[graduated]"] {
   width: 139px;
   margin-right: 1px;
 }
@@ -218,7 +223,6 @@ aside li:after {
 .content .slide[data-name="others"] .field > label:first-of-type {
   display: block;
   width: 500px;
-  margin-bottom: 5px;
 }
 
 .content .slide[data-name="others"] .course {
@@ -254,6 +258,7 @@ aside li:after {
 
 .content .slide[data-name="others"] textarea {
   width: 548px;
+  margin-top: 5px;
 }
 
 .content .slide[data-name="others"] em {

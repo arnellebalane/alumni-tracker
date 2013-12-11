@@ -2,12 +2,14 @@
 
   class Home extends CI_Controller {
 
-  	public function index() {
+  	public function index() {  		
   		$this->load->view("index.php");
   	}
 
   	public function questionnaire() {
-  		$this->load->view("questionnaire.php");
+  		$this->load->model("values_model", "model");
+  		$data = array('countries'=>$this->model->getCountries());
+  		$this->load->view("questionnaire.php", $data);
   	}
 
   }

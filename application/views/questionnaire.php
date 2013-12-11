@@ -59,13 +59,9 @@
           <div class="field">
             <label>Country/State of Present Address</label>
             <select name="personal_information[country]" class="specifiable">
-              <option value="1">Philippines</option>
-              <option value="2">Singapore</option>
-              <option value="3">Japan</option>
-              <option value="4">Malaysia</option>
-              <option value="5">United States of America</option>
-              <option value="6">Canada</option>
-              <option value="7">Australia</option>
+              <?foreach ($countries as $var) : ?>
+                <option value="<?$var->id?>"><?=$var->name?></option>
+              <? endforeach; ?>              
               <option value="others">Others</option>
             </select>
             <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" />

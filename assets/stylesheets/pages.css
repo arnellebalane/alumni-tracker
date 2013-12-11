@@ -1,4 +1,4 @@
-.pages.index {
+.pages {
   text-align: center;
 }
 
@@ -36,3 +36,25 @@ a {
 a:hover, a:focus {
   background-color: #399B28;
 }
+
+#alumni-account {
+  margin-top: 15px;
+}
+
+#alumni-account label {
+  font: normal 1.3rem "Open Sans Light";
+  color: #777777;
+  text-transform: uppercase;
+  margin-left: 20px;
+}
+
+#alumni-account label:first-of-type {
+  margin-left: 0;
+}
+
+#alumni-account span {
+  font: bold 1.6rem "Open Sans Light";
+  color: #8B242A;
+  margin-left: 5px;
+}
+

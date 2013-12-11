@@ -8,8 +8,10 @@
 
   	public function questionnaire() {
   		$this->load->model("values_model", "model");
-  		$data = array('countries'=>$this->model->getCountries());
-  		$this->load->view("questionnaire", $data);
+  		$data = array('countries'=>$this->model->getCountries(),
+  									'programs'=>$this->model->getPrograms()
+  									);
+  		$this->load->view("questionnaire.php", $data);
   	}
 
     public function saved() {

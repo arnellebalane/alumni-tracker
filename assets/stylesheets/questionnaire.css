@@ -15,7 +15,7 @@ aside {
 }
 
 aside li {
-  font: normal 1.5rem "Open Sans Light";
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
   color: #333333;
   text-align: right;
   padding: 20px 25px 20px 0;
@@ -71,13 +71,13 @@ aside li:after {
 }
 
 .content h1 {
-  font: normal 2.4rem "Open Sans Light";
+  font: normal 2.4rem "Open Sans Light", "OpenSansLight";
   color: #8B242A;
   margin-bottom: 5px;
 }
 
 .content p {
-  font: italic normal 1.5rem/1 "Open Sans Light";
+  font: italic normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
   color: #777777;
   margin-bottom: 40px;
 }
@@ -89,13 +89,13 @@ aside li:after {
 .content label {
   display: inline-block;
   width: 275px;
-  font: normal 1.4rem "Open Sans Light";
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
 }
 
 .content span {
   display: block;
-  font: normal 1.4rem "Open Sans Light";
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
   margin-bottom: 5px;
 }
@@ -105,7 +105,7 @@ aside li:after {
 .content .field select,
 .content .field textarea {
   width: 270px;
-  font: normal 1.4rem "Open Sans Light";
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
   padding: 5px;
   border-radius: 3px;
@@ -166,7 +166,7 @@ aside li:after {
 }
 
 .content .actions .button {
-  font: normal 1.5rem "Open Sans Light";
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
   color: #ffffff;
   background-color: #308422;
   margin: 0;
@@ -251,7 +251,7 @@ aside li:after {
 
 .content .slide[data-name="others"] .course label span {
   display: inline-block;
-  font: italic normal 1.4rem/1 "Open Sans Light";
+  font: italic normal 1.4rem/1 "Open Sans Light", "OpenSansLight";
   color: #777777;
   margin-top: 5px;
 }
@@ -263,6 +263,6 @@ aside li:after {
 
 .content .slide[data-name="others"] em {
   display: block;
-  font: italic normal 1.3rem "Open Sans Light";
+  font: italic normal 1.3rem "Open Sans Light", "OpenSansLight";
   color: #777777;
 }

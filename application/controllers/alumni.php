@@ -8,10 +8,10 @@
 
 
 		public function add() {
-			// echo '<pre>';
-		 //  print_r($_POST);
-		 //  echo '</pre>';
-			$this->addPersonalInformation($_POST['personal_information']);
+			echo '<pre>';
+		  print_r($_POST);
+		  echo '</pre>';
+			// $this->addPersonalInformation($_POST['personal_information']);			
 			$this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);
 		}
 
@@ -46,6 +46,11 @@
 				}
 			} while($this->model->getUsersByPassword($pass) != null);			
 			return $pass;
+		}
+
+
+		private function addEmploymentHistory($user_id, $info) {
+
 		}
 	}
 ?>

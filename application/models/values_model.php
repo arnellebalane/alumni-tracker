@@ -9,5 +9,10 @@ class values_model extends CI_Model {
 		$query = $this->db->query("SELECT * from countries");
 		return $query->result();
 	}	
+
+	function getPrograms() {
+		$query = $this->db->query("SELECT * from programs");
+		return $query->result();
+	}
 }
 ?>

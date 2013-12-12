@@ -15,8 +15,9 @@
 			$this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);
 		}
 
-		public function addPersonalInformation($info) {
-			return;
+
+		public function addPersonalInformation($user_id, $info) {
+			
 		}	
 		
 		private function addEducationBackground($info, $email) {			

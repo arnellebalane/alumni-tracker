@@ -72,14 +72,12 @@
             <input type="email" name="personal_information[email_address]" />
           </div>
           <span>Social Network Contact Information</span>
-          <div class="field indented">
-            <label>Facebook Account</label>
-            <input type="text" name="personal_information[social_networks][facebook]" />
-          </div>
-          <div class="field indented">
-            <label>Twitter Account</label>
-            <input type="text" name="personal_information[social_networks][twitter]" />
-          </div>
+          <?foreach ($social_networks as $var) : ?>
+            <div class="field indented">
+              <label><?=$var->name?> Account</label>
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" />
+            </div>
+          <? endforeach; ?>
           <div class="field actions">
             <input type="button" value="Continue" class="button continue" />
           </div>
@@ -155,16 +153,9 @@
             <div class="field indented">
               <label>Employer/Business Type</label>
               <select name="employment_history[0][employer_type]" class="specifiable">
-                <option value="1">IT Industry</option>
-                <option value="2">Business Process Outsourcing (BPO) - Voice</option>
-                <option value="3">Business Process Outsourcing (BPO) - Non-Voice</option>
-                <option value="4">Bank</option>
-                <option value="5">Academe</option>
-                <option value="6">Health</option>
-                <option value="7">TV Stations/Radio Stations/Newspaper Company</option>
-                <option value="8">Law Firm</option>
-                <option value="9">Government Agencies (e.g. NGO, GSIS, SSS, NEDA, etc.)</option>
-                <option value="10">Hospital</option>
+                <?php foreach ($employer_types as $type) { ?>
+                  <option value="<?=$type->id?>"><?=$type->name?></option>
+                <?}?>               
                 <option value="others">Others</option>
               </select>
               <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" />
@@ -176,51 +167,45 @@
             <div class="field indented">
               <label>Monthly Salary (in Philippine Peso)</label>
               <select name="employment_history[0][monthly_salary]">
-                <option value="1">10,000 and below</option>
-                <option value="2">10,001 - 20,000</option>
-                <option value="3">20,001 - 30,000</option>
-                <option value="4">30,001 - 40,000</option>
-                <option value="5">40,001 - 50,000</option>
-                <option value="6">50,001 - 60,000</option>
-                <option value="7">60,001 - 100,000</option>
-                <option value="8">100,001 and above</option>
+                <?php foreach ($salaries as $val) : ?>
+                  <option value="<?=$val->id?>">
+                    <?php
+                      if ($val->minimum == null)
+                        echo $val->maximum." and below";
+                      else if ($val->maximum == null)
+                        echo $val->minimum." and above";
+                      else
+                        echo $val->minimum." - ".$val->maximum;
+                    ?>
+                  </option>
+                <? endforeach; ?>                 
               </select>
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
               <select name="employment_history[0][employment_duration][start_year]" class="narrow">
-                <option value="2000">2000</option>
-                <option value="2001">2001</option>
-                <option value="2002">2002</option>
-                <option value="2003">2003</option>
-                <option value="2004">2004</option>
-                <option value="2005">2005</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
+                <?php 
+                  $year = date('Y');
+                  while ($year >= 1980) { 
+                ?>
+                  <option value="<?=$year?>"><?=$year?></option>
+                <?    
+                    $year--;
+                  } 
+                ?>                
               </select>
               <i>to</i>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
                 <option value="100000">ongoing</option>
-                <option value="2000">2000</option>
-                <option value="2001">2001</option>
-                <option value="2002">2002</option>
-                <option value="2003">2003</option>
-                <option value="2004">2004</option>
-                <option value="2005">2005</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
+                <?php 
+                  $year = date('Y');
+                  while ($year >= 1980) { 
+                ?>
+                  <option value="<?=$year?>"><?=$year?></option>
+                <?    
+                    $year--;
+                  } 
+                ?>   
               </select>
             </div>
             <div class="field indented">
@@ -256,16 +241,9 @@
             <div class="field indented">
               <label>Employer/Business Type</label>
               <select name="employment_history[1][employer_type]" class="specifiable">
-                <option value="1">IT Industry</option>
-                <option value="2">Business Process Outsourcing (BPO) - Voice</option>
-                <option value="3">Business Process Outsourcing (BPO) - Non-Voice</option>
-                <option value="4">Bank</option>
-                <option value="5">Academe</option>
-                <option value="6">Health</option>
-                <option value="7">TV Stations/Radio Stations/Newspaper Company</option>
-                <option value="8">Law Firm</option>
-                <option value="9">Government Agencies (e.g. NGO, GSIS, SSS, NEDA, etc.)</option>
-                <option value="10">Hospital</option>
+                <?php foreach ($employer_types as $type) { ?>
+                  <option value="<?=$type->id?>"><?=$type->name?></option>
+                <?}?> 
                 <option value="others">Others</option>
               </select>
               <input type="text" name="employment_history[1][specified_employer_type]" placeholder="Employer/Business Type" />
@@ -277,51 +255,45 @@
             <div class="field indented">
               <label>Monthly Salary (in Philippine Peso)</label>
               <select name="employment_history[1][monthly_salary]">
-                <option value="1">10,000 and below</option>
-                <option value="2">10,001 - 20,000</option>
-                <option value="3">20,001 - 30,000</option>
-                <option value="4">30,001 - 40,000</option>
-                <option value="5">40,001 - 50,000</option>
-                <option value="6">50,001 - 60,000</option>
-                <option value="7">60,001 - 100,000</option>
-                <option value="8">100,001 and above</option>
+                <?php foreach ($salaries as $val) : ?>
+                  <option value="<?=$val->id?>">
+                    <?php
+                      if ($val->minimum == null)
+                        echo $val->maximum." and below";
+                      else if ($val->maximum == null)
+                        echo $val->minimum." and above";
+                      else
+                        echo $val->minimum." - ".$val->maximum;
+                    ?>
+                  </option>
+                <? endforeach; ?> 
               </select>
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
               <select name="employment_history[1][employment_duration][start_year]" class="narrow">
-                <option value="2000">2000</option>
-                <option value="2001">2001</option>
-                <option value="2002">2002</option>
-                <option value="2003">2003</option>
-                <option value="2004">2004</option>
-                <option value="2005">2005</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
+                <?php 
+                  $year = date('Y');
+                  while ($year >= 1980) { 
+                ?>
+                  <option value="<?=$year?>"><?=$year?></option>
+                <?    
+                    $year--;
+                  } 
+                ?>   
               </select>
               <i>to</i>
               <select name="employment_history[1][employment_duration][end_year]" class="narrow">
                 <option value="100000">ongoing</option>
-                <option value="2000">2000</option>
-                <option value="2001">2001</option>
-                <option value="2002">2002</option>
-                <option value="2003">2003</option>
-                <option value="2004">2004</option>
-                <option value="2005">2005</option>
-                <option value="2006">2006</option>
-                <option value="2007">2007</option>
-                <option value="2008">2008</option>
-                <option value="2009">2009</option>
-                <option value="2010">2010</option>
-                <option value="2011">2011</option>
-                <option value="2012">2012</option>
-                <option value="2013">2013</option>
+                <?php 
+                  $year = date('Y');
+                  while ($year >= 1980) { 
+                ?>
+                  <option value="<?=$year?>"><?=$year?></option>
+                <?    
+                    $year--;
+                  } 
+                ?>   
               </select>
             </div>
             <div class="field indented">

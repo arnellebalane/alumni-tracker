@@ -7,6 +7,7 @@ var questionnaire = {
     questionnaire.initializeSlides();
     questionnaire.initializeSelectBoxes();
     questionnaire.initializeEmploymentHistory();
+    questionnaire.initializeOthers();
   },
   initializeSlides: function() {
     $('.slide .button.continue').on('click', function() {
@@ -50,6 +51,11 @@ var questionnaire = {
       if ($(this).val() == 'yes') {
         questionnaire.addAnotherJob();
       }
+    });
+  },
+  initializeOthers: function() {
+    $('input[type="radio"][name="others[jobs_related]"]').on('change', function() {
+      $('.slide[data-name="others"] .field').not($(this).closest('.field')).not('.actions').toggleClass('hidden');
     });
   },
   addAnotherJob: function() {

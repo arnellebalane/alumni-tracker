@@ -91,7 +91,7 @@
 
           <div class="field">
             <label>Student Number</label>
-            <input type="text" name="educational_background[student_number]" />
+            <input type="text" name="educational_background[student_number]" placeholder="xxxx-xxxxx" />
           </div>
           <div class="field">
             <label>Degree Program</label>

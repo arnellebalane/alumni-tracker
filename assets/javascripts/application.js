@@ -10,11 +10,12 @@ var questionnaire = {
   },
   initializeSlides: function() {
     $('.slide .button.continue').on('click', function() {
-      if (questionnaire.validateSlide[$(".slide.current").data('name')]()) {
+      var validation = questionnaire.validateSlide[$(".slide.current").data('name')]();
+      if (validation.valid) {
         $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
         $('aside li.current').removeClass('current').next('li').addClass('current visited');
       } else {
-        alert('Please fill up all required fields.');
+        alert(validation.error);
       }
     });
     $('.slide .button.back').on('click', function() {
@@ -76,8 +77,8 @@ var questionnaire = {
     $('.slide.current .field[data-field="another-job"]').before(newJobForm);
   },
   validateSlide: {
-    "personal-information": function() {
-      return (($('input[name="personal_information[firstname]"]').val().trim().length > 0)
+    'personal-information': function() {
+      if (($('input[name="personal_information[firstname]"]').val().trim().length > 0)
         && ($('input[name="personal_information[lastname]"]').val().trim().length > 0)
         && ($('input[name="personal_information[gender]"]:checked').length > 0)
         && ($('input[name="personal_information[present_address]"]').val().trim().length > 0)
@@ -86,15 +87,32 @@ var questionnaire = {
         && ($('input[name="personal_information[present_address_contact_number]"]').val().trim().length > 0)
         && ($('input[name="personal_information[permanent_address]"]').val().trim().length > 0)
         && ($('input[name="personal_information[permanent_address_contact_number]"]').val().trim().length > 0)
-        && ($('input[name="personal_information[email_address]"]').val().trim().length > 0));
+        && ($('input[name="personal_information[email_address]"]').val().trim().length > 0)) {
+        return {valid: true};
+      } else {
+        return {valid: false, error: "Please fill up all required fields."};
+      }
     },
-    "educational-background": function() {
+    'educational-background': function() {
+      var studentNumber = $('input[name="educational_background[student_number]"]').val().trim();
+      if (studentNumber.length != 10 || studentNumber.charAt(4) != '-') {
+        return {valid: false, error: "Please fill up the student number with the correct format."};
+      }
+      var digits = "0123456789";
+      for (var i = 0; i < 10; i++) {
+        if (i == 4) {
+          continue;
+        }
+        if (digits.indexOf(studentNumber.charAt(i)) < 0) {
+          return {valid: false, error: "Please fill up the student number with the correct format."};
+        }
+      }
+      return {valid: true};
+    },
+    'employment-history': function() {
 
     },
-    "employment-history": function() {
-
-    },
-    "others": function() {
+    'others': function() {
 
     }
   }

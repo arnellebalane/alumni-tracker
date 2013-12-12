@@ -141,8 +141,8 @@
             <span>Current Job Information</span>
             <div class="field indented">
               <label>Are you self-employed?</label>
-              <input type="radio" name="employment_history[0][self_employed]" value="yes" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[0][se-yes]">Yes</label>
-              <input type="radio" name="employment_history[0][self_employed]" value="no" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[0][se-no]">No</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[0][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[0][se-no]">No</label>
             </div>
             <div class="field indented hidden" data-field="business-name">
               <label>What is your business/work?</label>
@@ -225,8 +225,8 @@
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
-              <input type="radio" name="employment_history[0][satisfied_with_job]" value="yes" id="employment_history[0][swj-yes]" /><label for="employment_history[0][swj-yes]">Yes</label>
-              <input type="radio" name="employment_history[0][satisfied_with_job]" value="no" id="employment_history[0][swj-no]" /><label for="employment_history[0][swj-no]">No</label>
+              <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" /><label for="employment_history[0][swj-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" /><label for="employment_history[0][swj-no]">No</label>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
@@ -242,8 +242,8 @@
             <span>First Job Information</span>
             <div class="field indented">
               <label>Were you self-employed?</label>
-              <input type="radio" name="employment_history[1][self_employed]" value="yes" id="employment_history[1][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[1][se-yes]">Yes</label>
-              <input type="radio" name="employment_history[1][self_employed]" value="no" id="employment_history[1][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[1][se-no]">No</label>
+              <input type="radio" name="employment_history[1][self_employed]" value="1" id="employment_history[1][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[1][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[1][self_employed]" value="0" id="employment_history[1][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[1][se-no]">No</label>
             </div>
             <div class="field indented hidden" data-field="business-name">
               <label>What is your business/work?</label>
@@ -326,8 +326,8 @@
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
-              <input type="radio" name="employment_history[1][satisfied_with_job]" value="yes" id="employment_history[1][swj-yes]" /><label for="employment_history[1][swj-yes]">Yes</label>
-              <input type="radio" name="employment_history[1][satisfied_with_job]" value="no" id="employment_history[1][swj-no]" /><label for="employment_history[1][swj-no]">No</label>
+              <input type="radio" name="employment_history[1][satisfied_with_job]" value="1" id="employment_history[1][swj-yes]" /><label for="employment_history[1][swj-yes]">Yes</label>
+              <input type="radio" name="employment_history[1][satisfied_with_job]" value="0" id="employment_history[1][swj-no]" /><label for="employment_history[1][swj-no]">No</label>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>

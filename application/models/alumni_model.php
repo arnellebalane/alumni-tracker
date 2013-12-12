@@ -44,6 +44,11 @@ class alumni_model extends CI_Model {
 															'".addslashes($info['email_address'])."')");
 	}
 
+	function addEmploymentDetails($info) {
+
+	}
+	
+
 }
 
 ?>

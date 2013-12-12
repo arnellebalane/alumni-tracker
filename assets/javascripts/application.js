@@ -96,21 +96,38 @@ var questionnaire = {
     'educational-background': function() {
       var studentNumber = $('input[name="educational_background[student_number]"]').val().trim();
       if (studentNumber.length != 10 || studentNumber.charAt(4) != '-') {
-        return {valid: false, error: "Please fill up the student number with the correct format."};
+        return {valid: false, error: 'Please fill up the student number with the correct format.'};
       }
-      var digits = "0123456789";
+      var digits = '0123456789';
       for (var i = 0; i < 10; i++) {
         if (i == 4) {
           continue;
         }
         if (digits.indexOf(studentNumber.charAt(i)) < 0) {
-          return {valid: false, error: "Please fill up the student number with the correct format."};
+          return {valid: false, error: 'Please fill up the student number with the correct format.'};
         }
       }
       return {valid: true};
     },
     'employment-history': function() {
-
+      for (var i = 0; i < $('.job-form').length; i++) {
+        if (($('input[name="employment_history[' + i + '][business_name]"]').val().trim().length > 0
+            || $('input[name="employment_history[' + i + '][employer]"]').val().trim().length > 0)
+          && ($('select[name="employment_history[' + i + '][employer_type]"]').val() != 'others'
+            || $('input[name="employment_history[' + i + '][specified_employer_type]"]').val().trim().length > 0)
+          && ($('input[name="employment_history[' + i + '][job_title]"]').val().trim().length > 0)
+          && (parseInt($('select[name="employment_history[' + i + '][employment_duration][start_year]"]').val()) 
+            <= parseInt($('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))
+          && ($('input[name="employment_history[' + i + '][satisfied_with_job]"]:checked').length > 0)) {
+          
+        } else {
+          return {valid: false, error: "Please fill up all required fields."};
+        }
+        if ($('input[data-behavior="toggle-first-job"]').val() == 'yes') {
+          break;
+        }
+      }
+      return {valid: true};
     },
     'others': function() {
 

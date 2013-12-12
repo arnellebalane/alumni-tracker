@@ -206,7 +206,7 @@
               </select>
               <i>to</i>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
-                <option value="ongoing">ongoing</option>
+                <option value="100000">ongoing</option>
                 <option value="2000">2000</option>
                 <option value="2001">2001</option>
                 <option value="2002">2002</option>
@@ -234,7 +234,7 @@
             </div>
             <div class="field indented">
               <label>Is this your first job?</label>
-              <input type="radio" name="employment_history[0][first_job]" value="yes" id="fj-yes" data-behavior="toggle-first-job" /><label for="fj-yes">Yes</label>
+              <input type="radio" name="employment_history[0][first_job]" value="yes" id="fj-yes" data-behavior="toggle-first-job" checked /><label for="fj-yes">Yes</label>
               <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" /><label for="fj-no">No</label>
             </div>
           </div>
@@ -307,7 +307,7 @@
               </select>
               <i>to</i>
               <select name="employment_history[1][employment_duration][end_year]" class="narrow">
-                <option value="ongoing">ongoing</option>
+                <option value="100000">ongoing</option>
                 <option value="2000">2000</option>
                 <option value="2001">2001</option>
                 <option value="2002">2002</option>

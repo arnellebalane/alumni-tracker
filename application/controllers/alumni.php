@@ -18,7 +18,7 @@
 
 		public function addPersonalInformation($user_id, $info) {
 			
-		}	
+		}
 		
 		private function addEducationBackground($info, $email) {			
 			$username = $email;

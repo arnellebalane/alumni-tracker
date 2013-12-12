@@ -10,8 +10,12 @@ var questionnaire = {
   },
   initializeSlides: function() {
     $('.slide .button.continue').on('click', function() {
-      $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
-      $('aside li.current').removeClass('current').next('li').addClass('current visited');
+      if (questionnaire.validateSlide[$(".slide.current").data('name')]()) {
+        $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
+        $('aside li.current').removeClass('current').next('li').addClass('current visited');
+      } else {
+        alert('Please fill up all required fields.');
+      }
     });
     $('.slide .button.back').on('click', function() {
       $('.slide.current').toggleClass('current hidden').prev('.slide').toggleClass('current hidden');
@@ -70,5 +74,28 @@ var questionnaire = {
     $('#aj-yes').prop('checked', false);
     $('#aj-no').prop('checked', true);
     $('.slide.current .field[data-field="another-job"]').before(newJobForm);
+  },
+  validateSlide: {
+    "personal-information": function() {
+      return (($('input[name="personal_information[firstname]"]').val().trim().length > 0)
+        && ($('input[name="personal_information[lastname]"]').val().trim().length > 0)
+        && ($('input[name="personal_information[gender]"]:checked').length > 0)
+        && ($('input[name="personal_information[present_address]"]').val().trim().length > 0)
+        && ($('select[name="personal_information[country]"]').val() != 'others' 
+          || $('input[name="personal_information[specified_country]"]').val().trim().length > 0)
+        && ($('input[name="personal_information[present_address_contact_number]"]').val().trim().length > 0)
+        && ($('input[name="personal_information[permanent_address]"]').val().trim().length > 0)
+        && ($('input[name="personal_information[permanent_address_contact_number]"]').val().trim().length > 0)
+        && ($('input[name="personal_information[email_address]"]').val().trim().length > 0));
+    },
+    "educational-background": function() {
+
+    },
+    "employment-history": function() {
+
+    },
+    "others": function() {
+
+    }
   }
 };

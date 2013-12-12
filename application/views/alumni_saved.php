@@ -13,11 +13,7 @@
 
 <body class="pages saved">
   <h1>Thank you!</h1>
-  <p>Your answers has been saved to our records. To modify your information in the future, you have to log in to your account. Your login information are shown below:</p>
-  <div id="alumni-account">
-    <label>Username:</label><span>2011-37575</span>
-    <label>Password:</label><span>SGHeKH</span>
-  </div>
+  <p>Your answers has been saved to our records. To modify your information in the future, you have to log in to your account using the credentials sent to your email address.</p>
   <a href="#">Login to Account</a>
 </body>
 </html>

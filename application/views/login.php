@@ -14,7 +14,7 @@
 <body class="pages login">
   <?= form_open('#'); ?>
     <h1>Alumni Tracker</h1>
-    <h2>Account Login</h2>
+    <p class="error">Incorrect username or password.</p>
     <div class="field">
       <label>Username</label>
       <input type="text" name="username" autofocus="true" />

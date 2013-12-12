@@ -16,3 +16,8 @@ html {
 .hidden {
   display: none;
 }
+
+p.error {
+  font: normal 1.5rem/1 "Open Sans Light";
+  color: #AA151E;
+}

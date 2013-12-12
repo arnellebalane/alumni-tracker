@@ -11,9 +11,21 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="pages index">
-  <h1>Alumni Tracker</h1>
-  <p>Clicking on the button below means that you really are an alumni of the University of the Philippines Cebu and that you are willing to provide the information asked for.</p>  
-  <?= anchor('home/questionnaire', 'Proceed to Questionnaire', array('class' => 'button')); ?>
+<body class="pages login">
+  <?= form_open('#'); ?>
+    <h1>Alumni Tracker</h1>
+    <h2>Account Login</h2>
+    <div class="field">
+      <label>Username</label>
+      <input type="text" name="username" autofocus="true" />
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" name="password" />
+    </div>
+    <div class="field actions">
+      <input type="submit" value="Login" class="button" />
+    </div>
+  <?= form_close(); ?>
 </body>
 </html>

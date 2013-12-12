@@ -23,7 +23,7 @@
     </aside>
 
     <div class="content">
-      <?=form_open('alumni/add','POST')?>
+      <?= form_open('alumni/add','POST'); ?>
         <div class="slide current" data-name="personal-information">
           <h1>Personal Information</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -391,7 +391,7 @@
             <em>Please review your answers before submitting the form</em>
           </div>
         </div>
-        <?=form_close();?>      
+        <?= form_close(); ?>      
     </div>
   </div>
 </body>

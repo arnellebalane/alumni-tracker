@@ -18,6 +18,10 @@
       $this->load->view('alumni_saved');
     }
 
+    public function login() {
+      $this->load->view('login');
+    }
+
   }
 
 ?>

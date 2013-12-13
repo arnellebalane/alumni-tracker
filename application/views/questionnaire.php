@@ -340,22 +340,16 @@
           </div>
           <div class="field hidden">
             <label>What GE/RGEP courses did you find useful in your job?</label>
-            <div class="course">
-              <input type="checkbox" name="others[useful_ge][0]" value="envi10" id="ug-envi10" />
-              <label for="ug-envi10">
-                <p>Envi 10</p>
-                <p>Environmental Science</p>
-                <span>Lorem ipsum Velit aliquip Ut in est eu enim exercitation deserunt ut dolor eiusmod officia nostrud minim.</span>
-              </label>
-            </div>
-            <div class="course">
-              <input type="checkbox" name="others[useful_ge][1]" value="natsci1" id="ug-natsci1" />
-              <label for="ug-natsci1">
-                <p>Nat Sci 1</p>
-                <p>Natural Science 1</p>
-                <span>Lorem ipsum Aliquip culpa qui aliquip dolore minim incididunt fugiat in culpa ad id reprehenderit enim adipisicing ullamco.</span>
-              </label>
-            </div>
+            <? foreach ($ge_courses as $var) : ?>
+              <div class="course">
+                <input type="checkbox" name="others[useful_ge][<?=$var->id?>]" value="<?=$var->code?>" id="ug-<?=$var->id?>" />
+                <label for="ug-<?=$var->id?>">
+                  <p><?=$var->code?></p>
+                  <p><?=$var->name?></p>
+                  <span><?=$var->description?></span>
+                </label>
+              </div>
+            <? endforeach; ?>
           </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />

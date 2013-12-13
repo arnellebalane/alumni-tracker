@@ -223,90 +223,93 @@
               <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" <?= is_checked("employment_history", '0', "first_job", null, 'no'); ?> /><label for="fj-no">No</label>
             </div>
           </div>
-          <div class="job-form <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-job-form="first-job">
-            <span>First Job Information</span>
-            <div class="field indented">
-              <label>Were you self-employed?</label>
-              <input type="radio" name="employment_history[1][self_employed]" value="1" id="employment_history[1][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[1][se-yes]">Yes</label>
-              <input type="radio" name="employment_history[1][self_employed]" value="0" id="employment_history[1][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[1][se-no]">No</label>
+          <?php $post = $this->session->flashdata('inputs'); ?>
+          <?php for ($i = 1; $i < ((isset($post['employment_history'])) ? count($post['employment_history']) : 2); $i++): ?>
+            <div class="job-form <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-job-form="<?= ($i == 1) ? 'first-job' : 'other-job'; ?>">
+              <span><?= ($i == 1) ? 'First' : 'Other'; ?> Job Information</span>
+              <div class="field indented">
+                <label>Were you self-employed?</label>
+                <input type="radio" name="employment_history[1][self_employed]" value="1" id="employment_history[1][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[1][se-yes]">Yes</label>
+                <input type="radio" name="employment_history[1][self_employed]" value="0" id="employment_history[1][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[1][se-no]">No</label>
+              </div>
+              <div class="field indented hidden" data-field="business-name">
+                <label>What is your business/work?</label>
+                <input type="text" name="employment_history[1][business_name]" />
+              </div>
+              <div class="field indented" data-field="employer">
+                <label>Employer</label>
+                <input type="text" name="employment_history[1][employer]" />
+              </div>
+              <div class="field indented">
+                <label>Employer/Business Type</label>
+                <select name="employment_history[1][employer_type]" class="specifiable">
+                  <?php foreach ($employer_types as $type) { ?>
+                    <option value="<?=$type->id?>"><?=$type->name?></option>
+                  <?}?> 
+                  <option value="others">Others</option>
+                </select>
+                <input type="text" name="employment_history[1][specified_employer_type]" placeholder="Employer/Business Type" />
+              </div>
+              <div class="field indented">
+                <label>Job Title/Position</label>
+                <input type="text" name="employment_history[1][job_title]" />
+              </div>
+              <div class="field indented">
+                <label>Monthly Salary (in Philippine Peso)</label>
+                <select name="employment_history[1][monthly_salary]">
+                  <?php foreach ($salaries as $val) : ?>
+                    <option value="<?=$val->id?>">
+                      <?php
+                        if ($val->minimum == null)
+                          echo $val->maximum." and below";
+                        else if ($val->maximum == null)
+                          echo $val->minimum." and above";
+                        else
+                          echo $val->minimum." - ".$val->maximum;
+                      ?>
+                    </option>
+                  <? endforeach; ?> 
+                </select>
+              </div>
+              <div class="field indented">
+                <label>Employment Duration</label>
+                <select name="employment_history[1][employment_duration][start_year]" class="narrow">
+                  <?php 
+                    $year = date('Y');
+                    while ($year >= 1980) { 
+                  ?>
+                    <option value="<?=$year?>"><?=$year?></option>
+                  <?    
+                      $year--;
+                    } 
+                  ?>   
+                </select>
+                <i>to</i>
+                <select name="employment_history[1][employment_duration][end_year]" class="narrow">
+                  <option value="100000">ongoing</option>
+                  <?php 
+                    $year = date('Y');
+                    while ($year >= 1980) { 
+                  ?>
+                    <option value="<?=$year?>"><?=$year?></option>
+                  <?    
+                      $year--;
+                    } 
+                  ?>   
+                </select>
+              </div>
+              <div class="field indented">
+                <label>Satisfied with this job?</label>
+                <input type="radio" name="employment_history[1][satisfied_with_job]" value="1" id="employment_history[1][swj-yes]" /><label for="employment_history[1][swj-yes]">Yes</label>
+                <input type="radio" name="employment_history[1][satisfied_with_job]" value="0" id="employment_history[1][swj-no]" /><label for="employment_history[1][swj-no]">No</label>
+              </div>
+              <div class="field indented textarea">
+                <label>Why or why not satisfied?</label>
+                <textarea name="employment_history[1][satisfaction_reason]"></textarea>
+              </div>
             </div>
-            <div class="field indented hidden" data-field="business-name">
-              <label>What is your business/work?</label>
-              <input type="text" name="employment_history[1][business_name]" />
-            </div>
-            <div class="field indented" data-field="employer">
-              <label>Employer</label>
-              <input type="text" name="employment_history[1][employer]" />
-            </div>
-            <div class="field indented">
-              <label>Employer/Business Type</label>
-              <select name="employment_history[1][employer_type]" class="specifiable">
-                <?php foreach ($employer_types as $type) { ?>
-                  <option value="<?=$type->id?>"><?=$type->name?></option>
-                <?}?> 
-                <option value="others">Others</option>
-              </select>
-              <input type="text" name="employment_history[1][specified_employer_type]" placeholder="Employer/Business Type" />
-            </div>
-            <div class="field indented">
-              <label>Job Title/Position</label>
-              <input type="text" name="employment_history[1][job_title]" />
-            </div>
-            <div class="field indented">
-              <label>Monthly Salary (in Philippine Peso)</label>
-              <select name="employment_history[1][monthly_salary]">
-                <?php foreach ($salaries as $val) : ?>
-                  <option value="<?=$val->id?>">
-                    <?php
-                      if ($val->minimum == null)
-                        echo $val->maximum." and below";
-                      else if ($val->maximum == null)
-                        echo $val->minimum." and above";
-                      else
-                        echo $val->minimum." - ".$val->maximum;
-                    ?>
-                  </option>
-                <? endforeach; ?> 
-              </select>
-            </div>
-            <div class="field indented">
-              <label>Employment Duration</label>
-              <select name="employment_history[1][employment_duration][start_year]" class="narrow">
-                <?php 
-                  $year = date('Y');
-                  while ($year >= 1980) { 
-                ?>
-                  <option value="<?=$year?>"><?=$year?></option>
-                <?    
-                    $year--;
-                  } 
-                ?>   
-              </select>
-              <i>to</i>
-              <select name="employment_history[1][employment_duration][end_year]" class="narrow">
-                <option value="100000">ongoing</option>
-                <?php 
-                  $year = date('Y');
-                  while ($year >= 1980) { 
-                ?>
-                  <option value="<?=$year?>"><?=$year?></option>
-                <?    
-                    $year--;
-                  } 
-                ?>   
-              </select>
-            </div>
-            <div class="field indented">
-              <label>Satisfied with this job?</label>
-              <input type="radio" name="employment_history[1][satisfied_with_job]" value="1" id="employment_history[1][swj-yes]" /><label for="employment_history[1][swj-yes]">Yes</label>
-              <input type="radio" name="employment_history[1][satisfied_with_job]" value="0" id="employment_history[1][swj-no]" /><label for="employment_history[1][swj-no]">No</label>
-            </div>
-            <div class="field indented textarea">
-              <label>Why or why not satisfied?</label>
-              <textarea name="employment_history[1][satisfaction_reason]"></textarea>
-            </div>
-          </div>
-          <div class="field indented hidden" data-field="another-job">
+          <?php endfor; ?>
+          <div class="field indented <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-field="another-job">
             <label>Did you have another job?</label>
             <input type="radio" value="yes" id="aj-yes" data-behavior="add-another-job" /><label for="aj-yes">Yes</label>
             <input type="radio" value="no" id="aj-no" data-behavior="add-another-job" checked /><label for="aj-no">No</label>

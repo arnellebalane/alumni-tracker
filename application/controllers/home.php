@@ -9,7 +9,8 @@
   	public function questionnaire() {
   		$this->load->model("values_model", "model");
   		$data = array('countries'=>$this->model->getCountries(),
-  									'programs'=>$this->model->getPrograms()
+  									'programs'=>$this->model->getPrograms(),
+                    'salaries'=>$this->model->getMonthlySalaries()
   									);
   		$this->load->view("questionnaire.php", $data);
   	}

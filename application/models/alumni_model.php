@@ -40,6 +40,11 @@ class alumni_model extends CI_Model {
 															'".addslashes($info['permanent_address_contact_number'])."', '".addslashes($info['email_address'])."')");
 	}
 
+	function addEmploymentDetails($info) {
+
+	}
+	
+
 }
 
 ?>

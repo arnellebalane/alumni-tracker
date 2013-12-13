@@ -50,7 +50,23 @@
 
 
 		private function addEmploymentHistory($user_id, $info) {
-
+			$this->load->model("values_model", "values");
+			if (count($info) == 2 && ($info[0]['business_name'] == $info[0]['employer'] && $info[0]['business_name'] == "") && 
+				($info[1]['business_name'] == $info[1]['employer'] && $info[1]['business_name'] == "")) {
+				return;
+			}
+			$ctr = 0;
+			foreach ($info as $var) : 
+				if ($var['employer'] == $var['business_name'] && $var['employer'] == "") 
+					continue;				
+				if ($var['employer_type'] == "others") {
+					$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
+				}	else {
+					$employer_id = $var['employer_type'];
+				}
+				
+				$ctr++;
+			endforeach;
 		}
 	}
 ?>

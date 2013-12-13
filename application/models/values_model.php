@@ -29,5 +29,11 @@ class values_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO employer_types (name) VALUES ('$type')");
 		return mysql_insert_id();
 	}
+
+	function getMonthlySalaries() {
+		$query = $this->db->query("SELECT * FROM monthly_salaries");
+		return $query->result();
+	}
+
 }
 ?>

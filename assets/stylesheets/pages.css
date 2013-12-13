@@ -47,20 +47,18 @@ p {
 .pages.login h1 {
   font-size: 5.5rem;
   line-height: 1;
+  margin-bottom: 20px;
 }
 
-.pages.login h2 {
-  font: normal 2rem "Open Sans Light";
-  color: #777777;
-  text-transform: lowercase;
-  margin-bottom: 30px;
+.pages.login .error {
+  margin-bottom: 20px;
 }
 
 .pages.login .field label {
   display: inline-block;
   width: 90px;
-  font: normal 1.6rem "Open Sans Light";
-  color: #555555;
+  font: normal 1.5rem "Open Sans Light";
+  color: #777777;
   text-align: left;
   text-transform: lowercase;
 }
@@ -81,6 +79,6 @@ p {
 }
 
 .pages.login .button {
-  padding: 5px 20px;
-  margin-left: 245px;
+  padding: 4px 15px;
+  margin-left: 256px;
 }

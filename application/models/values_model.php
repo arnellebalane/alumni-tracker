@@ -15,6 +15,11 @@ class values_model extends CI_Model {
 		return $query->result();
 	}
 
+	function getSocialNetworks() {
+		$query = $this->db->query("SELECT * from social_networks");
+		return $query->result();
+	}
+
 	function getEmployerTypes() {
 		$query = $this->db->query("SELECT * from employer_types");
 		return $query->result();

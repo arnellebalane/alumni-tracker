@@ -11,7 +11,8 @@
   		$data = array('countries'=>$this->model->getCountries(),
   									'programs'=>$this->model->getPrograms(),
                     'salaries'=>$this->model->getMonthlySalaries(),
-                    'employer_types'=>$this->model->getEmployerTypes()
+                    'employer_types'=>$this->model->getEmployerTypes(),
+                    'social_networks'=>$this->model->getSocialNetworks()                    
   									);
   		$this->load->view("questionnaire.php", $data);
   	}

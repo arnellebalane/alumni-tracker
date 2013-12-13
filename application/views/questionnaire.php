@@ -72,14 +72,12 @@
             <input type="email" name="personal_information[email_address]" />
           </div>
           <span>Social Network Contact Information</span>
-          <div class="field indented">
-            <label>Facebook Account</label>
-            <input type="text" name="personal_information[social_networks][facebook]" />
-          </div>
-          <div class="field indented">
-            <label>Twitter Account</label>
-            <input type="text" name="personal_information[social_networks][twitter]" />
-          </div>
+          <?foreach ($social_networks as $var) : ?>
+            <div class="field indented">
+              <label><?=$var->name?> Account</label>
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" />
+            </div>
+          <? endforeach; ?>
           <div class="field actions">
             <input type="button" value="Continue" class="button continue" />
           </div>

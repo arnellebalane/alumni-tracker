@@ -330,18 +330,19 @@
             <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" /><label for="jr_yes">Yes</label>
             <input type="radio" name="others[jobs_related]" value="no" id="jr_no" checked /><label for="jr_no">No</label>
           </div>
-          <div class="field hidden">
+          <?php $show_other_fields = false; ?>
+          <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses did you take in the curriculum that are/were useful in your job?</label>
             <em>(examples of courses: MATH17, CMSC11, etc)</em>
             <textarea name="others[useful_courses]"></textarea>
             <em>(courses must be separated by comma)</em>
           </div>
-          <div class="field hidden">
+          <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses would you suggest that are useful in the curriculum but are not offered in your program?</label>
             <textarea name="others[course_suggestions]"></textarea>
             <em>(course suggestions must be separated by comma)</em>
           </div>
-          <div class="field hidden">
+          <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What GE/RGEP courses did you find useful in your job?</label>
             <div class="course">
               <input type="checkbox" name="others[useful_ge][0]" value="envi10" id="ug-envi10" />

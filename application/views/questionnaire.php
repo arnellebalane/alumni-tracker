@@ -12,13 +12,17 @@
 </head>
 
 <body class="questionnaire index">
+  <?php $post = $this->session->flashdata('inputs'); ?>
+
+  <p class="notification error">Something went wrong while saving your information.</p>
+
   <div class="wrapper clearfix">
     <aside>
       <ul>
         <li class="current visited">Personal Information</li>
-        <li>Educational Background</li>
-        <li>Employment History</li>
-        <li>Others</li>
+        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Educational Background</li>
+        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Employment History</li>
+        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Others</li>
       </ul>
     </aside>
 
@@ -223,7 +227,6 @@
               <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" <?= is_checked("employment_history", '0', "first_job", null, 'no'); ?> /><label for="fj-no">No</label>
             </div>
           </div>
-          <?php $post = $this->session->flashdata('inputs'); ?>
           <?php for ($i = 1; $i < ((isset($post['employment_history'])) ? count($post['employment_history']) : 2); $i++): ?>
             <div class="job-form <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-job-form="<?= ($i == 1) ? 'first-job' : 'other-job'; ?>">
               <span><?= ($i == 1) ? 'First' : 'Other'; ?> Job Information</span>

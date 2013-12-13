@@ -10,7 +10,8 @@
   		$this->load->model("values_model", "model");
   		$data = array('countries'=>$this->model->getCountries(),
   									'programs'=>$this->model->getPrograms(),
-                    'salaries'=>$this->model->getMonthlySalaries()
+                    'salaries'=>$this->model->getMonthlySalaries(),
+                    'employer_types'=>$this->model->getEmployerTypes()
   									);
   		$this->load->view("questionnaire.php", $data);
   	}

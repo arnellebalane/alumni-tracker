@@ -12,7 +12,9 @@
 		  print_r($_POST);
 		  echo '</pre>';
 			// $this->addPersonalInformation($_POST['personal_information']);			
-			$this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);
+			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);
+			print($user_id);
+			$this->addEmploymentHistory($user_id, $_POST['employment_history']);		
 		}
 
 
@@ -57,14 +59,30 @@
 			}
 			$ctr = 0;
 			foreach ($info as $var) : 
-				if ($var['employer'] == $var['business_name'] && $var['employer'] == "") 
-					continue;				
-				if ($var['employer_type'] == "others") {
-					$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
-				}	else {
-					$employer_id = $var['employer_type'];
+				if (($var['business_name'] != "" || $var['employer'] != "") && (isset($var['satisfied_with_job']))) { 					
+					if ($var['employer_type'] == "others") {
+						$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
+					}	else {
+						$employer_id = $var['employer_type'];
+					}
+					$history_id = $this->model->addEmploymentDetails($user_id, $employer_id, $var);
+					print(isset($info['first_job']));
+					if ($ctr == 0) {						
+						$current_job = 1;
+						if (isset($var['first_job']) && ($var['first_job'] == "no")) {							
+							$first_job = 0;
+						}	else {
+							$first_job = 1;
+						}					
+					}	else if ($ctr == 1) {
+						$current_job = 0;
+						$first_job = 1;
+					}	else {
+						$first_job = 0;
+						$current_job = 0;
+					}
+					$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);
 				}
-				
 				$ctr++;
 			endforeach;
 		}

@@ -18,6 +18,6 @@ html {
 }
 
 p.error {
-  font: normal 1.5rem/1 "Open Sans Light";
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
   color: #AA151E;
 }

@@ -9,22 +9,22 @@
 					if ($sub_field_2 != null) {						
 						if ($sub_field_3 != null) {
 							if (isset($post[$field][$sub_field_1][$sub_field_2][$sub_field_3]) && $post[$field][$sub_field_1][$sub_field_2][$sub_field_3] == $value) {
-								echo "selected";
+								return "selected";
 							}
 						}	else {
 							if (isset($post[$field][$sub_field_1][$sub_field_2]) && $post[$field][$sub_field_1][$sub_field_2] == $value) {
-								echo "selected";
+								return "selected";
 							}
 						}
 					}	else {
 						if (isset($post[$field][$sub_field_1]) && $post[$field][$sub_field_1] == $value) {
-							echo "selected";
+							return "selected";
 						}
 					}
 
 				}	else {
 					if (isset($post[$field]) && $post[$field] == $value) {
-						echo "selected";
+						return "selected";
 					}
 				}
 			}
@@ -40,22 +40,22 @@
 					if ($sub_field_2 != null) {						
 						if ($sub_field_3 != null) {
 							if (isset($post[$field][$sub_field_1][$sub_field_2][$sub_field_3]) && $post[$field][$sub_field_1][$sub_field_2][$sub_field_3] == $value) {
-								echo "checked";
+								return "checked";
 							}
 						}	else {
 							if (isset($post[$field][$sub_field_1][$sub_field_2]) && $post[$field][$sub_field_1][$sub_field_2] == $value) {
-								echo "checked";
+								return "checked";
 							}
 						}
 					}	else {
 						if (isset($post[$field][$sub_field_1]) && $post[$field][$sub_field_1] == $value) {
-							echo "checked";
+							return "checked";
 						}
 					}
 
 				}	else {
 					if (isset($post[$field]) && $post[$field] == $value) {
-						echo "checked";
+						return "checked";
 					}
 				}
 			}
@@ -70,15 +70,15 @@
 				if ($sub_field_1 != null) {
 					if ($sub_field_2 != null) {						
 						if ($sub_field_3 != null && isset($post[$field][$sub_field_1][$sub_field_2][$sub_field_3])) {
-							echo $post[$field][$sub_field_1][$sub_field_2][$sub_field_3];
+							return $post[$field][$sub_field_1][$sub_field_2][$sub_field_3];
 						}	else if (isset($post[$field][$sub_field_1][$sub_field_2])) {
-							echo $post[$field][$sub_field_1][$sub_field_2];
+							return $post[$field][$sub_field_1][$sub_field_2];
 						}
 					}	else if (isset($post[$field][$sub_field_1])){
-						echo $post[$field][$sub_field_1];
+						return $post[$field][$sub_field_1];
 					}
 				}	else if (isset($post[$field])){
-					echo $post[$field];
+					return $post[$field];
 				}
 			}
 		}

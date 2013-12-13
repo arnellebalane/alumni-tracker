@@ -28,9 +28,9 @@ var questionnaire = {
   initializeSelectBoxes: function() {
     $('select.specifiable').on('change', function() {
       if ($(this).val() == 'others') {
-        $(this).next('input[type="text"]').show().focus();
+        $(this).next('input[type="text"]').removeClass('hidden').focus();
       } else {
-        $(this).next('input[type="text"]').hide().val('');
+        $(this).next('input[type="text"]').addClass('hidden').val('');
       }
     });
   },
@@ -63,7 +63,7 @@ var questionnaire = {
     var newJobForm = $('.job-form[data-job-form="first-job"]').clone();
     newJobForm.data('job-form', 'other-job');
     newJobForm.find('span').text('Other Job Information');
-    newJobForm.find('select.specifiable + input[type="text"]').hide();
+    newJobForm.find('select.specifiable + input[type="text"]').addClass('hidden');
     newJobForm.find('input[type="text"], textarea').val('');
     newJobForm.find('select option').first().prop('selected');
     newJobForm.find('input[type="radio"]').prop('checked', false);

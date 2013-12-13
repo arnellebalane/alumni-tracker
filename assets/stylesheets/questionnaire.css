@@ -145,7 +145,6 @@ aside li:after {
 }
 
 .content .field select.specifiable + input[type="text"] {
-  display: none;
   margin: 5px 0 0 278px;
 }
 

@@ -53,7 +53,7 @@
               <? endforeach; ?>              
               <option value="others">Others</option>
             </select>
-            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" />
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="hidden" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
@@ -139,14 +139,14 @@
             <span>Current Job Information</span>
             <div class="field indented">
               <label>Are you self-employed?</label>
-              <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[0][se-no]">No</label>
-              <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?=is_checked("employment_history", '0', "self_employed", null, 1); ?>/><label for="employment_history[0][se-yes]">Yes</label>              
+              <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?= is_checked("employment_history", '0', "self_employed", null, 1); ?> /><label for="employment_history[0][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? 'checked' : ''; ?> /><label for="employment_history[0][se-no]">No</label>
             </div>
-            <div class="field indented hidden" data-field="business-name">
+            <div class="field indented <?= (is_checked("employment_history", '0', "self_employed", null, 1) == 'checked') ? '' : 'hidden'; ?>" data-field="business-name">
               <label>What is your business/work?</label>
               <input type="text" name="employment_history[0][business_name]" value="<?=set_field_value('employment_history', '0', 'business_name', null); ?>"/>
             </div>
-            <div class="field indented" data-field="employer">
+            <div class="field indented <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? '' : 'hidden'; ?>" data-field="employer">
               <label>Employer</label>
               <input type="text" name="employment_history[0][employer]" value="<?=set_field_value('employment_history', '0', 'employer', null); ?>"/>
             </div>
@@ -158,7 +158,7 @@
                 <?}?>               
                 <option value="others" <?=is_selected('employment_history', '0', 'employer_type', null, 'others'); ?>>Others</option>
               </select>
-              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?=set_field_value('employment_history', '0', 'specified_employer_type', null); ?>"/>
+              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="<?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
@@ -219,11 +219,11 @@
             </div>
             <div class="field indented">
               <label>Is this your first job?</label>
-              <input type="radio" name="employment_history[0][first_job]" value="yes" id="fj-yes" data-behavior="toggle-first-job" checked /><label for="fj-yes">Yes</label>
-              <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" /><label for="fj-no">No</label>
+              <input type="radio" name="employment_history[0][first_job]" value="yes" id="fj-yes" data-behavior="toggle-first-job" <?= (is_checked("employment_history", '0', "first_job", null, 'no') != 'checked') ? 'checked' : ''; ?> /><label for="fj-yes">Yes</label>
+              <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" <?= is_checked("employment_history", '0', "first_job", null, 'no'); ?> /><label for="fj-no">No</label>
             </div>
           </div>
-          <div class="job-form hidden" data-job-form="first-job">
+          <div class="job-form <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-job-form="first-job">
             <span>First Job Information</span>
             <div class="field indented">
               <label>Were you self-employed?</label>

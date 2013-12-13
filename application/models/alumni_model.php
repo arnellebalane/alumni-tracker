@@ -7,7 +7,7 @@ class alumni_model extends CI_Model {
 
 
 	function getUsersByPassword($pass) {
-		$query = $this->db->query("SELECT * FROM users WHERE password = md5('$pass')");
+		$query = $this->db->query("SELECT * FROM users WHERE password = '$pass'");
 		return $query->result();
 	}
 
@@ -57,6 +57,10 @@ class alumni_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO user_employment_histories VALUES ('$user_id', '$employment_detail_id', '$current_job', '$first_job')");
 	}
 	
+	function getUserByStudentNumber($student_number) {
+		$query = $this->db->query("SELECT * FROM educational_backgrounds WHERE student_number = '$student_number'");
+		return $query->result();
+	}
 
 }
 

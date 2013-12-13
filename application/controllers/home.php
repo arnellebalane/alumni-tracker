@@ -6,7 +6,7 @@
   		$this->load->view("index");
   	}
 
-  	public function questionnaire() {
+  	public function questionnaire() {      
   		$this->load->model("values_model", "model");
   		$data = array('countries'=>$this->model->getCountries(),
   									'programs'=>$this->model->getPrograms(),
@@ -14,16 +14,22 @@
                     'employer_types'=>$this->model->getEmployerTypes(),
                     'social_networks'=>$this->model->getSocialNetworks()                    
   									);
+      $this->load->helper('questionnaire_helper.php');
   		$this->load->view("questionnaire.php", $data);
   	}
 
     public function saved() {
-      $this->load->view('alumni_saved');
+      $user_id = $this->session->userdata('saved');
+      if (!$user_id) {
+        redirect('/home/index');
+      }
+      $this->load->model("user_model", "model");
+      $data = array('account_info' => $this->model->getUserById($user_id));
+      $this->load->view('alumni_saved', $data);
     }
+    
 
-    public function login() {
-      $this->load->view('login');
-    }
+    
 
   }
 

@@ -14,6 +14,6 @@
 <body class="pages saved">
   <h1>Thank you!</h1>
   <p>Your answers has been saved to our records. To modify your information in the future, you have to log in to your account using the credentials sent to your email address.</p>
-  <?= anchor('home/login', 'Login to Account', array('class' => 'button')); ?>
+  <?= anchor('session/index', 'Login to Account', array('class' => 'button')); ?>
 </body>
 </html>

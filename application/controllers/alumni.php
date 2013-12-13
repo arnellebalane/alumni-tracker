@@ -8,13 +8,23 @@
 
 
 		public function add() {
-			echo '<pre>';
-		  print_r($_POST);
-		  echo '</pre>';
+			// echo '<pre>';
+		 //  print_r($_POST);
+		 //  echo '</pre>';
+
+		  if (!$this->validateEducationalBackground($_POST['educational_background'])) {
+				$this->session->set_flashdata('inputs', $_POST);
+				redirect('/home/questionnaire');
+			}	else if (!$this->validateEmploymentHistory($_POST['employment_history'])) {
+				$this->session->set_flashdata('inputs', $_POST);
+				redirect('/home/questionnaire');
+			}
 				
 			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);	
 			$this->addPersonalInformation($user_id, $_POST['personal_information']);		
-			$this->addEmploymentHistory($user_id, $_POST['employment_history']);								
+			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
+			$this->session->set_userdata('saved', $user_id);
+			redirect('/home/saved');
 		}
 
 		// ADD PERSONAL INFORMATION
@@ -37,6 +47,7 @@
 
 		}
 
+		// ADD EDUCATIONAL BACKGROUND
 		private function addEducationBackground($info, $email) {			
 			$username = $email;
 			if ($info['student_number'] != '') {
@@ -65,7 +76,7 @@
 			return $pass;
 		}
 
-
+		// ADD EMPLOYMENT HISTORY
 		private function addEmploymentHistory($user_id, $info) {
 			$this->load->model("values_model", "values");
 			if (count($info) == 2 && ($info[0]['business_name'] == $info[0]['employer'] && $info[0]['business_name'] == "") && 
@@ -100,6 +111,53 @@
 				}
 				$ctr++;
 			endforeach;
+		}
+
+		private function validateEducationalBackground($info) {
+			if (strlen($info['student_number']) != 10 || $info['student_number'][4] != '-') {				
+				return false;
+			}
+			for($ctr = 0; $ctr < 10; $ctr++) {
+				if ($ctr != 4) {					
+					if (!$this->isNumber($info['student_number'][$ctr])) {
+						return false;
+					}
+				}
+			}
+			if ($this->model->getUserByStudentNumber(addslashes($info['student_number']))) {
+				return false;
+			}
+			return true;	
+		}
+
+		private function validateEmploymentHistory($info) {
+			$job_count = count($info);			
+			for ($ctr = 0; $ctr < $job_count; $ctr++) {
+				if (($info[$ctr]['business_name'] == "" && $info[$ctr]['employer'] == "") || ($info[$ctr]['job_title'] == "") ||
+					  !isset($info[$ctr]['satisfied_with_job'])) {
+					if ($ctr == 1 && $job_count == 2) {
+						continue;
+					}
+					$this->session->set_flashdata('alert', "Please fill-up all the fields in your employment history!");
+					return false;
+				}
+				if ($info[$ctr]['employer_type'] == 'none' && $info[$ctr]['specified_employer_type'] == "") {
+					$this->session->set_flashdata('alert', "Please specify a new business type!");
+					return false;
+				}
+				if ($info[$ctr]['employment_duration']['start_year'] > $info[$ctr]['employment_duration']['end_year']) {
+					$this->session->set_flashdata('alert', "Invalid employment duration!");
+					return false;
+				}
+			}
+			return true;
+		}
+
+		private function isNumber($num) {
+			if ($num == '0' || $num == '1' || $num == '2' || $num == '3' || $num == '4' || $num == '5' || $num == '6' || $num == '7' || $num == '8'
+					|| $num == '9') 
+				return true;
+			return false;
 		}
 	}
 ?>

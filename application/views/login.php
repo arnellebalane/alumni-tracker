@@ -12,12 +12,14 @@
 </head>
 
 <body class="pages login">
-  <?= form_open('#'); ?>
+  <?= form_open('session/login', 'POST'); ?>
     <h1>Alumni Tracker</h1>
-    <p class="error">Incorrect username or password.</p>
+    <? if ($this->session->flashdata('alert')) { ?>
+      <p class="error">Incorrect username or password.</p>
+    <? } ?>
     <div class="field">
       <label>Username</label>
-      <input type="text" name="username" autofocus="true" />
+      <input type="text" name="username" autofocus="true" value="<? set_field_value('username', null, null, null); ?>"/>
     </div>
     <div class="field">
       <label>Password</label>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 10, 2013 at 05:40 AM
+-- Generation Time: Dec 13, 2013 at 07:19 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `educational_backgrounds` (
   `program_id` int(255) NOT NULL,
   `semester_graduated` int(255) DEFAULT NULL,
   `year_graduated` varchar(255) DEFAULT NULL,
-  `honor_received` enum('none','suma cum laude','magna cum laude','cum laude') DEFAULT NULL,
+  `honor_received` enum('none','summa cum laude','magna cum laude','cum laude') DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   KEY `program_id` (`program_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -149,6 +149,8 @@ CREATE TABLE IF NOT EXISTS `educational_backgrounds` (
 -- Dumping data for table `educational_backgrounds`
 --
 
+INSERT INTO `educational_backgrounds` (`user_id`, `student_number`, `program_id`, `semester_graduated`, `year_graduated`, `honor_received`) VALUES
+(35, '2011-37567', 5, 2, '2011-2012', 'summa cum laude');
 
 -- --------------------------------------------------------
 
@@ -160,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `employer_types` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `employer_types`
@@ -178,7 +180,7 @@ INSERT INTO `employer_types` (`id`, `name`) VALUES
 (9, 'Newspaper Company'),
 (10, 'Law Firm'),
 (11, 'Government Agency'),
-(12, 'Hospital');
+(13, 'Hospital');
 
 -- --------------------------------------------------------
 
@@ -192,6 +194,7 @@ CREATE TABLE IF NOT EXISTS `employment_details` (
   `business` varchar(255) DEFAULT NULL,
   `employer` varchar(255) DEFAULT NULL,
   `employer_type_id` int(255) DEFAULT NULL,
+  `job_title` varchar(255) NOT NULL,
   `monthly_salary_id` int(255) DEFAULT NULL,
   `job_satisfaction` tinyint(1) DEFAULT NULL,
   `reason` text,
@@ -200,12 +203,17 @@ CREATE TABLE IF NOT EXISTS `employment_details` (
   PRIMARY KEY (`id`),
   KEY `employer_type_id` (`employer_type_id`),
   KEY `monthly_salary_id` (`monthly_salary_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
 -- Dumping data for table `employment_details`
 --
 
+INSERT INTO `employment_details` (`id`, `self_employed`, `business`, `employer`, `employer_type_id`, `job_title`, `monthly_salary_id`, `job_satisfaction`, `reason`, `year_started`, `year_ended`) VALUES
+(29, 0, '', 'Azeus', 1, 'Senior Programmer', 8, 1, 'It is awesome!', 2012, 100000),
+(30, 0, '', 'Azeus', 3, 'Senior Programmer', 5, 1, 'I is amazing!', 2012, 100000),
+(31, 0, '', 'Accenture', 3, 'Call center agent', 4, 0, 'it was stupid!', 2010, 2012),
+(32, 0, '', 'Azeus', 1, 'CEO', 9, 1, ':)', 2013, 100000);
 
 -- --------------------------------------------------------
 
@@ -305,6 +313,8 @@ CREATE TABLE IF NOT EXISTS `personal_infos` (
 -- Dumping data for table `personal_infos`
 --
 
+INSERT INTO `personal_infos` (`user_id`, `firstname`, `lastname`, `gender`, `present_address`, `present_country_id`, `present_contact_number`, `premanent_address`, `permanent_contact_number`, `email`) VALUES
+(35, 'Emmanuel', 'Lodovice', 'male', 'Cebu', 1, '09229365294', 'Argao', '09228297070', 'name3anad@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -368,14 +378,12 @@ CREATE TABLE IF NOT EXISTS `syllabus` (
   `year_last_used` int(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `program_id` (`program_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `syllabus`
 --
 
-INSERT INTO `syllabus` (`id`, `program_id`, `year_first_used`, `year_last_used`) VALUES
-(1, 2, 1800, 100000);
 
 -- --------------------------------------------------------
 
@@ -394,10 +402,6 @@ CREATE TABLE IF NOT EXISTS `syllabus_major_courses` (
 -- Dumping data for table `syllabus_major_courses`
 --
 
-INSERT INTO `syllabus_major_courses` (`syllabus_id`, `major_course_id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3);
 
 -- --------------------------------------------------------
 
@@ -411,15 +415,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `user_type` enum('super admin','admin','moderator','alumni') NOT NULL DEFAULT 'alumni',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=36 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`) VALUES
-(1, 'eman', 'pass', 'super admin'),
-(2, 'eman', 'pass', 'super admin');
+(35, '2011-37567', 'bjQriu', 'alumni');
 
 -- --------------------------------------------------------
 
@@ -440,6 +443,8 @@ CREATE TABLE IF NOT EXISTS `user_employment_histories` (
 -- Dumping data for table `user_employment_histories`
 --
 
+INSERT INTO `user_employment_histories` (`user_id`, `employment_details_id`, `current_job`, `first_job`) VALUES
+(35, 32, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -459,6 +464,9 @@ CREATE TABLE IF NOT EXISTS `user_social_networks` (
 -- Dumping data for table `user_social_networks`
 --
 
+INSERT INTO `user_social_networks` (`user_id`, `social_network_id`, `account_name`) VALUES
+(35, 1, 'Emmanuel Lodovice'),
+(35, 2, 'nameanad');
 
 --
 -- Constraints for dumped tables

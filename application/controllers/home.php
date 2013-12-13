@@ -3,7 +3,7 @@
   class Home extends CI_Controller {
 
   	public function index() {  		
-  		$this->load->view("index.php");
+  		$this->load->view("index");
   	}
 
   	public function questionnaire() {
@@ -14,6 +14,14 @@
   									);
   		$this->load->view("questionnaire.php", $data);
   	}
+
+    public function saved() {
+      $this->load->view('alumni_saved');
+    }
+
+    public function login() {
+      $this->load->view('login');
+    }
 
   }
 

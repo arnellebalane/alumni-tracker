@@ -20,6 +20,11 @@ class values_model extends CI_Model {
 		return $query->result();
 	}
 
+	function getGECourses() {
+		$query = $this->db->query("SELECT * from ge_courses");
+		return $query->result();
+	}
+
 	function getEmployerTypes() {
 		$query = $this->db->query("SELECT * from employer_types");
 		return $query->result();

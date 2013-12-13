@@ -12,7 +12,8 @@
   									'programs'=>$this->model->getPrograms(),
                     'salaries'=>$this->model->getMonthlySalaries(),
                     'employer_types'=>$this->model->getEmployerTypes(),
-                    'social_networks'=>$this->model->getSocialNetworks()                    
+                    'social_networks'=>$this->model->getSocialNetworks(),
+                    'ge_courses'=>$this->model->getGECourses()
   									);
       $this->load->helper('questionnaire_helper.php');
   		$this->load->view("questionnaire.php", $data);

@@ -248,7 +248,7 @@
                   <?}?> 
                   <option value="others">Others</option>
                 </select>
-                <input type="text" name="employment_history[1][specified_employer_type]" placeholder="Employer/Business Type" />
+                <input type="text" name="employment_history[1][specified_employer_type]" placeholder="Employer/Business Type" class="hidden" />
               </div>
               <div class="field indented">
                 <label>Job Title/Position</label>

@@ -63,7 +63,7 @@ var questionnaire = {
     var newJobForm = $('.job-form[data-job-form="first-job"]').clone();
     newJobForm.data('job-form', 'other-job');
     newJobForm.find('span').text('Other Job Information');
-    newJobForm.find('select.specifiable + input[type="text"]').hide();
+    newJobForm.find('select.specifiable + input[type="text"]').addClass('hidden');
     newJobForm.find('input[type="text"], textarea').val('');
     newJobForm.find('select option').first().prop('selected');
     newJobForm.find('input[type="radio"]').prop('checked', false);

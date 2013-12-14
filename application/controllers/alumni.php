@@ -108,6 +108,9 @@
 						$current_job = 0;
 					}
 					$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);
+					if ($first_job == 1) {
+						break;
+					}
 				}
 				$ctr++;
 			endforeach;
@@ -135,7 +138,8 @@
 			for ($ctr = 0; $ctr < $job_count; $ctr++) {
 				if (($info[$ctr]['business_name'] == "" && $info[$ctr]['employer'] == "") || ($info[$ctr]['job_title'] == "") ||
 					  !isset($info[$ctr]['satisfied_with_job'])) {
-					if ($ctr == 1 && $job_count == 2) {
+					if ($ctr == 1 && $job_count == 2 && ($info[$ctr]['business_name'] == "" && $info[$ctr]['employer'] == "") && ($info[$ctr]['job_title'] == "")
+						&& !isset($info[$ctr]['satisfied_with_job'])) {
 						continue;
 					}
 					$this->session->set_flashdata('alert', "Please fill-up all the fields in your employment history!");

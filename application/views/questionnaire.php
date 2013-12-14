@@ -13,9 +13,9 @@
 
 <body class="questionnaire index">
   <?php $post = $this->session->flashdata('inputs'); ?>
-
-  <p class="notification error">Something went wrong while saving your information.</p>
-
+  <? if ($post) : ?>
+    <p class="notification error">Something went wrong while saving your information.</p>  
+  <? endif; ?>
   <div class="wrapper clearfix">
     <aside>
       <ul>

@@ -44,6 +44,26 @@ class alumni_model extends CI_Model {
 															'".addslashes($info['email_address'])."')");
 	}
 
+	function addComment($user_id) {
+		$query = $this->db->query("INSERT INTO comments(user_id) VALUES('$user_id')");
+		return $this->db->insert_id();
+	}
+
+	function addMajors($comment_id, $name) {
+		$name = addslashes(trim($name));
+		$query = $this->db->query("INSERT INTO comment_majors VALUES('$comment_id', '$name')");
+	}
+
+	function addSuggestedCourses($comment_id, $name) {
+		$name = addslashes(trim($name));
+		$query = $this->db->query("INSERT INTO comment_suggested_courses VALUES('$comment_id', '$name')");
+	}
+
+	function addCommentGECourses($comment_id, $ge_id) {
+		$ge_id = addslashes($ge_id);
+		$query = $this->db->query("INSERT INTO comment_ge_courses VALUES('$comment_id', '$ge_id')");
+	}
+
 	function addEmploymentDetails($user_id, $employer_type_id, $info) {
 		$query = $this->db->query("INSERT INTO employment_details (self_employed, business, employer, employer_type_id, job_title, monthly_salary_id, 
 															job_satisfaction, reason, year_started, year_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes($info['business_name'])."',

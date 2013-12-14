@@ -243,7 +243,7 @@ aside li:after {
 }
 
 .content .slide[data-name="others"] .course label p {
-  font: normal 1.4rem/1 "Open Sans Light";
+  font: normal 1.4rem/1 "Open Sans Light", "OpenSansLight";
   color: #333333;
   margin: 3px 0 0 0;
 }

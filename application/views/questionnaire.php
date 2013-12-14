@@ -12,13 +12,17 @@
 </head>
 
 <body class="questionnaire index">
+  <?php $post = $this->session->flashdata('inputs'); ?>
+
+  <p class="notification error">Something went wrong while saving your information.</p>
+
   <div class="wrapper clearfix">
     <aside>
       <ul>
         <li class="current visited">Personal Information</li>
-        <li>Educational Background</li>
-        <li>Employment History</li>
-        <li>Others</li>
+        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Educational Background</li>
+        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Employment History</li>
+        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Others</li>
       </ul>
     </aside>
 
@@ -223,7 +227,6 @@
               <input type="radio" name="employment_history[0][first_job]" value="no" id="fj-no" data-behavior="toggle-first-job" <?= is_checked("employment_history", '0', "first_job", null, 'no'); ?> /><label for="fj-no">No</label>
             </div>
           </div>
-          <?php $post = $this->session->flashdata('inputs'); ?>
           <?php for ($i = 1; $i < ((isset($post['employment_history'])) ? count($post['employment_history']) : 2); $i++): ?>
             <div class="job-form <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-job-form="<?= ($i == 1) ? 'first-job' : 'other-job'; ?>">
               <span><?= ($i == 1) ? 'First' : 'Other'; ?> Job Information</span>
@@ -330,35 +333,30 @@
             <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" /><label for="jr_yes">Yes</label>
             <input type="radio" name="others[jobs_related]" value="no" id="jr_no" checked /><label for="jr_no">No</label>
           </div>
-          <div class="field hidden">
+          <?php $show_other_fields = false; ?>
+          <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses did you take in the curriculum that are/were useful in your job?</label>
             <em>(examples of courses: MATH17, CMSC11, etc)</em>
             <textarea name="others[useful_courses]"></textarea>
             <em>(courses must be separated by comma)</em>
           </div>
-          <div class="field hidden">
+          <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses would you suggest that are useful in the curriculum but are not offered in your program?</label>
             <textarea name="others[course_suggestions]"></textarea>
             <em>(course suggestions must be separated by comma)</em>
           </div>
-          <div class="field hidden">
+          <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What GE/RGEP courses did you find useful in your job?</label>
-            <div class="course">
-              <input type="checkbox" name="others[useful_ge][0]" value="envi10" id="ug-envi10" />
-              <label for="ug-envi10">
-                <p>Envi 10</p>
-                <p>Environmental Science</p>
-                <span>Lorem ipsum Velit aliquip Ut in est eu enim exercitation deserunt ut dolor eiusmod officia nostrud minim.</span>
-              </label>
-            </div>
-            <div class="course">
-              <input type="checkbox" name="others[useful_ge][1]" value="natsci1" id="ug-natsci1" />
-              <label for="ug-natsci1">
-                <p>Nat Sci 1</p>
-                <p>Natural Science 1</p>
-                <span>Lorem ipsum Aliquip culpa qui aliquip dolore minim incididunt fugiat in culpa ad id reprehenderit enim adipisicing ullamco.</span>
-              </label>
-            </div>
+            <? foreach ($ge_courses as $var) : ?>
+              <div class="course">
+                <input type="checkbox" name="others[useful_ge][<?=$var->id?>]" value="<?=$var->code?>" id="ug-<?=$var->id?>" />
+                <label for="ug-<?=$var->id?>">
+                  <p><?=$var->code?></p>
+                  <p><?=$var->name?></p>
+                  <span><?=$var->description?></span>
+                </label>
+              </div>
+            <? endforeach; ?>
           </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />

@@ -57,7 +57,7 @@ p {
 .pages.login .field label {
   display: inline-block;
   width: 90px;
-  font: normal 1.5rem "Open Sans Light";
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
   color: #777777;
   text-align: left;
   text-transform: lowercase;
@@ -66,7 +66,7 @@ p {
 .pages.login input[type="text"], 
 .pages.login input[type="password"] {
   width: 220px;
-  font: normal 1.5rem "Open Sans Light";
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
   padding: 6px;
   border: 1px solid #aaaaaa;
   border-radius: 3px;
@@ -81,4 +81,9 @@ p {
 .pages.login .button {
   padding: 4px 15px;
   margin-left: 256px;
+}
+
+.pages.login p.error {
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
+  color: #AA151E;
 }

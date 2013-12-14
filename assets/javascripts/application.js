@@ -1,5 +1,6 @@
 $(document).ready(function() {
   questionnaire.initialize();
+  notifications.initialize();
 });
 
 var questionnaire = {
@@ -13,7 +14,7 @@ var questionnaire = {
     $('.slide .button.continue').on('click', function() {
       var validation = questionnaire.validateSlide[$(".slide.current").data('name')]();
       if (validation.valid) {
-      // if (true) {
+      //if (true) {
         $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
         $('aside li.current').removeClass('current').next('li').addClass('current visited');
       } else {
@@ -138,6 +139,17 @@ var questionnaire = {
     },
     'others': function() {
 
+    }
+  }
+};
+
+var notifications = {
+  initialize: function() {
+    if ($('p.notification').length > 0) {
+      $('p.notification').addClass('shown');
+      setTimeout(function() {
+        $('p.notification').removeClass('shown');
+      }, 2500);
     }
   }
 };

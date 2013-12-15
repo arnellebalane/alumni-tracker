@@ -8,7 +8,7 @@ class values_model extends CI_Model {
 	function getCountries() {
 		$query = $this->db->query("SELECT * from countries");
 		return $query->result();
-	}	
+	}
 
 	function getPrograms() {
 		$query = $this->db->query("SELECT * from programs");
@@ -43,6 +43,16 @@ class values_model extends CI_Model {
 	function getMonthlySalaries() {
 		$query = $this->db->query("SELECT * FROM monthly_salaries");
 		return $query->result();
+	}
+
+	function isCountry($country_id) {
+		$query = $this->db->query("SELECT * FROM countries WHERE id = '$country_id'");
+		return count($query->result()) == 1;
+	}
+
+	function isGECourse($course_id) {
+		$query = $this->db->query("SELECT * FROM ge_courses WHERE id = '$course_id'");
+		return count($query->result()) == 1;
 	}
 
 }

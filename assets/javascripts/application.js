@@ -1,5 +1,6 @@
 $(document).ready(function() {
   questionnaire.initialize();
+  notifications.initialize();
 });
 
 var questionnaire = {
@@ -138,6 +139,17 @@ var questionnaire = {
     },
     'others': function() {
 
+    }
+  }
+};
+
+var notifications = {
+  initialize: function() {
+    if ($('p.notification').length > 0) {
+      $('p.notification').addClass('shown');
+      setTimeout(function() {
+        $('p.notification').removeClass('shown');
+      }, 2500);
     }
   }
 };

@@ -134,6 +134,9 @@
 						$current_job = 0;
 					}
 					$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);
+					if ($first_job == 1) {
+						break;
+					}
 				}
 				$ctr++;
 			endforeach;
@@ -188,22 +191,29 @@
 
 		private function validateEmploymentHistory($info) {
 			$job_count = count($info);
-			for ($ctr = 0; $ctr < $job_count; $ctr++) {
-				if (($info[$ctr]['business_name'] == "" && $info[$ctr]['employer'] == "") || ($info[$ctr]['job_title'] == "") ||
-					  !isset($info[$ctr]['satisfied_with_job'])) {
-					if ($ctr == 1 && $job_count == 2) {
-						continue;
-					}
+			if ($this->hasEmptyFieldInEmploymentHistory($info[0])) {					
+				$this->session->set_flashdata('alert', "Please fill-up all the fields in your employment history!");
+				return false;	
+			}
+			if ($info[0]['first_job'] == 'no' && $this->hasEmptyFieldInEmploymentHistory($info[1])) {
+				$this->session->set_flashdata('alert', "Please fill-up all the fields in your employment history!");
+				return false;	
+			}
+			for ($ctr = 2; $ctr < $job_count; $ctr++) {
+				if ($this->hasEmptyFieldInEmploymentHistory($info[$ctr]) && $this->hasFilledFieldsInEmploymentHistory($info[$ctr])) {
 					$this->session->set_flashdata('alert', "Please fill-up all the fields in your employment history!");
 					return false;
-				}
-				if ($info[$ctr]['employer_type'] == 'none' && $info[$ctr]['specified_employer_type'] == "") {
-					$this->session->set_flashdata('alert', "Please specify a new business type!");
-					return false;
-				}
-				if ($info[$ctr]['employment_duration']['start_year'] > $info[$ctr]['employment_duration']['end_year']) {
-					$this->session->set_flashdata('alert', "Invalid employment duration!");
-					return false;
+				}	else {
+					if ($this->hasFilledFieldsInEmploymentHistory($info[$ctr])) {
+						if ($info[$ctr]['employer_type'] == 'none' && $info[$ctr]['specified_employer_type'] == "") {
+							$this->session->set_flashdata('alert', "Please specify a new business type!");
+							return false;
+						}
+						if ($info[$ctr]['employment_duration']['start_year'] > $info[$ctr]['employment_duration']['end_year']) {
+							$this->session->set_flashdata('alert', "Invalid employment duration!");
+							return false;
+						}
+					}
 				}
 			}
 			return true;
@@ -215,5 +225,19 @@
 				return true;
 			return false;
 		}
+
+		private function hasEmptyFieldInEmploymentHistory($info) {
+			if (($info['business_name'] == "" && $info['self_employed'] == '1') || ($info['employer'] == "" && $info['self_employed'] == '0') || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
+				return true;
+			}
+			return false;
+		}
+
+		private function hasFilledFieldsInEmploymentHistory($info) {
+			if (($info['business_name'] != "" && $info['self_employed'] == '1') || ($info['employer'] != "" && $info['self_employed'] == '0') || ($info['job_title'] != "")) {
+				return true;
+			}
+		}
+
 	}
 ?>

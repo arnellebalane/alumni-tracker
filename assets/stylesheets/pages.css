@@ -82,3 +82,8 @@ p {
   padding: 4px 15px;
   margin-left: 256px;
 }
+
+.pages.login p.error {
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
+  color: #AA151E;
+}

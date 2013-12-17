@@ -11,18 +11,15 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="questionnaire index">
-  <?php $post = $this->session->flashdata('inputs'); ?>
-  <? if ($post) : ?>
-    <p class="notification alert">Something went wrong while saving your information.</p>  
-  <? endif; ?>
+<body class="alumni home">
+  <p class="notification notice">Welcome, Random User!</p>
   <div class="wrapper clearfix">
     <aside>
       <ul>
-        <li class="current visited">Personal Information</li>
-        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Educational Background</li>
-        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Employment History</li>
-        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Others</li>
+        <li class="current visited" data-slide="personal-information"><a href="#">Personal Information</a></li>
+        <li class="visited" data-slide="educational-background"><a href="#">Educational Background</a></li>
+        <li class="visited" data-slide="employment-history"><a href="#">Employment History</a></li>
+        <li class="visited" data-slide="others"><a href="#">Others</a></li>
       </ul>
     </aside>
 
@@ -34,11 +31,13 @@
 
           <div class="field">
             <label>First Name</label>
-            <input type="text" name="personal_information[firstname]" />
+            <h2>Arnelle</h2>
+            <input type="text" name="personal_information[firstname]" class="hidden" />
           </div>
           <div class="field">
             <label>Last Name</label>
-            <input type="text" name="personal_information[lastname]" />
+            <h2>Balane</h2>
+            <input type="text" name="personal_information[lastname]" class="hidden" />
           </div>
           <div class="field">
             <label>Gender</label>
@@ -47,11 +46,13 @@
           </div>
           <div class="field">
             <label>Present Address</label>
-            <input type="text" name="personal_information[present_address]" />
+            <h2>Cebu City</h2>
+            <input type="text" name="personal_information[present_address]" class="hidden" />
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <select name="personal_information[country]" class="specifiable">
+            <h2>Philippines</h2>
+            <select name="personal_information[country]" class="specifiable hidden">
               <?foreach ($countries as $var) : ?>
                 <option value="<?=$var->id?>"><?=$var->name?></option>
               <? endforeach; ?>              

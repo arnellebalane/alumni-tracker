@@ -6,6 +6,9 @@
 			$this->load->model("alumni_model", "model");
 		}
 
+		public function home() {
+			$this->load->view('alumni_home');
+		}
 
 		public function add() {
 			// echo '<pre>';

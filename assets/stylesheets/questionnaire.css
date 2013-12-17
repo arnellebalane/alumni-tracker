@@ -265,3 +265,15 @@ aside li:after {
   font: italic normal 1.3rem "Open Sans Light", "OpenSansLight";
   color: #777777;
 }
+
+.alumni aside a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.alumni .content .field h2 {
+  display: inline-block;
+  width: 270px;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #333333;
+}

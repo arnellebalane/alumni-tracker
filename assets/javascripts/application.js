@@ -1,6 +1,7 @@
 $(document).ready(function() {
   questionnaire.initialize();
   notifications.initialize();
+  alumni.initialize();
 });
 
 var questionnaire = {
@@ -151,5 +152,23 @@ var notifications = {
         $('p.notification').removeClass('shown');
       }, 2500);
     }
+  }
+};
+
+var alumni = {
+  initialize: function() {
+    alumni.initializeSidebar();
+  },
+  initializeSidebar: function() {
+    $('aside a').on('click', function(e) {
+      e.preventDefault();
+      var li = $(this).closest('li');
+      if (!li.hasClass('current')) {
+        $('.slide.current').toggleClass('current hidden');
+        $('.slide[data-name="' + li.data('slide') + '"]').toggleClass('current hidden');
+        $('aside li.current').removeClass('current');
+        li.addClass('current');
+      }
+    });
   }
 };

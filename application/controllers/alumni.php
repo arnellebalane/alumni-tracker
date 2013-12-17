@@ -7,6 +7,10 @@
 		}
 
 		public function home() {
+			if (!$this->session->userdata('user_id')) {
+				redirect('home/index');
+			}  
+
 			$this->load->model("values_model", "values");
   		$data = array('countries'=>$this->values->getCountries(),
   									'programs'=>$this->values->getPrograms(),
@@ -20,9 +24,9 @@
 		}
 
 		public function add() {
-			echo '<pre>';
-		  print_r($_POST);
-		  echo '</pre>';
+			// echo '<pre>';
+		 //  print_r($_POST);
+		 //  echo '</pre>';
 
 		  if (!$this->validateEducationalBackground($_POST['educational_background'])) {
 				$this->session->set_flashdata('inputs', $_POST);
@@ -48,7 +52,7 @@
 		}
 
 		// ADD PERSONAL INFORMATION
-		public function addPersonalInformation($user_id, $info) {
+		private function addPersonalInformation($user_id, $info) {
 			if ($info['country'] == 'others') {
 				$info['country'] = $this->model->addCountry(addslashes($info['specified_country']));
 			}
@@ -63,7 +67,7 @@
 		}
 
 		// ADD OTHER COMMENTS
-		public function addOthers($user_id, $info) {
+		private function addOthers($user_id, $info) {
 			if ($info['jobs_related'] == 'yes') {
 				$comment_id = $this->model->addComment($user_id);
 

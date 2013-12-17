@@ -2,11 +2,20 @@
 
   class Home extends CI_Controller {
 
+    public function __construct() {
+      parent::__construct();
+      if ($this->isLoggedIn()) {
+        if ($this->session->userdata('user_type') == 'alumni') {
+          redirect('alumni/home');
+        }
+      }
+    }
+
   	public function index() {  		
   		$this->load->view("index");
   	}
 
-  	public function questionnaire() {      
+  	public function questionnaire() {
   		$this->load->model("values_model", "model");
   		$data = array('countries'=>$this->model->getCountries(),
   									'programs'=>$this->model->getPrograms(),
@@ -28,9 +37,13 @@
       $data = array('account_info' => $this->model->getUserById($user_id));
       $this->load->view('alumni_saved', $data);
     }
-    
 
-    
+    private function isLoggedIn() {
+      if ($this->session->userdata('user_id')) {
+        return true;
+      }
+      return false;
+    }
 
   }
 

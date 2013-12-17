@@ -163,6 +163,7 @@
 					($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
 					$info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
 					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '') {
+				$this->session->set_flashdata('alert', "You are missing a field in your Personal Information.");
 				return false;
 			}
 			return true;

@@ -14,7 +14,7 @@ html {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .notification {
@@ -42,8 +42,14 @@ html {
   top: 10px;
 }
 
-.notification.error {
+.notification.alert {
   color: #ffffff;
   border: 1px solid #A72B33;
   background-color: #CC3841;
+}
+
+.notification.notice {
+  color: #ffffff;
+  border: 1px solid #26681B;
+  background-color: #308023;
 }

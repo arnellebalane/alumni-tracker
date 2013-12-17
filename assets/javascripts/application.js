@@ -1,6 +1,7 @@
 $(document).ready(function() {
   questionnaire.initialize();
   notifications.initialize();
+  alumni.initialize();
 });
 
 var questionnaire = {
@@ -29,9 +30,9 @@ var questionnaire = {
   initializeSelectBoxes: function() {
     $('select.specifiable').on('change', function() {
       if ($(this).val() == 'others') {
-        $(this).next('input[type="text"]').removeClass('hidden').focus();
+        $(this).siblings('.specify').removeClass('hidden').focus();
       } else {
-        $(this).next('input[type="text"]').addClass('hidden').val('');
+        $(this).siblings('.specify').addClass('hidden').val('');
       }
     });
   },
@@ -151,5 +152,40 @@ var notifications = {
         $('p.notification').removeClass('shown');
       }, 2500);
     }
+  }
+};
+
+var alumni = {
+  initialize: function() {
+    alumni.initializeSidebar();
+    alumni.initializeEditableFields();
+  },
+  initializeSidebar: function() {
+    $('aside a').on('click', function(e) {
+      e.preventDefault();
+      var li = $(this).closest('li');
+      if (!li.hasClass('current')) {
+        $('.slide.current').toggleClass('current hidden');
+        $('.slide[data-name="' + li.data('slide') + '"]').toggleClass('current hidden');
+        $('aside li.current').removeClass('current');
+        li.addClass('current');
+      }
+    });
+  },
+  initializeEditableFields: function() {
+    $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
+      e.preventDefault();
+      $(this).text('[cancel]').attr('data-behavior', 'cancel').siblings('h2').addClass('hidden').siblings('.editable').removeClass('hidden');
+    });
+    $('.field').delegate('a[data-behavior="cancel"]', 'click', function(e) {
+      e.preventDefault();
+      $(this).text('[edit]').attr('data-behavior', 'edit').siblings('h2').removeClass('hidden').siblings('.editable, .specify').addClass('hidden');
+      $(this).siblings('input[type="text"].editable, input[type="email"].editable, select.editable, textarea.editable').each(function() {
+        $(this).val($(this).data('current'));
+      });
+      $(this).siblings('input[type="radio"].editable').each(function() {
+        $(this).prop('checked', $(this).data('current') == 'checked');
+      });
+    });
   }
 };

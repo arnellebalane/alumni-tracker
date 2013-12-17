@@ -11,82 +11,101 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="questionnaire index">
-  <?php $post = $this->session->flashdata('inputs'); ?>
-  <? if ($post) : ?>
-    <p class="notification alert">Something went wrong while saving your information.</p>  
-  <? endif; ?>
+<body class="alumni home">
+  <p class="notification notice">Welcome, Random User!</p>
   <div class="wrapper clearfix">
     <aside>
       <ul>
-        <li class="current visited">Personal Information</li>
-        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Educational Background</li>
-        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Employment History</li>
-        <li class="<?= ($this->session->flashdata('inputs')) ? 'visited' : ''; ?>">Others</li>
+        <li class="current visited" data-slide="personal-information"><a href="#">Personal Information</a></li>
+        <li class="visited" data-slide="educational-background"><a href="#">Educational Background</a></li>
+        <li class="visited" data-slide="employment-history"><a href="#">Employment History</a></li>
+        <li class="visited" data-slide="others"><a href="#">Others</a></li>
       </ul>
     </aside>
 
     <div class="content">
-      <?= form_open('alumni/add','POST'); ?>
+      <?= form_open('#'); ?>
         <div class="slide current" data-name="personal-information">
           <h1>Personal Information</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
 
           <div class="field">
             <label>First Name</label>
-            <input type="text" name="personal_information[firstname]" value="<?=set_field_value('personal_information', 'firstname', null, null); ?>" />
+            <h2>Arnelle</h2>
+            <input type="text" name="personal_information[firstname]" value="Arnelle" class="editable hidden" data-current="Arnelle" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Last Name</label>
-            <input type="text" name="personal_information[lastname]" value="<?=set_field_value('personal_information', 'lastname', null, null); ?>" />
+            <h2>Balane</h2>
+            <input type="text" name="personal_information[lastname]" value="Balane" class="editable hidden" data-current="Balane" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Gender</label>
-            <input type="radio" name="personal_information[gender]" value="male" id="g-male" <?=is_checked('personal_information', 'gender', null, null, 'male');?> /><label for="g-male">Male</label>
-            <input type="radio" name="personal_information[gender]" value="female" id="g-female" <?=is_checked('personal_information', 'gender', null, null, 'female');?> /><label for="g-female">Female</label>
+            <h2>Male</h2>
+            <input type="radio" name="personal_information[gender]" value="male" id="g-male" class="editable hidden" data-current="checked" checked /><label for="g-male">Male</label>
+            <input type="radio" name="personal_information[gender]" value="female" id="g-female" class="editable hidden" data-current="unchecked" /><label for="g-female">Female</label>
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Present Address</label>
-            <input type="text" name="personal_information[present_address]" value="<?=set_field_value('personal_information', 'present_address', null, null); ?>" />
+            <h2>Cebu City</h2>
+            <input type="text" name="personal_information[present_address]" value="Cebu City" class="editable hidden" data-current="Cebu City" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <select name="personal_information[country]" class="specifiable">
-              <?foreach ($countries as $var) : ?>
-                <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?> ><?=$var->name?></option>
-              <? endforeach; ?>              
-              <option value="others" <?=is_selected('personal_information', 'country', null, null, 'others');?> >Others</option>
+            <h2>Philippines</h2>
+            <select name="personal_information[country]" class="specifiable editable hidden" data-current="Philippines">
+              <? foreach ($countries as $var): ?>
+                <option value="<?= $var->id; ?>"><?= $var->name; ?></option>
+              <? endforeach; ?>           
+              <option value="others">Others</option>
             </select>
-            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify hidden" value="<?=set_field_value('personal_information', 'specified_country', null, null); ?>" />
+            <a href="#" data-behavior="edit">[edit]</a>
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify hidden" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
-            <input type="text" name="personal_information[present_address_contact_number]" value="<?=set_field_value('personal_information', 'present_address_contact_number', null, null); ?>" />
+            <h2>09496547250</h2>
+            <input type="text" name="personal_information[present_address_contact_number]" value="09496547250" class="editable hidden" data-current="09496547250" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <input type="text" name="personal_information[permanent_address]" value="<?=set_field_value('personal_information', 'permanent_address', null, null); ?>" />
+            <h2>Tagbilaran City</h2>
+            <input type="text" name="personal_information[permanent_address]" value="Tagbilaran City" class="editable hidden" data-current="Tagbilaran City" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Contact Number in Permanent Address</label>
-            <input type="text" name="personal_information[permanent_address_contact_number]" value="<?=set_field_value('personal_information', 'permanent_address_contact_number', null, null); ?>" />
+            <h2>09496547250</h2>
+            <input type="text" name="personal_information[permanent_address_contact_number]" value="09496547250" class="editable hidden" data-current="09496547250" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
+            <h2>arnellebalane@gmail.com</h2>
+            <input type="email" name="personal_information[email_address]" value="arnellebalane@gmail.com" class="editable hidden" data-current="arnellebalane@gmail.com" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <span>Social Network Contact Information</span>
           <?foreach ($social_networks as $var) : ?>
             <div class="field indented">
               <label><?=$var->name?> Account</label>
-              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="<?=set_field_value('personal_information', 'social_networks', $var->id, null); ?>" />
+              <h2>Arnelle Balane</h2>
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="Arnelle Balane" class="editable hidden" data-current="Arnelle Balane" />
+              <a href="#" data-behavior="edit">[edit]</a>
             </div>
           <? endforeach; ?>
           <div class="field actions">
-            <input type="button" value="Continue" class="button continue" />
+            <input type="submit" value="Save Changes" class="button" />
           </div>
         </div>
+      <?= form_close(); ?>
 
+      <?= form_open('#'); ?>
         <div class="slide hidden" data-name="educational-background">
           <h1>Educational Background</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -134,7 +153,9 @@
             <input type="button" value="Continue" class="button continue" />
           </div>
         </div>
+      <?= form_close(); ?>
 
+      <?= form_open('#'); ?>
         <div class="slide hidden" data-name="employment-history">
           <h1>Employment History</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -162,7 +183,7 @@
                 <?}?>               
                 <option value="others" <?=is_selected('employment_history', '0', 'employer_type', null, 'others'); ?>>Others</option>
               </select>
-              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="specify <?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
+              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="<?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
@@ -251,7 +272,7 @@
                   <?}?> 
                   <option value="others">Others</option>
                 </select>
-                <input type="text" name="employment_history[<?=$i?>][specified_employer_type]" placeholder="Employer/Business Type" class="specify hidden" value="<?=set_field_value('employment_history', $i, 'specified_employer_type', null); ?>"/>
+                <input type="text" name="employment_history[<?=$i?>][specified_employer_type]" placeholder="Employer/Business Type" class="hidden" value="<?=set_field_value('employment_history', $i, 'specified_employer_type', null); ?>"/>
               </div>
               <div class="field indented">
                 <label>Job Title/Position</label>
@@ -322,7 +343,9 @@
             <input type="button" value="Continue" class="button continue" />
           </div>
         </div>
+      <?= form_close(); ?>
 
+      <?= form_open('#'); ?>
         <div class="slide hidden" data-name="others">
           <h1>Others</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -330,26 +353,26 @@
           <div class="field">
             <label>Is any of your jobs related to the degree program you finished?</label>
             <em>(examples of degree programs: BS Mathematics, BS Computer Science, etc)</em>
-            <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" <?= (isset($post['others']['jobs_related'])) ? is_checked('others', 'jobs_related', null, null, 'yes') : ''; ?> /><label for="jr_yes">Yes</label>
-            <input type="radio" name="others[jobs_related]" value="no" id="jr_no" <?= (isset($post['others']['jobs_related'])) ? is_checked('others', 'jobs_related', null, null, 'no') : 'checked'; ?> /><label for="jr_no">No</label>
+            <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" /><label for="jr_yes">Yes</label>
+            <input type="radio" name="others[jobs_related]" value="no" id="jr_no" checked /><label for="jr_no">No</label>
           </div>
-          <?php $show_other_fields = ($post['others']['jobs_related'] == 'yes') ? true : false; ?>
+          <?php $show_other_fields = false; ?>
           <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses did you take in the curriculum that are/were useful in your job?</label>
             <em>(examples of courses: MATH17, CMSC11, etc)</em>
-            <textarea name="others[useful_courses]"><?=set_field_value('others', 'useful_courses', null, null);?></textarea>
+            <textarea name="others[useful_courses]"></textarea>
             <em>(courses must be separated by comma)</em>
           </div>
           <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses would you suggest that are useful in the curriculum but are not offered in your program?</label>
-            <textarea name="others[course_suggestions]"><?=set_field_value('others', 'course_suggestions', null, null);?></textarea>
+            <textarea name="others[course_suggestions]"></textarea>
             <em>(course suggestions must be separated by comma)</em>
           </div>
           <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What GE/RGEP courses did you find useful in your job?</label>
             <? foreach ($ge_courses as $var) : ?>
               <div class="course">
-                <input type="checkbox" name="others[useful_ge][<?=$var->id?>]" value="<?=$var->code?>" id="ug-<?=$var->id?>" <?= (isset($post['others']['useful_ge'])) ? is_checked('others', 'useful_ge', $var->id, null, $var->code) : ''; ;?> />
+                <input type="checkbox" name="others[useful_ge][<?=$var->id?>]" value="<?=$var->code?>" id="ug-<?=$var->id?>" />
                 <label for="ug-<?=$var->id?>">
                   <p><?=$var->code?></p>
                   <p><?=$var->name?></p>
@@ -364,7 +387,7 @@
             <em>Please review your answers before submitting the form</em>
           </div>
         </div>
-        <?= form_close(); ?>      
+      <?= form_close(); ?>      
     </div>
   </div>
 </body>

@@ -7,7 +7,16 @@
 		}
 
 		public function home() {
-			$this->load->view('alumni_home');
+			$this->load->model("values_model", "values");
+  		$data = array('countries'=>$this->values->getCountries(),
+  									'programs'=>$this->values->getPrograms(),
+                    'salaries'=>$this->values->getMonthlySalaries(),
+                    'employer_types'=>$this->values->getEmployerTypes(),
+                    'social_networks'=>$this->values->getSocialNetworks(),
+                    'ge_courses'=>$this->values->getGECourses()
+  									);
+      $this->load->helper('questionnaire_helper.php');
+			$this->load->view('alumni_home', $data);
 		}
 
 		public function add() {

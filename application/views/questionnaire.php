@@ -57,7 +57,7 @@
               <? endforeach; ?>              
               <option value="others">Others</option>
             </select>
-            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="hidden" />
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify hidden" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
@@ -162,7 +162,7 @@
                 <?}?>               
                 <option value="others" <?=is_selected('employment_history', '0', 'employer_type', null, 'others'); ?>>Others</option>
               </select>
-              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="<?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
+              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="specify <?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
@@ -251,7 +251,7 @@
                   <?}?> 
                   <option value="others">Others</option>
                 </select>
-                <input type="text" name="employment_history[<?=$i?>][specified_employer_type]" placeholder="Employer/Business Type" class="hidden" value="<?=set_field_value('employment_history', $i, 'specified_employer_type', null); ?>"/>
+                <input type="text" name="employment_history[<?=$i?>][specified_employer_type]" placeholder="Employer/Business Type" class="specify hidden" value="<?=set_field_value('employment_history', $i, 'specified_employer_type', null); ?>"/>
               </div>
               <div class="field indented">
                 <label>Job Title/Position</label>

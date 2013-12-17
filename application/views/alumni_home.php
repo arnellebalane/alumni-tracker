@@ -24,7 +24,7 @@
     </aside>
 
     <div class="content">
-      <?= form_open('alumni/add','POST'); ?>
+      <?= form_open('#'); ?>
         <div class="slide current" data-name="personal-information">
           <h1>Personal Information</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -32,62 +32,80 @@
           <div class="field">
             <label>First Name</label>
             <h2>Arnelle</h2>
-            <input type="text" name="personal_information[firstname]" class="hidden" />
+            <input type="text" name="personal_information[firstname]" value="Arnelle" class="editable hidden" data-current="Arnelle" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Last Name</label>
             <h2>Balane</h2>
-            <input type="text" name="personal_information[lastname]" class="hidden" />
+            <input type="text" name="personal_information[lastname]" value="Balane" class="editable hidden" data-current="Balane" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Gender</label>
-            <input type="radio" name="personal_information[gender]" value="male" id="g-male" /><label for="g-male">Male</label>
-            <input type="radio" name="personal_information[gender]" value="female" id="g-female" /><label for="g-female">Female</label>
+            <h2>Male</h2>
+            <input type="radio" name="personal_information[gender]" value="male" id="g-male" class="editable hidden" data-current="checked" checked /><label for="g-male">Male</label>
+            <input type="radio" name="personal_information[gender]" value="female" id="g-female" class="editable hidden" data-current="unchecked" /><label for="g-female">Female</label>
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Present Address</label>
             <h2>Cebu City</h2>
-            <input type="text" name="personal_information[present_address]" class="hidden" />
+            <input type="text" name="personal_information[present_address]" value="Cebu City" class="editable hidden" data-current="Cebu City" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
             <h2>Philippines</h2>
-            <select name="personal_information[country]" class="specifiable hidden">
-              <?foreach ($countries as $var) : ?>
-                <option value="<?=$var->id?>"><?=$var->name?></option>
-              <? endforeach; ?>              
+            <select name="personal_information[country]" class="specifiable editable hidden" data-current="Philippines">
+              <? foreach ($countries as $var): ?>
+                <option value="<?= $var->id; ?>"><?= $var->name; ?></option>
+              <? endforeach; ?>           
               <option value="others">Others</option>
             </select>
-            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="hidden" />
+            <a href="#" data-behavior="edit">[edit]</a>
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify hidden" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
-            <input type="text" name="personal_information[present_address_contact_number]" />
+            <h2>09496547250</h2>
+            <input type="text" name="personal_information[present_address_contact_number]" value="09496547250" class="editable hidden" data-current="09496547250" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <input type="text" name="personal_information[permanent_address]" />
+            <h2>Tagbilaran City</h2>
+            <input type="text" name="personal_information[permanent_address]" value="Tagbilaran City" class="editable hidden" data-current="Tagbilaran City" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Contact Number in Permanent Address</label>
-            <input type="text" name="personal_information[permanent_address_contact_number]" />
+            <h2>09496547250</h2>
+            <input type="text" name="personal_information[permanent_address_contact_number]" value="09496547250" class="editable hidden" data-current="09496547250" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" />
+            <h2>arnellebalane@gmail.com</h2>
+            <input type="email" name="personal_information[email_address]" value="arnellebalane@gmail.com" class="editable hidden" data-current="arnellebalane@gmail.com" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <span>Social Network Contact Information</span>
           <?foreach ($social_networks as $var) : ?>
             <div class="field indented">
               <label><?=$var->name?> Account</label>
-              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" />
+              <h2>Arnelle Balane</h2>
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="Arnelle Balane" class="editable hidden" data-current="Arnelle Balane" />
+              <a href="#" data-behavior="edit">[edit]</a>
             </div>
           <? endforeach; ?>
           <div class="field actions">
-            <input type="button" value="Continue" class="button continue" />
+            <input type="submit" value="Save Changes" class="button" />
           </div>
         </div>
+      <?= form_close(); ?>
 
+      <?= form_open('#'); ?>
         <div class="slide hidden" data-name="educational-background">
           <h1>Educational Background</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -135,7 +153,9 @@
             <input type="button" value="Continue" class="button continue" />
           </div>
         </div>
+      <?= form_close(); ?>
 
+      <?= form_open('#'); ?>
         <div class="slide hidden" data-name="employment-history">
           <h1>Employment History</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -323,7 +343,9 @@
             <input type="button" value="Continue" class="button continue" />
           </div>
         </div>
+      <?= form_close(); ?>
 
+      <?= form_open('#'); ?>
         <div class="slide hidden" data-name="others">
           <h1>Others</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -365,7 +387,7 @@
             <em>Please review your answers before submitting the form</em>
           </div>
         </div>
-        <?= form_close(); ?>      
+      <?= form_close(); ?>      
     </div>
   </div>
 </body>

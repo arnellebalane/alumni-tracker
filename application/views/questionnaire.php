@@ -57,7 +57,7 @@
               <? endforeach; ?>              
               <option value="others">Others</option>
             </select>
-            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify hidden" />
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify <?= (is_selected('personal_information', 'country', null, null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>

@@ -14,7 +14,7 @@
 <body class="questionnaire index">
   <?php $post = $this->session->flashdata('inputs'); ?>
   <? if ($post) : ?>
-    <p class="notification alert">Something went wrong while saving your information.</p>  
+    <p class="notification alert"><?=$this->session->flashdata('alert')?></p>  
   <? endif; ?>
   <div class="wrapper clearfix">
     <aside>
@@ -56,8 +56,8 @@
                 <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?> ><?=$var->name?></option>
               <? endforeach; ?>              
               <option value="others" <?=is_selected('personal_information', 'country', null, null, 'others');?> >Others</option>
-            </select>
-            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify <?= (is_selected('personal_information', 'country', null, null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
+            </select>          
+            <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify <?= (is_selected('personal_information', 'country', null, null, 'others') == 'selected') ? '' : 'hidden'; ?>" value="<?=set_field_value('personal_information', 'specified_country', null, null); ?>"/>
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
@@ -73,7 +73,7 @@
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
+            <input type="text" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
           </div>
           <span>Social Network Contact Information</span>
           <?foreach ($social_networks as $var) : ?>

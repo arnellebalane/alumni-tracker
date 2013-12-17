@@ -112,24 +112,29 @@
 
           <div class="field">
             <label>Student Number</label>
-            <input type="text" name="educational_background[student_number]" placeholder="xxxx-xxxxx" value="<?=set_field_value('educational_background', 'student_number', null, null); ?>"/>
+            <h2>2011-37575</h2>
+            <input type="text" name="educational_background[student_number]" placeholder="xxxx-xxxxx" value="2011-37575" class="editable hidden" data-current="2011-37575" />
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Degree Program</label>
-            <select name="educational_background[degree_program]">
+            <h2>BS Computer Science</h2>
+            <select name="educational_background[degree_program]" class="editable hidden" data-current="BS Computer Science">
               <?foreach ($programs as $var) : ?>
                 <option value="<?=$var->id?>" <?=is_selected('educational_background', 'degree_program', null, null, $var->id); ?>><?=$var->name?></option>
-              <? endforeach;?>              
+              <? endforeach;?>
             </select>
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Semester/Summer and Year Graduated</label>
-            <select name="educational_background[graduated][semester]">
+            <h2>2nd Semester, AY 2012-2013</h2>
+            <select name="educational_background[graduated][semester]" class="editable hidden" data-current="2">
               <option value="1" <?=is_selected('educational_background', 'graduated', 'semester', null, 1); ?>>1st Semester</option>
               <option value="2" <?=is_selected('educational_background', 'graduated', 'semester', null, 2); ?>>2nd Semester</option>
               <option value="3" <?=is_selected('educational_background', 'graduated', 'semester', null, 3); ?>>Summer</option>
             </select>
-            <select name="educational_background[graduated][academic_year]">
+            <select name="educational_background[graduated][academic_year]" class="editable hidden" data-current="2012-2013">
               <? $ctr = date('Y');
                 while ($ctr > 1980) { 
               ?>
@@ -138,19 +143,21 @@
                 }
               ?>                            
             </select>
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Honor Received</label>
-            <select name="educational_background[honor_received]">
+            <h2>None</h2>
+            <select name="educational_background[honor_received]" class="editable hidden" data-current="none">
               <option value="none" selected>None</option>
               <option value="summa cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "summa cum laude"); ?>>Summa Cum Laude</option>
               <option value="magna cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "magna cum laude"); ?>>Magna Cum Laude</option>
               <option value="cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "cum laude"); ?>>Cum Laude</option>              
             </select>
+            <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field actions">
-            <input type="button" value="Back" class="button back" />
-            <input type="button" value="Continue" class="button continue" />
+            <input type="submit" value="Save Changes" class="button" />
           </div>
         </div>
       <?= form_close(); ?>

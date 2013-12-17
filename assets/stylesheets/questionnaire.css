@@ -294,3 +294,7 @@ aside li:after {
 .alumni .content .field .editable.hidden + label {
   display: none;
 }
+
+.alumni .content .field select.editable + a[data-behavior="cancel"] {
+  margin-top: 8px;
+}

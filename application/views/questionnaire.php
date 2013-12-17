@@ -14,7 +14,7 @@
 <body class="questionnaire index">
   <?php $post = $this->session->flashdata('inputs'); ?>
   <? if ($post) : ?>
-    <p class="notification alert">Something went wrong while saving your information.</p>  
+    <p class="notification alert"><?=$this->session->flashdata('alert')?></p>  
   <? endif; ?>
   <div class="wrapper clearfix">
     <aside>
@@ -73,7 +73,7 @@
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
+            <input type="text" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
           </div>
           <span>Social Network Contact Information</span>
           <?foreach ($social_networks as $var) : ?>

@@ -99,7 +99,7 @@
             </div>
           <? endforeach; ?>
           <div class="field actions">
-            <input type="submit" value="Save Changes" class="button" />
+            <input type="submit" value="Save Changes" class="button hidden" />
           </div>
         </div>
       <?= form_close(); ?>
@@ -156,7 +156,7 @@
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field actions">
-            <input type="submit" value="Save Changes" class="button" />
+            <input type="submit" value="Save Changes" class="button hidden" />
           </div>
         </div>
       <?= form_close(); ?>
@@ -292,6 +292,7 @@
           <div class="field actions">
             <input type="button" value="Update Current Job" class="button" data-behavior="update-current-job" />
             <input type="submit" value="Submit" class="button hidden" />
+            <a href="#" class="hidden" data-behavior="cancel">[cancel]</a>
           </div>
         </div>
       <?= form_close(); ?>

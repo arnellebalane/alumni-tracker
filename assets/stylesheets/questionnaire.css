@@ -292,6 +292,10 @@ aside li:after {
   margin: 6px 0 0 5px;
 }
 
+.alumni .content .field.actions a {
+  float: left;
+}
+
 .alumni .content .field .editable.hidden + label {
   display: none;
 }
@@ -304,7 +308,7 @@ aside li:after {
   vertical-align: top;
 }
 
-.alumni .content .slide[data-name="employment-history"] .button[data-behavior="update-current-job"] {
+.alumni .content .button {
   float: left;
   margin-left: 278px;
 }

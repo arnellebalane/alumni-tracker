@@ -177,8 +177,9 @@ var alumni = {
     $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
       e.preventDefault();
       $(this).text('[cancel]').attr('data-behavior', 'cancel').siblings('h2').addClass('hidden').siblings('.editable').removeClass('hidden');
+      $(this).closest('.slide').find('.actions input[type="submit"]').removeClass('hidden');
     });
-    $('.field').delegate('a[data-behavior="cancel"]', 'click', function(e) {
+    $('.field').not('.actions').delegate('a[data-behavior="cancel"]', 'click', function(e) {
       e.preventDefault();
       $(this).text('[edit]').attr('data-behavior', 'edit').siblings('h2').removeClass('hidden').siblings('.editable, .specify').addClass('hidden');
       $(this).siblings('input[type="text"].editable, input[type="email"].editable, select.editable, textarea.editable').each(function() {
@@ -187,12 +188,26 @@ var alumni = {
       $(this).siblings('input[type="radio"].editable').each(function() {
         $(this).prop('checked', $(this).data('current') == 'checked');
       });
+      if ($(this).closest('.slide').find('.editable').not('.hidden').length == 0) {
+        $(this).closest('.slide').find('.actions input[type="submit"]').addClass('hidden');
+      }
     });
   },
   initializeEmploymentHistory: function() {
     $('.button[data-behavior="update-current-job"]').on('click', function() {
       $('.job-form[data-job-form="current-job"]').removeClass('hidden');
-      $(this).addClass('hidden').siblings('.button').removeClass('hidden');
+      $(this).addClass('hidden').siblings('.button, a').removeClass('hidden');
+    });
+    $('.field.actions a').on('click', function() {
+      var slide = $(this).closest('.slide');
+      $(this).addClass('hidden').siblings('.button').toggleClass('hidden');
+      $('.job-form[data-job-form="current-job"]').addClass('hidden');
+      slide.find('input[type="text"], textarea').val('');
+      slide.find('input[type="radio"][data-behavior="toggle-self-employed"][value="1"]').prop('checked', false);
+      slide.find('input[type="radio"][data-behavior="toggle-self-employed"][value="0"]').prop('checked', true);
+      slide.find('.field[data-field="business-name"]').addClass('hidden');
+      slide.find('.field[data-field="employer"]').removeClass('hidden');
+      slide.find('select option:first-of-type').prop('selected', true);
     });
   }
 };

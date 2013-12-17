@@ -34,52 +34,52 @@
 
           <div class="field">
             <label>First Name</label>
-            <input type="text" name="personal_information[firstname]" />
+            <input type="text" name="personal_information[firstname]" value="<?=set_field_value('personal_information', 'firstname', null, null); ?>" />
           </div>
           <div class="field">
             <label>Last Name</label>
-            <input type="text" name="personal_information[lastname]" />
+            <input type="text" name="personal_information[lastname]" value="<?=set_field_value('personal_information', 'lastname', null, null); ?>" />
           </div>
           <div class="field">
             <label>Gender</label>
-            <input type="radio" name="personal_information[gender]" value="male" id="g-male" /><label for="g-male">Male</label>
-            <input type="radio" name="personal_information[gender]" value="female" id="g-female" /><label for="g-female">Female</label>
+            <input type="radio" name="personal_information[gender]" value="male" id="g-male" <?=is_checked('personal_information', 'gender', null, null, 'male');?> /><label for="g-male">Male</label>
+            <input type="radio" name="personal_information[gender]" value="female" id="g-female" <?=is_checked('personal_information', 'gender', null, null, 'female');?> /><label for="g-female">Female</label>
           </div>
           <div class="field">
             <label>Present Address</label>
-            <input type="text" name="personal_information[present_address]" />
+            <input type="text" name="personal_information[present_address]" value="<?=set_field_value('personal_information', 'present_address', null, null); ?>" />
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
             <select name="personal_information[country]" class="specifiable">
               <?foreach ($countries as $var) : ?>
-                <option value="<?=$var->id?>"><?=$var->name?></option>
+                <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?> ><?=$var->name?></option>
               <? endforeach; ?>              
-              <option value="others">Others</option>
+              <option value="others" <?=is_selected('personal_information', 'country', null, null, 'others');?> >Others</option>
             </select>
             <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify <?= (is_selected('personal_information', 'country', null, null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
-            <input type="text" name="personal_information[present_address_contact_number]" />
+            <input type="text" name="personal_information[present_address_contact_number]" value="<?=set_field_value('personal_information', 'present_address_contact_number', null, null); ?>" />
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <input type="text" name="personal_information[permanent_address]" />
+            <input type="text" name="personal_information[permanent_address]" value="<?=set_field_value('personal_information', 'permanent_address', null, null); ?>" />
           </div>
           <div class="field">
             <label>Contact Number in Permanent Address</label>
-            <input type="text" name="personal_information[permanent_address_contact_number]" />
+            <input type="text" name="personal_information[permanent_address_contact_number]" value="<?=set_field_value('personal_information', 'permanent_address_contact_number', null, null); ?>" />
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" name="personal_information[email_address]" />
+            <input type="email" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
           </div>
           <span>Social Network Contact Information</span>
           <?foreach ($social_networks as $var) : ?>
             <div class="field indented">
               <label><?=$var->name?> Account</label>
-              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" />
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="<?=set_field_value('personal_information', 'social_networks', $var->id, null); ?>" />
             </div>
           <? endforeach; ?>
           <div class="field actions">
@@ -330,26 +330,26 @@
           <div class="field">
             <label>Is any of your jobs related to the degree program you finished?</label>
             <em>(examples of degree programs: BS Mathematics, BS Computer Science, etc)</em>
-            <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" /><label for="jr_yes">Yes</label>
-            <input type="radio" name="others[jobs_related]" value="no" id="jr_no" checked /><label for="jr_no">No</label>
+            <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" <?= (isset($post['others']['jobs_related'])) ? is_checked('others', 'jobs_related', null, null, 'yes') : ''; ?> /><label for="jr_yes">Yes</label>
+            <input type="radio" name="others[jobs_related]" value="no" id="jr_no" <?= (isset($post['others']['jobs_related'])) ? is_checked('others', 'jobs_related', null, null, 'no') : 'checked'; ?> /><label for="jr_no">No</label>
           </div>
-          <?php $show_other_fields = false; ?>
+          <?php $show_other_fields = ($post['others']['jobs_related'] == 'yes') ? true : false; ?>
           <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses did you take in the curriculum that are/were useful in your job?</label>
             <em>(examples of courses: MATH17, CMSC11, etc)</em>
-            <textarea name="others[useful_courses]"></textarea>
+            <textarea name="others[useful_courses]"><?=set_field_value('others', 'useful_courses', null, null);?></textarea>
             <em>(courses must be separated by comma)</em>
           </div>
           <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What courses would you suggest that are useful in the curriculum but are not offered in your program?</label>
-            <textarea name="others[course_suggestions]"></textarea>
+            <textarea name="others[course_suggestions]"><?=set_field_value('others', 'course_suggestions', null, null);?></textarea>
             <em>(course suggestions must be separated by comma)</em>
           </div>
           <div class="field <?= ($show_other_fields) ? '' : 'hidden'; ?>">
             <label>What GE/RGEP courses did you find useful in your job?</label>
             <? foreach ($ge_courses as $var) : ?>
               <div class="course">
-                <input type="checkbox" name="others[useful_ge][<?=$var->id?>]" value="<?=$var->code?>" id="ug-<?=$var->id?>" />
+                <input type="checkbox" name="others[useful_ge][<?=$var->id?>]" value="<?=$var->code?>" id="ug-<?=$var->id?>" <?= (isset($post['others']['useful_ge'])) ? is_checked('others', 'useful_ge', $var->id, null, $var->code) : ''; ;?> />
                 <label for="ug-<?=$var->id?>">
                   <p><?=$var->code?></p>
                   <p><?=$var->name?></p>

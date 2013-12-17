@@ -20,9 +20,9 @@
 		}
 
 		public function add() {
-			// echo '<pre>';
-		 //  print_r($_POST);
-		 //  echo '</pre>';
+			echo '<pre>';
+		  print_r($_POST);
+		  echo '</pre>';
 
 		  if (!$this->validateEducationalBackground($_POST['educational_background'])) {
 				$this->session->set_flashdata('inputs', $_POST);
@@ -30,8 +30,15 @@
 			}	else if (!$this->validateEmploymentHistory($_POST['employment_history'])) {
 				$this->session->set_flashdata('inputs', $_POST);
 				redirect('/home/questionnaire');
+			} else if (!$this->validatePersonalInformation($_POST['personal_information'])) {
+				$this->session->set_flashdata('inputs', $_POST);
+				redirect('/home/questionnaire');
+			} else if (!$this->validateOthers($_POST['others'])) {
+				$this->session->set_flashdata('inputs', $_POST);
+				redirect('/home/questionnaire');
 			}
-				
+
+
 			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);	
 			$this->addPersonalInformation($user_id, $_POST['personal_information']);
 			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
@@ -145,6 +152,36 @@
 				}
 				$ctr++;
 			endforeach;
+		}
+
+		// VALIDATE PERSONLAL INFORMATION
+		private function validatePersonalInformation($info) {
+			$this->load->model('values_model', 'values');
+			if ($info['firstname'] == '' || $info['lastname'] == '' || $info['gender'] == '' || $info['present_address'] == '' || 
+					!($info['gender'] == 'male' || $info['gender'] == 'female') ||
+					($info['country'] == 'others' && $info['specified_country'] == '') ||
+					($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
+					$info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
+					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '') {
+				return false;
+			}
+			return true;
+		}
+
+		// VALIDATE OTHER INFORMATION
+		private function validateOthers($info) {
+			$this->load->model('values_model', 'values');
+			if (!isset($info['jobs_related'])) {
+				return false;
+			}
+			if (isset($info['useful_ge'])) {
+				foreach ($info['useful_ge'] as $key => $value) {
+					if (!$this->values->isGECourse(addslashes($key))) {
+						return false;
+					}
+				}
+			}
+			return true;
 		}
 
 		private function validateEducationalBackground($info) {

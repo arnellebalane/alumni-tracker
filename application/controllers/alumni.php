@@ -145,10 +145,7 @@
 						$first_job = 0;
 						$current_job = 0;
 					}
-					$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);
-					if ($first_job == 1) {
-						break;
-					}
+					$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);					
 				}
 				$ctr++;
 			endforeach;
@@ -186,17 +183,20 @@
 		}
 
 		private function validateEducationalBackground($info) {
-			if (strlen($info['student_number']) != 10 || $info['student_number'][4] != '-') {				
+			if (strlen($info['student_number']) != 10 || $info['student_number'][4] != '-') {
+				$this->session->set_flashdata('alert', "Invalid student number.");
 				return false;
 			}
 			for($ctr = 0; $ctr < 10; $ctr++) {
 				if ($ctr != 4) {					
 					if (!$this->isNumber($info['student_number'][$ctr])) {
+						$this->session->set_flashdata('alert', "Invalid student number.");
 						return false;
 					}
 				}
 			}
 			if ($this->model->getUserByStudentNumber(addslashes($info['student_number']))) {
+				$this->session->set_flashdata('alert', "Student number not available.");
 				return false;
 			}
 			return true;	

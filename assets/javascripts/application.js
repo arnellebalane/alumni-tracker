@@ -159,6 +159,7 @@ var alumni = {
   initialize: function() {
     alumni.initializeSidebar();
     alumni.initializeEditableFields();
+    alumni.initializeEmploymentHistory();
   },
   initializeSidebar: function() {
     $('aside a').on('click', function(e) {
@@ -186,6 +187,12 @@ var alumni = {
       $(this).siblings('input[type="radio"].editable').each(function() {
         $(this).prop('checked', $(this).data('current') == 'checked');
       });
+    });
+  },
+  initializeEmploymentHistory: function() {
+    $('.button[data-behavior="update-current-job"]').on('click', function() {
+      $('.job-form[data-job-form="current-job"]').removeClass('hidden');
+      $(this).addClass('hidden').siblings('.button').removeClass('hidden');
     });
   }
 };

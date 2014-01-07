@@ -192,7 +192,8 @@ var alumni = {
       $('.job-form[data-job-form="current-job"]').removeClass('hidden');
       $(this).addClass('hidden').siblings('.button, a').removeClass('hidden');
     });
-    $('.field.actions a').on('click', function() {
+    $('.field.actions a').on('click', function(e) {
+      e.preventDefault();
       var slide = $(this).closest('.slide');
       $(this).addClass('hidden').siblings('.button').toggleClass('hidden');
       $('.job-form[data-job-form="current-job"]').addClass('hidden');

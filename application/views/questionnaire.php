@@ -364,7 +364,78 @@
             <em>Please review your answers before submitting the form</em>
           </div>
         </div>
-        <?= form_close(); ?>      
+        <?= form_close(); ?>
+        <div id="job-form-template" class="hidden">
+          <div class="job-form" data-job-form="other-job">
+            <span>Other Job Information</span>
+            <div class="field indented">
+              <label>Were you self-employed?</label>
+              <input type="radio" name="employment_history[#{index}][self_employed]" value="1" id="employment_history[#{index}][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[#{index}][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[#{index}][self_employed]" value="0" id="employment_history[#{index}][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[#{index}][se-no]">No</label>
+            </div>
+            <div class="field indented hidden" data-field="business-name">
+              <label>What is your business/work?</label>
+              <input type="text" name="employment_history[#{index}][business_name]" />
+            </div>
+            <div class="field indented" data-field="employer">
+              <label>Employer</label>
+              <input type="text" name="employment_history[#{index}][employer]" />
+            </div>
+            <div class="field indented">
+              <label>Employer/Business Type</label>
+              <select name="employment_history[#{index}][employer_type]" class="specifiable">
+                <?php foreach ($employer_types as $type): ?>
+                  <option value="<?= $type->id; ?>"><?= $type->name; ?></option>
+                <?php endforeach; ?>               
+                <option value="others">Others</option>
+              </select>
+              <input type="text" name="employment_history[#{index}][specified_employer_type]" placeholder="Employer/Business Type" class="specify hidden" />
+            </div>
+            <div class="field indented">
+              <label>Job Title/Position</label>
+              <input type="text" name="employment_history[#{index}][job_title]" />
+            </div>
+            <div class="field indented">
+              <label>Monthly Salary (in Philippine Peso)</label>
+              <select name="employment_history[#{index}][monthly_salary]">
+                <?php foreach ($salaries as $val): ?>
+                  <?php if ($val->minimum == null): ?>
+                    <option value="<?= $val->id; ?>"><?= $val->maximum . ' and above'; ?></option>
+                  <?php elseif ($val->maximum == null): ?>
+                    <option value="<?= $val->id; ?>"><?= $val->minimum . ' and below'; ?></option>
+                  <?php else: ?>
+                    <option value="<?= $val->id; ?>"><?= $val->minimum . ' - ' . $val->maximum; ?></option>
+                  <?php endif; ?>
+                <?php endforeach; ?> 
+              </select>
+            </div>
+            <div class="field indented">
+              <label>Employment Duration</label>
+              <?php $year = date('Y'); ?>
+              <select name="employment_history[#{index}][employment_duration][start_year]" class="narrow">
+                <?php for ($y = $year; $y >= 1980; $y--): ?>
+                  <option value="<?= $y; ?>"><?= $y; ?></option>
+                <?php endfor; ?>
+              </select>
+              <i>to</i>
+              <select name="employment_history[#{index}][employment_duration][end_year]" class="narrow">
+                <option value="100000">ongoing</option>
+                <?php for ($y = $year; $y >= 1980; $y--): ?>
+                  <option value="<?= $y; ?>"><?= $y; ?></option>
+                <?php endfor; ?>
+              </select>
+            </div>
+            <div class="field indented">
+              <label>Satisfied with this job?</label>
+              <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="1" id="employment_history[#{index}][swj-yes]" /><label for="employment_history[#{index}][swj-yes]">Yes</label>
+              <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="0" id="employment_history[#{index}][swj-no]" /><label for="employment_history[#{index}][swj-no]">No</label>
+            </div>
+            <div class="field indented textarea">
+              <label>Why or why not satisfied?</label>
+              <textarea name="employment_history[#{index}][satisfaction_reason]"></textarea>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </body>

@@ -62,28 +62,22 @@ var questionnaire = {
     });
   },
   addAnotherJob: function() {
-    var newJobForm = $('.job-form[data-job-form="first-job"]').clone();
-    newJobForm.data('job-form', 'other-job');
-    newJobForm.find('span').text('Other Job Information');
-    newJobForm.find('select.specifiable + input[type="text"]').addClass('hidden');
-    newJobForm.find('input[type="text"], textarea').val('');
-    newJobForm.find('select option').first().prop('selected');
-    newJobForm.find('input[type="radio"]').prop('checked', false);
-    newJobForm.find('input[type="radio"][data-behavior="toggle-self-employed"]').last().prop('checked', true);
-    newJobForm.find('input[type="radio"][data-behavior="toggle-self-employed"]').each(function() {
-      var id = $(this).attr('id');
-      var newId = id.substring(0, 19) + $('.job-form').length + id.substring(20);
-      $(this).attr('id', newId);
-      $(this).next('label').attr('for', newId);
-    });
-    newJobForm.find('input[type="text"], input[type="radio"], select, textarea').each(function() {
-      var name = $(this).attr('name');
-      var newName = name.substring(0, 19) + $('.job-form').length + name.substring(20);
-      $(this).attr('name', newName);
-    });
+    var index = $('.slide[data-name="employment-history"] > .job-form').length;
+    var newJobForm = $('<div class="job-form" data-job-form="other-job"></div>');
+    newJobForm.html($('#job-form-template .job-form').html().replace(/#{index}/g, index));
     $('#aj-yes').prop('checked', false);
     $('#aj-no').prop('checked', true);
-    $('.slide.current .field[data-field="another-job"]').before(newJobForm);
+    newJobForm.find('input[type="radio"][data-behavior="toggle-self-employed"]').on('change', function() {
+      $(this).closest('.job-form').find('.field[data-field="business-name"], .field[data-field="employer"]').toggleClass('hidden');
+    });
+    newJobForm.find('.specifiable').on('change', function() {
+      if ($(this).val() == 'others') {
+        $(this).siblings('.specify').removeClass('hidden').focus();
+      } else {
+        $(this).siblings('.specify').addClass('hidden').val('');
+      }
+    });
+    $('.field[data-field="another-job"]').before(newJobForm);
   },
   validateSlide: {
     'personal-information': function() {

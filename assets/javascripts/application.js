@@ -171,6 +171,9 @@ var alumni = {
     $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
       e.preventDefault();
       $(this).text('[cancel]').attr('data-behavior', 'cancel').siblings('h2').addClass('hidden').siblings('.editable').removeClass('hidden');
+      if ($(this).siblings('.editable').first().is('input[type="text"]')) {
+        $(this).siblings('.editable').first().focus();
+      }
       $(this).closest('.slide').find('.actions input[type="submit"]').removeClass('hidden');
     });
     $('.field').not('.actions').delegate('a[data-behavior="cancel"]', 'click', function(e) {

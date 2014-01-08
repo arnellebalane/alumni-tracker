@@ -26,11 +26,11 @@
       <section id="countries">
         <h1>Countries</h1>
         <?= form_open('#'); ?>
-          <label><input type="checkbox" name="country[0]" />Philippines</label>
-          <label><input type="checkbox" name="country[0]" />Philippines</label>
-          <label><input type="checkbox" name="country[0]" />Philippines</label>
-          <label><input type="checkbox" name="country[0]" />Philippines</label>
-          <label><input type="checkbox" name="country[0]" />Philippines</label>
+          <label><input type="checkbox" name="countries[0]" />Philippines</label>
+          <label><input type="checkbox" name="countries[0]" />Philippines</label>
+          <label><input type="checkbox" name="countries[0]" />Philippines</label>
+          <label><input type="checkbox" name="countries[0]" />Philippines</label>
+          <label><input type="checkbox" name="countries[0]" />Philippines</label>
 
           <div class="padded hidden replacement-form">
             <h4>Replace Selected Countries</h4>
@@ -43,6 +43,30 @@
           <h4>Add Another Country</h4>
           <label class="inline">Country Name</label>
           <input type="text" name="country_name" />
+          <input type="submit" value="Submit" class="button" />
+        <?= form_close(); ?>
+      </section>
+
+      <section id="employer-type">
+        <h1>Employer/Business Types</h1>
+        <?= form_open('#'); ?>
+          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
+          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
+          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
+          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
+          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
+
+          <div class="padded hidden replacement-form">
+            <h4>Replace Selected Employer/Business Types</h4>
+            <label class="inline">Employer/Business Type</label>
+            <input type="text" name="employer_type" />
+            <input type="submit" value="Submit" class="button" />
+          </div>
+        <?= form_close(); ?>
+        <?= form_open('#', array('class' => 'padded')); ?>
+          <h4>Add Another Employer/Business Type</h4>
+          <label class="inline">Employer/Business Type</label>
+          <input type="text" name="employer_type" />
           <input type="submit" value="Submit" class="button" />
         <?= form_close(); ?>
       </section>

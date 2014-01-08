@@ -214,10 +214,11 @@ var alumni = {
 var admin = {
   initialize: function() {
     $('section input[type="checkbox"]').on('change', function() {
-      if ($('section input[type="checkbox"]:checked').length > 0) {
-        $('section .replacement-form').removeClass('hidden');
+      var section = $(this).closest('section');
+      if (section.find('input[type="checkbox"]:checked').length > 0) {
+        section.find('.replacement-form').removeClass('hidden');
       } else {
-        $('section .replacement-form').addClass('hidden');
+        section.find('.replacement-form').addClass('hidden');
       }
     });
   }

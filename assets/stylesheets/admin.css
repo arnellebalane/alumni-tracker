@@ -66,6 +66,10 @@ aside li a.current:before {
   margin-bottom: 40px;
 }
 
+.content section {
+  margin-bottom: 40px;
+}
+
 .content section h1 {
   font-size: 2rem;
 }
@@ -88,14 +92,9 @@ aside li a.current:before {
   margin-bottom: 3px;
 }
 
-.content section form label {
-  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
-  color: #333333; 
-  margin-right: 15px;
-}
-
 .content section form label.inline {
   width: auto;
+  margin-right: 15px;
 }
 
 .content section form input[type="text"] {

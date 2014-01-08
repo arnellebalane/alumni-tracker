@@ -70,7 +70,7 @@ aside li a.current:before {
   font-size: 2rem;
 }
 
-.content section h3 {
+.content section label {
   display: inline-block;
   width: 25%;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
@@ -78,15 +78,7 @@ aside li a.current:before {
   margin-right: 5%;
 }
 
-.content section h3 a {
-  font: normal 1rem "Open Sans Light", "OpenSansLight";
-  color: #005BC2;
-  text-transform: uppercase;
-  text-decoration: none;
-  margin-left: 10px;
-}
-
-.content section form {
+.content section .padded {
   padding: 15px 0 0 25px;
 }
 
@@ -102,8 +94,12 @@ aside li a.current:before {
   margin-right: 15px;
 }
 
+.content section form label.inline {
+  width: auto;
+}
+
 .content section form input[type="text"] {
-  width: 250px;
+  width: 200px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
   padding: 5px;

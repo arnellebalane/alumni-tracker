@@ -23,22 +23,28 @@
       <h1>Manage Questionnaire Data</h1>
       <p>These data are the ones which will appear as choices in some parts of the questionnaire.</p>
 
-      <section>
+      <section id="countries">
         <h1>Countries</h1>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <h3>Philippines<a href="#">[Remove]</a></h3>
-        <form>
+        <?= form_open('#'); ?>
+          <label><input type="checkbox" name="country[0]" />Philippines</label>
+          <label><input type="checkbox" name="country[0]" />Philippines</label>
+          <label><input type="checkbox" name="country[0]" />Philippines</label>
+          <label><input type="checkbox" name="country[0]" />Philippines</label>
+          <label><input type="checkbox" name="country[0]" />Philippines</label>
+
+          <div class="padded hidden replacement-form">
+            <h4>Replace Selected Countries</h4>
+            <label class="inline">Country Name</label>
+            <input type="text" name="country_name" />
+            <input type="submit" value="Submit" class="button" />
+          </div>
+        <?= form_close(); ?>
+        <?= form_open('#', array('class' => 'padded')); ?>
           <h4>Add Another Country</h4>
-          <label>Country Name</label>
+          <label class="inline">Country Name</label>
           <input type="text" name="country_name" />
           <input type="submit" value="Submit" class="button" />
-        </form>
+        <?= form_close(); ?>
       </section>
     </div>
   </div>

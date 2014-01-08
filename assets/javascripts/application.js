@@ -2,6 +2,7 @@ $(document).ready(function() {
   questionnaire.initialize();
   notifications.initialize();
   alumni.initialize();
+  admin.initialize();
 });
 
 var questionnaire = {
@@ -206,6 +207,18 @@ var alumni = {
       slide.find('.field[data-field="business-name"]').addClass('hidden');
       slide.find('.field[data-field="employer"]').removeClass('hidden');
       slide.find('select option:first-of-type').prop('selected', true);
+    });
+  }
+};
+
+var admin = {
+  initialize: function() {
+    $('section input[type="checkbox"]').on('change', function() {
+      if ($('section input[type="checkbox"]:checked').length > 0) {
+        $('section .replacement-form').removeClass('hidden');
+      } else {
+        $('section .replacement-form').addClass('hidden');
+      }
     });
   }
 };

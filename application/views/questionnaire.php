@@ -288,8 +288,7 @@
                   ?>   
                 </select>
                 <i>to</i>
-                <select name="employment_history[<?=$i?>][employment_duration][end_year]" class="narrow">
-                  <option value="100000" <?=is_selected('employment_history', $i, 'employment_duration', 'end_year', '100000')?>>ongoing</option>
+                <select name="employment_history[<?=$i?>][employment_duration][end_year]" class="narrow">                  
                   <?php 
                     $year = date('Y');
                     while ($year >= 1980) { 
@@ -418,8 +417,7 @@
                 <?php endfor; ?>
               </select>
               <i>to</i>
-              <select name="employment_history[#{index}][employment_duration][end_year]" class="narrow">
-                <option value="100000">ongoing</option>
+              <select name="employment_history[#{index}][employment_duration][end_year]" class="narrow">                
                 <?php for ($y = $year; $y >= 1980; $y--): ?>
                   <option value="<?= $y; ?>"><?= $y; ?></option>
                 <?php endfor; ?>

@@ -70,6 +70,25 @@
           <input type="submit" value="Submit" class="button" />
         <?= form_close(); ?>
       </section>
+
+      <section id="degree-programs">
+        <h1>Degree Programs</h1>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+        <h3>BS Computer Science</h3>
+
+        <?= form_open('#', array('class' => 'padded')); ?>
+          <h4>Add Another Degree Program</h4>
+          <label class="inline">Degree Program</label>
+          <input type="text" name="degree_program" />
+          <input type="submit" value="Submit" class="button" />
+        <?= form_close(); ?>
+      </section>
     </div>
   </div>
 </body>

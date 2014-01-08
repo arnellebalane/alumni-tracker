@@ -11,6 +11,8 @@
 			if ($this->session->userdata('user_id')) {
 				if ($this->session->userdata('user_type') == 'alumni') {
 					redirect('/alumni/home');
+				}	else if ($this->session->userdata('user_type') == 'super admin') {
+					redirect('/admin/index');
 				}
 			}	else {
 				$this->load->helper('questionnaire_helper');
@@ -25,7 +27,7 @@
 				$this->session->set_userdata('user_id', $user_data[0]->id);
 				$this->session->set_userdata('user_type', $user_data[0]->user_type);
 				if ($user_data[0]->user_type == "super admin") {
-					redirect('/superadmin/index');
+					redirect('/admin/index');
 				}
 				redirect('/alumni/home');
 			}	else {

@@ -12,7 +12,7 @@
 </head>
 
 <body class="alumni home">
-  <p class="notification notice">Welcome, Random User!</p>
+  <p class="notification notice"><?php echo ($this->session->flashdata('alert')) ? $this->session->flashdata('alert'): "Welcome, " . $user_info[0]->firstname . " " . $user_info[0]->lastname . "!"; ?></p>
   <div class="wrapper clearfix">
     <aside>
       <ul>
@@ -23,42 +23,42 @@
     </aside>
 
     <div class="content">
-      <?= form_open('#'); ?>
+      <?= form_open('alumni/updatePersonalInfo','POST'); ?>
         <div class="slide current" data-name="personal-information">
           <h1>Personal Information</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
 
           <div class="field">
             <label>First Name</label>
-            <h2>Arnelle</h2>
-            <input type="text" name="personal_information[firstname]" value="Arnelle" class="editable hidden" data-current="Arnelle" />
+            <h2><?=humanize($user_info[0]->firstname)?></h2>
+            <input type="text" name="personal_information[firstname]" value="<?=humanize($user_info[0]->firstname)?>" class="editable hidden" data-current="<?=humanize($user_info[0]->firstname)?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Last Name</label>
-            <h2>Balane</h2>
-            <input type="text" name="personal_information[lastname]" value="Balane" class="editable hidden" data-current="Balane" />
+            <h2><?=humanize($user_info[0]->lastname)?></h2>
+            <input type="text" name="personal_information[lastname]" value="<?=humanize($user_info[0]->lastname)?>" class="editable hidden" data-current="<?=humanize($user_info[0]->lastname)?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Gender</label>
-            <h2>Male</h2>
-            <input type="radio" name="personal_information[gender]" value="male" id="g-male" class="editable hidden" data-current="checked" checked /><label for="g-male">Male</label>
-            <input type="radio" name="personal_information[gender]" value="female" id="g-female" class="editable hidden" data-current="unchecked" /><label for="g-female">Female</label>
+            <h2><?=humanize($user_info[0]->gender)?></h2>            
+            <input type="radio" name="personal_information[gender]" value="male" id="g-male" class="editable hidden" data-current="<?=is_checked("male",$user_info[0]->gender)?>" <?=is_checked("male",$user_info[0]->gender)?> /><label for="g-male">Male</label>
+            <input type="radio" name="personal_information[gender]" value="female" id="g-female" class="editable hidden" data-current="<?=is_checked("female",$user_info[0]->gender)?>" <?=is_checked("female",$user_info[0]->gender)?>/><label for="g-female">Female</label>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Present Address</label>
-            <h2>Cebu City</h2>
-            <input type="text" name="personal_information[present_address]" value="Cebu City" class="editable hidden" data-current="Cebu City" />
+            <h2><?=humanize($user_info[0]->present_address)?></h2>
+            <input type="text" name="personal_information[present_address]" value="<?=humanize($user_info[0]->present_address)?>" class="editable hidden" data-current="<?=humanize($user_info[0]->present_address)?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <h2>Philippines</h2>
-            <select name="personal_information[country]" class="specifiable editable hidden" data-current="Philippines">
+            <h2><?=humanize($user_info[0]->country)?>s</h2>
+            <select name="personal_information[country]" class="specifiable editable hidden" data-current="<?=$user_info[0]->country_id?>">
               <? foreach ($countries as $var): ?>
-                <option value="<?= $var->id; ?>"><?= $var->name; ?></option>
+                <option value="<?= $var->id; ?>" <?=is_selected($var->id, $user_info[0]->country_id)?>><?= $var->name; ?></option>
               <? endforeach; ?>           
               <option value="others">Others</option>
             </select>
@@ -67,34 +67,42 @@
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
-            <h2>09496547250</h2>
-            <input type="text" name="personal_information[present_address_contact_number]" value="09496547250" class="editable hidden" data-current="09496547250" />
+            <h2><?=$user_info[0]->present_contact_number?></h2>
+            <input type="text" name="personal_information[present_address_contact_number]" value="<?=$user_info[0]->present_contact_number?>" class="editable hidden" data-current="<?=$user_info[0]->present_contact_number?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <h2>Tagbilaran City</h2>
-            <input type="text" name="personal_information[permanent_address]" value="Tagbilaran City" class="editable hidden" data-current="Tagbilaran City" />
+            <h2><?=$user_info[0]->premanent_address?></h2>
+            <input type="text" name="personal_information[permanent_address]" value="<?=$user_info[0]->premanent_address?>" class="editable hidden" data-current="<?=$user_info[0]->premanent_address?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Contact Number in Permanent Address</label>
-            <h2>09496547250</h2>
-            <input type="text" name="personal_information[permanent_address_contact_number]" value="09496547250" class="editable hidden" data-current="09496547250" />
+            <h2><?=$user_info[0]->permanent_contact_number?></h2>
+            <input type="text" name="personal_information[permanent_address_contact_number]" value="<?=$user_info[0]->permanent_contact_number?>" class="editable hidden" data-current="<?=$user_info[0]->permanent_contact_number?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Email Address</label>
-            <h2>arnellebalane@gmail.com</h2>
-            <input type="email" name="personal_information[email_address]" value="arnellebalane@gmail.com" class="editable hidden" data-current="arnellebalane@gmail.com" />
+            <h2><?=$user_info[0]->email?></h2>
+            <input type="email" name="personal_information[email_address]" value="<?=$user_info[0]->email?>" class="editable hidden" data-current="<?=$user_info[0]->email?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <span>Social Network Contact Information</span>
+          <?foreach ($user_social_networks as $var) : ?>
+            <div class="field indented">
+              <label><?=$var->name?> Account</label>
+              <h2><?=$var->account_name?></h2>
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="<?=$var->account_name?>" class="editable hidden" data-current="<?=$var->account_name?>" />
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+          <? endforeach; ?>
           <?foreach ($social_networks as $var) : ?>
             <div class="field indented">
               <label><?=$var->name?> Account</label>
-              <h2>Arnelle Balane</h2>
-              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="Arnelle Balane" class="editable hidden" data-current="Arnelle Balane" />
+              <h2></h2>
+              <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="" class="editable hidden" data-current="" />
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
           <? endforeach; ?>
@@ -104,40 +112,42 @@
         </div>
       <?= form_close(); ?>
 
-      <?= form_open('#'); ?>
+      <?= form_open('alumni/updateEducationalBackground','POST'); ?>
         <div class="slide hidden" data-name="educational-background">
           <h1>Educational Background</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
 
           <div class="field">
             <label>Student Number</label>
-            <h2>2011-37575</h2>
-            <input type="text" name="educational_background[student_number]" placeholder="xxxx-xxxxx" value="2011-37575" class="editable hidden" data-current="2011-37575" />
+            <h2><?=$user_info[0]->student_number?></h2>
+            <input type="text" name="educational_background[student_number]" placeholder="xxxx-xxxxx" value="<?=$user_info[0]->student_number?>" class="editable hidden" data-current="<?=$user_info[0]->student_number?>" />
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Degree Program</label>
-            <h2>BS Computer Science</h2>
-            <select name="educational_background[degree_program]" class="editable hidden" data-current="BS Computer Science">
+            <h2><?=$user_info[0]->course?></h2>
+            <select name="educational_background[degree_program]" class="editable hidden" data-current="<?=$user_info[0]->prog_id?>">
               <?foreach ($programs as $var) : ?>
-                <option value="<?=$var->id?>" <?=is_selected('educational_background', 'degree_program', null, null, $var->id); ?>><?=$var->name?></option>
+                <option value="<?=$var->id?>" <?=is_selected($var->id, $user_info[0]->prog_id)?> ><?=$var->name?></option>
               <? endforeach;?>
             </select>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Semester/Summer and Year Graduated</label>
-            <h2>2nd Semester, AY 2012-2013</h2>
-            <select name="educational_background[graduated][semester]" class="editable hidden" data-current="2">
-              <option value="1" <?=is_selected('educational_background', 'graduated', 'semester', null, 1); ?>>1st Semester</option>
-              <option value="2" <?=is_selected('educational_background', 'graduated', 'semester', null, 2); ?>>2nd Semester</option>
-              <option value="3" <?=is_selected('educational_background', 'graduated', 'semester', null, 3); ?>>Summer</option>
+            <h2><?php if ($user_info[0]->semester_graduated == 1) echo "1st Semester"; 
+                      else if ($user_info[0]->semester_graduated == 2) echo "2nd Semester"; 
+                      else echo "Summer"; ?>, AY <?=$user_info[0]->year_graduated?></h2>
+            <select name="educational_background[graduated][semester]" class="editable hidden" data-current="<?=$user_info[0]->semester_graduated?>">
+              <option value="1" <?=is_selected(1, $user_info[0]->semester_graduated)?>>1st Semester</option>
+              <option value="2" <?=is_selected(2, $user_info[0]->semester_graduated)?>>2nd Semester</option>
+              <option value="3" <?=is_selected(3, $user_info[0]->semester_graduated)?>>Summer</option>
             </select>
-            <select name="educational_background[graduated][academic_year]" class="editable hidden" data-current="2012-2013">
+            <select name="educational_background[graduated][academic_year]" class="editable hidden" data-current="<?=$user_info[0]->year_graduated?>">
               <? $ctr = date('Y');
                 while ($ctr > 1980) { 
               ?>
-                <option value="<?echo ($ctr-1).'-'.$ctr;?>" <?=is_selected('educational_background', 'graduated', 'academic_year', null, ($ctr-1).'-'.$ctr); ?>><?echo ($ctr-1).' - '.$ctr;?></option>
+                <option value="<?echo ($ctr-1).'-'.$ctr;?>" <?=is_selected(($ctr-1).'-'.$ctr, $user_info[0]->year_graduated); ?>><?echo ($ctr-1).' - '.$ctr;?></option>
               <? $ctr--;
                 }
               ?>                            
@@ -146,12 +156,12 @@
           </div>
           <div class="field">
             <label>Honor Received</label>
-            <h2>None</h2>
-            <select name="educational_background[honor_received]" class="editable hidden" data-current="none">
+            <h2><?=humanize($user_info[0]->honor_received)?></h2>
+            <select name="educational_background[honor_received]" class="editable hidden" data-current="<?=$user_info[0]->honor_received?>">
               <option value="none" selected>None</option>
-              <option value="summa cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "summa cum laude"); ?>>Summa Cum Laude</option>
-              <option value="magna cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "magna cum laude"); ?>>Magna Cum Laude</option>
-              <option value="cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "cum laude"); ?>>Cum Laude</option>              
+              <option value="summa cum laude" <?=is_selected("summa cum laude", $user_info[0]->honor_received); ?>>Summa Cum Laude</option>
+              <option value="magna cum laude" <?=is_selected("magna cum laude", $user_info[0]->honor_received); ?>>Magna Cum Laude</option>
+              <option value="cum laude" <?=is_selected("cum laude", $user_info[0]->honor_received); ?>>Cum Laude</option>              
             </select>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
@@ -161,85 +171,96 @@
         </div>
       <?= form_close(); ?>
 
-      <?= form_open('#'); ?>
+      <?= form_open('alumni/updateCurrentJob', 'post'); ?>
         <div class="slide hidden" data-name="employment-history">
           <h1>Employment History</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
-
+          <?php if ($current_job) : ?>
           <div class="job-form previous-job">
             <span>Job information</span>
             <div class="field indented">
               <label>Are you self-employed?</label>
-              <h2>Yes</h2>
+              <h2><?=($current_job[0]->self_employed == 1)? "Yes" : "No"; ?></h2>
             </div>
-            <div class="field indented">
-              <label>What is your business/work?</label>
-              <h2>Internet Cafe</h2>
-            </div>
-            <div class="field indented">
-              <label>Employer</label>
-              <h2>University of the Philippines Cebu</h2>
-            </div>
+            <?php if ($current_job[0]->business) : ?>
+              <div class="field indented">
+                <label>What is your business/work?</label>
+                <h2><?=$current_job[0]->business?></h2>
+              </div>
+            <? endif; ?>
+            <?php if ($current_job[0]->employer) : ?>
+              <div class="field indented">
+                <label>Employer</label>
+                <h2><?=$current_job[0]->employer?></h2>
+              </div>
+            <? endif; ?>
             <div class="field indented">
               <label>Employer/Business Type</label>
-              <h2>IT Industry</h2>
+              <h2><?=$current_job[0]->employer_type?></h2>
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
-              <h2>Developer</h2>
+              <h2><?=$current_job[0]->job_title?></h2>
             </div>
             <div class="field indented">
               <label>Monthly Salary (in Philippine Peso)</label>
-              <h2>60001 - 100000</h2>
+              <h2> <?php if (!$current_job[0]->minimum) {
+                            echo "below " . $current_job[0]->maximum; 
+                    } else if (!$current_job[0]->maximum) {
+                            echo "above " . $current_job[0]->minimum;
+                    } else {
+                            echo $current_job[0]->minimum . " - " . $current_job[0]->maximum;
+                    }?>
+              </h2>
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
-              <h2>2000 - 2005</h2>
+              <h2><?php echo $current_job[0]->year_started; echo ($current_job[0]->year_ended == 100000)? " until now" : " - " . $current_job[0]->year_ended; ?></h2>
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
-              <h2>Yes</h2>
+              <h2><?=($current_job[0]->job_satisfaction == 1)? "Yes" : "No"?></h2>
             </div>
             <div class="field indented">
               <label>Why or why not satisfied?</label>
-              <h2>Lorem ipsum Cupidatat fugiat dolor incididunt ut nostrud ad proident aliqua enim dolore elit nostrud ad incididunt non id veniam dolore consequat officia laboris magna enim aliquip nisi Duis Ut sed qui.</h2>
+              <h2><?=($current_job[0]->reason)? $current_job[0]->reason : "No reason!"?></h2>
             </div>
           </div>
-
+          <? endif; ?>
           <div class="job-form hidden" data-job-form="current-job">
             <span>Current Job Information</span>
             <div class="field indented">
               <label>Are you self-employed?</label>
-              <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?= is_checked("employment_history", '0', "self_employed", null, 1); ?> /><label for="employment_history[0][se-yes]">Yes</label>
-              <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? 'checked' : ''; ?> /><label for="employment_history[0][se-no]">No</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?= pop_is_checked("employment_history", '0', "self_employed", null, 1); ?> /><label for="employment_history[0][se-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" <?= (pop_is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? 'checked' : ''; ?> /><label for="employment_history[0][se-no]">No</label>
             </div>
-            <div class="field indented <?= (is_checked("employment_history", '0', "self_employed", null, 1) == 'checked') ? '' : 'hidden'; ?>" data-field="business-name">
+            <div class="field indented <?= (pop_is_checked("employment_history", '0', "self_employed", null, 1) == 'checked') ? '' : 'hidden'; ?>" data-field="business-name">
               <label>What is your business/work?</label>
-              <input type="text" name="employment_history[0][business_name]" value="<?=set_field_value('employment_history', '0', 'business_name', null); ?>"/>
+              <input type="text" name="employment_history[0][business_name]" value="<?=pop_set_field_value('employment_history', '0', 'business_name', null); ?>"/>
             </div>
-            <div class="field indented <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? '' : 'hidden'; ?>" data-field="employer">
+            <div class="field indented <?= (pop_is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? '' : 'hidden'; ?>" data-field="employer">
               <label>Employer</label>
-              <input type="text" name="employment_history[0][employer]" value="<?=set_field_value('employment_history', '0', 'employer', null); ?>"/>
+              <input type="text" name="employment_history[0][employer]" value="<?=pop_set_field_value('employment_history', '0', 'employer', null); ?>"/>
             </div>
             <div class="field indented">
               <label>Employer/Business Type</label>
               <select name="employment_history[0][employer_type]" class="specifiable">
                 <?php foreach ($employer_types as $type): ?>
-                  <option value="<?= $type->id; ?>" <?= is_selected('employment_history', '0', 'employer_type', null, $type->id); ?>><?=$type->name?></option>
+                  <option value="<?= $type->id; ?>" <?= pop_is_selected('employment_history', '0', 'employer_type', null, $type->id); ?>><?=$type->name?></option>
                 <?php endforeach; ?>               
-                <option value="others" <?=is_selected('employment_history', '0', 'employer_type', null, 'others'); ?>>Others</option>
+                <option value="others" <?=pop_is_selected('employment_history', '0', 'employer_type', null, 'others'); ?>>Others</option>
               </select>
-              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="specify <?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
+              <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= pop_set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="specify <?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
             </div>
             <div class="field indented">
               <label>Job Title/Position</label>
-              <input type="text" name="employment_history[0][job_title]" value="<?=set_field_value('employment_history', '0', 'job_title', null); ?>"/>
+              <input type="text" name="employment_history[0][job_title]" value="<?=pop_set_field_value('employment_history', '0', 'job_title', null); ?>"/>
             </div>
             <div class="field indented">
               <label>Monthly Salary (in Philippine Peso)</label>
               <select name="employment_history[0][monthly_salary]">
                 <?php foreach ($salaries as $val) : ?>
-                  <option value="<?=$val->id?>" <?=is_selected('employment_history', '0', 'monthly_salary', null, $val->id); ?>>
+                  <option value="<?=$val->id?>" <?=pop_is_selected('employment_history', '0', 'monthly_salary', null, $val->id); ?>>
                     <?php
                       if ($val->minimum == null)
                         echo $val->maximum." and below";
@@ -259,7 +280,7 @@
                   $year = date('Y');
                   while ($year >= 1980) { 
                 ?>
-                  <option value="<?=$year?>" <?=is_selected('employment_history', '0', 'employment_duration', "start_year", $year); ?>><?=$year?></option>
+                  <option value="<?=$year?>" <?=pop_is_selected('employment_history', '0', 'employment_duration', "start_year", $year); ?>><?=$year?></option>
                 <?    
                     $year--;
                   } 
@@ -267,12 +288,12 @@
               </select>
               <i>to</i>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
-                <option value="100000" <?=is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>ongoing</option>
+                <option value="100000" <?=pop_is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>ongoing</option>
                 <?php 
                   $year = date('Y');
                   while ($year >= 1980) { 
                 ?>
-                  <option value="<?=$year?>" <?=is_selected('employment_history', '0', 'employment_duration', "end_year", $year); ?>><?=$year?></option>
+                  <option value="<?=$year?>" <?=pop_is_selected('employment_history', '0', 'employment_duration', "end_year", $year); ?>><?=$year?></option>
                 <?    
                     $year--;
                   } 
@@ -281,12 +302,12 @@
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
-              <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 1); ?>/><label for="employment_history[0][swj-yes]">Yes</label>
-              <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 0); ?>/><label for="employment_history[0][swj-no]">No</label>
+              <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" <?=pop_is_checked("employment_history", '0', "satisfied_with_job", null, 1); ?>/><label for="employment_history[0][swj-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" <?=pop_is_checked("employment_history", '0', "satisfied_with_job", null, 0); ?>/><label for="employment_history[0][swj-no]">No</label>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
-              <textarea name="employment_history[0][satisfaction_reason]"><?=set_field_value('employment_history', '0', 'satisfaction_reason', null); ?></textarea>
+              <textarea name="employment_history[0][satisfaction_reason]"><?=pop_set_field_value('employment_history', '0', 'satisfaction_reason', null); ?></textarea>
             </div>
           </div>
           <div class="field actions">

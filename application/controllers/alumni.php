@@ -15,19 +15,19 @@
   		$data = array('countries'=>$this->values->getCountries(),
   									'programs'=>$this->values->getPrograms(),
                     'salaries'=>$this->values->getMonthlySalaries(),
-                    'employer_types'=>$this->values->getEmployerTypes(),
-                    'social_networks'=>$this->values->getSocialNetworks(),
-                    'ge_courses'=>$this->values->getGECourses()
+                    'employer_types'=>$this->values->getEmployerTypes(),                    
+                    'ge_courses'=>$this->values->getGECourses(),
+                    'user_info'=> $this->model->getUserInfoById($this->session->userdata('user_id')),
+                    'user_social_networks'=>$this->model->getUserSocialNetworksById($this->session->userdata('user_id')),
+                    'social_networks'=>$this->model->getOtherSocialNetworksById($this->session->userdata('user_id')),
+                    'current_job'=>$this->model->getUserCurrentJob($this->session->userdata('user_id'))
   									);
-      $this->load->helper('questionnaire_helper.php');
+      $this->load->helper('edit_info_helper.php');
+      $this->load->helper('inflector');      
 			$this->load->view('alumni_home', $data);
 		}
 
-		public function add() {
-			// echo '<pre>';
-		 //  print_r($_POST);
-		 //  echo '</pre>';
-
+		public function add() {		
 		  if (!$this->validateEducationalBackground($_POST['educational_background'])) {
 				$this->session->set_flashdata('inputs', $_POST);
 				redirect('/home/questionnaire');
@@ -42,13 +42,35 @@
 				redirect('/home/questionnaire');
 			}
 
-
 			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);	
 			$this->addPersonalInformation($user_id, $_POST['personal_information']);
 			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
 			$this->addOthers($user_id, $_POST['others']);
 			$this->session->set_userdata('saved', $user_id);
 			redirect('/home/saved');
+		}
+
+		// UPDATE PERSONAL INFORMATION
+		public function updatePersonalInfo() {
+			if (!$this->session->userdata('user_id')) {
+				redirect('home/index');
+			}
+			if (!$this->validatePersonalInformation($_POST['personal_information'])) {			
+				redirect('alumni/home');
+			}
+
+			if ($_POST['personal_information']['country'] == 'others') {
+				$_POST['personal_information']['country'] = $this->model->addCountry(addslashes($_POST['personal_information']['specified_country']));
+			}
+			$this->model->updatePersonalInfo($this->session->userdata('user_id'), $_POST['personal_information']);
+
+			foreach ($_POST['personal_information']['social_networks'] as $key => $value) {
+				if ($value != '') {
+					$this->model->addUserSocialNetwork($this->session->userdata('user_id'), $key, $value);
+				}
+			}
+			$this->session->set_flashdata('notice', 'Update successful!');
+			redirect('alumni/home');			
 		}
 
 		// ADD PERSONAL INFORMATION
@@ -65,6 +87,7 @@
 				}
 			}
 		}
+		
 
 		// ADD OTHER COMMENTS
 		private function addOthers($user_id, $info) {
@@ -105,6 +128,23 @@
 			return $user_id;
 		}
 
+		// UPDATE EDUCATIONAL BACKGROUND
+		public function updateEducationalBackground() {		
+			if (!$this->session->userdata('user_id')) {
+				redirect('home/index');
+			}
+			if (!$this->validateEducationalBackground($_POST['educational_background'])) {
+				$stud = $this->model->getUserByStudentNumber(addslashes($_POST['educational_background']['student_number']));
+				if (($stud != null) && ($stud[0]->user_id != $this->session->userdata('user_id'))) {
+					$this->session->set_flashdata('alert', "Student number not available!");
+					redirect('alumni/home');
+				}
+			}
+			$this->model->updateEducationalBackground($this->session->userdata('user_id'), $_POST['educational_background']);
+			$this->model->updateUserStudentNumber($this->session->userdata('user_id'), $_POST['educational_background']['student_number']);
+			$this->session->set_flashdata('notice', 'Update successful!');
+			redirect('alumni/home');
+		}
 
 		private function generatePassword() {
 			$values = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890";
@@ -155,6 +195,24 @@
 			endforeach;
 		}
 
+		// SET CURRENT JOB
+		public function updateCurrentJob() {
+			$info = $_POST['employment_history'][0];
+			if (($info['business_name'] == "" && $info['employer'] == "") || (!isset($info['satisfied_with_job']) || ($info['employer_type'] == "others" && $info['specified_employer_type'] == ""))) {
+				$this->session->set_flashdata('alert', 'Fill-up all of the fields in updating your current job!');
+				redirect('/alumni/home');
+			}
+			if ($var['employer_type'] == "others") {
+				$employer_id = $this->values->addEmployerType($info['specified_employer_type']);
+			}	else {
+				$employer_id = $info['employer_type'];
+			}
+			$history_id = $this->model->addEmploymentDetails($user_id, $employer_id, $info);
+			$this->model->addUserEmploymentHistory($this->session->userdata('user_id'), $history_id, 1, 0);
+			$this->session->set_flashdata('notice', 'Update successful!');
+			redirect('/alumni/home');
+		}
+
 		// VALIDATE PERSONLAL INFORMATION
 		private function validatePersonalInformation($info) {
 			$this->load->model('values_model', 'values');
@@ -192,7 +250,7 @@
 				return false;
 			}
 			for($ctr = 0; $ctr < 10; $ctr++) {
-				if ($ctr != 4) {					
+				if ($ctr != 4) {
 					if (!$this->isNumber($info['student_number'][$ctr])) {
 						$this->session->set_flashdata('alert', "Invalid student number.");
 						return false;
@@ -203,7 +261,7 @@
 				$this->session->set_flashdata('alert', "Student number not available.");
 				return false;
 			}
-			return true;	
+			return true;
 		}
 
 		private function validateEmploymentHistory($info) {
@@ -255,6 +313,5 @@
 				return true;
 			}
 		}
-
 	}
 ?>

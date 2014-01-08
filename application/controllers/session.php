@@ -23,7 +23,10 @@
 			$user_data = $this->model->getUserByUsernamePassword(addslashes($_POST['username']), addslashes($_POST['password']));
 			if ($user_data) {
 				$this->session->set_userdata('user_id', $user_data[0]->id);
-				$this->session->set_userdata('user_type', $user_data[0]->user_type);	
+				$this->session->set_userdata('user_type', $user_data[0]->user_type);
+				if ($user_data[0]->user_type == "super admin") {
+					redirect('/superadmin/index');
+				}
 				redirect('/alumni/home');
 			}	else {
 				$this->session->set_flashdata('alert', 'Incorrect username or password.');

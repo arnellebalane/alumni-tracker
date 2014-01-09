@@ -70,7 +70,7 @@
         <?php foreach ($programs as $prog) : ?>
           <h3>
             <span><?=$prog->name?></span>
-            <?= form_open('#', array('class' => 'hidden')); ?>
+            <?= form_open('/admin/updateDegreeProgram', array('class' => 'hidden')); ?>
               <input type="text" name="degree_program" value="<?= $prog->name; ?>" data-current="<?= $prog->name; ?>" />
               <input type="hidden" name="program_id" value="<?= $prog->id; ?>" />
               <input type="submit" value="Submit" class="button" />

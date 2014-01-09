@@ -73,6 +73,16 @@
     	redirect('/admin/index');
     }
 
+    public function updateDegreeProgram() {
+        if ($_POST['degree_program'] == "") {
+            $this->session->set_flashdata("alert", "The degree program should not be blank!");
+            redirect('/admin/index');
+        }  
+        $id = $this->values->updateProgram($_POST['program_id'], $_POST['degree_program']);
+        $this->session->set_flashdata("notice", "The degree program has been updated!");
+        redirect('/admin/index');
+    }
+
   }
 
 ?>

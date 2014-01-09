@@ -44,6 +44,21 @@ class values_model extends CI_Model {
 		return mysql_insert_id();
 	}
 
+	function updateProgram($id, $name) {
+		$test = $this->db->query("SELECT id FROM programs WHERE name = '".addslashes($name)."'");
+		$res = $test->result();
+		if ($res) {
+			if (addslashes($id) != $res[0]->id) {						
+				$this->db->query("UPDATE educational_backgrounds SET program_id = '".$res[0]->id."' WHERE program_id = '$id'");
+				$this->db->query("DELETE FROM programs WHERE id = '".addslashes($id)."'");
+			}
+			return $res[0]->id;
+		}	else {
+			$this->db->query("UPDATE programs SET name = '".addslashes($name)."' WHERE id = '".addslashes($id)."'");
+			return $id;
+		}
+	}
+
 	function deleteProgram($id) {
 		$query = $this->db->query("DELETE FROM programs WHERE id = '$id'");
 	} 

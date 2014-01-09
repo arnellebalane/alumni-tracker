@@ -68,7 +68,15 @@
       <section id="degree-programs">
         <h1>Degree Programs</h1>
         <?php foreach ($programs as $prog) : ?>
-          <h3><?=$prog->name?></h3>
+          <h3>
+            <span><?=$prog->name?></span>
+            <?= form_open('#', array('class' => 'hidden')); ?>
+              <input type="text" name="degree_program" value="<?= $prog->name; ?>" data-current="<?= $prog->name; ?>" />
+              <input type="hidden" name="program_id" value="<?= $prog->id; ?>" />
+              <input type="submit" value="Submit" class="button" />
+            <?= form_close(); ?>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </h3>
         <?php endforeach;?>        
 
         <?= form_open('admin/addDegreeProgram', array('class' => 'padded')); ?>

@@ -221,5 +221,21 @@ var admin = {
         section.find('.replacement-form').addClass('hidden');
       }
     });
+
+    $('section h3').delegate('a[data-behavior="edit"]', 'click', function(e) {
+      e.preventDefault();
+      var form = $(this).siblings('form');
+      form.toggleClass('hidden');
+      form.find('input[type="text"]').focus();
+      $(this).siblings('span').toggleClass('hidden');
+      $(this).attr('data-behavior', 'cancel').text('[cancel]');
+    }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
+      e.preventDefault();
+      var form = $(this).siblings('form');
+      form.toggleClass('hidden');
+      form.find('input[type="text"]').val(form.find('input[type="text"]').data('current'));
+      $(this).siblings('span').toggleClass('hidden');
+      $(this).attr('data-behavior', 'edit').text('[edit]');
+    });
   }
 };

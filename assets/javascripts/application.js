@@ -99,17 +99,8 @@ var questionnaire = {
     },
     'educational-background': function() {
       var studentNumber = $('input[name="educational_background[student_number]"]').val().trim();
-      if (studentNumber.length != 10 || studentNumber.charAt(4) != '-') {
+      if (studentNumber.length > 0 && !studentNumber.match('[0-9][0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9]')) {
         return {valid: false, error: 'Please fill up the student number with the correct format.'};
-      }
-      var digits = '0123456789';
-      for (var i = 0; i < 10; i++) {
-        if (i == 4) {
-          continue;
-        }
-        if (digits.indexOf(studentNumber.charAt(i)) < 0) {
-          return {valid: false, error: 'Please fill up the student number with the correct format.'};
-        }
       }
       return {valid: true};
     },

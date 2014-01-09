@@ -25,7 +25,7 @@
 
       <section id="countries">
         <h1>Countries</h1>
-        <?= form_open('admin/updateCountry'); ?>
+        <?= form_open('admin/updateCountries'); ?>
           <?php foreach ($countries as $country) : ?>
             <label><input type="checkbox" name="countries[<?=$country->id?>]" /><?=$country->name?></label>
           <?php endforeach; ?>          
@@ -46,7 +46,7 @@
 
       <section id="employer-type">
         <h1>Employer/Business Types</h1>
-        <?= form_open('admin/updateEmployerType'); ?>
+        <?= form_open('admin/updateEmployerTypes'); ?>
           <?php foreach ($employer_types as $type) : ?>
             <label><input type="checkbox" name="employer_types[<?=$type->id?>]" /><?=$type->name?></label>
           <?php endforeach; ?>                  

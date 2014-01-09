@@ -21,6 +21,14 @@ class values_model extends CI_Model {
 		}
 	}
 
+	function replaceCountry($toreplaceId, $replacedId) {
+		if ($toreplaceId == $replacedId) {
+			return;
+		}
+		$this->db->query("UPDATE personal_infos SET present_country_id = '".addslashes($toreplaceId)."' WHERE present_country_id = '".addslashes($replacedId)."'");
+		$this->db->query("DELETE FROM countries WHERE id = '".addslashes($replacedId)."'");
+	}
+
 	function getPrograms() {
 		$query = $this->db->query("SELECT * from programs");
 		return $query->result();
@@ -63,6 +71,14 @@ class values_model extends CI_Model {
 		}
 		$query = $this->db->query("INSERT INTO employer_types (name) VALUES ('$type')");
 		return mysql_insert_id();
+	}
+
+	function replaceEmployerType($toreplaceId, $replacedId) {
+		if ($toreplaceId == $replacedId) {
+			return;
+		}
+		$this->db->query("UPDATE employment_details SET employer_type_id = '".addslashes($toreplaceId)."' WHERE employer_type_id = '".addslashes($replacedId)."'");
+		$this->db->query("DELETE FROM employer_types WHERE id = '".addslashes($replacedId)."'");
 	}
 
 	function getMonthlySalaries() {

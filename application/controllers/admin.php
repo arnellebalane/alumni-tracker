@@ -33,9 +33,11 @@
     		redirect('/admin/index');
     	}
     	$id = $this->values->addCountry($_POST['country_name']);
-    	foreach() {
-    		
+    	foreach($_POST['countries'] as $key => $value) {
+    		$this->values->replaceCountry($id, $key);
     	}
+    	$this->session->set_flashdata("notice", "The countries where replaced successfully!");
+    	redirect('/admin/index');
     }
 
     public function addEmployerType() {
@@ -45,6 +47,19 @@
     	}
     	$this->values->addEmployerType($_POST['employer_type']);
     	$this->session->set_flashdata("notice", "New employer type added!");
+    	redirect('/admin/index');
+    }
+
+    public function updateEmployerTypes() {
+    	if ($_POST['employer_type'] == "") {
+    		$this->session->set_flashdata("alert", "The type name should not be blank!");
+    		redirect('/admin/index');
+    	}
+    	$id = $this->values->addEmployerType($_POST['employer_type']);
+    	foreach($_POST['employer_types'] as $key => $value) {
+    		$this->values->replaceEmployerType($id, $key);
+    	}
+    	$this->session->set_flashdata("notice", "The employer types were replaces successfully!");
     	redirect('/admin/index');
     }
 

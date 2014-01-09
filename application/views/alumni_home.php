@@ -12,7 +12,8 @@
 </head>
 
 <body class="alumni home">
-  <p class="notification notice"><?php echo ($this->session->flashdata('alert')) ? $this->session->flashdata('alert') : "Welcome, " . $user_info[0]->firstname . " " . $user_info[0]->lastname . "!"; ?></p>
+  <p class="notification notice"><?php echo ($this->session->flashdata('alert')) ? $this->session->flashdata('notice') : "Welcome, " . $user_info[0]->firstname . " " . $user_info[0]->lastname . "!"; ?></p>
+  <?php if ($this->session->flashdata('alert')) { ?> <p class="notification alert"><?=$this->session->flashdata('alert')?> </p> <? }?>
   <?= anchor('session/logout', 'Sign Out', array('id' => 'sign-out')); ?>
   <div class="wrapper clearfix">
     <aside>

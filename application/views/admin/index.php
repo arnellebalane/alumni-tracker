@@ -12,7 +12,11 @@
 </head>
 
 <body class="admin index">
-  <p class="notification notice">Welcome, admin!</p>
+  <?php if ($this->session->flashdata('notice')): ?>
+    <p class="notification notice"><?= $this->session->flashdata('notice'); ?></p>
+  <?php elseif ($this->session->flashdata('alert')): ?>
+    <p class="notification alert"><?= $this->session->flashdata('alert'); ?></p>
+  <?php endif; ?>
   <?= anchor('session/logout', 'Sign Out', array('id' => 'sign-out')); ?>
   <div class="wrapper clearfix">
     <aside>

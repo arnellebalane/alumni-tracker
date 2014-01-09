@@ -13,6 +13,7 @@
 
 <body class="alumni home">
   <p class="notification notice"><?php echo ($this->session->flashdata('alert')) ? $this->session->flashdata('alert'): "Welcome, " . $user_info[0]->firstname . " " . $user_info[0]->lastname . "!"; ?></p>
+  <?= anchor('session/logout', 'Sign Out', array('id' => 'sign-out')); ?>
   <div class="wrapper clearfix">
     <aside>
       <ul>

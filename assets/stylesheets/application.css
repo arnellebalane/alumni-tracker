@@ -53,3 +53,20 @@ html {
   border: 1px solid #26681B;
   background-color: #308023;
 }
+
+#sign-in, 
+#sign-out {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #26681B;
+  text-decoration: none;
+}
+
+#sign-in:hover,
+#sign-in:focus,
+#sign-out:hover, 
+#sign-out:focus {
+  color: #308023;
+}

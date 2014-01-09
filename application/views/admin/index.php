@@ -12,6 +12,7 @@
 </head>
 
 <body class="admin index">
+  <?= anchor('session/logout', 'Sign Out', array('id' => 'sign-out')); ?>
   <div class="wrapper clearfix">
     <aside>
       <ul>

@@ -3,10 +3,12 @@
   padding-top: 1px;
 }
 
-h1 {
+#site-logo {
+  display: block;
   font: normal 8rem "Alegreya", "AlegreyaRegular";
   color: #555555;
   text-transform: lowercase;
+  text-decoration: none;
   margin-top: 170px;
 }
 
@@ -45,7 +47,7 @@ p {
   margin-top: 15px;
 }
 
-.pages.login h1 {
+.pages.login #site-logo {
   font-size: 5.5rem;
   line-height: 1;
   margin-bottom: 20px;

@@ -25,13 +25,10 @@
 
       <section id="countries">
         <h1>Countries</h1>
-        <?= form_open('#'); ?>
-          <label><input type="checkbox" name="countries[0]" />Philippines</label>
-          <label><input type="checkbox" name="countries[0]" />Philippines</label>
-          <label><input type="checkbox" name="countries[0]" />Philippines</label>
-          <label><input type="checkbox" name="countries[0]" />Philippines</label>
-          <label><input type="checkbox" name="countries[0]" />Philippines</label>
-
+        <?= form_open('admin/updateCountry'); ?>
+          <?php foreach ($countries as $country) : ?>
+            <label><input type="checkbox" name="countries[<?=$country->id?>]" /><?=$country->name?></label>
+          <?php endforeach; ?>          
           <div class="padded hidden replacement-form">
             <h4>Replace Selected Countries</h4>
             <label class="inline">Country Name</label>
@@ -39,7 +36,7 @@
             <input type="submit" value="Submit" class="button" />
           </div>
         <?= form_close(); ?>
-        <?= form_open('#', array('class' => 'padded')); ?>
+        <?= form_open('admin/addCountry', array('class' => 'padded')); ?>
           <h4>Add Another Country</h4>
           <label class="inline">Country Name</label>
           <input type="text" name="country_name" />
@@ -49,13 +46,10 @@
 
       <section id="employer-type">
         <h1>Employer/Business Types</h1>
-        <?= form_open('#'); ?>
-          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
-          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
-          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
-          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
-          <label><input type="checkbox" name="employer_types[0]" />IT Industry</label>
-
+        <?= form_open('admin/updateEmployerType'); ?>
+          <?php foreach ($employer_types as $type) : ?>
+            <label><input type="checkbox" name="employer_types[<?=$type->id?>]" /><?=$type->name?></label>
+          <?php endforeach; ?>                  
           <div class="padded hidden replacement-form">
             <h4>Replace Selected Employer/Business Types</h4>
             <label class="inline">Employer/Business Type</label>
@@ -63,7 +57,7 @@
             <input type="submit" value="Submit" class="button" />
           </div>
         <?= form_close(); ?>
-        <?= form_open('#', array('class' => 'padded')); ?>
+        <?= form_open('admin/addEmployerType', array('class' => 'padded')); ?>
           <h4>Add Another Employer/Business Type</h4>
           <label class="inline">Employer/Business Type</label>
           <input type="text" name="employer_type" />
@@ -73,16 +67,11 @@
 
       <section id="degree-programs">
         <h1>Degree Programs</h1>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
-        <h3>BS Computer Science</h3>
+        <?php foreach ($programs as $prog) : ?>
+          <h3><?=$prog->name?></h3>
+        <?php endforeach;?>        
 
-        <?= form_open('#', array('class' => 'padded')); ?>
+        <?= form_open('admin/addDegreeProgram', array('class' => 'padded')); ?>
           <h4>Add Another Degree Program</h4>
           <label class="inline">Degree Program</label>
           <input type="text" name="degree_program" />

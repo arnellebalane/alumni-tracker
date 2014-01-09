@@ -10,10 +10,35 @@ class values_model extends CI_Model {
 		return $query->result();
 	}
 
+	function addCountry($name) {
+		$in = $this->db->query("SELECT * FROM countries WHERE name = '".addslashes($name)."'");
+		$res = $in->result();
+		if ($res) {
+			return $res[0]->id;
+		}	else {
+			$this->db->query("INSERT INTO countries (name) VALUES ('".addslashes($name)."')");
+			return mysql_insert_id();
+		}
+	}
+
 	function getPrograms() {
 		$query = $this->db->query("SELECT * from programs");
 		return $query->result();
 	}
+
+	function addProgram($name) {
+		$test = $this->db->query("SELECT * FROM programs WHERE name = '".addslashes($name)."'");
+		$res = $test->result();
+		if ($res) {
+			return $res[0]->id;
+		}
+		$this->db->query("INSERT INTO programs (name) VALUES ('".addslashes($name)."')");
+		return mysql_insert_id();
+	}
+
+	function deleteProgram($id) {
+		$query = $this->db->query("DELETE FROM programs WHERE id = '$id'");
+	} 
 
 	function getSocialNetworks() {
 		$query = $this->db->query("SELECT * from social_networks");

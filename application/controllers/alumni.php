@@ -64,13 +64,11 @@
 			}
 			$this->model->updatePersonalInfo($this->session->userdata('user_id'), $_POST['personal_information']);
 
-			foreach ($_POST['personal_information']['social_networks'] as $key => $value) {
-				if ($value != '') {
-					$this->model->addUserSocialNetwork($this->session->userdata('user_id'), $key, $value);
-				}
+			foreach ($_POST['personal_information']['social_networks'] as $key => $value) {				
+				$this->model->addUserSocialNetwork($this->session->userdata('user_id'), $key, $value);
 			}
 			$this->session->set_flashdata('notice', 'Update successful!');
-			redirect('alumni/home');			
+			redirect('alumni/home');
 		}
 
 		// ADD PERSONAL INFORMATION

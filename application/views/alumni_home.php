@@ -135,9 +135,15 @@
           </div>
           <div class="field">
             <label>Semester/Summer and Year Graduated</label>
-            <h2><?php if ($user_info[0]->semester_graduated == 1) echo "1st Semester"; 
-                      else if ($user_info[0]->semester_graduated == 2) echo "2nd Semester"; 
-                      else echo "Summer"; ?>, AY <?=$user_info[0]->year_graduated?></h2>
+            <h2><?php
+                  if ($user_info[0]->year_graduated == "0 - 0") {
+                    echo "Non-graduate";
+                  }  else {
+                  if ($user_info[0]->semester_graduated == 1) echo "1st Semester"; 
+                  else if ($user_info[0]->semester_graduated == 2) echo "2nd Semester"; 
+                  else echo "Summer"; ?>, AY <? echo $user_info[0]->year_graduated;
+                  } ?>
+            </h2>
             <select name="educational_background[graduated][semester]" class="editable hidden" data-current="<?=$user_info[0]->semester_graduated?>">
               <option value="1" <?=is_selected(1, $user_info[0]->semester_graduated)?>>1st Semester</option>
               <option value="2" <?=is_selected(2, $user_info[0]->semester_graduated)?>>2nd Semester</option>
@@ -150,7 +156,8 @@
                 <option value="<?echo ($ctr-1).'-'.$ctr;?>" <?=is_selected(($ctr-1).'-'.$ctr, $user_info[0]->year_graduated); ?>><?echo ($ctr-1).' - '.$ctr;?></option>
               <? $ctr--;
                 }
-              ?>                            
+              ?> 
+              <option value="0 - 0" <?=is_selected("0 - 0", $user_info[0]->year_graduated); ?>>Non-graduate</option>                           
             </select>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>

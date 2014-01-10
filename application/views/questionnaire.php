@@ -117,7 +117,8 @@
                 <option value="<?echo ($ctr-1).'-'.$ctr;?>" <?=is_selected('educational_background', 'graduated', 'academic_year', null, ($ctr-1).'-'.$ctr); ?>><?echo ($ctr-1).' - '.$ctr;?></option>
               <? $ctr--;
                 }
-              ?>                            
+              ?>
+              <option value="0 - 0" <?=is_selected('educational_background', 'graduated', 'academic_year', null, "0 - 0"); ?>>Non-graduate</option>
             </select>
           </div>
           <div class="field">

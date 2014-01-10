@@ -3,23 +3,12 @@
   padding-top: 1px;
 }
 
-#sign-in {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
-  color: #26681B;
-  text-decoration: none;
-}
-
-#sign-in:hover, #sign-in:focus {
-  color: #308023;
-}
-
-h1 {
+#site-logo {
+  display: block;
   font: normal 8rem "Alegreya", "AlegreyaRegular";
   color: #555555;
   text-transform: lowercase;
+  text-decoration: none;
   margin-top: 170px;
 }
 
@@ -58,7 +47,7 @@ p {
   margin-top: 15px;
 }
 
-.pages.login h1 {
+.pages.login #site-logo {
   font-size: 5.5rem;
   line-height: 1;
   margin-bottom: 20px;

@@ -12,6 +12,8 @@
 </head>
 
 <body class="admin index">
+  <p class="notification notice">Welcome, admin!</p>
+  <?= anchor('session/logout', 'Sign Out', array('id' => 'sign-out')); ?>
   <div class="wrapper clearfix">
     <aside>
       <ul>

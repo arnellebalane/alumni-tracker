@@ -13,7 +13,7 @@
 
 <body class="pages login">
   <?= form_open('session/login', 'POST'); ?>
-    <h1>Alumni Tracker</h1>
+    <?= anchor(base_url(), 'Alumni Tracker', array('id' => 'site-logo')); ?>
     <? if ($this->session->flashdata('alert')) { ?>
       <p class="error">Incorrect username or password.</p>
     <? } ?>

@@ -26,6 +26,13 @@
 			if ($user_data) {
 				$this->session->set_userdata('user_id', $user_data[0]->id);
 				$this->session->set_userdata('user_type', $user_data[0]->user_type);
+				$this->load->model("alumni_model");
+				$info = $this->alumni_model->getUserInfoById($user_data[0]->id);
+				if ($info) {
+					$this->session->set_flashdata("notice", "Welcome, " . $info[0]->firstname . " " . $info[0]->lastname);
+				}	else {
+					$this->session->set_flashdata("notice", "Welcome");
+				}
 				if ($user_data[0]->user_type == "super admin") {
 					redirect('/admin/index');
 				}

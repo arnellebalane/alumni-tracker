@@ -12,11 +12,18 @@ class alumni_model extends CI_Model {
 
 	function addUser($username, $password) {
 		$test = $this->db->query("SELECT * FROM users WHERE username = '$username'");		
-		if ($test->result()) {			
+		if ($test->result()) {
 			return null;
 		}
-		$query = $this->db->query("INSERT INTO users(username, password, user_type) VALUES ('$username', '$password', 'alumni')");		
-		return mysql_insert_id();
+		$query = $this->db->query("INSERT INTO users(username, password, user_type) VALUES ('$username', '$password', 'alumni')");	
+		$user_id = 	mysql_insert_id();
+
+		if ($username == '') {
+			$username = 'alumni-' . $user_id;
+			$this->db->query("UPDATE users SET username = '$username' WHERE id = $user_id");
+		}
+
+		return $user_id;
 	}
 
 	function addEducationalBackground($user_id, $student_number, $program, $semester, $year, $honor) {		
@@ -25,8 +32,8 @@ class alumni_model extends CI_Model {
 	}
 
 	function updateEducationalBackground($user_id, $info) {
-		$query = $this->db->query("UPDATE educational_backgrounds SET student_number='".$info['student_number'].
-															"', program_id='".$info['degree_program']."', semester_graduated='".$info['graduated']['semester']."',
+		$query = $this->db->query("UPDATE educational_backgrounds SET student_number = '".$info['student_number']."', 
+															program_id='".$info['degree_program']."', semester_graduated='".$info['graduated']['semester']."',
 															year_graduated='".$info['graduated']['academic_year']."', honor_received='".$info['honor_received']."'
 															WHERE user_id='$user_id'");		
 	}
@@ -112,6 +119,11 @@ class alumni_model extends CI_Model {
 	
 	function getUserByStudentNumber($student_number) {
 		$query = $this->db->query("SELECT * FROM educational_backgrounds WHERE student_number = '$student_number'");
+		return $query->result();
+	}
+
+	function getEducationalBackground($id) {
+		$query = $this->db->query("SELECT * FROM educational_backgrounds WHERE user_id = '$id'");
 		return $query->result();
 	}
 

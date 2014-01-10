@@ -112,12 +112,12 @@
 
 		// ADD EDUCATIONAL BACKGROUND
 		private function addEducationBackground($info, $email) {			
-			$username = $email;
+			$username = '';
 			if ($info['student_number'] != '') {
 				$username = $info['student_number'];
 			}
 			$pass = $this->generatePassword();
-			$user_id = $this->model->addUser(addslashes($username), $pass);			
+			$user_id = $this->model->addUser(addslashes($username), $pass);
 			if ($user_id == null) {
 				return null;
 			}
@@ -131,16 +131,26 @@
 			if (!$this->session->userdata('user_id')) {
 				redirect('home/index');
 			}
-			if (!$this->validateEducationalBackground($_POST['educational_background'])) {
+
+			if ($this->validateEducationalBackground($_POST['educational_background'])) {
+				$addnote = '';
+				$stud = $this->model->getEducationalBackground($this->session->userdata('user_id'));
+				if (($stud != null && $stud[0]->student_number != '') && $_POST['educational_background']['student_number'] == '') {
+					$_POST['educational_background']['student_number'] = $stud[0]->student_number;
+					$addnote = ' (w/ student number unchanged)';
+				}
+			} else {
 				$stud = $this->model->getUserByStudentNumber(addslashes($_POST['educational_background']['student_number']));
 				if (($stud != null) && ($stud[0]->user_id != $this->session->userdata('user_id'))) {
 					$this->session->set_flashdata('alert', "Student number not available!");
 					redirect('alumni/home');
 				}
 			}
+
 			$this->model->updateEducationalBackground($this->session->userdata('user_id'), $_POST['educational_background']);
 			$this->model->updateUserStudentNumber($this->session->userdata('user_id'), $_POST['educational_background']['student_number']);
-			$this->session->set_flashdata('notice', 'Update successful!');
+			$this->session->set_flashdata('notice', 'Update successful!'.$addnote);
+
 			redirect('alumni/home');
 		}
 
@@ -243,15 +253,22 @@
 		}
 
 		private function validateEducationalBackground($info) {
-			if (strlen($info['student_number']) != 10 || $info['student_number'][4] != '-') {
+			if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {
 				$this->session->set_flashdata('alert', "Invalid student number.");
 				return false;
 			}
-			for($ctr = 0; $ctr < 10; $ctr++) {
-				if ($ctr != 4) {
-					if (!$this->isNumber($info['student_number'][$ctr])) {
-						$this->session->set_flashdata('alert', "Invalid student number.");
-						return false;
+			if ($info['student_number'] != '') { 
+				for($ctr = 0; $ctr < 10; $ctr++) {
+					if ($ctr != 4) {
+						if (!$this->isNumber($info['student_number'][$ctr])) {
+							$this->session->set_flashdata('alert', "Invalid student number.");
+							return false;
+						}
+					} else {
+						if ($info['student_number'][4] != '-') {
+							$this->session->set_flashdata('alert', "Invalid student number.");
+							return false;
+						}
 					}
 				}
 			}

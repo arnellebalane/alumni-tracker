@@ -143,9 +143,11 @@ var notifications = {
 
 var alumni = {
   initialize: function() {
-    alumni.initializeSidebar();
-    alumni.initializeEditableFields();
-    alumni.initializeEmploymentHistory();
+    if ($('body').hasClass('alumni')) {
+      alumni.initializeSidebar();
+      alumni.initializeEditableFields();
+      alumni.initializeEmploymentHistory();
+    }
   },
   initializeSidebar: function() {
     $('.alumni.home aside a').on('click', function(e) {
@@ -204,51 +206,80 @@ var alumni = {
 
 var admin = {
   initialize: function() {
-    $('section input[type="checkbox"]').on('change', function() {
-      var section = $(this).closest('section');
-      if (section.find('input[type="checkbox"]:checked').length > 0) {
-        section.find('.replacement-form').removeClass('hidden');
-      } else {
-        section.find('.replacement-form').addClass('hidden');
-      }
-    });
-
-    $('section:not(#ge-courses) h3').delegate('a[data-behavior="edit"]', 'click', function(e) {
-      e.preventDefault();
-      var form = $(this).siblings('form');
-      form.toggleClass('hidden');
-      form.find('input[type="text"]').focus();
-      $(this).siblings('span').toggleClass('hidden');
-      $(this).attr('data-behavior', 'cancel').text('[cancel]');
-    }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
-      e.preventDefault();
-      var form = $(this).siblings('form');
-      form.toggleClass('hidden');
-      form.find('input[type="text"]').val(form.find('input[type="text"]').data('current'));
-      $(this).siblings('span').toggleClass('hidden');
-      $(this).attr('data-behavior', 'edit').text('[edit]');
-    });
-
-    $('section h3 div').delegate('a[data-behavior="edit"]', 'click', function(e) {
-      e.preventDefault();
-      var form = $(this).closest('div').siblings('form');
-      form.toggleClass('hidden');
-      form.find('input[type="text"]').first().focus();
-      form.siblings('p').toggleClass('hidden');
-      $(this).attr('data-behavior', 'cancel').text('[cancel]');
-      form.append(form.siblings('div'));
-      form.siblings('div').remove();
-    }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
-      e.preventDefault();
-      var form = $(this).closest('form');
-      form.toggleClass('hidden');
-      form.find('input[type="text"]').each(function() {
-        $(this).val($(this).data('current'));
+    admin.initializeQuestionnaireData();
+    admin.initializeFormCleaning();
+  },
+  initializeQuestionnaireData: function() {
+    if ($('body').hasClass('admin index')) {
+      $('section input[type="checkbox"]').on('change', function() {
+        var section = $(this).closest('section');
+        if (section.find('input[type="checkbox"]:checked').length > 0) {
+          section.find('.replacement-form').removeClass('hidden');
+        } else {
+          section.find('.replacement-form').addClass('hidden');
+        }
       });
-      form.siblings('p').toggleClass('hidden');
-      $(this).attr('data-behavior', 'edit').text('[edit]');
-      form.after(form.find('div'));
-      form.find('div').remove();
-    });
+
+      $('section:not(#ge-courses) h3').delegate('a[data-behavior="edit"]', 'click', function(e) {
+        e.preventDefault();
+        var form = $(this).siblings('form');
+        form.toggleClass('hidden');
+        form.find('input[type="text"]').focus();
+        $(this).siblings('span').toggleClass('hidden');
+        $(this).attr('data-behavior', 'cancel').text('[cancel]');
+      }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
+        e.preventDefault();
+        var form = $(this).siblings('form');
+        form.toggleClass('hidden');
+        form.find('input[type="text"]').val(form.find('input[type="text"]').data('current'));
+        $(this).siblings('span').toggleClass('hidden');
+        $(this).attr('data-behavior', 'edit').text('[edit]');
+      });
+
+      $('section h3 div').delegate('a[data-behavior="edit"]', 'click', function(e) {
+        e.preventDefault();
+        var form = $(this).closest('div').siblings('form');
+        form.toggleClass('hidden');
+        form.find('input[type="text"]').first().focus();
+        form.siblings('p').toggleClass('hidden');
+        $(this).attr('data-behavior', 'cancel').text('[cancel]');
+        form.append(form.siblings('div'));
+        form.siblings('div').remove();
+      }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
+        e.preventDefault();
+        var form = $(this).closest('form');
+        form.toggleClass('hidden');
+        form.find('input[type="text"]').each(function() {
+          $(this).val($(this).data('current'));
+        });
+        form.siblings('p').toggleClass('hidden');
+        $(this).attr('data-behavior', 'edit').text('[edit]');
+        form.after(form.find('div'));
+        form.find('div').remove();
+      });
+    }
+  },
+  initializeFormCleaning: function() {
+    if ($('body').hasClass('admin clean')) {
+      $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
+        e.preventDefault();
+        $(this).siblings('.editable, h4').toggleClass('hidden');
+        $(this).siblings('.editable').find('input[type="text"]').first().focus();
+        $(this).attr('data-behavior', 'cancel').text('[cancel]');
+      }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
+        e.preventDefault();
+        $(this).siblings('.editable, h4').toggleClass('hidden');
+        $(this).siblings('.editable').find('input[type="text"]').each(function() {
+          $(this).val($(this).data('current'));
+        });
+        $(this).siblings('.editable').find('input[type="radio"]').each(function() {
+          $(this).prop('checked', $(this).data('current'));
+        });
+        $(this).siblings('.editable').find('select').each(function() {
+          $(this).val($(this).data('current'));
+        });
+        $(this).attr('data-behavior', 'edit').text('[edit]');
+      });
+    }
   }
 };

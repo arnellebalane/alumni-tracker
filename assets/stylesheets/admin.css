@@ -337,9 +337,18 @@ aside li a.current:before {
 
 .admin.clean .field h4 {
   display: inline-block;
-  width: 350px;
+  max-width: 275px;
   font: bold 1.4rem "Open Sans Light";
   color: #333333;
+}
+
+.admin.clean .field a {
+  display: inline-block;
+  vertical-align: top;
+  font: normal 1rem "Open Sans Light", "OpenSansLight";
+  color: #005BC2;
+  text-transform: uppercase;
+  margin: 3px 0 0 10px;
 }
 
 .admin.clean .job {
@@ -354,8 +363,41 @@ aside li a.current:before {
   border-bottom: none;
 }
 
-.admin.clean #others label {
-  width: 260px;
-  padding-left: 15px;
-  text-indent: -15px;
+.admin.clean .editable {
+  display: inline-block;
+  min-width: 150px;
+}
+
+.admin.clean .editable input[type="text"],
+.admin.clean .editable select {
+  width: 200px;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #333333;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  outline: none;
+  margin: 0;
+  -webkit-transition: box-shadow 250ms ease;
+  -moz-transition: box-shadow 250ms ease;
+  -o-transition: box-shadow 250ms ease;
+  -ms-transition: box-shadow 250ms ease;
+  transition: box-shadow 250ms ease;
+}
+
+.admin.clean .editable input[type="text"]:focus,
+.admin.clean .editable select:focus {
+  box-shadow: 0 0 3px #30FC0D;
+}
+
+.admin.clean .editable select {
+  width: 212px;
+}
+
+.admin.clean .editable label {
+  width: auto;
+}
+
+.admin.clean #educational-background select[name^="graduated"] {
+  width: auto;
 }

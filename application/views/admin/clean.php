@@ -33,217 +33,238 @@
         <?= anchor('#', 'Discard', array('class' => 'red')); ?>
       </div>
 
-      <section id="personal-information">
-        <h3>Personal Information</h3>
-        <div class="field">
-          <label>First Name</label>
-          <h4>Arnelle</h4>
-        </div>
-        <div class="field">
-          <label>Last Name</label>
-          <h4>Balane</h4>
-        </div>
-        <div class="field">
-          <label>Gender</label>
-          <h4>Male</h4>
-        </div>
-        <div class="field">
-          <label>Present Address</label>
-          <h4>Cebu City</h4>
-        </div>
-        <div class="field">
-          <label>Contact Number in Present Address</label>
-          <h4>09496547250</h4>
-        </div>
-        <div class="field">
-          <label>Permanent Address</label>
-          <h4>Tagbilaran City</h4>
-        </div>
-        <div class="field">
-          <label>Contact Number in Permanent Address</label>
-          <h4>09496547250</h4>
-        </div>
-        <div class="field">
-          <label>Email Address</label>
-          <h4>arnellebalane@gmail.com</h4>
-        </div>
-        <span>Social Network Contact Information</span>
-        <div class="field indented">
-          <label>Facebook</label>
-          <h4>Arnelle Balane</h4>
-        </div>
-        <div class="field indented">
-          <label>Twitter</label>
-          <h4>arnellebalane</h4>
-        </div>
-      </section>
+      <?= form_open('#'); ?>
+        <section id="personal-information">
+          <h3>Personal Information</h3>
+          <div class="field">
+            <label>First Name</label>
+            <h4>Arnelle</h4>
+            <div class="editable hidden">
+              <input type="text" name="firstname" value="Arnelle" data-current="Arnelle" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Last Name</label>
+            <h4>Balane</h4>
+            <div class="editable hidden">
+              <input type="text" name="lastname" value="Balane" data-current="Balane" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Gender</label>
+            <h4>Male</h4>
+            <div class="editable hidden">
+              <label><input type="radio" name="gender" value="male" data-current="true" checked />Male</label>
+              <label><input type="radio" name="gender" value="female" data-current="false" />Female</label>
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Present Address</label>
+            <h4>Cebu City</h4>
+            <div class="editable hidden">
+              <input type="text" name="present_address" value="Cebu City" data-current="Cebu City" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Contact Number in Present Address</label>
+            <h4>09496547250</h4>
+            <div class="editable hidden">
+              <input type="text" name="present_address_contact_number" value="09496547250" data-current="09496547250" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Permanent Address</label>
+            <h4>Tagbilaran City</h4>
+            <div class="editable hidden">
+              <input type="text" name="permanent_address" value="Tagbilaran City" data-current="Tagbilaran City" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Contact Number in Permanent Address</label>
+            <h4>09496547250</h4>
+            <div class="editable hidden">
+              <input type="text" name="permanent_address_contact_number" value="09496547250" data-current="09496547250" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <h4>arnellebalane@gmail.com</h4>
+            <div class="editable hidden">
+              <input type="text" name="email_address" value="arnellebalane@gmail.com" data-current="arnellebalane@gmail.com" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <span>Social Network Contact Information</span>
+          <div class="field indented">
+            <label>Facebook</label>
+            <h4>Arnelle Balane</h4>
+            <div class="editable hidden">
+              <input type="text" name="social_networks[1]" value="Arnelle Balane" data-current="Arnelle Balane" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field indented">
+            <label>Twitter</label>
+            <h4>arnellebalane</h4>
+            <div class="editable hidden">
+              <input type="text" name="social_networks[2]" value="arnellebalane" data-current="arnellebalane" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+        </section>
 
-      <section id="educational-background">
-        <h3>Educational Background</h3>
-        <div class="field">
-          <label>Student Number</label>
-          <h4>2011-37575</h4>
-        </div>
-        <div class="field">
-          <label>Degree Program</label>
-          <h4>BS Computer Science</h4>
-        </div>
-        <div class="field">
-          <label>Semester/Summer and Year Graduated</label>
-          <h4>2nd Semester, AY 2013 - 2014</h4>
-        </div>
-        <div class="field">
-          <label>Honor Received</label>
-          <h4>None</h4>
-        </div>
-      </section>
+        <section id="educational-background">
+          <h3>Educational Background</h3>
+          <div class="field">
+            <label>Student Number</label>
+            <h4>2011-37575</h4>
+            <div class="editable hidden">
+              <input type="text" name="student_number" value="2011-37575" data-current="2011-37575" />
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Degree Program</label>
+            <h4>BS Computer Science</h4>
+            <div class="editable hidden">
+              <select name="degree_program" data-current="1">
+                <option value="1">BS Computer Science</option>
+                <option value="2">BS Mathematics</option>
+                <option value="3">BS Biology</option>
+              </select>
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Semester/Summer and Year Graduated</label>
+            <h4>2nd Semester, AY 2013 - 2014</h4>
+            <div class="editable hidden">
+              <select name="graduated[semester]" data-current="2nd-semester">
+                <option value="1st-semester">1st Semester</option>
+                <option value="2nd-semester" selected>2nd Semester</option>
+                <option value="summer">Summer</option>
+              </select>
+              <select name="graduated[academic_year]" data-current="2013-2014">
+                <option value="2013-2014" selected>2013-2014</option>
+                <option value="2012-2013">2012-2013</option>
+                <option value="2011-2012">2011-2012</option>
+                <option value="2010-2011">2010-2011</option>
+                <option value="2009-2010">2009-2010</option>
+              </select>
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
+            <label>Honor Received</label>
+            <h4>None</h4>
+            <div class="editable hidden">
+              <select name="honor_received" data-current="none">
+                <option value="summa-cum-laude">Summa Cum Laude</option>
+                <option value="magna-cum-laude">Magna Cum Laude</option>
+                <option value="cum-laude">Cum Laude</option>
+                <option value="none" selected>None</option>
+              </select>
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+        </section>
 
-      <section id="employment-history">
-        <h3>Employment History</h3>
-        <div class="job">
-          <div class="field">
-            <label>Self-employed?</label>
-            <h4>No</h4>
+        <section id="employment-history">
+          <h3>Employment History</h3>
+          <div class="job">
+            <div class="field">
+              <label>Self-employed?</label>
+              <h4>No</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Employer</label>
+              <h4>Insert Company Name Here</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Employer/Business Type</label>
+              <h4>IT Company</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Job Title/Position</label>
+              <h4>Developer</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Monthly Salary (in Philippine Peso)</label>
+              <h4>10,000 and below</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Employment Duration</label>
+              <h4>2014 - ongoing</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Satisfied with job?</label>
+              <h4>Yes</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Why or why not satisfied?</label>
+              <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
           </div>
-          <div class="field">
-            <label>Employer</label>
-            <h4>Insert Company Name Here</h4>
-          </div>
-          <div class="field">
-            <label>Employer/Business Type</label>
-            <h4>IT Company</h4>
-          </div>
-          <div class="field">
-            <label>Job Title/Position</label>
-            <h4>Developer</h4>
-          </div>
-          <div class="field">
-            <label>Monthly Salary (in Philippine Peso)</label>
-            <h4>10,000 and below</h4>
-          </div>
-          <div class="field">
-            <label>Employment Duration</label>
-            <h4>2014 - ongoing</h4>
-          </div>
-          <div class="field">
-            <label>Satisfied with job?</label>
-            <h4>Yes</h4>
-          </div>
-          <div class="field">
-            <label>Why or why not satisfied?</label>
-            <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
-          </div>
-        </div>
 
-        <div class="job">
-          <div class="field">
-            <label>Self-employed?</label>
-            <h4>No</h4>
+          <div class="job">
+            <div class="field">
+              <label>Self-employed?</label>
+              <h4>No</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Employer</label>
+              <h4>Insert Company Name Here</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Employer/Business Type</label>
+              <h4>IT Company</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Job Title/Position</label>
+              <h4>Developer</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Monthly Salary (in Philippine Peso)</label>
+              <h4>10,000 and below</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Employment Duration</label>
+              <h4>2014 - ongoing</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Satisfied with job?</label>
+              <h4>Yes</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
+            <div class="field">
+              <label>Why or why not satisfied?</label>
+              <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
+              <a href="#" data-behavior="edit">[edit]</a>
+            </div>
           </div>
-          <div class="field">
-            <label>Employer</label>
-            <h4>Insert Company Name Here</h4>
-          </div>
-          <div class="field">
-            <label>Employer/Business Type</label>
-            <h4>IT Company</h4>
-          </div>
-          <div class="field">
-            <label>Job Title/Position</label>
-            <h4>Developer</h4>
-          </div>
-          <div class="field">
-            <label>Monthly Salary (in Philippine Peso)</label>
-            <h4>10,000 and below</h4>
-          </div>
-          <div class="field">
-            <label>Employment Duration</label>
-            <h4>2014 - ongoing</h4>
-          </div>
-          <div class="field">
-            <label>Satisfied with job?</label>
-            <h4>Yes</h4>
-          </div>
-          <div class="field">
-            <label>Why or why not satisfied?</label>
-            <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
-          </div>
-        </div>
-      </section>
-
-      <section id="others">
-        <h3>Others</h3>
-        <div class="field">
-          <label>Is any of your jobs related to the degree program you finished?</label>
-          <h4>Yes</h4>
-        </div>
-        <div class="field">
-          <label>What courses did you take in your curriculum that are/were useful in your job?</label>
-          <h4>CMSC 11, CMSC 21, CMSC 123</h4>
-        </div>
-        <div class="field">
-          <label>What courses would you suggest that are useful in the curriculum but are not offered in your program?</label>
-          <h4>Course1, Course 2, Course 3</h4>
-        </div>
-        <div class="field">
-          <label>What GE/RGEP courses did you find useful in your job?</label>
-          <h4>Nat Sci 1, Envi Sci 1</h4>
-        </div>
-        <div class="field">
-          <label></label>
-          <h4></h4>
-        </div>
-      </section>
-
-
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
-      <div class="field">
-        <label></label>
-        <h4></h4>
-      </div>
+        </section>
+      <?= form_close(); ?>
     </div>
   </div>
 </body>

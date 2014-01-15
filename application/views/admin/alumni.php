@@ -30,6 +30,20 @@
       <h1>Alumni Data</h1>
       <p>This is a listing of all the data submitted by the alumni through the questionnaire.</p>
 
+      <?= form_open('admin/alumni', array('class' => 'filter', 'method' => 'GET')); ?>
+        <select name="cleaned">
+          <option>All Entries</option>
+          <option>Cleaned Entries</option>
+          <option>Uncleaned Entries</option>
+        </select>
+        <select name="program_id">
+          <option value="1">BS Computer Science</option>
+          <option value="1">BS Mathematics</option>
+          <option value="1">BS Biology</option>
+        </select>
+        <input type="submit" value="filter" />
+      <?= form_close(); ?>
+
       <ul class="list">
         <?php foreach ($alumni as $alumnus): ?>
           <li>

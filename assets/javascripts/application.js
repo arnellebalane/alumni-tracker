@@ -148,7 +148,7 @@ var alumni = {
     alumni.initializeEmploymentHistory();
   },
   initializeSidebar: function() {
-    $('aside a').on('click', function(e) {
+    $('.alumni.home aside a').on('click', function(e) {
       e.preventDefault();
       var li = $(this).closest('li');
       if (!li.hasClass('current')) {

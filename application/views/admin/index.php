@@ -21,7 +21,8 @@
   <div class="wrapper clearfix">
     <aside>
       <ul>
-        <li><a href="#" class="current">Questionnaire Data</a></li>
+        <li><?= anchor('admin/index', 'Questionnaire Data', array('class' => 'current')); ?></li>
+        <li><?= anchor('admin/alumni', 'Alumni Data'); ?></li>
       </ul>
     </aside>
 

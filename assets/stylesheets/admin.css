@@ -208,3 +208,50 @@ aside li a.current:before {
 .content #social-networks h3 form input[type="text"] {
   width: 120px;
 }
+
+.list li {
+  position: relative;
+}
+
+.list li:nth-of-type(even) {
+  background-color: #f5f5f5;
+}
+
+.list li > a {
+  display: block;
+  font: normal 1.6rem/3.2rem "Open Sans Light", "OpenSansLight";
+  color: #333333;
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+.list li:hover > a,
+.list li > a:hover,
+.list li > a:focus {
+  color: #ffffff;
+  background-color: #399B28;
+}
+
+.list li:hover .actions {
+  background-color: #A2C99C;
+}
+
+.list li .actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 10px;
+}
+
+.list li .actions a {
+  display: inline-block;
+  font: normal 1.2rem/3.2rem "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.list li .actions a:hover,
+.list li .actions a:focus {
+  text-decoration: underline;
+}

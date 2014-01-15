@@ -236,6 +236,19 @@ aside li a.current:before {
   background-color: #A2C99C;
 }
 
+.list li > a.cleaned:after {
+  content: "[cleaned]";
+  font: normal 1.2rem "Open Sans Light", "OpenSansLight";
+  color: #399B28;
+  text-transform: uppercase;
+  margin-left: 10px;
+}
+
+.list li:hover > a.cleaned:after,
+.list li > a.cleaned:focus:after {
+  color: #ffffff;
+}
+
 .list li .actions {
   position: absolute;
   top: 0;

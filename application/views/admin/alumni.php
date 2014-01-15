@@ -33,7 +33,7 @@
       <ul class="list">
         <?php for ($i = 0; $i < 50; $i++): ?>
           <li>
-            <?= anchor('admin/clean/1', 'Arnelle Balane'); ?>
+            <?= anchor('admin/clean/1', 'Arnelle Balane', array('class' => 'cleaned')); ?>
             <div class="actions">
               <?= anchor('#', 'Discard'); ?>
             </div>

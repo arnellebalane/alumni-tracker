@@ -146,12 +146,12 @@
             <label>Semester/Summer and Year Graduated</label>
             <h4>2nd Semester, AY 2013 - 2014</h4>
             <div class="editable hidden">
-              <select name="graduated[semester]" data-current="2nd-semester">
+              <select name="graduated[semester]" class="auto" data-current="2nd-semester">
                 <option value="1st-semester">1st Semester</option>
                 <option value="2nd-semester" selected>2nd Semester</option>
                 <option value="summer">Summer</option>
               </select>
-              <select name="graduated[academic_year]" data-current="2013-2014">
+              <select name="graduated[academic_year]" class="auto" data-current="2013-2014">
                 <option value="2013-2014" selected>2013-2014</option>
                 <option value="2012-2013">2012-2013</option>
                 <option value="2011-2012">2011-2012</option>
@@ -179,87 +179,94 @@
         <section id="employment-history">
           <h3>Employment History</h3>
           <div class="job">
+            <h4>Current Job</h4>
             <div class="field">
               <label>Self-employed?</label>
               <h4>No</h4>
+              <div class="editable hidden">
+                <label><input type="radio" name="jobs[0][self_employed]" value="yes" data-current="true" checked>Yes</label>
+                <label><input type="radio" name="jobs[0][self_employed]" value="no" data-current="false">No</label>
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Employer</label>
               <h4>Insert Company Name Here</h4>
+              <div class="editable hidden">
+                <input type="text" name="jobs[0][employer]" value="Insert Company Name Here" data-current="Insert Company Name Here" />
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Employer/Business Type</label>
               <h4>IT Company</h4>
+              <div class="editable hidden">
+                <select name="jobs[0][business_type]" data-current="1">
+                  <option value="1" selected>IT Industry</option>
+                  <option value="2">BPO</option>
+                  <option value="3">KPO</option>
+                </select>
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Job Title/Position</label>
               <h4>Developer</h4>
+              <div class="editable hidden">
+                <input type="text" name="jobs[0][job_title]" value="Developer" data-current="Developer" />
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Monthly Salary (in Philippine Peso)</label>
               <h4>10,000 and below</h4>
+              <div class="editable hidden">
+                <select name="jobs[0][monthly_salary]" data-current="1">
+                  <option value="1">10,000 and below</option>
+                  <option value="2">40,000 to 60,000</option>
+                  <option value="3">100,000 and above</option>
+                </select>
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Employment Duration</label>
               <h4>2014 - ongoing</h4>
+              <div class="editable hidden">
+                <select name="jobs[0][employment_duration][start_year]" class="auto" data-current="2013">
+                  <option value="2014">2014</option>
+                  <option value="2013" selected>2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                  <option value="2010">2010</option>
+                </select>
+                <span>to</span>
+                <select name="jobs[0][employment_duration][start_year]" class="auto" data-current="ongoing">
+                  <option value="ongoing" selected>ongoing</option>
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                  <option value="2011">2011</option>
+                  <option value="2010">2010</option>
+                </select>
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Satisfied with job?</label>
               <h4>Yes</h4>
+              <div class="editable hidden">
+                <label><input type="radio" name="jobs[0][satisfied_with_job]" value="yes" data-current="true" checked />Yes</label>
+                <label><input type="radio" name="jobs[0][satisfied_with_job]" value="no" data-current="false" />No</label>
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Why or why not satisfied?</label>
               <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-          </div>
-
-          <div class="job">
-            <div class="field">
-              <label>Self-employed?</label>
-              <h4>No</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Employer</label>
-              <h4>Insert Company Name Here</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Employer/Business Type</label>
-              <h4>IT Company</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Job Title/Position</label>
-              <h4>Developer</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Monthly Salary (in Philippine Peso)</label>
-              <h4>10,000 and below</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Employment Duration</label>
-              <h4>2014 - ongoing</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Satisfied with job?</label>
-              <h4>Yes</h4>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field">
-              <label>Why or why not satisfied?</label>
-              <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
+              <div class="editable hidden">
+                <textarea name="jobs[0][satisfaction_reason]" data-current="current value here">current value here</textarea>
+              </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
           </div>

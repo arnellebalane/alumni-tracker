@@ -264,12 +264,12 @@ var admin = {
       $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
         e.preventDefault();
         $(this).siblings('.editable, h4').toggleClass('hidden');
-        $(this).siblings('.editable').find('input[type="text"]').first().focus();
+        $(this).siblings('.editable').find('input[type="text"], textarea').first().focus();
         $(this).attr('data-behavior', 'cancel').text('[cancel]');
       }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
         e.preventDefault();
         $(this).siblings('.editable, h4').toggleClass('hidden');
-        $(this).siblings('.editable').find('input[type="text"]').each(function() {
+        $(this).siblings('.editable').find('input[type="text"], textarea').each(function() {
           $(this).val($(this).data('current'));
         });
         $(this).siblings('.editable').find('input[type="radio"]').each(function() {

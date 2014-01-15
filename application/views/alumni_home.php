@@ -24,6 +24,7 @@
         <li class="current visited" data-slide="personal-information"><a href="#">Personal Information</a></li>
         <li class="visited" data-slide="educational-background"><a href="#">Educational Background</a></li>
         <li class="visited" data-slide="employment-history"><a href="#">Employment History</a></li>
+        <li data-slide="login-credentials"><a href="#">Login Credentials</a></li>
       </ul>
     </aside>
 
@@ -326,6 +327,29 @@
             <input type="button" value="Update Current Job" class="button" data-behavior="update-current-job" />
             <input type="submit" value="Submit" class="button hidden" />
             <a href="#" class="hidden" data-behavior="cancel">[cancel]</a>
+          </div>
+        </div>
+      <?= form_close(); ?>
+
+      <?= form_open('#'); ?>
+        <div class="slide hidden" data-name="login-credentials">
+          <h1>Login Credentials</h1>
+          <p>Edit the information used to login to your account.</p>
+
+          <div class="field">
+            <label>Current Password</label>
+            <input type="password" name="current_password" />
+          </div>
+          <div class="field">
+            <label>New Password</label>
+            <input type="password" name="new_password" />
+          </div>
+          <div class="field">
+            <label>Confirm New Password</label>
+            <input type="password" name="confirm_new_password" />
+          </div>
+          <div class="field actions">
+            <input type="submit" value="Update Password" class="button" />
           </div>
         </div>
       <?= form_close(); ?>

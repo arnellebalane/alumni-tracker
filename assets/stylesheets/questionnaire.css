@@ -102,6 +102,7 @@ aside li:after {
 
 .content .field input[type="text"], 
 .content .field input[type="email"], 
+.content .field input[type="password"],
 .content .field select,
 .content .field textarea {
   width: 270px;
@@ -121,9 +122,14 @@ aside li:after {
 
 .content .field input[type="text"]:focus, 
 .content .field input[type="email"]:focus, 
+.content .field input[type="password"]:focus,
 .content .field select:focus,
 .content .field textarea:focus {
   box-shadow: 0 0 3px #30FC0D;
+}
+
+.content .field input[type="password"] {
+  font-size: 1.5rem;
 }
 
 .content .field select {

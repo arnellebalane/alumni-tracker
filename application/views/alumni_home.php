@@ -331,7 +331,7 @@
         </div>
       <?= form_close(); ?>
 
-      <?= form_open('#'); ?>
+      <?= form_open('alumni/updateAccount'); ?>
         <div class="slide hidden" data-name="login-credentials">
           <h1>Login Credentials</h1>
           <p>Edit the information used to login to your account.</p>

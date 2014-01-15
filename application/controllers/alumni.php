@@ -31,14 +31,14 @@
 			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
 			}  
-			$old_password = $_POST['old-password'];
-			$new_password = $_POST['new-password'];
-			$re_password = $_POST['re-password'];
-			if (($old_password = "") || ($new_password = "") || ($re_password = "")) {
+			$old_password = $_POST['current_password'];
+			$new_password = $_POST['new_password'];
+			$re_password = $_POST['confirm_new_password'];
+			if (($old_password == "") || ($new_password == "") || ($re_password == "")) {
 				$this->session->set_flashdata("alert", "Please fill-up all the fields for the password!");
 			}	else if ($new_password != $re_password) {
 				$this->session->set_flashdata("alert", "Passwords does not match!");
-			}	else if (count($new_password) < 5) {
+			}	else if (strlen($new_password) < 5) {
 				$this->session->set_flashdata("alert", "Password should have at least 5 characters!");
 			}	else {
 				$res = $this->model->getUserById($this->session->userdata('user_id'));
@@ -49,7 +49,7 @@
 					$this->session->set_flashdata("notice", "Password updated successfully!");
 				}
 			}
-			redirect('alumni_home');
+			redirect('alumni/home');
 		}
 
 		public function add() {		

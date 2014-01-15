@@ -95,27 +95,39 @@
 
       <section id="ge-courses">
         <h1>GE Courses</h1>
-        <h3>
-          <p>Nat Sci 1</p>
-          <p>Natural Science 1</p>
-          <p><i>Lorem ipsum Sint dolore sint non.</i></p>
-          <?= form_open('#', array('class' => 'hidden')); ?>
-            <input type="text" name="ge_course_code" value="" data-current="" />
-            <input type="text" name="ge_course_name" value="" data-current="" />
-            <input type="text" name="ge_course_description" value="" data-current="" />
-            <input type="hidden" name="ge_course_id" value="" />
-            <input type="submit" value="Submit" class="button" />
-          <?= form_close(); ?>
-          <div>
-            <a href="#" data-behavior="edit">[edit]</a>
-            <a href="#">[delete]</a>
-          </div>
-        </h3>
+        <?php foreach ($ge_courses as $ge_course): ?>
+          <h3>
+            <p><?= $ge_course->code; ?></p>
+            <p><?= $ge_course->name; ?></p>
+            <p><i><?= $ge_course->description; ?></i></p>
+            <?= form_open('admin/updateGECourse', array('class' => 'hidden')); ?>
+              <input type="text" name="GE_code" value="<?= $ge_course->code; ?>" data-current="<?= $ge_course->code; ?>" />
+              <input type="text" name="GE_name" value="<?= $ge_course->name; ?>" data-current="<?= $ge_course->name; ?>" />
+              <input type="text" name="GE_description" value="<?= $ge_course->description; ?>" data-current="<?= $ge_course->description; ?>" />
+              <input type="hidden" name="ge_course_id" value="<?= $ge_course->id; ?>" />
+              <input type="submit" value="Submit" class="button" />
+            <?= form_close(); ?>
+            <div>
+              <a href="#" data-behavior="edit">[edit]</a>
+              <a href="#">[delete]</a>
+            </div>
+          </h3>
+        <?php endforeach; ?>
 
-        <?= form_open('#', array('class' => 'padded')); ?>
+        <?= form_open('admin/addGECourse', array('class' => 'padded')); ?>
           <h4>Add Another GE Course</h4>
-          <label class="inline">GE Course</label>
-          <input type="text" name="ge_course" />
+          <div class="field">
+            <label class="inline">GE Course Code</label>
+            <input type="text" name="GE_code" />
+          </div>
+          <div class="field">
+            <label class="inline">GE Course Name</label>
+            <input type="text" name="GE_name" />
+          </div>
+          <div class="field">
+            <label class="inline">GE Course Description</label>
+            <input type="text" name="GE_description" />
+          </div>
           <input type="submit" value="Submit" class="button" />
         <?= form_close(); ?>
       </section>

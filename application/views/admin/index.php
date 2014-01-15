@@ -105,12 +105,12 @@
               <input type="text" name="GE_code" value="<?= $ge_course->code; ?>" data-current="<?= $ge_course->code; ?>" />
               <input type="text" name="GE_name" value="<?= $ge_course->name; ?>" data-current="<?= $ge_course->name; ?>" />
               <input type="text" name="GE_description" value="<?= $ge_course->description; ?>" data-current="<?= $ge_course->description; ?>" />
-              <input type="hidden" name="ge_course_id" value="<?= $ge_course->id; ?>" />
+              <input type="hidden" name="GE_id" value="<?= $ge_course->id; ?>" />
               <input type="submit" value="Submit" class="button" />
             <?= form_close(); ?>
             <div>
               <a href="#" data-behavior="edit">[edit]</a>
-              <a href="#">[delete]</a>
+              <?=anchor('admin/deleteGECourse/'.$ge_course->id,'[delete]')?>
             </div>
           </h3>
         <?php endforeach; ?>
@@ -144,7 +144,7 @@
               <input type="submit" value="Submit" class="button" />
             <?= form_close(); ?>
             <a href="#" data-behavior="edit">[edit]</a>
-            <?= anchor('admin/deleteSocialNetwork/1', '[delete]'); ?>
+            <?= anchor('admin/deleteSocialNetwork/'.$social_network->id, '[delete]'); ?>
           </h3>
         <?php endforeach; ?>
 

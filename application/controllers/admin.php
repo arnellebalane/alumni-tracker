@@ -113,8 +113,8 @@
         redirect('/admin/index');
     }
 
-    public function deleteSocialNetwork() {
-        if ($this->values->deleteSocialNetwork($_POST['social_network_id'])) {
+    public function deleteSocialNetwork($id) {
+        if ($this->values->deleteSocialNetwork($id)) {
             $this->session->set_flashdata("notice", "The social network has been deleted!"); 
         }   else {
             $this->session->set_flashdata("alert", "The social network was not found!"); 
@@ -127,7 +127,7 @@
             $this->session->set_flashdata("alert", "All information about the GE course must be filled-up!");
         }   else {
             $res = $this->values->addGECourse($_POST['GE_name'], $_POST['GE_code'], $_POST['GE_description']);
-            if ($res->added) {
+            if ($res) {
                 $this->session->set_flashdata("notice", "New GE course added!");
             }   else {
                 $this->session->set_flashdata("alert", "The GE name or code is not available!");
@@ -139,13 +139,22 @@
     public function updateGECourse() {
         if ($_POST['GE_name'] == "" || $_POST['GE_code'] == "" || $_POST['GE_description'] == "") {
             $this->session->set_flashdata("alert", "All information about the GE course must be filled-up!");
-        }   else {
-            $res = $this->values->updateGECourse($_POST['GE_name'], $_POST['GE_code'], $_POST['GE_description'], $_POST['GE_id']);
-            if ($res->updated) {
+        }   else { 
+            $res = $this->values->updateGECourse($_POST['GE_name'], $_POST['GE_code'], $_POST['GE_description'], $_POST['GE_id']);            
+            if ($res) {
                 $this->session->set_flashdata("notice", "The GE course has been updated!");
             }   else {
-                $this->session->set_flashdata("alert", "The new GE name or code is not available!");
+                $this->session->set_flashdata("alert", "The GE name or code is not available!");
             }
+        }
+        redirect('/admin/index');
+    }
+
+    public function deleteGECourse($id) {
+        if ($this->values->deleteGECourse($id)) {
+            $this->session->set_flashdata("notice", "GE course deleted!");
+        }   else {
+            $this->session->set_flashdata("alert", "GE course NOT deleted!");
         }
         redirect('/admin/index');
     }

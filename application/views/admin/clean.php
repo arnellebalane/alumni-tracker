@@ -264,6 +264,8 @@
             </div>
           </div>
         </section>
+
+        <input type="submit" value="Save Changes" class="button" />
       <?= form_close(); ?>
     </div>
   </div>

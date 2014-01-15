@@ -7,7 +7,7 @@
 		}
 
 		public function home() {
-			if (!$this->session->userdata('user_id')) {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
 			}  
 
@@ -25,6 +25,31 @@
       $this->load->helper('edit_info_helper.php');
       $this->load->helper('inflector');      
 			$this->load->view('alumni_home', $data);
+		}
+
+		public function updateAccount() {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
+				redirect('home/index');
+			}  
+			$old_password = $_POST['old-password'];
+			$new_password = $_POST['new-password'];
+			$re_password = $_POST['re-password'];
+			if (($old_password = "") || ($new_password = "") || ($re_password = "")) {
+				$this->session->set_flashdata("alert", "Please fill-up all the fields for the password!");
+			}	else if ($new_password != $re_password) {
+				$this->session->set_flashdata("alert", "Passwords does not match!");
+			}	else if (count($new_password) < 5) {
+				$this->session->set_flashdata("alert", "Password should have at least 5 characters!");
+			}	else {
+				$res = $this->model->getUserById($this->session->userdata('user_id'));
+				if ($res[0]->password != $old_password) {
+					$this->session->set_flashdata("alert", "Wrong password!");
+				}	else {
+					$this->model->updateUserPassword($this->session->userdata('user_id'), $new_password);
+					$this->session->set_flashdata("notice", "Password updated successfully!");
+				}
+			}
+			redirect('alumni_home');
 		}
 
 		public function add() {		
@@ -52,9 +77,9 @@
 
 		// UPDATE PERSONAL INFORMATION
 		public function updatePersonalInfo() {
-			if (!$this->session->userdata('user_id')) {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
-			}
+			}  
 			if (!$this->validatePersonalInformation($_POST['personal_information'])) {			
 				redirect('alumni/home');
 			}
@@ -128,9 +153,9 @@
 
 		// UPDATE EDUCATIONAL BACKGROUND
 		public function updateEducationalBackground() {		
-			if (!$this->session->userdata('user_id')) {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
-			}
+			}  
 
 			if ($this->validateEducationalBackground($_POST['educational_background'])) {
 				$addnote = '';
@@ -205,6 +230,9 @@
 
 		// SET CURRENT JOB
 		public function updateCurrentJob() {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
+				redirect('home/index');
+			}  
 			$info = $_POST['employment_history'][0];
 			if (($info['business_name'] == "" && $info['employer'] == "") || (!isset($info['satisfied_with_job']) || ($info['employer_type'] == "others" && $info['specified_employer_type'] == ""))) {
 				$this->session->set_flashdata('alert', 'Fill-up all of the fields in updating your current job!');

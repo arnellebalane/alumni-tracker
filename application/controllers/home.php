@@ -7,6 +7,8 @@
       if ($this->isLoggedIn()) {
         if ($this->session->userdata('user_type') == 'alumni') {
           redirect('alumni/home');
+        } else if ($this->session->userdata('user_type') == 'super admin') {
+          redirect('admin/index');
         }
       }
     }

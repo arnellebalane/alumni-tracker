@@ -158,6 +158,10 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}	
 
+	function updateUserPassword($user_id, $new_password) {
+		$this->db->query("UPDATE users SET password = '".addslashes($new_password)."' WHERE id = '".addslashes($user_id)."'");
+	}
+
 }
 
 ?>

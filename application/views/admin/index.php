@@ -92,6 +92,33 @@
           <input type="submit" value="Submit" class="button" />
         <?= form_close(); ?>
       </section>
+
+      <section id="ge-courses">
+        <h1>GE Courses</h1>
+        <h3>
+          <p>Nat Sci 1</p>
+          <p>Natural Science 1</p>
+          <p><i>Lorem ipsum Sint dolore sint non.</i></p>
+          <?= form_open('#', array('class' => 'hidden')); ?>
+            <input type="text" name="ge_course_code" value="" data-current="" />
+            <input type="text" name="ge_course_name" value="" data-current="" />
+            <input type="text" name="ge_course_description" value="" data-current="" />
+            <input type="hidden" name="ge_course_id" value="" />
+            <input type="submit" value="Submit" class="button" />
+          <?= form_close(); ?>
+          <div>
+            <a href="#" data-behavior="edit">[edit]</a>
+            <a href="#">[delete]</a>
+          </div>
+        </h3>
+
+        <?= form_open('#', array('class' => 'padded')); ?>
+          <h4>Add Another GE Course</h4>
+          <label class="inline">GE Course</label>
+          <input type="text" name="ge_course" />
+          <input type="submit" value="Submit" class="button" />
+        <?= form_close(); ?>
+      </section>
     </div>
   </div>
 </body>

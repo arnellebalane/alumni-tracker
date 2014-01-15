@@ -213,7 +213,7 @@ var admin = {
       }
     });
 
-    $('section h3').delegate('a[data-behavior="edit"]', 'click', function(e) {
+    $('section:not(#ge-courses) h3').delegate('a[data-behavior="edit"]', 'click', function(e) {
       e.preventDefault();
       var form = $(this).siblings('form');
       form.toggleClass('hidden');
@@ -227,6 +227,28 @@ var admin = {
       form.find('input[type="text"]').val(form.find('input[type="text"]').data('current'));
       $(this).siblings('span').toggleClass('hidden');
       $(this).attr('data-behavior', 'edit').text('[edit]');
+    });
+
+    $('section h3 div').delegate('a[data-behavior="edit"]', 'click', function(e) {
+      e.preventDefault();
+      var form = $(this).closest('div').siblings('form');
+      form.toggleClass('hidden');
+      form.find('input[type="text"]').first().focus();
+      form.siblings('p').toggleClass('hidden');
+      $(this).attr('data-behavior', 'cancel').text('[cancel]');
+      form.append(form.siblings('div'));
+      form.siblings('div').remove();
+    }).delegate('a[data-behavior="cancel"]', 'click', function(e) {
+      e.preventDefault();
+      var form = $(this).closest('form');
+      form.toggleClass('hidden');
+      form.find('input[type="text"]').each(function() {
+        $(this).val($(this).data('current'));
+      });
+      form.siblings('p').toggleClass('hidden');
+      $(this).attr('data-behavior', 'edit').text('[edit]');
+      form.after(form.find('div'));
+      form.find('div').remove();
     });
   }
 };

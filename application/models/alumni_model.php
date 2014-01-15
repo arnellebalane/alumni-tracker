@@ -151,7 +151,8 @@ class alumni_model extends CI_Model {
 	}
 
 	function getUserCurrentJob($user_id) {
-		$query = $this->db->query("SELECT employment_details.*, employer_types.name as employer_type, monthly_salaries.minimum, monthly_salaries.maximum FROM employment_details INNER JOIN user_employment_histories ON employment_details.id = 
+		$query = $this->db->query("SELECT employment_details.*, employer_types.name as employer_type, monthly_salaries.minimum, monthly_salaries.maximum FROM employment_details 
+															 INNER JOIN user_employment_histories ON employment_details.id = 
 															 user_employment_histories.employment_details_id INNER JOIN employer_types ON employer_types.id = employment_details.employer_type_id 
 															 INNER JOIN monthly_salaries ON monthly_salaries.id = employment_details.monthly_salary_id 
 															 WHERE user_employment_histories.current_job = 1 AND user_employment_histories.user_id = '".addslashes($user_id)."'");
@@ -160,6 +161,28 @@ class alumni_model extends CI_Model {
 
 	function updateUserPassword($user_id, $new_password) {
 		$this->db->query("UPDATE users SET password = '".addslashes($new_password)."' WHERE id = '".addslashes($user_id)."'");
+	}
+
+	function getAllAlumni() {
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id");
+		return $query->result();
+	}
+
+	function getAlumniByProgram($program_id) {
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."'");
+		return $query->result();
+	}
+
+	function getAlumniByCleanStatus($status) {
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.cleaned = '".addslashes($status)."'");
+		return $query->result();
+	}
+
+	function getAlumniByCleanStatusAndProgram($status, $program_id) {
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' AND users.cleaned = '".addslashes($status)."'");
+		return $query->result();
 	}
 
 }

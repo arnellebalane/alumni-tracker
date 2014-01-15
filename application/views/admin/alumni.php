@@ -31,14 +31,14 @@
       <p>This is a listing of all the data submitted by the alumni through the questionnaire.</p>
 
       <ul class="list">
-        <?php for ($i = 0; $i < 50; $i++): ?>
+        <?php foreach ($alumni as $alumnus): ?>
           <li>
-            <?= anchor('admin/clean/1', 'Arnelle Balane', array('class' => 'cleaned')); ?>
+            <?= anchor('admin/clean/'.$alumnus->id, $alumnus->firstname . " " . $alumnus->lastname, array('class' => 'cleaned')); ?>
             <div class="actions">
               <?= anchor('#', 'Discard'); ?>
             </div>
           </li>
-        <?php endfor; ?>
+        <?php endforeach; ?>
       </ul>
     </div>
   </div>

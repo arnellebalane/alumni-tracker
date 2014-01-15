@@ -131,6 +131,29 @@
           <input type="submit" value="Submit" class="button" />
         <?= form_close(); ?>
       </section>
+
+      <section id="social-networks">
+        <h1>Social Networks</h1>
+        <?php foreach ($social_networks as $social_network): ?>
+          <h3>
+            <span><?= $social_network->name; ?></span>
+            <?= form_open('admin/updateSocialNetwork', array('class' => 'hidden')); ?>
+              <input type="text" name="social_network" value="<?= $social_network->name; ?>" data-current="<?= $social_network->name; ?>" />
+              <input type="hidden" name="social_network_id" value="<?= $social_network->id; ?>" />
+              <input type="submit" value="Submit" class="button" />
+            <?= form_close(); ?>
+            <a href="#" data-behavior="edit">[edit]</a>
+            <?= anchor('admin/deleteSocialNetwork/1', '[delete]'); ?>
+          </h3>
+        <?php endforeach; ?>
+
+        <?= form_open('admin/addSocialNetwork', array('class' => 'padded')); ?>
+          <h4>Add Another Social Network</h4>
+          <label class="inline">Social Network</label>
+          <input type="text" name="social_network" />
+          <input type="submit" value="Submit" class="button" />
+        <?= form_close(); ?>
+      </section>
     </div>
   </div>
 </body>

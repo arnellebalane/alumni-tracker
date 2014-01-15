@@ -14,7 +14,8 @@
     	$data = array('countries' => $this->values->getCountries(),
     								'employer_types'=>$this->values->getEmployerTypes(), 
     								'programs'=>$this->values->getPrograms(),
-                                    'ge_courses'=>$this->values->getGECourses());
+                                    'ge_courses'=>$this->values->getGECourses(),
+                                    'social_networks' => $this->values->getSocialNetworks());
       $this->load->view('admin/index', $data);
     }
 

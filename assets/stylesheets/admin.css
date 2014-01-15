@@ -204,3 +204,7 @@ aside li a.current:before {
 .content #ge-courses > form .button {
   margin-left: 168px;
 }
+
+.content #social-networks h3 form input[type="text"] {
+  width: 120px;
+}

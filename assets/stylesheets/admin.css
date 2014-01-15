@@ -240,20 +240,24 @@ aside li a.current:before {
   position: absolute;
   top: 0;
   right: 0;
-  padding: 0 10px;
+  padding: 5px 10px;
 }
 
 .list li .actions a {
   display: inline-block;
-  font: normal 1.2rem/3.2rem "Open Sans Light", "OpenSansLight";
-  color: #8B242A;
+  font: normal 1rem/2rem "Open Sans Light", "OpenSansLight";
+  color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
+  background-color: #DB485C;
+  border: 1px solid #D22940;
+  border-radius: 3px;
+  padding: 0 5px;
 }
 
 .list li .actions a:hover,
 .list li .actions a:focus {
-  text-decoration: underline;
+  background-color: #D22940;
 }
 
 .admin.clean h1 {

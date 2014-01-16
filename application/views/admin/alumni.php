@@ -33,9 +33,9 @@
       <ul class="list">
         <?php foreach ($alumni as $alumnus): ?>
           <li>
-            <?= anchor('admin/clean/'.$alumnus->id, $alumnus->firstname . " " . $alumnus->lastname, array('class' => 'cleaned')); ?>
+            <?= anchor('admin/clean/'.$alumnus->id, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
             <div class="actions">
-              <?= anchor('#', 'Discard'); ?>
+              <?= anchor('admin/deleteAlumni/'.$alumnus->id, 'Discard'); ?>
             </div>
           </li>
         <?php endforeach; ?>

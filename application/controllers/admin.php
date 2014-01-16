@@ -20,7 +20,7 @@
       $this->load->view('admin/index', $data);
     }
 
-    public function alumni($cleaned = 1, $program_id = 0) {      
+    public function alumni($cleaned = 2, $program_id = 0) {      
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0) {
         $alumni = $this->alumni->getAllAlumni();        
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0) {
@@ -35,6 +35,16 @@
     }
 
     public function clean($id) {
+      $data = array('countries'=>$this->values->getCountries(),
+                    'programs'=>$this->values->getPrograms(),
+                    'salaries'=>$this->values->getMonthlySalaries(),
+                    'employer_types'=>$this->values->getEmployerTypes(),                    
+                    'ge_courses'=>$this->values->getGECourses(),
+                    'user_info'=> $this->alumni->getUserInfoById($this->session->userdata('user_id')),
+                    'user_social_networks'=>$this->alumni->getUserSocialNetworksById($this->session->userdata('user_id')),
+                    'social_networks'=>$this->alumni->getOtherSocialNetworksById($this->session->userdata('user_id')),
+                    'current_job'=>$this->alumni->getUserCurrentJob($this->session->userdata('user_id'))
+                    );
       $this->load->view('admin/clean');
     }
 
@@ -168,6 +178,12 @@
             $this->session->set_flashdata("alert", "GE course NOT deleted!");
         }
         redirect('/admin/index');
+    }
+
+    public function deleteAlumni($id) {
+      $this->alumni->deleteAlumni($id);
+      $this->session->set_flashdata("notice", "Alumni moved!");
+      redirect('admin/alumni');
     }
 
 

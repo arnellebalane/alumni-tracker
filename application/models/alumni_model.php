@@ -185,6 +185,29 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}
 
+	function deleteAlumni($id) {
+		$query = $this->db->query("SELECT id FROM comments WHERE user_id = '".addslashes($id)."'");
+		$comments = $query->result();
+		foreach ($comments as $comment) {
+			$this->db->query("DELETE FROM comment_get_courses WHERE comment_id = '".addslashes($comment->id)."'");
+			$this->db->query("DELETE FROM comment_majors WHERE comment_id = '".addslashes($comment->id)."'");
+			$this->db->query("DELETE FROM comment_suggested_courses WHERE comment_id = '".addslashes($comment->id)."'");
+		}
+		$this->db->query("DELETE FROm comments WHERE user_id = '".addslashes($id)."'");
+		$query2 = $this->db->query("SELECT employment_details_id FROM user_employment_histories WHERE user_id='".addslashes($id)."'");
+		$jobs = $query2->result();
+		foreach ($jobs as $job) {
+			$this->db->query("DELETE FROM employment_details WHERE id = '".addslashes($job->employment_details_id)."'");
+		}
+		$this->db->query("DELETE FROM user_employment_histories WHERE user_id='".addslashes($id)."'");
+		$this->db->query("DELETE FROM educational_backgrounds WHERE user_id='".addslashes($id)."'");
+		$this->db->query("DELETE FROM educational_backgrounds WHERE user_id='".addslashes($id)."'");
+		$this->db->query("DELETE FROM user_social_networks WHERE user_id='".addslashes($id)."'");
+		$this->db->query("DELETE FROM personal_infos WHERE user_id='".addslashes($id)."'");
+		$this->db->query("DELETE FROM educational_backgrounds WHERE user_id='".addslashes($id)."'");
+		$this->db->query("DELETE FROM users WHERE id='".addslashes($id)."'");
+	}
+
 }
 
 ?>

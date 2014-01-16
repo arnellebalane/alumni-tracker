@@ -13,7 +13,8 @@
     public function index() {    	
     	$data = array('countries' => $this->values->getCountries(),
     								'employer_types'=>$this->values->getEmployerTypes(), 
-    								'programs'=>$this->values->getPrograms());
+    								'programs'=>$this->values->getPrograms(),
+                                    'ge_courses'=>$this->values->getGECourses());
       $this->load->view('admin/index', $data);
     }
 

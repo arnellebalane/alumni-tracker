@@ -8,6 +8,7 @@
         redirect('/session/index');
       }
       $this->load->model("values_model", "values");
+      $this->load->model("alumni_model", "alumni");
     }
 
     public function index() {      
@@ -19,8 +20,20 @@
       $this->load->view('admin/index', $data);
     }
 
-    public function alumni() {
-      $this->load->view('admin/alumni');
+    public function alumni($cleaned = 2, $program_id = 0) {
+      $alumni = null;
+      if ($cleaned > 1 && $cleaned < 0 && $program_id <= 0) {
+        $alumni = $this->alumni->getAllAlumni();
+      } else if ($cleaned <= 1 && $cleaned >= 0 && $program_id <= 0) {
+        $alumni = $this->alumni->getAlumniByCleanStatus($cleaned);
+      } else if ($cleaned > 1 && $cleaned < 0 && $program_id > 0) {
+        $alumni = $this->alumni->getAlumniByProgram($program_id);
+      } else {
+        $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);
+      }
+      print_r();
+      $data = array('alumni'=>$alumni);
+      $this->load->view('admin/alumni', $data);
     }
 
     public function clean($id) {
@@ -158,6 +171,7 @@
         }
         redirect('/admin/index');
     }
+
 
   }
 

@@ -257,11 +257,23 @@
 					($info['country'] == 'others' && $info['specified_country'] == '') ||
 					($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
 					$info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
-					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '') {
-				$this->session->set_flashdata('alert', "You are missing a field in your Personal Information.");
+					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address']))) {
+				$this->session->set_flashdata('alert', "You are missing a field in your Personal Information or your email is invalid.");
 				return false;
 			}
 			return true;
+		}
+
+		// VALIDATE EMAIL ADDRESS
+		private function validateEmail($email) {			
+			$index = strpos($email, '@');			
+			if ($index) {
+				$index2 = strpos($email, '.');
+				if ($index2 && ($index2 > $index)) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		// VALIDATE OTHER INFORMATION

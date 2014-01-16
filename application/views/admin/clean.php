@@ -70,6 +70,18 @@
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
+            <label>Country/State of Present Address</label>
+            <h4>Philippines</h4>
+            <div class="editable hidden">
+              <select name="country" data-current="1">
+                <option value="1" selected>Philippines</option>
+                <option value="2">North Korea</option>
+                <option value="3">Vietnam</option>
+              </select>
+            </div>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="field">
             <label>Contact Number in Present Address</label>
             <h4>09496547250</h4>
             <div class="editable hidden">

@@ -20,18 +20,16 @@
       $this->load->view('admin/index', $data);
     }
 
-    public function alumni($cleaned = 2, $program_id = 0) {
-      $alumni = null;
-      if ($cleaned > 1 && $cleaned < 0 && $program_id <= 0) {
-        $alumni = $this->alumni->getAllAlumni();
-      } else if ($cleaned <= 1 && $cleaned >= 0 && $program_id <= 0) {
-        $alumni = $this->alumni->getAlumniByCleanStatus($cleaned);
-      } else if ($cleaned > 1 && $cleaned < 0 && $program_id > 0) {
-        $alumni = $this->alumni->getAlumniByProgram($program_id);
+    public function alumni($cleaned = 1, $program_id = 0) {      
+      if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0) {
+        $alumni = $this->alumni->getAllAlumni();        
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0) {
+        $alumni = $this->alumni->getAlumniByCleanStatus($cleaned);        
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0) {
+        $alumni = $this->alumni->getAlumniByProgram($program_id);        
       } else {
-        $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);
-      }
-      print_r();
+        $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);        
+      }      
       $data = array('alumni'=>$alumni);
       $this->load->view('admin/alumni', $data);
     }

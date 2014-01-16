@@ -2,6 +2,29 @@
   padding: 50px 0;
 }
 
+.button {
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
+  color: #ffffff;
+  background-color: #308422;
+  margin: 0;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 2px;
+  outline: none;
+  -webkit-transition: background-color 300ms ease;
+  -moz-transition: background-color 300ms ease;
+  -o-transition: background-color 300ms ease;
+  -ms-transition: background-color 300ms ease;
+  transition: background-color 300ms ease;
+}
+
+.button:hover, 
+.button:focus {
+  background-color: #399B28;
+}
+
 aside {
   float: left;
   width: 250px;
@@ -149,29 +172,6 @@ aside li a.current:before {
 
 .content section form input[type="text"]:focus {
   box-shadow: 0 0 3px #30FC0D;
-}
-
-.content section form .button {
-  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
-  color: #ffffff;
-  background-color: #308422;
-  margin: 0;
-  border: none;
-  border-radius: 3px;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin-left: 2px;
-  outline: none;
-  -webkit-transition: background-color 300ms ease;
-  -moz-transition: background-color 300ms ease;
-  -o-transition: background-color 300ms ease;
-  -ms-transition: background-color 300ms ease;
-  transition: background-color 300ms ease;
-}
-
-.content section form .button:hover, 
-.content section form .button:focus {
-  background-color: #399B28;
 }
 
 .content #ge-courses h3 form input[type="text"] {
@@ -400,4 +400,8 @@ aside li a.current:before {
 
 .admin.clean #educational-background select[name^="graduated"] {
   width: auto;
+}
+
+.admin.clean .button {
+  margin: 40px 0 0 335px;
 }

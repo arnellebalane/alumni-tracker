@@ -68,7 +68,7 @@ class values_model extends CI_Model {
 		return $query->result();
 	}
 
-	function addSocialNetworks($name) {
+	function addSocialNetwork($name) {
 		$test = $this->db->query("SELECT * FROM social_networks WHERE name = '".addslashes($name)."'");
 		$res = $test->result();
 		if ($res) {
@@ -106,30 +106,22 @@ class values_model extends CI_Model {
 		$test = $this->db->query("SELECT * FROM ge_courses WHERE name = '".addslashes($name)."' OR code = '".addslashes($code)."'");
 		$res = $test->result();
 		if ($res) {
-			return array('id'=>$res[0]->id,
-									 'added'=>false
-			);
+			return false;
 		}	else {
 			$this->db->query("INSERT INTO ge_courses(name, code, description) VALUES ('".addslashes($name)."', '".addslashes($code)."', '".addslashes($description)."')");
-			return array('id'=>mysql_insert_id(),
-									 'added'=>true
-			);
+			return true;
 		}		
 	}
 
 	function updateGECourse($name, $code, $description, $id) {
 		$test = $this->db->query("SELECT * FROM ge_courses WHERE name = '".addslashes($name)."' OR code = '".addslashes($code)."'");
 		$res = $test->result();
-		if ($res && $res[0]->id != $id) {
-			return array('id'=>$res[0]->id,
-									 'updated'=>false
-			);
+		if (($res) && ((count($res) > 1) || ($res[0]->id != $id))) {
+			return false;
 		}	else {
 			$this->db->query("UPDATE ge_courses SET name='".addslashes($name)."', code='".addslashes($code)."', description='".addslashes($description)."' WHERE id='".addslashes($id)."'");
-			return array('id'=>$id,
-									 'updated'=>true
-			);
-		}
+			return true;			
+		}		
 	}
 
 	function deleteGECourse($id) {

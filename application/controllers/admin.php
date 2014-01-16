@@ -20,7 +20,9 @@
       $this->load->view('admin/index', $data);
     }
 
-    public function alumni($program_id = 0, $cleaned = 2) {      
+    public function alumni() {
+      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : 2;
+      $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : 0;
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0) {
         $alumni = $this->alumni->getAllAlumni();        
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0) {

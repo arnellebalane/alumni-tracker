@@ -37,17 +37,21 @@
     }
 
     public function clean($id) {
+      $this->load->model("values_model", "values");
       $data = array('countries'=>$this->values->getCountries(),
                     'programs'=>$this->values->getPrograms(),
                     'salaries'=>$this->values->getMonthlySalaries(),
                     'employer_types'=>$this->values->getEmployerTypes(),                    
                     'ge_courses'=>$this->values->getGECourses(),
-                    'user_info'=> $this->alumni->getUserInfoById($this->session->userdata('user_id')),
-                    'user_social_networks'=>$this->alumni->getUserSocialNetworksById($this->session->userdata('user_id')),
-                    'social_networks'=>$this->alumni->getOtherSocialNetworksById($this->session->userdata('user_id')),
-                    'current_job'=>$this->alumni->getUserCurrentJob($this->session->userdata('user_id'))
+                    'user_info'=> $this->alumni->getUserInfoById($id),
+                    'user_social_networks'=>$this->alumni->getUserSocialNetworksById($id),
+                    'social_networks'=>$this->alumni->getOtherSocialNetworksById($id),
+                    'jobs'=>$this->alumni->getUserAllJobs($id),
+                    'user_id'=>$id
                     );
-      $this->load->view('admin/clean');
+      $this->load->helper('edit_info_helper.php');
+      $this->load->helper('inflector');
+      $this->load->view('admin/clean', $data);
     }
 
     public function addCountry() {

@@ -416,6 +416,10 @@ aside li a.current:before {
   margin: 3px 0 0 10px;
 }
 
+.admin.clean .field a[data-behavior="cancel"] {
+  margin-top: 8px;
+}
+
 .admin.clean .job {
   margin-bottom: 15px;
   padding-bottom: 15px;

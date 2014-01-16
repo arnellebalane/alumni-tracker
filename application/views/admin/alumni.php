@@ -11,7 +11,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="admin index">
+<body class="admin alumni">
   <?php if ($this->session->flashdata('notice')): ?>
     <p class="notification notice"><?= $this->session->flashdata('notice'); ?></p>
   <?php elseif ($this->session->flashdata('alert')): ?>
@@ -33,7 +33,7 @@
       <ul class="list">
         <?php for ($i = 0; $i < 50; $i++): ?>
           <li>
-            <?= anchor('#', 'Arnelle Balane'); ?>
+            <?= anchor('admin/clean/1', 'Arnelle Balane'); ?>
             <div class="actions">
               <?= anchor('#', 'Discard'); ?>
             </div>

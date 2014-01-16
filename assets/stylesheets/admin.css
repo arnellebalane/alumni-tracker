@@ -255,3 +255,107 @@ aside li a.current:before {
 .list li .actions a:focus {
   text-decoration: underline;
 }
+
+.admin.clean h1 {
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.admin.clean .clean-actions {
+  display: inline-block;
+  position: relative;
+  top: -3px;
+  left: 25px;
+}
+
+.admin.clean .clean-actions a {
+  display: inline-block;
+  font: normal 1.3rem/2.4rem "Open Sans Light", "OpenSansLight";
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 7px;
+  border: 1px solid;
+  border-radius: 3px;
+}
+
+.admin.clean .clean-actions a.green {
+  background-color: #469431;
+  border-color: #32881A;
+}
+
+.admin.clean .clean-actions a.green:hover,
+.admin.clean .clean-actions a.green:focus {
+  background-color: #32881A;
+}
+
+.admin.clean .clean-actions a.red {
+  background-color: #DB485C;
+  border-color: #D22940;
+}
+
+.admin.clean .clean-actions a.red:hover,
+.admin.clean .clean-actions a.red:focus {
+  background-color: #D22940;
+}
+
+.admin.clean section {
+  padding-left: 25px;
+  margin-bottom: 25px;
+}
+
+.admin.clean section:last-of-type {
+  margin-bottom: 0;
+}
+
+.admin.clean section h3 {
+  font: normal 1.8rem "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  position: relative;
+  left: -25px;
+}
+
+.admin.clean .field {
+  margin-bottom: 3px;
+}
+
+.admin.clean .field.indented {
+  margin-left: 25px;
+}
+
+.admin.clean .field.indented label {
+  width: 250px;
+}
+
+.admin.clean span,
+.admin.clean .field label {
+  display: inline-block;
+  width: 275px;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #555555;
+}
+
+.admin.clean .field h4 {
+  display: inline-block;
+  width: 350px;
+  font: bold 1.4rem "Open Sans Light";
+  color: #333333;
+}
+
+.admin.clean .job {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted #cccccc;
+}
+
+.admin.clean .job:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.admin.clean #others label {
+  width: 260px;
+  padding-left: 15px;
+  text-indent: -15px;
+}

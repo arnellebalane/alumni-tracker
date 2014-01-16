@@ -30,7 +30,7 @@
       <h1>Arnelle Balane</h1>
       <div class="clean-actions">
         <?= anchor('#', 'Mark as Clean', array('class' => 'green')); ?>
-        <?= anchor('#', 'Discard', array('class' => 'red')); ?>
+        <?= anchor('alumni/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
       </div>
 
       <?= form_open('#'); ?>
@@ -38,50 +38,50 @@
           <h3>Personal Information</h3>
           <div class="field">
             <label>First Name</label>
-            <h4>Arnelle</h4>
+            <h4><?=humanize($user_info[0]->firstname)?></h4>
             <div class="editable hidden">
-              <input type="text" name="firstname" value="Arnelle" data-current="Arnelle" />
+              <input type="text" name="firstname" value="<?=humanize($user_info[0]->firstname)?>" data-current="<?=humanize($user_info[0]->firstname)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Last Name</label>
-            <h4>Balane</h4>
+            <h4><?=humanize($user_info[0]->lastname)?></h4>
             <div class="editable hidden">
-              <input type="text" name="lastname" value="Balane" data-current="Balane" />
+              <input type="text" name="lastname" value="<?=humanize($user_info[0]->lastname)?>" data-current="<?=humanize($user_info[0]->lastname)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Gender</label>
-            <h4>Male</h4>
+            <h4><?=humanize($user_info[0]->gender)?></h4>
             <div class="editable hidden">
-              <label><input type="radio" name="gender" value="male" data-current="true" checked />Male</label>
-              <label><input type="radio" name="gender" value="female" data-current="false" />Female</label>
+              <label><input type="radio" name="gender" value="male" data-current="<?=is_checked("male",$user_info[0]->gender)?>" <?=is_checked("male",$user_info[0]->gender)?> />Male</label>
+              <label><input type="radio" name="gender" value="female" data-current="<?=is_checked("female",$user_info[0]->gender)?>" <?=is_checked("female",$user_info[0]->gender)?>/>Female</label>
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Present Address</label>
-            <h4>Cebu City</h4>
+            <h4><?=humanize($user_info[0]->present_address)?></h4>
             <div class="editable hidden">
-              <input type="text" name="present_address" value="Cebu City" data-current="Cebu City" />
+              <input type="text" name="present_address" value="<?=humanize($user_info[0]->present_address)?>" data-current="<?=humanize($user_info[0]->present_address)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Contact Number in Present Address</label>
-            <h4>09496547250</h4>
+            <h4><?=humanize($user_info[0]->present_contact_number)?></h4>
             <div class="editable hidden">
-              <input type="text" name="present_address_contact_number" value="09496547250" data-current="09496547250" />
+              <input type="text" name="present_address_contact_number" value="<?=humanize($user_info[0]->present_contact_number)?>" data-current="<?=humanize($user_info[0]->present_contact_number)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <h4>Tagbilaran City</h4>
+            <h4><?=$user_info[0]->premanent_address?></h4>
             <div class="editable hidden">
-              <input type="text" name="permanent_address" value="Tagbilaran City" data-current="Tagbilaran City" />
+              <input type="text" name="permanent_address" value="<?=$user_info[0]->premanent_address?>" data-current="<?=$user_info[0]->premanent_address?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>

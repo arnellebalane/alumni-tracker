@@ -159,6 +159,15 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}	
 
+	function getUserAllJobs($user_id) {
+		$query = $this->db->query("SELECT user_employment_histories.current_job, user_employment_histories.first_job, employment_details.*, employer_types.name as employer_type, 
+															 monthly_salaries.maximum, monthly_salaries.minimum FROM user_employment_histories INNER JOIN employment_details ON
+															 employment_details.id = user_employment_histories.employment_details_id INNER JOIN employer_types ON employer_types.id = employment_details.employer_type_id
+															 INNER JOIN monthly_salaries ON monthly_salaries.id = employment_details.monthly_salary_id WHERE user_employment_histories.user_id = '".addslashes($user_id)."'
+															 ORDER BY user_employment_histories.current_job DESC, user_employment_histories.first_job DESC");
+		return $query->result();
+	}
+
 	function updateUserPassword($user_id, $new_password) {
 		$this->db->query("UPDATE users SET password = '".addslashes($new_password)."' WHERE id = '".addslashes($user_id)."'");
 	}

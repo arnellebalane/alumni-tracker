@@ -206,6 +206,71 @@
 
         <section id="employment-history">
           <h3>Employment History</h3>
+
+          <div class="job-form">
+            <div class="field unindented inline">
+              <label>Another Job Information<a href="#" data-behavior="discard-another-job">[Remove this Job]</a></label>
+              <input type="checkbox" name="another_job[0][current_job]" /><label>Current Job</label>
+              <input type="checkbox" name="another_job[0][current_job]" /><label>First Job</label>
+            </div>
+            <div class="field inline">
+              <label>Self-employed?</label>
+              <input type="radio" name="another_job[0][self_employed]" value="yes" /><label>Yes</label>
+              <input type="radio" name="another_job[0][self_employed]" value="no" checked /><label>No</label>
+            </div>
+            <div class="field hidden">
+              <label>Business</label>
+              <input type="text" name="another_job[0][business]" />
+            </div>
+            <div class="field">
+              <label>Employer</label>
+              <input type="text" name="another_job[0][employer]" />
+            </div>
+            <div class="field">
+              <label>Employer/Business Type</label>
+              <select name="another_job[0][business_type]">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Job Title/Position</label>
+              <input type="text" name="another_job[0][job_title]" />
+            </div>
+            <div class="field">
+              <label>Monthly Salary (in Philippine Peso)</label>
+              <select name="another_job[0][monthly_salary]">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Employment Duration</label>
+              <select name="another_job[0][employment_duration][start_year]" class="auto">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+              <span>to</span>
+              <select name="another_job[0][employment_duration][end_year]" class="auto">
+                <option>A</option>
+                <option>B</option>
+                <option>C</option>
+              </select>
+            </div>
+            <div class="field inline">
+              <label>Satisfied with Job?</label>
+              <input type="radio" name="another_job[0][satisfied_with_job]" value="yes" checked /><label>Yes</label>
+              <input type="radio" name="another_job[0][satisfied_with_job]" value="no" /><label>No</label>
+            </div>
+            <div class="field">
+              <label>Why or why not satisfied?</label>
+              <textarea name="another_job[0][satisfaction_reason]"></textarea>
+            </div>
+          </div>
+
           <?php foreach($jobs as $job)  : ?>
           <div class="job">
             <?php

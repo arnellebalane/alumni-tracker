@@ -437,18 +437,40 @@ aside li a.current:before {
   border-bottom: none;
 }
 
+.admin.clean .job-form {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted #cccccc;
+}
+
+.admin.clean .job-form > h4,
 .admin.clean .job > h4 {
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #555555;
   margin-bottom: 10px;
 }
 
+.admin.clean .job-form .field,
 .admin.clean .job .field {
   padding-left: 15px;
 }
 
+.admin.clean .job-form .field.unindented {
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.admin.clean .job-form label,
 .admin.clean .job label {
   width: 260px;
+}
+
+.admin.clean .job-form .field.unindented label {
+  width: 275px;
+}
+
+.admin.clean .job-form .field label {
+  margin-top: 6px;
 }
 
 .admin.clean .editable {
@@ -456,6 +478,9 @@ aside li a.current:before {
   min-width: 150px;
 }
 
+.admin.clean .job-form .field input[type="text"],
+.admin.clean .job-form .field select,
+.admin.clean .job-form .field textarea,
 .admin.clean .editable input[type="text"],
 .admin.clean .editable select,
 .admin.clean .editable textarea {
@@ -474,24 +499,38 @@ aside li a.current:before {
   transition: box-shadow 250ms ease;
 }
 
+.admin.clean .job-form .field input[type="text"]:focus,
+.admin.clean .job-form .field select:focus,
+.admin.clean .job-form .field textarea:focus,
 .admin.clean .editable input[type="text"]:focus,
 .admin.clean .editable select:focus,
 .admin.clean .editable textarea:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
+.admin.clean .job-form .field select,
 .admin.clean .editable select {
   width: 212px;
 }
 
+.admin.clean .job-form .field textarea,
 .admin.clean .editable textarea {
   resize: none;
 }
 
+.admin.clean .job-form .field.unindented input + label,
+.admin.clean .job-form input[type="radio"] + label,
+.admin.clean .job-form input[type="checkbox"] + label,
 .admin.clean .editable label {
   width: auto;
 }
 
+.admin.clean .job-form .field.inline label {
+  margin-top: 0;
+}
+
+.admin.clean .job-form .field select.auto,
+.admin.clean .job-form .field span,
 .admin.clean .editable select.auto,
 .admin.clean .editable span {
   width: auto;

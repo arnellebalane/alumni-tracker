@@ -32,7 +32,11 @@
       } else {
         $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);        
       }      
-      $data = array('alumni'=>$alumni);
+      $data = array('alumni'=>$alumni,
+                    'cleaned'=>$cleaned,
+                    'program_id'=>$program_id,
+                    'programs'=>$this->values->getPrograms());
+      $this->load->helper('edit_info_helper.php');
       $this->load->view('admin/alumni', $data);
     }
 

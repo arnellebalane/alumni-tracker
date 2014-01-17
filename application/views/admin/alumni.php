@@ -33,13 +33,14 @@
       <?= form_open('admin/alumni', array('class' => 'filter', 'method' => 'GET')); ?>
         <select name="cleaned">
           <option>All Entries</option>
-          <option>Cleaned Entries</option>
-          <option>Uncleaned Entries</option>
+          <option value = "1" <?=is_selected(1, $cleaned)?>>Cleaned Entries</option>
+          <option value = "0" <?=is_selected(0, $cleaned)?>>Uncleaned Entries</option>
         </select>
-        <select name="program_id">
-          <option value="1">BS Computer Science</option>
-          <option value="1">BS Mathematics</option>
-          <option value="1">BS Biology</option>
+        <select name="program_id">        
+          <option value="0">All Programs</option>
+          <? foreach ($programs as $program) : ?>
+            <option value="<?=$program->id?>" <?=is_selected($program->id, $program_id)?>><?=$program->name?></option>
+          <? endforeach; ?>  
         </select>
         <input type="submit" value="filter" />
       <?= form_close(); ?>

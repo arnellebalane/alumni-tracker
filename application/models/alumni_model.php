@@ -173,24 +173,27 @@ class alumni_model extends CI_Model {
 	}
 
 	function getAllAlumni() {
-		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id");
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.user_type='alumni'");
 		return $query->result();
 	}
 
 	function getAlumniByProgram($program_id) {
 		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
-															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."'");
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."'
+															 AND users.user_type='alumni'");
 		return $query->result();
 	}
 
 	function getAlumniByCleanStatus($status) {
-		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.cleaned = '".addslashes($status)."'");
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.cleaned = '".addslashes($status)."' AND
+															users.user_type='alumni'");
 		return $query->result();
 	}
 
 	function getAlumniByCleanStatusAndProgram($status, $program_id) {
 		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
-															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' AND users.cleaned = '".addslashes($status)."'");
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+															 AND users.cleaned = '".addslashes($status)."' AND users.user_type='alumni'");
 		return $query->result();
 	}
 

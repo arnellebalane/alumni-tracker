@@ -30,7 +30,7 @@
       <h1>Arnelle Balane</h1>
       <div class="clean-actions">
         <?= anchor('#', 'Mark as Clean', array('class' => 'green')); ?>
-        <?= anchor('alumni/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
+        <?= anchor('admin/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
       </div>
 
       <?= form_open('#'); ?>
@@ -40,7 +40,7 @@
             <label>First Name</label>
             <h4><?=humanize($user_info[0]->firstname)?></h4>
             <div class="editable hidden">
-              <input type="text" name="firstname" value="<?=humanize($user_info[0]->firstname)?>" data-current="<?=humanize($user_info[0]->firstname)?>" />
+              <input type="text" name="personal_information[firstname]" value="<?=humanize($user_info[0]->firstname)?>" data-current="<?=humanize($user_info[0]->firstname)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
@@ -48,7 +48,7 @@
             <label>Last Name</label>
             <h4><?=humanize($user_info[0]->lastname)?></h4>
             <div class="editable hidden">
-              <input type="text" name="lastname" value="<?=humanize($user_info[0]->lastname)?>" data-current="<?=humanize($user_info[0]->lastname)?>" />
+              <input type="text" name="personal_information[lastname]" value="<?=humanize($user_info[0]->lastname)?>" data-current="<?=humanize($user_info[0]->lastname)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
@@ -56,8 +56,8 @@
             <label>Gender</label>
             <h4><?=humanize($user_info[0]->gender)?></h4>
             <div class="editable hidden">
-              <label><input type="radio" name="gender" value="male" data-current="<?=is_checked("male",$user_info[0]->gender)?>" <?=is_checked("male",$user_info[0]->gender)?> />Male</label>
-              <label><input type="radio" name="gender" value="female" data-current="<?=is_checked("female",$user_info[0]->gender)?>" <?=is_checked("female",$user_info[0]->gender)?>/>Female</label>
+              <label><input type="radio" name="personal_information[gender]" value="male" data-current="<?=is_checked("male",$user_info[0]->gender)?>" <?=is_checked("male",$user_info[0]->gender)?> />Male</label>
+              <label><input type="radio" name="personal_information[gender]" value="female" data-current="<?=is_checked("female",$user_info[0]->gender)?>" <?=is_checked("female",$user_info[0]->gender)?>/>Female</label>
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
@@ -65,7 +65,7 @@
             <label>Present Address</label>
             <h4><?=humanize($user_info[0]->present_address)?></h4>
             <div class="editable hidden">
-              <input type="text" name="present_address" value="<?=humanize($user_info[0]->present_address)?>" data-current="<?=humanize($user_info[0]->present_address)?>" />
+              <input type="text" name="personal_information[present_address]" value="<?=humanize($user_info[0]->present_address)?>" data-current="<?=humanize($user_info[0]->present_address)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
@@ -73,103 +73,118 @@
             <label>Contact Number in Present Address</label>
             <h4><?=humanize($user_info[0]->present_contact_number)?></h4>
             <div class="editable hidden">
-              <input type="text" name="present_address_contact_number" value="<?=humanize($user_info[0]->present_contact_number)?>" data-current="<?=humanize($user_info[0]->present_contact_number)?>" />
+              <input type="text" name="personal_information[present_address_contact_number]" value="<?=humanize($user_info[0]->present_contact_number)?>" data-current="<?=humanize($user_info[0]->present_contact_number)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Permanent Address</label>
-            <h4><?=$user_info[0]->premanent_address?></h4>
+            <h4><?=humanize($user_info[0]->premanent_address)?></h4>
             <div class="editable hidden">
-              <input type="text" name="permanent_address" value="<?=$user_info[0]->premanent_address?>" data-current="<?=$user_info[0]->premanent_address?>" />
+              <input type="text" name="personal_information[permanent_address]" value="<?=humanize($user_info[0]->premanent_address)?>" data-current="<?=humanize($user_info[0]->premanent_address)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Contact Number in Permanent Address</label>
-            <h4>09496547250</h4>
+            <h4><?=humanize($user_info[0]->permanent_contact_number)?></h4>
             <div class="editable hidden">
-              <input type="text" name="permanent_address_contact_number" value="09496547250" data-current="09496547250" />
+              <input type="text" name="personal_information[permanent_address_contact_number]" value="<?=humanize($user_info[0]->permanent_contact_number)?>" data-current="<?=humanize($user_info[0]->permanent_contact_number)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Email Address</label>
-            <h4>arnellebalane@gmail.com</h4>
+            <h4><?=$user_info[0]->email?></h4>
             <div class="editable hidden">
-              <input type="text" name="email_address" value="arnellebalane@gmail.com" data-current="arnellebalane@gmail.com" />
+              <input type="text" name="personal_information[email_address]" value="<?=$user_info[0]->email?>" data-current="<?=$user_info[0]->email?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <span>Social Network Contact Information</span>
-          <div class="field indented">
-            <label>Facebook</label>
-            <h4>Arnelle Balane</h4>
-            <div class="editable hidden">
-              <input type="text" name="social_networks[1]" value="Arnelle Balane" data-current="Arnelle Balane" />
+          <? foreach ($user_social_networks as $var) : ?>
+            <div class="field indented">
+              <label><?=$var->name?></label>
+              <h4><?=$var->account_name?></h4>
+              <div class="editable hidden">
+                <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="<?=$var->account_name?>" data-current="<?=$var->account_name?>" />
+              </div>
+              <a href="#" data-behavior="edit">[edit]</a>
             </div>
-            <a href="#" data-behavior="edit">[edit]</a>
-          </div>
-          <div class="field indented">
-            <label>Twitter</label>
-            <h4>arnellebalane</h4>
-            <div class="editable hidden">
-              <input type="text" name="social_networks[2]" value="arnellebalane" data-current="arnellebalane" />
+          <? endforeach;?>
+          <? foreach ($social_networks as $var) : ?>
+            <div class="field indented">
+              <label><?=$var->name?></label>
+              <h4></h4>
+              <div class="editable hidden">
+                <input type="text" name="personal_information[social_networks][<?=$var->id?>]" value="" data-current="" />
+              </div>
+              <a href="#" data-behavior="edit">[edit]</a>
             </div>
-            <a href="#" data-behavior="edit">[edit]</a>
-          </div>
+          <? endforeach;?>
         </section>
 
         <section id="educational-background">
           <h3>Educational Background</h3>
           <div class="field">
             <label>Student Number</label>
-            <h4>2011-37575</h4>
+            <h4><?=humanize($user_info[0]->student_number)?></h4>
             <div class="editable hidden">
-              <input type="text" name="student_number" value="2011-37575" data-current="2011-37575" />
+              <input type="text" name="student_number" value="<?=humanize($user_info[0]->student_number)?>" data-current="<?=humanize($user_info[0]->student_number)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Degree Program</label>
-            <h4>BS Computer Science</h4>
+            <h4><?=$user_info[0]->course?></h4>
             <div class="editable hidden">
-              <select name="degree_program" data-current="1">
-                <option value="1">BS Computer Science</option>
-                <option value="2">BS Mathematics</option>
-                <option value="3">BS Biology</option>
-              </select>
+              <select name="degree_program" data-current="<?=$user_info[0]->prog_id?>">
+                <?foreach ($programs as $var) : ?>
+                  <option value="<?=$var->id?>" <?=is_selected($var->id, $user_info[0]->prog_id)?> ><?=$var->name?></option>
+                <? endforeach;?>
+              </select>              
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Semester/Summer and Year Graduated</label>
-            <h4>2nd Semester, AY 2013 - 2014</h4>
+            <h4><?php
+                  if ($user_info[0]->year_graduated == "0 - 0") {
+                    echo "Non-graduate";
+                  }  else {
+                  if ($user_info[0]->semester_graduated == 1) echo "1st Semester"; 
+                  else if ($user_info[0]->semester_graduated == 2) echo "2nd Semester"; 
+                  else echo "Summer"; ?>, AY <? echo $user_info[0]->year_graduated;
+                  } ?>
+            </h4>
             <div class="editable hidden">
-              <select name="graduated[semester]" class="auto" data-current="2nd-semester">
-                <option value="1st-semester">1st Semester</option>
-                <option value="2nd-semester" selected>2nd Semester</option>
-                <option value="summer">Summer</option>
+              <select name="graduated[semester]" class="auto" data-current="<?=$user_info[0]->semester_graduated?>">
+                <option value="1" <?=is_selected(1, $user_info[0]->semester_graduated)?>>1st Semester</option>
+                <option value="2" <?=is_selected(2, $user_info[0]->semester_graduated)?>>2nd Semester</option>
+                <option value="3" <?=is_selected(3, $user_info[0]->semester_graduated)?>>Summer</option>
               </select>
-              <select name="graduated[academic_year]" class="auto" data-current="2013-2014">
-                <option value="2013-2014" selected>2013-2014</option>
-                <option value="2012-2013">2012-2013</option>
-                <option value="2011-2012">2011-2012</option>
-                <option value="2010-2011">2010-2011</option>
-                <option value="2009-2010">2009-2010</option>
+              <select name="graduated[academic_year]" class="auto" data-current="<?=$user_info[0]->year_graduated?>">
+                <? $ctr = date('Y');
+                  while ($ctr > 1980) { 
+                ?>
+                <option value="<?echo ($ctr-1).'-'.$ctr;?>" <?=is_selected(($ctr-1).'-'.$ctr, $user_info[0]->year_graduated); ?>><?echo ($ctr-1).' - '.$ctr;?></option>
+                <? $ctr--;
+                  }
+                ?> 
+                <option value="0 - 0" <?=is_selected("0 - 0", $user_info[0]->year_graduated); ?>>Non-graduate</option>
               </select>
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="field">
             <label>Honor Received</label>
-            <h4>None</h4>
+            <h4><?=humanize($user_info[0]->honor_received)?></h4>
             <div class="editable hidden">
-              <select name="honor_received" data-current="none">
-                <option value="summa-cum-laude">Summa Cum Laude</option>
-                <option value="magna-cum-laude">Magna Cum Laude</option>
-                <option value="cum-laude">Cum Laude</option>
+              <select name="honor_received" data-current="<?=$user_info[0]->honor_received?>">
                 <option value="none" selected>None</option>
+                <option value="summa cum laude" <?=is_selected("summa cum laude", $user_info[0]->honor_received); ?>>Summa Cum Laude</option>
+                <option value="magna cum laude" <?=is_selected("magna cum laude", $user_info[0]->honor_received); ?>>Magna Cum Laude</option>
+                <option value="cum laude" <?=is_selected("cum laude", $user_info[0]->honor_received); ?>>Cum Laude</option>              
               </select>
             </div>
             <a href="#" data-behavior="edit">[edit]</a>

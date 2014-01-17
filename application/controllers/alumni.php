@@ -206,7 +206,7 @@
 					}	else {
 						$employer_id = $var['employer_type'];
 					}
-					$history_id = $this->model->addEmploymentDetails($user_id, $employer_id, $var);
+					$history_id = $this->model->addEmploymentDetails($employer_id, $var);
 					print(isset($info['first_job']));
 					if ($ctr == 0) {						
 						$current_job = 1;
@@ -243,8 +243,13 @@
 			}	else {
 				$employer_id = $info['employer_type'];
 			}
-			$history_id = $this->model->addEmploymentDetails($user_id, $employer_id, $info);
-			$this->model->addUserEmploymentHistory($this->session->userdata('user_id'), $history_id, 1, 0);
+			$history_id = $this->model->addEmploymentDetails($employer_id, $info);
+			$first_job = $this->model->getUserFirstJob($this->session->userdata('user_id'));
+			$first = 0;
+			if (!$first_job) {
+				$first = 1;
+			}
+			$this->model->addUserEmploymentHistory($this->session->userdata('user_id'), $history_id, 1, $first);
 			$this->session->set_flashdata('notice', 'Update successful!');
 			redirect('/alumni/home');
 		}

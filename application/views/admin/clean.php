@@ -27,13 +27,14 @@
     </aside>
 
     <div class="content">
-      <h1>Arnelle Balane</h1>
+      <h1><?=humanize($user_info[0]->firstname)." ".humanize($user_info[0]->lastname) ?></h1>
       <div class="clean-actions">
-        <?= anchor('#', 'Mark as Clean', array('class' => 'green')); ?>
+
+        <?=($user_info[0]->cleaned == 0) ? anchor('admin/makeAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
         <?= anchor('admin/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
       </div>
 
-      <?= form_open('#'); ?>
+      <?= form_open('admin/updateAlumni/'.$user_id); ?>
         <section id="personal-information">
           <h3>Personal Information</h3>
           <div class="field">
@@ -71,12 +72,12 @@
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <h4>Philippines</h4>
+            <h4><?=humanize($user_info[0]->country)?></h4>
             <div class="editable hidden">
-              <select name="country" data-current="1">
-                <option value="1" selected>Philippines</option>
-                <option value="2">North Korea</option>
-                <option value="3">Vietnam</option>
+              <select name="personal_information[country]" data-current="<?=$user_info[0]->country_id?>">
+                <? foreach ($countries as $var): ?>
+                  <option value="<?= $var->id; ?>" <?=is_selected($var->id, $user_info[0]->country_id)?>><?= $var->name; ?></option>
+                <? endforeach; ?>
               </select>
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
@@ -142,7 +143,7 @@
             <label>Student Number</label>
             <h4><?=humanize($user_info[0]->student_number)?></h4>
             <div class="editable hidden">
-              <input type="text" name="student_number" value="<?=humanize($user_info[0]->student_number)?>" data-current="<?=humanize($user_info[0]->student_number)?>" />
+              <input type="text" name="educational_background[student_number]" value="<?=humanize($user_info[0]->student_number)?>" data-current="<?=humanize($user_info[0]->student_number)?>" />
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
@@ -150,7 +151,7 @@
             <label>Degree Program</label>
             <h4><?=$user_info[0]->course?></h4>
             <div class="editable hidden">
-              <select name="degree_program" data-current="<?=$user_info[0]->prog_id?>">
+              <select name="educational_background[degree_program]" data-current="<?=$user_info[0]->prog_id?>">
                 <?foreach ($programs as $var) : ?>
                   <option value="<?=$var->id?>" <?=is_selected($var->id, $user_info[0]->prog_id)?> ><?=$var->name?></option>
                 <? endforeach;?>
@@ -170,12 +171,12 @@
                   } ?>
             </h4>
             <div class="editable hidden">
-              <select name="graduated[semester]" class="auto" data-current="<?=$user_info[0]->semester_graduated?>">
+              <select name="educational_background[graduated][semester]" class="auto" data-current="<?=$user_info[0]->semester_graduated?>">
                 <option value="1" <?=is_selected(1, $user_info[0]->semester_graduated)?>>1st Semester</option>
                 <option value="2" <?=is_selected(2, $user_info[0]->semester_graduated)?>>2nd Semester</option>
                 <option value="3" <?=is_selected(3, $user_info[0]->semester_graduated)?>>Summer</option>
               </select>
-              <select name="graduated[academic_year]" class="auto" data-current="<?=$user_info[0]->year_graduated?>">
+              <select name="educational_background[graduated][academic_year]" class="auto" data-current="<?=$user_info[0]->year_graduated?>">
                 <? $ctr = date('Y');
                   while ($ctr > 1980) { 
                 ?>
@@ -192,7 +193,7 @@
             <label>Honor Received</label>
             <h4><?=humanize($user_info[0]->honor_received)?></h4>
             <div class="editable hidden">
-              <select name="honor_received" data-current="<?=$user_info[0]->honor_received?>">
+              <select name="educational_background[honor_received]" data-current="<?=$user_info[0]->honor_received?>">
                 <option value="none" selected>None</option>
                 <option value="summa cum laude" <?=is_selected("summa cum laude", $user_info[0]->honor_received); ?>>Summa Cum Laude</option>
                 <option value="magna cum laude" <?=is_selected("magna cum laude", $user_info[0]->honor_received); ?>>Magna Cum Laude</option>
@@ -205,98 +206,132 @@
 
         <section id="employment-history">
           <h3>Employment History</h3>
+          <?php foreach($jobs as $job)  : ?>
           <div class="job">
-            <h4>Current Job<?= anchor('#', '[Delete this Job]'); ?></h4>
+            <?php
+
+              $job_text = 'Other Job';
+              if ($job->current_job == 1) {
+                $job_text = 'Current Job';
+              } else if ($job->first_job == 1) {
+                $job_text = 'First Job';
+              }
+
+             ?>
+            <h4><?= $job_text . anchor('#', '[Delete this Job]'); ?></h4>
             <div class="field radio">
               <label>Self-employed?</label>
-              <h4>No</h4>
+              <h4><?=($job->self_employed == 0) ? "No" : "Yes";?></h4>
               <div class="editable hidden">
-                <label><input type="radio" name="jobs[0][self_employed]" value="yes" data-current="true" checked>Yes</label>
-                <label><input type="radio" name="jobs[0][self_employed]" value="no" data-current="false">No</label>
+                <label><input type="radio" name="jobs[<?=$job->id?>][self_employed]" value="1" data-current="<?=($job->self_employed == 0) ? "false" : "true";?>" <?=is_checked(1, $job->self_employed)?>>Yes</label>
+                <label><input type="radio" name="jobs[<?=$job->id?>][self_employed]" value="0" data-current="<?=($job->self_employed == 1) ? "false" : "true";?>" <?=is_checked(0, $job->self_employed)?>>No</label>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Employer</label>
-              <h4>Insert Company Name Here</h4>
+              <h4><?=($job->self_employed == 0) ? $job->employer: $job->business;?></h4>
               <div class="editable hidden">
-                <input type="text" name="jobs[0][employer]" value="Insert Company Name Here" data-current="Insert Company Name Here" />
+                <input type="text" name="jobs[<?=$job->id?>][employer]" value="<?=($job->self_employed == 0) ? $job->employer: $job->business;?>" data-current="<?=($job->self_employed == 0) ? $job->employer: $job->business;?>" />
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Employer/Business Type</label>
-              <h4>IT Company</h4>
+              <h4><?=$job->employer_type?></h4>
               <div class="editable hidden">
-                <select name="jobs[0][business_type]" data-current="1">
-                  <option value="1" selected>IT Industry</option>
-                  <option value="2">BPO</option>
-                  <option value="3">KPO</option>
+                <select name="jobs[<?=$job->id?>][employer_type]" data-current="<?=$job->employer_type_id?>">
+                  <?php foreach ($employer_types as $employer) : ?>
+                    <option value="<?=$employer->id?>" <?=is_selected($employer->id, $job->employer_type_id)?>><?=$employer->name?></option>
+                  <? endforeach;?>
                 </select>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Job Title/Position</label>
-              <h4>Developer</h4>
+              <h4><?=$job->job_title?></h4>
               <div class="editable hidden">
-                <input type="text" name="jobs[0][job_title]" value="Developer" data-current="Developer" />
+                <input type="text" name="jobs[<?=$job->id?>][job_title]" value="<?=$job->job_title?>" data-current="<?=$job->job_title?>" />
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Monthly Salary (in Philippine Peso)</label>
-              <h4>10,000 and below</h4>
+              <h4>
+                <?php if (!$job->minimum) {
+                        echo "below " . $job->maximum; 
+                } else if (!$job->maximum) {
+                        echo "above " . $job->minimum;
+                } else {
+                        echo $job->minimum . " - " . $job->maximum;
+                }?>
+              </h4>
               <div class="editable hidden">
-                <select name="jobs[0][monthly_salary]" data-current="1">
-                  <option value="1">10,000 and below</option>
-                  <option value="2">40,000 to 60,000</option>
-                  <option value="3">100,000 and above</option>
+                <select name="jobs[<?=$job->id?>][monthly_salary]" data-current="<?=$job->monthly_salary_id?>">
+                  <?php foreach ($salaries as $sal) :?>
+                    <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
+                        <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
+                         elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
+                         else {echo $sal->minimum . " - " . $sal->maximum;} ?>
+                    </option>                  
+                  <?php endforeach; ?>                  
                 </select>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Employment Duration</label>
-              <h4>2014 - ongoing</h4>
+              <h4><?=$job->year_started?> - <?=($job->year_ended != 100000) ? $job->year_ended: "ongoing";?></h4>
               <div class="editable hidden">
-                <select name="jobs[0][employment_duration][start_year]" class="auto" data-current="2013">
-                  <option value="2014">2014</option>
-                  <option value="2013" selected>2013</option>
-                  <option value="2012">2012</option>
-                  <option value="2011">2011</option>
-                  <option value="2010">2010</option>
+                <select name="jobs[<?=$job->id?>][employment_duration][start_year]" class="auto" data-current="<?=$job->year_started?>">
+                  <?php 
+                    $year = date('Y');
+                    while ($year >= 1980) { 
+                  ?>
+                    <option value="<?=$year?>" <?=is_selected($year, $job->year_started); ?>><?=$year?></option>
+                  <?    
+                      $year--;
+                    }
+                  ?>
                 </select>
                 <span>to</span>
-                <select name="jobs[0][employment_duration][start_year]" class="auto" data-current="ongoing">
-                  <option value="ongoing" selected>ongoing</option>
-                  <option value="2014">2014</option>
-                  <option value="2013">2013</option>
-                  <option value="2012">2012</option>
-                  <option value="2011">2011</option>
-                  <option value="2010">2010</option>
+                <select name="jobs[<?=$job->id?>][employment_duration][end_year]" class="auto" data-current="<?=$job->year_ended?>">
+                  <? if ($job->current_job == 1) { ?>
+                    <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
+                  <?}?>
+                  <?php 
+                    $year = date('Y');
+                    while ($year >= 1980) { 
+                  ?>
+                    <option value="<?=$year?>" <?=is_selected($year, $job->year_ended); ?>><?=$year?></option>
+                  <?    
+                      $year--;
+                    }
+                  ?>
                 </select>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field radio">
               <label>Satisfied with job?</label>
-              <h4>Yes</h4>
+              <h4><?=($job->job_satisfaction == 1) ? "Yes" : "No";?></h4>
               <div class="editable hidden">
-                <label><input type="radio" name="jobs[0][satisfied_with_job]" value="yes" data-current="true" checked />Yes</label>
-                <label><input type="radio" name="jobs[0][satisfied_with_job]" value="no" data-current="false" />No</label>
+                <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="1" data-current="<?=($job->job_satisfaction == 1) ? 'true':'false';?>" <?=is_checked(1, $job->job_satisfaction)?> />Yes</label>
+                <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="0" data-current="<?=($job->job_satisfaction == 0) ? 'true':'false';?>" <?=is_checked(0, $job->job_satisfaction)?> />No</label>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field">
               <label>Why or why not satisfied?</label>
-              <h4>Lorem ipsum Nulla Excepteur dolore exercitation cupidatat tempor tempor velit dolore laborum Excepteur non.</h4>
+              <h4><?=$job->reason?></h4>
               <div class="editable hidden">
-                <textarea name="jobs[0][satisfaction_reason]" data-current="current value here">current value here</textarea>
+                <textarea name="jobs[<?=$job->id?>][satisfaction_reason]" data-current="<?=$job->reason?>"><?=$job->reason?></textarea>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
           </div>
+        <? endforeach; ?>
         </section>
 
         <input type="submit" value="Save Changes" class="button" />

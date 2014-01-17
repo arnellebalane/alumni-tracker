@@ -196,6 +196,159 @@
       redirect('admin/alumni');
     }
 
+    public function updateAlumni($id) {      
+      if (!$this->validatePersonalInformation($_POST['personal_information'])) {        
+        $this->session->set_flashdata("alert", "There are errors in the new personal information!");
+      } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
+        $this->session->set_flashdata("alert", "There are errors in the new educational background!");
+      }  else if (!$this->validateJobs($_POST['jobs'])) {
+        print_r("asdas");
+        $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
+      } else {            
+        $this->updatePersonalInfo($id, $_POST['personal_information']);
+        $this->updateEducationalBackground($id, $_POST['educational_background']);
+        $this->updateJobs($_POST['jobs']);
+      }
+      $this->session->set_flashdata("notice", "Update successful!");
+      redirect('admin/clean/'.$id);
+    }
+
+    // UPDATE PERSONAL INFORMATION
+    private function updatePersonalInfo($id, $info) {        
+      // if ($info['country'] == 'others') {
+      //   $info['country'] = $this->model->addCountry(addslashes($info['specified_country']));
+      // }
+      $this->alumni->updatePersonalInfo($id, $info);
+
+      foreach ($info['social_networks'] as $key => $value) {       
+        $this->alumni->addUserSocialNetwork($id, $key, $value);
+      }      
+    }
+
+    // VALIDATE PERSONLAL INFORMATION
+    private function validatePersonalInformation($info) {      
+      if ($info['firstname'] == '' || $info['lastname'] == '' || $info['gender'] == '' || $info['present_address'] == '' || 
+          !($info['gender'] == 'male' || $info['gender'] == 'female') ||
+          // ($info['country'] == 'others' && $info['specified_country'] == '') ||
+          ($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
+          $info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
+          $info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address']))) {
+        $this->session->set_flashdata('alert', "You are missing a field in your Personal Information or your email is invalid.");
+        return false;
+      }
+      return true;
+    }
+
+    // VALIDATE EMAIL ADDRESS
+    private function validateEmail($email) {      
+      $index = strpos($email, '@');     
+      if ($index) {
+        $index2 = strpos($email, '.');
+        if ($index2 && ($index2 > $index)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    // UPDATE EDUCATIONAL BACKGROUND
+    private function updateEducationalBackground($id, $info) {            
+      $addnote = '';
+      $stud = $this->alumni->getEducationalBackground($id);
+      if (($stud != null && $stud[0]->student_number != '') && $info['student_number'] == '') {
+        $info['student_number'] = $stud[0]->student_number;
+        $addnote = ' (w/ student number unchanged)';
+      }    
+
+      $this->alumni->updateEducationalBackground($id, $info);
+      $this->alumni->updateUserStudentNumber($id, $info['student_number']);      
+    }
+
+    // VALIDATE NEW ALUMNI EDUCATIONAL BACKGROUND
+    private function validateEducationalBackground($user_id, $info) {
+      if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {    
+        return false;
+      }
+      if ($info['student_number'] != '') {
+        for($ctr = 0; $ctr < 10; $ctr++) {
+          if ($ctr != 4) {
+            if (!$this->isNumber($info['student_number'][$ctr])) {
+              $this->session->set_flashdata('alert', "Invalid student number.");
+              return false;
+            }
+          } else {
+            if ($info['student_number'][4] != '-') {
+              $this->session->set_flashdata('alert', "Invalid student number.");
+              return false;
+            }
+          }
+        }
+      }
+      $number = $this->alumni->getEducationalBackground($user_id);
+      if ($number && ($number[0]->student_number != "") && ($info['student_number'] == "")) {
+        $this->session->set_flashdata("alert", "Student number must not be black!");
+        return false;
+      }
+      $stud = $this->alumni->getUserByStudentNumber(addslashes($info['student_number']));
+
+      if ($stud && ($stud[0]->user_id != $user_id)) {
+        $this->session->set_flashdata('alert', "Student number not available.");
+        return false;
+      }
+      return true;
+    }
+
+    // CHECK IF INPUT IS A NUMBER
+    private function isNumber($num) {
+      if ($num == '0' || $num == '1' || $num == '2' || $num == '3' || $num == '4' || $num == '5' || $num == '6' || $num == '7' || $num == '8'
+          || $num == '9') 
+        return true;
+      return false;
+    }
+
+    private function updateJobs($info) {            
+      foreach ($info as $key => $value) {      
+        if (!$this->hasFilledFieldsInEmploymentHistory($value)) {        
+          $this->alumni->deleteEmploymentDetails($key);
+        } else {
+          print_r($value);
+          $this->alumni->updateEmploymentDetails($key, $value);          
+        }
+      }
+    }    
+
+    private function validateJobs($jobs) {
+      foreach ($jobs as $job) {
+        if ($this->hasEmptyFieldInEmploymentHistory($job) && $this->hasFilledFieldsInEmploymentHistory($job)) {          
+          return false;
+        } 
+      }
+      return true;
+    }
+
+    private function hasEmptyFieldInEmploymentHistory($info) {
+      if (($info['employer'] == "") || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
+        return true;
+      }
+      return false;
+    }
+
+    private function hasFilledFieldsInEmploymentHistory($info) {
+      if (($info['employer'] != "") || ($info['job_title'] != "")) {
+        return true;
+      }
+      return false;
+    }
+
+    public function makeAlumniClean($id) {
+      $this->alumni->markAlumniClean($id);
+      redirect('admin/clean/'.$id);
+    } 
+
+    public function markAlumniUnClean($id) {
+      $this->alumni->markAlumniUnClean($id);
+      redirect('admin/clean/'.$id);
+    }
 
   }
 

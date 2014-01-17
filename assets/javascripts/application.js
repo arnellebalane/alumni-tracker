@@ -281,5 +281,18 @@ var admin = {
         $(this).attr('data-behavior', 'edit').text('[edit]');
       });
     }
+
+    $('input[type="button"][data-behavior="add-another-job"]').on('click', function() {
+      admin.addAnotherJob();
+    });
+  },
+  addAnotherJob: function() {
+    var index = $('.job-form').length;
+    var job = $('<div class="job-form"></div>');
+    job.html($('#job-form-template').html().replace(/{{index}}/g, index));
+    $('input[type="button"][data-behavior="add-another-job"]').after(job);
+    job.find('input[type="radio"][data-behavior="toggle-self-employed"]').on('change', function() {
+      job.find('.field[data-field="business"], .field[data-field="employer"]').toggleClass('hidden');
+    });
   }
 };

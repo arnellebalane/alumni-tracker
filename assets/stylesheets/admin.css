@@ -388,6 +388,7 @@ aside li a.current:before {
 
 .admin.clean section input[type="button"] {
   margin-bottom: 10px;
+  outline: none;
 }
 
 .admin.clean .field {

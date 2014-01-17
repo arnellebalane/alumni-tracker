@@ -61,7 +61,7 @@
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <h2><?=humanize($user_info[0]->country)?>s</h2>
+            <h2><?=humanize($user_info[0]->country)?></h2>
             <select name="personal_information[country]" class="specifiable editable hidden" data-current="<?=$user_info[0]->country_id?>">
               <? foreach ($countries as $var): ?>
                 <option value="<?= $var->id; ?>" <?=is_selected($var->id, $user_info[0]->country_id)?>><?= $var->name; ?></option>

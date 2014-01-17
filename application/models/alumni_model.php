@@ -95,13 +95,34 @@ class alumni_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO comment_ge_courses VALUES('$comment_id', '$ge_id')");
 	}
 
-	function addEmploymentDetails($user_id, $employer_type_id, $info) {
+	function addEmploymentDetails($employer_type_id, $info) {
 		$query = $this->db->query("INSERT INTO employment_details (self_employed, business, employer, employer_type_id, job_title, monthly_salary_id, 
 															job_satisfaction, reason, year_started, year_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes($info['business_name'])."',
 															'".addslashes($info['employer'])."', '".$employer_type_id."', '".addslashes($info['job_title'])."', 
 															'".addslashes($info['monthly_salary'])."', '".addslashes($info['satisfied_with_job'])."', '".addslashes($info['satisfaction_reason'])."',
 															'".addslashes($info['employment_duration']['start_year'])."', '".addslashes($info['employment_duration']['end_year'])."')");
 		return mysql_insert_id();
+	}
+
+	function updateEmploymentDetails($id, $info) {
+		$employer="";
+		$business="";
+		if($info['self_employed'] == 1) {
+			$business = $info['employer'];
+			$employer = "";
+		}	else {
+			$employer = $info['employer'];
+			$business = "";
+		}
+		$query = $this->db->query("UPDATE employment_details SET self_employed='".addslashes($info['self_employed'])."', business = '".addslashes($business)."', 
+			 												employer='".addslashes($employer)."', employer_type_id='".addslashes($info['employer_type'])."', job_title='".addslashes($info['job_title'])."',
+			 												monthly_salary_id='".addslashes($info['monthly_salary'])."', job_satisfaction='".addslashes($info['satisfied_with_job'])."',
+			 												reason='".addslashes($info['satisfaction_reason'])."', year_started='".$info['employment_duration']['start_year']."', year_ended='".addslashes($info['employment_duration']['end_year'])."' WHERE id='".addslashes($id)."'");
+	}
+
+	function deleteEmploymentDetails($id) {
+		$query = $this->db->query("DELETE FROM user_employment_histories WHERE employment_details_id = '".addslashes($id)."'");
+		$query2 = $this->dq->query("DELETE FROM employment_details WHERE id = '".addslashes($id)."'");
 	}
 
 	function addUserEmploymentHistory($user_id, $employment_detail_id, $current_job, $first_job) {
@@ -133,9 +154,9 @@ class alumni_model extends CI_Model {
 	}
 
 	function getUserInfoById($user_id) {
-		$query = $this->db->query("SELECT personal_infos.*, educational_backgrounds.*, programs.id as prog_id, programs.name as course, countries.id as 'country_id', countries.name as 'country' FROM personal_infos INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = personal_infos.user_id 
+		$query = $this->db->query("SELECT users.cleaned, users.created_at, personal_infos.*, educational_backgrounds.*, programs.id as prog_id, programs.name as course, countries.id as 'country_id', countries.name as 'country' FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = personal_infos.user_id 
 															 INNER JOIN countries ON countries.id = personal_infos.present_country_id 
-															 INNER JOIN programs ON programs.id = educational_backgrounds.program_id WHERE personal_infos.user_id = '$user_id'");
+															 INNER JOIN programs ON programs.id = educational_backgrounds.program_id WHERE users.id = '$user_id'");
 		return $query->result();
 	}
 
@@ -158,6 +179,15 @@ class alumni_model extends CI_Model {
 															 WHERE user_employment_histories.current_job = 1 AND user_employment_histories.user_id = '".addslashes($user_id)."'");
 		return $query->result();
 	}	
+
+	function getUserFirstJob($user_id) {
+		$query = $this->db->query("SELECT employment_details.*, employer_types.name as employer_type, monthly_salaries.minimum, monthly_salaries.maximum FROM employment_details 
+															 INNER JOIN user_employment_histories ON employment_details.id = 
+															 user_employment_histories.employment_details_id INNER JOIN employer_types ON employer_types.id = employment_details.employer_type_id 
+															 INNER JOIN monthly_salaries ON monthly_salaries.id = employment_details.monthly_salary_id 
+															 WHERE user_employment_histories.first_job = 1 AND user_employment_histories.user_id = '".addslashes($user_id)."'");
+		return $query->result();
+	}
 
 	function getUserAllJobs($user_id) {
 		$query = $this->db->query("SELECT user_employment_histories.current_job, user_employment_histories.first_job, employment_details.*, employer_types.name as employer_type, 
@@ -218,6 +248,14 @@ class alumni_model extends CI_Model {
 		$this->db->query("DELETE FROM personal_infos WHERE user_id='".addslashes($id)."'");
 		$this->db->query("DELETE FROM educational_backgrounds WHERE user_id='".addslashes($id)."'");
 		$this->db->query("DELETE FROM users WHERE id='".addslashes($id)."'");
+	}
+
+	function markAlumniClean($id) {
+		$query = $this->db->query("UPDATE users SET cleaned = 1 WHERE id='".addslashes($id)."'");
+	}
+
+	function markAlumniUnClean($id) {
+		$this->db->query("UPDATE users SET cleaned = 0 WHERE id='".addslashes($id)."'");
 	}
 
 }

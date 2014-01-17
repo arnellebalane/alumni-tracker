@@ -294,5 +294,9 @@ var admin = {
     job.find('input[type="radio"][data-behavior="toggle-self-employed"]').on('change', function() {
       job.find('.field[data-field="business"], .field[data-field="employer"]').toggleClass('hidden');
     });
+    job.find('a[data-behavior="discard-another-job"]').on('click', function(e) {
+      e.preventDefault();
+      $(this).closest('.job-form').remove();
+    });
   }
 };

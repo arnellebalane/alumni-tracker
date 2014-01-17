@@ -52,7 +52,7 @@
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
-          <div class="field">
+          <div class="field radio">
             <label>Gender</label>
             <h4><?=humanize($user_info[0]->gender)?></h4>
             <div class="editable hidden">
@@ -207,7 +207,7 @@
           <h3>Employment History</h3>
           <div class="job">
             <h4>Current Job</h4>
-            <div class="field">
+            <div class="field radio">
               <label>Self-employed?</label>
               <h4>No</h4>
               <div class="editable hidden">
@@ -279,7 +279,7 @@
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
-            <div class="field">
+            <div class="field radio">
               <label>Satisfied with job?</label>
               <h4>Yes</h4>
               <div class="editable hidden">

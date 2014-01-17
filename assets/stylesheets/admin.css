@@ -420,6 +420,10 @@ aside li a.current:before {
   margin-top: 8px;
 }
 
+.admin.clean .field.radio a[data-behavior="cancel"] {
+  margin-top: 3px;
+}
+
 .admin.clean .job {
   margin-bottom: 15px;
   padding-bottom: 15px;

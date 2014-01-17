@@ -122,7 +122,7 @@ class alumni_model extends CI_Model {
 
 	function deleteEmploymentDetails($id) {
 		$query = $this->db->query("DELETE FROM user_employment_histories WHERE employment_details_id = '".addslashes($id)."'");
-		$query2 = $this->dq->query("DELETE FROM employment_details WHERE id = '".addslashes($id)."'");
+		$query2 = $this->db->query("DELETE FROM employment_details WHERE id = '".addslashes($id)."'");
 	}
 
 	function addUserEmploymentHistory($user_id, $employment_detail_id, $current_job, $first_job) {

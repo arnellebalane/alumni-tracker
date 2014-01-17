@@ -315,7 +315,13 @@
           $this->alumni->updateEmploymentDetails($key, $value);          
         }
       }
-    }    
+    }
+
+    public function deleteJob($user_id, $id) {
+      $this->alumni->deleteEmploymentDetails($id);
+      $this->session->set_flashdata("notice", "Job deleted!");
+      redirect('admin/clean/'.$user_id);
+    }
 
     private function validateJobs($jobs) {
       foreach ($jobs as $job) {

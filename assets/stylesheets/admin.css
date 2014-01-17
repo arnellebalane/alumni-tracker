@@ -407,6 +407,7 @@ aside li a.current:before {
   color: #333333;
 }
 
+.admin.clean h4 a,
 .admin.clean .field a {
   display: inline-block;
   vertical-align: top;

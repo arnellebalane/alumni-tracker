@@ -206,7 +206,7 @@
         <section id="employment-history">
           <h3>Employment History</h3>
           <div class="job">
-            <h4>Current Job</h4>
+            <h4>Current Job<?= anchor('#', '[Delete this Job]'); ?></h4>
             <div class="field radio">
               <label>Self-employed?</label>
               <h4>No</h4>

@@ -32,10 +32,15 @@
       <p>This is a listing of all the data submitted by the alumni through the questionnaire.</p>
 
       <?= form_open('admin/alumni', array('class' => 'filter', 'method' => 'GET')); ?>
+        <select name="included">
+          <option>All Entries</option>
+          <option value="1">Included in Analysis</option>
+          <option value="0">Excluded from Analysis</option>
+        </select>
         <select name="cleaned">
           <option>All Entries</option>
-          <option value = "1" <?=is_selected(1, $cleaned)?>>Cleaned Entries</option>
-          <option value = "0" <?=is_selected(0, $cleaned)?>>Uncleaned Entries</option>
+          <option value="1" <?=is_selected(1, $cleaned)?>>Cleaned Entries</option>
+          <option value="0" <?=is_selected(0, $cleaned)?>>Uncleaned Entries</option>
         </select>
         <select name="program_id">        
           <option value="0">All Programs</option>

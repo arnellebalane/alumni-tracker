@@ -30,6 +30,11 @@
       <p>This shows the data submitted by the alumni from your assigned departments.</p>
 
       <?= form_open('#', array('class' => 'filter', 'method' => 'GET')); ?>
+        <select name="included">
+          <option>All Entries</option>
+          <option value="1">Included in Analysis</option>
+          <option value="0">Excluded from Analysis</option>
+        </select>
         <select name="cleaned">
           <option>All Entries</option>
           <option value="1">Cleaned Entries</option>

@@ -2,6 +2,16 @@
   padding: 50px 0;
 }
 
+#cleaning-disabled {
+  width: 500px;
+  font: normal 2.4rem/6rem "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  text-align: center;
+  border: 1px solid #8B242A;
+  border-radius: 3px;
+  margin: 50px auto;
+}
+
 .button {
   font: normal 1.5rem "Open Sans Light", "OpenSansLight";
   color: #ffffff;

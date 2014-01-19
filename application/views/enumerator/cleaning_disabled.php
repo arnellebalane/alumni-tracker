@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/reset.css'; ?>" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/fonts.css'; ?>" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/application.css'; ?>" />
+  <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/enumerator.css'; ?>" />
+  <script src="<?= base_url() . 'assets/javascripts/jquery-2'; ?>.js"></script>
+  <script src="<?= base_url() . 'assets/javascripts/application.js'; ?>"></script>
+  <title>Alumni Tracker</title>
+</head>
+
+<body class="enumerator cleaning-disabled">
+  <?php if ($this->session->flashdata('notice')): ?>
+    <p class="notification notice"><?= $this->session->flashdata('notice'); ?></p>
+  <?php elseif ($this->session->flashdata('alert')): ?>
+    <p class="notification alert"><?= $this->session->flashdata('alert'); ?></p>
+  <?php endif; ?>
+  <?= anchor('session/logout', 'Sign Out', array('id' => 'sign-out')); ?>
+  <div class="wrapper clearfix">
+    <h1 id="cleaning-disabled">Cleaning of data is currently disabled.</h1>
+  </div>
+</body>
+</html>

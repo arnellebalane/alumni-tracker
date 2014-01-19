@@ -32,16 +32,19 @@
 
       <?= form_open('#', array('class' => 'filter', 'method' => 'GET')); ?>
         <select name="included">
+          <option disabled selected>--filter by time submitted--</option>
           <option>All Entries</option>
           <option value="1">Included in Analysis</option>
           <option value="0">Excluded from Analysis</option>
         </select>
         <select name="cleaned">
+          <option disabled selected>--filter by cleanliness--</option>
           <option>All Entries</option>
           <option value="1">Cleaned Entries</option>
           <option value="0">Uncleaned Entries</option>
         </select>
-        <select name="program_id">        
+        <select name="program_id">
+          <option disabled selected>--filter by degree program--</option>
           <option value="0">All Programs Assigned</option>
           <option value="1">Course 1</option>
           <option value="2">Course 2</option>

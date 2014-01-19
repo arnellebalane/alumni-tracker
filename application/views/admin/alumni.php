@@ -34,16 +34,19 @@
 
       <?= form_open('admin/alumni', array('class' => 'filter', 'method' => 'GET')); ?>
         <select name="included">
+          <option disabled selected>--filter by time submitted--</option>
           <option>All Entries</option>
           <option value="1">Included in Analysis</option>
           <option value="0">Excluded from Analysis</option>
         </select>
         <select name="cleaned">
+          <option disabled selected>--filter by cleanliness--</option>
           <option>All Entries</option>
           <option value="1" <?=is_selected(1, $cleaned)?>>Cleaned Entries</option>
           <option value="0" <?=is_selected(0, $cleaned)?>>Uncleaned Entries</option>
         </select>
-        <select name="program_id">        
+        <select name="program_id">
+          <option disabled selected>--filter by degree program--</option>
           <option value="0">All Programs</option>
           <? foreach ($programs as $program) : ?>
             <option value="<?=$program->id?>" <?=is_selected($program->id, $program_id)?>><?=$program->name?></option>

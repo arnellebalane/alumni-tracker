@@ -9,7 +9,7 @@
   text-align: center;
   border: 1px solid #8B242A;
   border-radius: 3px;
-  margin: 50px auto;
+  margin-top: 65px;
 }
 
 .button {
@@ -294,7 +294,8 @@ aside li a.current:before {
 }
 
 .enumerator.clean span,
-.enumerator.clean .field label {
+.enumerator.clean .field label,
+.enumerator.settings .field label {
   display: inline-block;
   vertical-align: top;
   width: 275px;
@@ -385,7 +386,9 @@ aside li a.current:before {
 .enumerator.clean .job-form .field textarea,
 .enumerator.clean .editable input[type="text"],
 .enumerator.clean .editable select,
-.enumerator.clean .editable textarea {
+.enumerator.clean .editable textarea,
+.enumerator.settings input[type="text"],
+.enumerator.settings input[type="password"] {
   width: 200px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
@@ -406,7 +409,9 @@ aside li a.current:before {
 .enumerator.clean .job-form .field textarea:focus,
 .enumerator.clean .editable input[type="text"]:focus,
 .enumerator.clean .editable select:focus,
-.enumerator.clean .editable textarea:focus {
+.enumerator.clean .editable textarea:focus,
+.enumerator.settings input[type="text"]:focus,
+.enumerator.settings input[type="password"]:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
@@ -440,4 +445,25 @@ aside li a.current:before {
 
 .enumerator.clean .button {
   margin: 40px 0 0 335px;
+}
+
+.enumerator.settings .content p {
+  margin-bottom: 40px;
+}
+
+.enumerator.settings .field {
+  margin-bottom: 5px;
+}
+
+.enumerator.settings .field label {
+  vertical-align: middle;
+}
+
+.enumerator.settings input[type="text"],
+.enumerator.settings input[type="password"] {
+  width: 270px;
+}
+
+.enumerator.settings .button {
+  margin: 20px 0 0 278px;
 }

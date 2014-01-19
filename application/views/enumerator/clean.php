@@ -21,7 +21,8 @@
   <div class="wrapper clearfix">
     <aside>
       <ul>
-        <li><?= anchor('admin/index', 'Alumni Data', array('class' => 'current')); ?></li>
+        <li><?= anchor('enumerator/index', 'Alumni Data', array('class' => 'current')); ?></li>
+        <li><?= anchor('enumerator/settings', 'Account Settings'); ?></li>
       </ul>
     </aside>
 

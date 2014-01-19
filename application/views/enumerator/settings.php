@@ -11,7 +11,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="enumerator cleaning-disabled">
+<body class="enumerator settings">
   <?php if ($this->session->flashdata('notice')): ?>
     <p class="notification notice"><?= $this->session->flashdata('notice'); ?></p>
   <?php elseif ($this->session->flashdata('alert')): ?>
@@ -21,13 +21,36 @@
   <div class="wrapper clearfix">
     <aside>
       <ul>
-        <li><?= anchor('enumerator/index', 'Alumni Data', array('class' => 'current')); ?></li>
-        <li><?= anchor('enumerator/settings', 'Account Settings'); ?></li>
+        <li><?= anchor('enumerator/index', 'Alumni Data'); ?></li>
+        <li><?= anchor('enumerator/settings', 'Account Settings', array('class' => 'current')); ?></li>
       </ul>
     </aside>
 
     <div class="content">
-      <h1 id="cleaning-disabled">Cleaning of data is currently disabled.</h1>
+      <h1>Account Settings</h1>
+      <p>Edit the information used to login to your account.</p>
+
+      <?= form_open('#'); ?>
+        <div class="field">
+          <label>Username</label>
+          <input type="text" name="username" />
+        </div>
+        <div class="field">
+          <label>Current Password</label>
+          <input type="password" name="current_password" />
+        </div>
+        <div class="field">
+          <label>New Password</label>
+          <input type="password" name="new_password" />
+        </div>
+        <div class="field">
+          <label>Confirm New Password</label>
+          <input type="password" name="confirm_new_password" />
+        </div>
+        <div class="field actions">
+          <input type="submit" value="Update Password" class="button" />
+        </div>
+      <?= form_close(); ?>
     </div>
   </div>
 </body>

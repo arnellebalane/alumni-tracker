@@ -31,6 +31,9 @@
       <div class="clean-actions">
         <?= anchor('#', 'Mark as Clean', array('class' => 'green')); ?>
         <?= anchor('#', 'Discard', array('class' => 'red')); ?>
+
+        <?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
+        <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>
       </div>
 
       <?= form_open('#'); ?>

@@ -333,6 +333,26 @@ aside li a.current:before {
   left: 25px;
 }
 
+.admin.clean .clean-actions a.navigation {
+  display: inline-block;
+  font: normal 1.1rem/2rem "Open Sans Light", "OpenSansLight";
+  color: #26681B;
+  text-transform: uppercase;
+  margin-left: 25px;
+  padding-top: 1px;
+}
+
+.admin.clean .clean-actions a.navigation:hover,
+.admin.clean .clean-actions a.navigation:focus {
+  color: #ffffff;
+  background-color: #26681B;
+  border-color: #26681B;
+}
+
+.admin.clean .clean-actions a.navigation:last-of-type {
+  margin-left: 0;
+}
+
 .admin.clean section input[type="button"],
 .admin.clean .clean-actions a {
   display: inline-block;

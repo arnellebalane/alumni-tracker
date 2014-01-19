@@ -210,7 +210,7 @@ var admin = {
     admin.initializeFormCleaning();
   },
   initializeQuestionnaireData: function() {
-    if ($('body').hasClass('admin index')) {
+    if ($('body').hasClass('admin index') || $('body').hasClass('enumerator index')) {
       $('section input[type="checkbox"]').on('change', function() {
         var section = $(this).closest('section');
         if (section.find('input[type="checkbox"]:checked').length > 0) {
@@ -260,7 +260,7 @@ var admin = {
     }
   },
   initializeFormCleaning: function() {
-    if ($('body').hasClass('admin clean')) {
+    if ($('body').hasClass('admin clean') || $('body').hasClass('enumerator clean')) {
       $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
         e.preventDefault();
         $(this).siblings('.editable, h4').toggleClass('hidden');

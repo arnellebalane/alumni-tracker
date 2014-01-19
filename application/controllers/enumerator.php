@@ -10,6 +10,10 @@
       $this->load->view('enumerator/index');
     }
 
+    public function clean() {
+      $this->load->view('enumerator/clean');
+    }
+
   }
 
 ?>

@@ -195,3 +195,235 @@ aside li a.current:before {
 .list li .actions a:focus {
   background-color: #D22940;
 }
+
+.enumerator.clean h1 {
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.enumerator.clean .clean-actions {
+  display: inline-block;
+  position: relative;
+  top: -3px;
+  left: 25px;
+}
+
+.enumerator.clean section input[type="button"],
+.enumerator.clean .clean-actions a {
+  display: inline-block;
+  font: normal 1.3rem/2.4rem "Open Sans Light", "OpenSansLight";
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 7px;
+  border: 1px solid;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.enumerator.clean section input[type="button"],
+.enumerator.clean .clean-actions a.green {
+  background-color: #469431;
+  border-color: #32881A;
+}
+
+.enumerator.clean section input[type="button"]:hover,
+.enumerator.clean section input[type="button"]:focus,
+.enumerator.clean .clean-actions a.green:hover,
+.enumerator.clean .clean-actions a.green:focus {
+  background-color: #32881A;
+}
+
+.enumerator.clean .clean-actions a.red {
+  background-color: #DB485C;
+  border-color: #D22940;
+}
+
+.enumerator.clean .clean-actions a.red:hover,
+.enumerator.clean .clean-actions a.red:focus {
+  background-color: #D22940;
+}
+
+.enumerator.clean section {
+  padding-left: 25px;
+  margin-bottom: 25px;
+}
+
+.enumerator.clean section:last-of-type {
+  margin-bottom: 0;
+}
+
+.enumerator.clean section h3 {
+  display: block;
+  font: normal 1.8rem "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  position: relative;
+  left: -25px;
+  margin-bottom: 10px;
+}
+
+.enumerator.clean section input[type="button"] {
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.enumerator.clean .field {
+  margin-bottom: 3px;
+}
+
+.enumerator.clean .field.indented {
+  margin-left: 25px;
+}
+
+.enumerator.clean .field.indented label {
+  width: 250px;
+}
+
+.enumerator.clean span,
+.enumerator.clean .field label {
+  display: inline-block;
+  vertical-align: top;
+  width: 275px;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #555555;
+}
+
+.enumerator.clean .field h4 {
+  display: inline-block;
+  max-width: 275px;
+  font: bold 1.4rem "Open Sans Light";
+  color: #333333;
+}
+
+.enumerator.clean h4 a,
+.enumerator.clean .field a {
+  display: inline-block;
+  vertical-align: top;
+  font: normal 1rem "Open Sans Light", "OpenSansLight";
+  color: #005BC2;
+  text-transform: uppercase;
+  margin: 3px 0 0 10px;
+}
+
+.enumerator.clean .field a[data-behavior="cancel"] {
+  margin-top: 8px;
+}
+
+.enumerator.clean .field.radio a[data-behavior="cancel"] {
+  margin-top: 3px;
+}
+
+.enumerator.clean .job {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted #cccccc;
+}
+
+.enumerator.clean .job:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.enumerator.clean .job-form {
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dotted #cccccc;
+}
+
+.enumerator.clean .job-form > h4,
+.enumerator.clean .job > h4 {
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #555555;
+  margin-bottom: 10px;
+}
+
+.enumerator.clean .job-form .field,
+.enumerator.clean .job .field {
+  padding-left: 15px;
+}
+
+.enumerator.clean .job-form .field.unindented {
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.enumerator.clean .job-form label,
+.enumerator.clean .job label {
+  width: 260px;
+}
+
+.enumerator.clean .job-form .field.unindented label {
+  width: 275px;
+}
+
+.enumerator.clean .job-form .field label {
+  margin-top: 6px;
+}
+
+.enumerator.clean .editable {
+  display: inline-block;
+  min-width: 150px;
+}
+
+.enumerator.clean .job-form .field input[type="text"],
+.enumerator.clean .job-form .field select,
+.enumerator.clean .job-form .field textarea,
+.enumerator.clean .editable input[type="text"],
+.enumerator.clean .editable select,
+.enumerator.clean .editable textarea {
+  width: 200px;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #333333;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  outline: none;
+  margin: 0;
+  -webkit-transition: box-shadow 250ms ease;
+  -moz-transition: box-shadow 250ms ease;
+  -o-transition: box-shadow 250ms ease;
+  -ms-transition: box-shadow 250ms ease;
+  transition: box-shadow 250ms ease;
+}
+
+.enumerator.clean .job-form .field input[type="text"]:focus,
+.enumerator.clean .job-form .field select:focus,
+.enumerator.clean .job-form .field textarea:focus,
+.enumerator.clean .editable input[type="text"]:focus,
+.enumerator.clean .editable select:focus,
+.enumerator.clean .editable textarea:focus {
+  box-shadow: 0 0 3px #30FC0D;
+}
+
+.enumerator.clean .job-form .field select,
+.enumerator.clean .editable select {
+  width: 212px;
+}
+
+.enumerator.clean .job-form .field textarea,
+.enumerator.clean .editable textarea {
+  resize: none;
+}
+
+.enumerator.clean .job-form .field.unindented input + label,
+.enumerator.clean .job-form input[type="radio"] + label,
+.enumerator.clean .job-form input[type="checkbox"] + label,
+.enumerator.clean .editable label {
+  width: auto;
+}
+
+.enumerator.clean .job-form .field.inline label {
+  margin-top: 0;
+}
+
+.enumerator.clean .job-form .field select.auto,
+.enumerator.clean .job-form .field span,
+.enumerator.clean .editable select.auto,
+.enumerator.clean .editable span {
+  width: auto;
+}
+
+.enumerator.clean .button {
+  margin: 40px 0 0 335px;
+}

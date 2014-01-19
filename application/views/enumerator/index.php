@@ -47,7 +47,7 @@
       <ul class="list">
         <?php for ($i = 0; $i < 50; $i++): ?>
           <li>
-            <?= anchor('#', 'Arnelle Balane'); ?>
+            <?= anchor('enumerator/clean', 'Arnelle Balane'); ?>
             <div class="actions">
               <?= anchor('#', 'Discard'); ?>
             </div>

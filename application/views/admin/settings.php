@@ -11,7 +11,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="admin metas">
+<body class="admin settings">
   <?php if ($this->session->flashdata('notice')): ?>
     <p class="notification notice"><?= $this->session->flashdata('notice'); ?></p>
   <?php elseif ($this->session->flashdata('alert')): ?>
@@ -23,46 +23,35 @@
       <ul>
         <li><?= anchor('admin/index', 'Questionnaire Data'); ?></li>
         <li><?= anchor('admin/alumni', 'Alumni Data'); ?></li>
-        <li><?= anchor('admin/metas', 'Meta Data', array('class' => 'current')); ?></li>
-        <li><?= anchor('admin/settings', 'Account Settings'); ?></li>
+        <li><?= anchor('admin/metas', 'Meta Data'); ?></li>
+        <li><?= anchor('admin/settings', 'Account Settings', array('class' => 'current')); ?></li>
       </ul>
     </aside>
 
     <div class="content">
-      <h1>Manage Meta Data</h1>
-      <p>These are data that affects the system-wide behaviors of the application.</p>
-
-      <div class="metas-actions">
-        <?= anchor('#', 'Enable Submissions'); ?>
-        <?= anchor('#', 'Enable Data Cleaning'); ?>
-      </div>
+      <h1>Account Settings</h1>
+      <p>Edit the information used to login to your account.</p>
 
       <?= form_open('#'); ?>
-        <section id="submission-period">
-          <h1>Submission Period</h1>
-          <div class="field">
-            <label>Start Date</label>
-            <input type="date" name="submission_period[start]" />
-          </div>
-          <div class="field">
-            <label>End Date</label>
-            <input type="date" name="submission_period[end" />
-          </div>
-        </section>
-
-        <section id="cleaning-period">
-          <h1>Cleaning Period</h1>
-          <div class="field">
-            <label>Start Date</label>
-            <input type="date" name="cleaning_period[start]" />
-          </div>
-          <div class="field">
-            <label>End Date</label>
-            <input type="date" name="cleaning_period[end]" />
-          </div>
-        </section>
-
-        <input type="submit" value="Save Changes" class="button" />
+        <div class="field">
+          <label>Username</label>
+          <input type="text" name="username" />
+        </div>
+        <div class="field">
+          <label>Current Password</label>
+          <input type="password" name="current_password" />
+        </div>
+        <div class="field">
+          <label>New Password</label>
+          <input type="password" name="new_password" />
+        </div>
+        <div class="field">
+          <label>Confirm New Password</label>
+          <input type="password" name="confirm_new_password" />
+        </div>
+        <div class="field actions">
+          <input type="submit" value="Update Password" class="button" />
+        </div>
       <?= form_close(); ?>
     </div>
   </div>

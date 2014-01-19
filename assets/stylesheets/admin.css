@@ -405,7 +405,8 @@ aside li a.current:before {
 }
 
 .admin.clean span,
-.admin.clean .field label {
+.admin.clean .field label,
+.admin.settings .field label {
   display: inline-block;
   width: 275px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
@@ -495,7 +496,9 @@ aside li a.current:before {
 .admin.clean .job-form .field textarea,
 .admin.clean .editable input[type="text"],
 .admin.clean .editable select,
-.admin.clean .editable textarea {
+.admin.clean .editable textarea,
+.admin.settings input[type="text"],
+.admin.settings input[type="password"] {
   width: 200px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
@@ -516,7 +519,9 @@ aside li a.current:before {
 .admin.clean .job-form .field textarea:focus,
 .admin.clean .editable input[type="text"]:focus,
 .admin.clean .editable select:focus,
-.admin.clean .editable textarea:focus {
+.admin.clean .editable textarea:focus,
+.admin.settings input[type="text"]:focus,
+.admin.settings input[type="password"]:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
@@ -608,4 +613,25 @@ aside li a.current:before {
 
 .admin.metas .content .button {
   margin-left: 138px;
+}
+
+.admin.settings .content p {
+  margin-bottom: 40px;
+}
+
+.admin.settings .field {
+  margin-bottom: 5px;
+}
+
+.admin.settings .field label {
+  vertical-align: middle;
+}
+
+.admin.settings input[type="text"],
+.admin.settings input[type="password"] {
+  width: 270px;
+}
+
+.admin.settings .button {
+  margin: 20px 0 0 278px;
 }

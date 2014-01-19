@@ -518,7 +518,9 @@ aside li a.current:before {
 .admin.clean .editable select,
 .admin.clean .editable textarea,
 .admin.settings input[type="text"],
-.admin.settings input[type="password"] {
+.admin.settings input[type="password"],
+.admin.enumerators input[type="text"],
+.admin.enumerators input[type="email"] {
   width: 200px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
@@ -541,7 +543,9 @@ aside li a.current:before {
 .admin.clean .editable select:focus,
 .admin.clean .editable textarea:focus,
 .admin.settings input[type="text"]:focus,
-.admin.settings input[type="password"]:focus {
+.admin.settings input[type="password"]:focus,
+.admin.enumerators input[type="text"]:focus,
+.admin.enumerators input[type="email"]:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
@@ -697,7 +701,7 @@ aside li a.current:before {
   color: #D22940;
 }
 
-.admin.enumerators .editable label {
+.admin.enumerators label {
   display: inline-block;
   width: 220px;
   font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
@@ -705,7 +709,7 @@ aside li a.current:before {
   margin-bottom: 3px;
 }
 
-.admin.enumerators .editable label.analysis-access {
+.admin.enumerators label.analysis-access {
   display: block;
   width: auto;
   margin: 10px 0 0 15px;
@@ -736,4 +740,28 @@ aside li a.current:before {
 .admin.enumerators .actions a.button:hover,
 .admin.enumerators .actions a.button:focus {
   background-color: #D22940;
+}
+
+.admin.enumerators .enumerator-creation-form {
+  padding: 15px;
+  margin-top: 25px;
+}
+
+.admin.enumerators .enumerator-creation-form h3 {
+  font: normal 2rem/1 "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  margin-bottom: 10px;
+}
+
+.admin.enumerators .field {
+  margin-bottom: 5px;
+}
+
+.admin.enumerators input[type="text"],
+.admin.enumerators input[type="email"] {
+  width: 270px;
+}
+
+.admin.enumerators .enumerator-creation-form .button {
+  margin: 20px 0 0 20px;
 }

@@ -89,6 +89,10 @@ aside li a.current:before {
   margin-bottom: 20px;
 }
 
+.content section label {
+  margin-right: 5%;
+}
+
 .filter {
   text-align: right;
   margin-bottom: 20px;

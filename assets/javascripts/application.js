@@ -208,6 +208,7 @@ var admin = {
   initialize: function() {
     admin.initializeQuestionnaireData();
     admin.initializeFormCleaning();
+    admin.initializeEnumerators();
   },
   initializeQuestionnaireData: function() {
     if ($('body').hasClass('admin index') || $('body').hasClass('enumerator index')) {
@@ -298,5 +299,21 @@ var admin = {
       e.preventDefault();
       $(this).closest('.job-form').remove();
     });
+  },
+  initializeEnumerators: function() {
+    if ($('body').hasClass('admin enumerators')) {
+      $('.enumerator').delegate('input[type="button"][data-behavior="edit"]', 'click', function() {
+        $(this).attr('value', 'Cancel Edit').attr('data-behavior', 'cancel');
+        $(this).siblings('input[type="submit"]').toggleClass('hidden');
+        $(this).closest('.actions').siblings('.privileges, .editable').toggleClass('hidden');
+      }).delegate('input[type="button"][data-behavior="cancel"]', 'click', function() {
+        $(this).attr('value', 'Edit Account').attr('data-behavior', 'edit');
+        $(this).siblings('input[type="submit"]').toggleClass('hidden');
+        $(this).closest('.actions').siblings('.privileges, .editable').toggleClass('hidden');
+        $(this).closest('.actions').siblings('.editable').find('input[type="checkbox"]').each(function() {
+          $(this).prop('checked', $(this).data('current'));
+        });
+      });
+    }
   }
 };

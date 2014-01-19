@@ -58,6 +58,10 @@
       $this->load->view('admin/clean', $data);
     }
 
+    public function metas() {
+      $this->load->view('admin/metas');
+    }
+
     public function addCountry() {
       if ($_POST['country_name'] == "") {
         $this->session->set_flashdata("alert", "The country name should not be blank!");      

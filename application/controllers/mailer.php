@@ -7,14 +7,14 @@
 
       $config['protocol'] = 'smtp';
       $config['smtp_host'] = 'ssl://gator4052.hostgator.com';
-      $config['smtp_post'] = 465;
+      $config['smtp_port'] = 465;
       $config['smtp_user'] = 'alumnitracker@wefoundyou.org';
       $config['smtp_pass'] = '@alumnitracker123';
       $config['mailtype'] = 'text';
       $this->load->library('email', $config);
     }
 
-    public function test($email) {
+    public function test($email = 'arnellebalane@gmail.com') {
       $message = 'This is a sample email from Alumni Tracker.';
       $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
       $this->email->to(urldecode($email));

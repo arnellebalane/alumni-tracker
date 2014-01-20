@@ -12,15 +12,15 @@
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Thank you for taking the time in filling out the ALumni Tracker. Rest assured that the information you provided us will be treated with high confidentiality.</p>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">If you want to make changes in your profile, you may login to your alumni account through this link: <a href="http://localhost/alumni-tracker/index.php/session/index" style="display: block;">Alumni Tracker account login</a></p>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Your login information can be found below:</p>
-      <section style="margin: 15px 0 15px 25px;">
-        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 0 25px;"><span style="display: inline-block; width: 100px;">Username:</span>[insert username here]</p>
-        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 0 25px;"><span style="display: inline-block; width: 100px;">Password:</span>[insert password here]</p>
-      </section>
+      <div style="margin: 15px 0 15px 25px;">
+        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Username:</span>[insert username here]</p>
+        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Password:</span>[insert password here]</p>
+      </div>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Please change your account password upon logging in.</p>
-      <footer style="margin-top: 25px;">
+      <div style="margin-top: 25px;">
         <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;">Best Regards,</p>
         <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><em>Alumni Tracker Team</em></p>
-      </footer>
+      </div>
     </div>
   </div>
 </body>

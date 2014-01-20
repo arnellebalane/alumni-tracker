@@ -11,7 +11,7 @@
       <h1 style="font: bold 14px 'Arial'; color: #222222; margin: 0 0 25px 0;">Hi, [insert full name here]!</h1>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You have been selected to be an enumerator for Alumni Tracker. Your role as an enumerator is to help the admin with the gathering and cleaning of alumni data from the degree programs that you are assigned on.</p>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You have been assigned to the following degree programs:</p>
-      <ul style="margin: 0 0 10px 0;">
+      <ul style="margin: 0 0 10px 0; padding-left: 25px">
         <li style="font: normal 14px 'Arial'; color: #333333;">BS Computer Science</li>
         <li style="font: normal 14px 'Arial'; color: #333333;">BS Mathematics</li>
         <li style="font: normal 14px 'Arial'; color: #333333;">BS Biology</li>
@@ -19,8 +19,8 @@
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You may login to your enumerator account through this link: <a href="http://localhost/alumni-tracker/index.php/session/index" style="display: inline-block;">Alumni Tracker account login</a></p>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Your login information can be found below:</p>
       <section style="margin: 15px 0 15px 25px;">
-        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Username:</span>[insert username here]</p>
-        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Password:</span>[insert password here]</p>
+        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 0 25px;"><span style="display: inline-block; width: 100px;">Username:</span>[insert username here]</p>
+        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 0 25px;"><span style="display: inline-block; width: 100px;">Password:</span>[insert password here]</p>
       </section>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Please change your account password upon logging in.</p>
       <footer style="margin-top: 25px;">

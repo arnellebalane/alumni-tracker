@@ -10,6 +10,11 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}
 
+	function getusersByUsername($username) {
+		$query = $this->db->query("SELECT * FROM users WHERE username = '".addslashes($username)."'");
+		return $query->result();
+	}
+
 	function addUser($username, $password) {
 		$test = $this->db->query("SELECT * FROM users WHERE username = '$username'");		
 		if ($test->result()) {
@@ -201,6 +206,12 @@ class alumni_model extends CI_Model {
 	function updateUserPassword($user_id, $new_password) {
 		$this->db->query("UPDATE users SET password = '".addslashes($new_password)."' WHERE id = '".addslashes($user_id)."'");
 	}
+
+	function updateUserName($user_id, $new_username) {
+		$this->db->query("UPDATE users SET username = '".addslashes($new_username)."' WHERE id = '".addslashes($user_id)."'");
+	}
+
+
 
 	function getAllAlumni() {
 		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.user_type='alumni'");

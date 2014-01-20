@@ -23,6 +23,7 @@
     public function alumni() {
       $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : 2;
       $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : 0;
+      $included = isset($_GET['included']) ? $_GET['included'] : 0;
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0) {
         $alumni = $this->alumni->getAllAlumni();        
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0) {
@@ -373,14 +374,36 @@
       $new_pass = $_POST['new_password'];
       $confirm = $_POST['confirm_new_password'];
       $username = $_POST['username'];
-      if ($new_pass != $confirm) {
+      if ($new_pass != $confirm && (!$new_pass && !$confirm)) {
         $this->session->set_flashdata("alert", "The passwords does not match!");
       } else if(strlen($new_pass) < 5 && $new_pass != "") {
         $this->session->set_flashdata("alert", "The password should contain at least 5 characters!");
       } else {
         $res = $this->alumni->getUserById($this->session->userdata('user_id'));
-        if ($res && $res[0]->password == addslashes($cur_pass)) {
-          
+        if ($res && $res[0]->password == addslashes($cur_pass)) {          
+          if ($username != "" && $new_pass != "") {
+            $u = $this->alumni->getUsersByUsername($username);
+            if ($u && $u[0]->id != $this->session->userdata('user_id')) {
+              $this->session->set_flashdata("alert", "Username not available!");
+            } else {
+              $this->alumni->updateUsername($this->session->userdata('user_id'), $username);
+              $this->alumni->updateUserPassword($this->session->userdata('user_id'), $new_pass);
+              $this->session->set_flashdata("notice", "Account successfully updated!");
+            }
+          } else if ($username != "") {
+            $u2 = $this->alumni->getUsersByUsername($username);
+            if ($u2 && $u2[0]->id != $this->session->userdata('user_id')) {
+              $this->session->set_flashdata("alert", "Username not available!");
+            } else {
+              $this->alumni->updateUsername($this->session->userdata('user_id'), $username);
+              $this->session->set_flashdata("notice", "Account successfully updated!");
+            }
+          } else if ($new_pass != "") {
+            $this->alumni->updateUserPassword($this->session->userdata('user_id'), $new_pass);
+            $this->session->set_flashdata("notice", "Account successfully updated!");
+          } else {
+            $this->session->set_flashdata("alert", "Please set a new username or password!");
+          }
         } else {
           $this->session->set_flashdata("alert", "Wrong password!");
         }

@@ -518,7 +518,9 @@ aside li a.current:before {
 .admin.clean .editable select,
 .admin.clean .editable textarea,
 .admin.settings input[type="text"],
-.admin.settings input[type="password"] {
+.admin.settings input[type="password"],
+.admin.enumerators input[type="text"],
+.admin.enumerators input[type="email"] {
   width: 200px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
@@ -541,7 +543,9 @@ aside li a.current:before {
 .admin.clean .editable select:focus,
 .admin.clean .editable textarea:focus,
 .admin.settings input[type="text"]:focus,
-.admin.settings input[type="password"]:focus {
+.admin.settings input[type="password"]:focus,
+.admin.enumerators input[type="text"]:focus,
+.admin.enumerators input[type="email"]:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
@@ -654,4 +658,110 @@ aside li a.current:before {
 
 .admin.settings .button {
   margin: 20px 0 0 278px;
+}
+
+.admin.enumerators .enumerator {
+  padding: 15px;
+  background-color: #fafafa;
+}
+
+.admin.enumerators .enumerator:nth-of-type(even) {
+  background-color: #eeeeee;
+}
+
+.admin.enumerators .enumerator h4 {
+  font: normal 2rem/1 "Open Sans Light";
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.admin.enumerators .enumerator h4 span {
+  color: #555555;
+  font-size: 1.6rem;
+  margin-left: 10px;
+}
+
+.admin.enumerators .enumerator li {
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
+  color: #777777;
+  padding-left: 15px;
+}
+
+.admin.enumerators .enumerator h5 {
+  display: inline-block;
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
+  padding: 10px 0 0 15px;
+}
+
+.admin.enumerators .enumerator h5.green {
+  color: #32881A;
+}
+
+.admin.enumerators .enumerator h5.red {
+  color: #D22940;
+}
+
+.admin.enumerators label {
+  display: inline-block;
+  width: 220px;
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
+  color: #777777;
+  margin-bottom: 3px;
+}
+
+.admin.enumerators label.analysis-access {
+  display: block;
+  width: auto;
+  margin: 10px 0 0 15px;
+}
+
+.admin.enumerators .actions {
+  margin: 15px 0 0 15px;
+}
+
+.admin.enumerators .actions .button {
+  display: inline-block;
+  font: normal 1.3rem/2.4rem "Open Sans Light", "OpenSansLight";
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: #469431;
+  padding: 0 7px;
+}
+
+.admin.enumerators .actions .button:hover,
+.admin.enumerators .actions .button:focus {
+  background-color: #32881A;
+}
+
+.admin.enumerators .actions a.button {
+  background-color: #DB485C;
+}
+
+.admin.enumerators .actions a.button:hover,
+.admin.enumerators .actions a.button:focus {
+  background-color: #D22940;
+}
+
+.admin.enumerators .enumerator-creation-form {
+  padding: 15px;
+  margin-top: 25px;
+}
+
+.admin.enumerators .enumerator-creation-form h3 {
+  font: normal 2rem/1 "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  margin-bottom: 10px;
+}
+
+.admin.enumerators .field {
+  margin-bottom: 5px;
+}
+
+.admin.enumerators input[type="text"],
+.admin.enumerators input[type="email"] {
+  width: 270px;
+}
+
+.admin.enumerators .enumerator-creation-form .button {
+  margin: 20px 0 0 20px;
 }

@@ -23,6 +23,7 @@
       <ul>
         <li><?= anchor('admin/index', 'Questionnaire Data'); ?></li>
         <li><?= anchor('admin/alumni', 'Alumni Data'); ?></li>
+        <li><?= anchor('admin/enumerators', 'Enumerator Accounts'); ?></li>
         <li><?= anchor('admin/metas', 'Meta Data', array('class' => 'current')); ?></li>
         <li><?= anchor('admin/settings', 'Account Settings'); ?></li>
       </ul>

@@ -58,6 +58,10 @@
       $this->load->view('admin/clean', $data);
     }
 
+    public function enumerators() {
+      $this->load->view('admin/enumerators');
+    }
+
     public function metas() {
       $this->load->view('admin/metas');
     }

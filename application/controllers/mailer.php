@@ -10,7 +10,7 @@
       $config['smtp_port'] = 465;
       $config['smtp_user'] = 'alumnitracker@wefoundyou.org';
       $config['smtp_pass'] = '@alumnitracker123';
-      $config['mailtype'] = 'text';
+      $config['mailtype'] = 'html';
       $this->load->library('email', $config);
     }
 

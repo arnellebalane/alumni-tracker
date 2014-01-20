@@ -15,7 +15,7 @@
     }
 
     public function test($type = 'alumni', $email = 'arnellebalane@gmail.com') {
-      $message = $this->load->view('welcome_' . $type . '.php', array(), true);
+      $message = $this->load->view('mailer/welcome_' . $type . '.php', array(), true);
       $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
       $this->email->to(urldecode($email));
       $this->email->subject('Test Email');

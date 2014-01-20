@@ -14,8 +14,8 @@
       $this->load->library('email', $config);
     }
 
-    public function test($email = 'arnellebalane@gmail.com') {
-      $message = 'This is a sample email from Alumni Tracker.';
+    public function test($type = 'alumni', $email = 'arnellebalane@gmail.com') {
+      $message = $this->load->view('welcome_' . $type . '.php', array(), true);
       $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
       $this->email->to(urldecode($email));
       $this->email->subject('Test Email');

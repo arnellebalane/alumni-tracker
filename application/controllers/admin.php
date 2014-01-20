@@ -364,6 +364,26 @@
       redirect('admin/clean/'.$id);
     }
 
+    public function updateAccount() {
+      $cur_pass = $_POST['current_password'];
+      $new_pass = $_POST['new_password'];
+      $confirm = $_POST['confirm_new_password'];
+      $username = $_POST['username'];
+      if ($new_pass != $confirm) {
+        $this->session->set_flashdata("alert", "The passwords does not match!");
+      } else if(strlen($new_pass) < 5 && $new_pass != "") {
+        $this->session->set_flashdata("alert", "The password should contain at least 5 characters!");
+      } else {
+        $res = $this->alumni->getUserById($this->session->userdata('user_id'));
+        if ($res && $res[0]->password == addslashes($cur_pass)) {
+          
+        } else {
+          $this->session->set_flashdata("alert", "Wrong password!");
+        }
+      }
+      redirect('admin/settings');
+    }
+
   }
 
 ?>

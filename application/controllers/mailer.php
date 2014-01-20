@@ -10,12 +10,12 @@
       $config['smtp_port'] = 465;
       $config['smtp_user'] = 'alumnitracker@wefoundyou.org';
       $config['smtp_pass'] = '@alumnitracker123';
-      $config['mailtype'] = 'text';
+      $config['mailtype'] = 'html';
       $this->load->library('email', $config);
     }
 
-    public function test($email = 'arnellebalane@gmail.com') {
-      $message = 'This is a sample email from Alumni Tracker.';
+    public function test($type = 'alumni', $email = 'arnellebalane@gmail.com') {
+      $message = $this->load->view('mailer/welcome_' . $type . '.php', array(), true);
       $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
       $this->email->to(urldecode($email));
       $this->email->subject('Test Email');

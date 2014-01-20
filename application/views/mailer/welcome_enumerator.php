@@ -11,7 +11,7 @@
       <h1 style="font: bold 14px 'Arial'; color: #222222; margin: 0 0 25px 0;">Hi, [insert full name here]!</h1>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You have been selected to be an enumerator for Alumni Tracker. Your role as an enumerator is to help the admin with the gathering and cleaning of alumni data from the degree programs that you are assigned on.</p>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You have been assigned to the following degree programs:</p>
-      <ul style="margin: 0 0 10px 15px; padding-left: 25px">
+      <ul style="margin: 0 0 10px 0; padding-left: 25px">
         <li style="font: normal 14px 'Arial'; color: #333333;">BS Computer Science</li>
         <li style="font: normal 14px 'Arial'; color: #333333;">BS Mathematics</li>
         <li style="font: normal 14px 'Arial'; color: #333333;">BS Biology</li>

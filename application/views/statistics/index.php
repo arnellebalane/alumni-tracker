@@ -11,7 +11,7 @@
 </head>
 
 <body class="statistics index">
-  <header>
+  <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>
       <nav>
@@ -25,14 +25,14 @@
     <h1>For which statistical presentation would you like to view?</h1>
 
     <ul>
-      <li><?= anchor('#', 'Gender'); ?></li>
-      <li><?= anchor('#', 'Country/State of Present Address'); ?></li>
-      <li><?= anchor('#', 'Employer/Business Type'); ?></li>
-      <li><?= anchor('#', 'Monthly Salary'); ?></li>
-      <li><?= anchor('#', 'Job Title/Position'); ?></li>
-      <li><?= anchor('#', 'Degree Program'); ?></li>
-      <li><?= anchor('#', 'Honor Received'); ?></li>
-      <li><?= anchor('#', 'Self-employed'); ?></li>
+      <li><?= anchor('statistics/gender', 'Gender'); ?></li>
+      <li><?= anchor('statistics/country', 'Country/State of Present Address'); ?></li>
+      <li><?= anchor('statistics/employer_type', 'Employer/Business Type'); ?></li>
+      <li><?= anchor('statistics/salary', 'Monthly Salary'); ?></li>
+      <li><?= anchor('statistics/job_title', 'Job Title/Position'); ?></li>
+      <li><?= anchor('statistics/degree_program', 'Degree Program'); ?></li>
+      <li><?= anchor('statistics/honor_received', 'Honor Received'); ?></li>
+      <li><?= anchor('statistics/self_employed', 'Self-employed'); ?></li>
     </ul>
   </div>
 </body>

@@ -32,11 +32,11 @@
     <div class="content">
       <h1><?=humanize($user_info[0]->firstname)." ".humanize($user_info[0]->lastname) ?></h1>
       <div class="clean-actions">
-        <?=($user_info[0]->cleaned == 0) ? anchor('admin/makeAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
+        <?=($user_info[0]->cleaned == 0) ? anchor('admin/markAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
         <?= anchor('admin/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
 
-        <?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
-        <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>
+        <!--<?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
+        <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>-->
       </div>
 
       <?= form_open('admin/updateAlumni/'.$user_id); ?>
@@ -348,7 +348,7 @@
         <div class="field unindented inline">
           <label>Another Job Information<a href="#" data-behavior="discard-another-job">[Delete this Job]</a></label>
           <input type="checkbox" name="another_job[{{index}}][current_job]" /><label>Current Job</label>
-          <input type="checkbox" name="another_job[{{index}}][current_job]" /><label>First Job</label>
+          <input type="checkbox" name="another_job[{{index}}][first_job]" /><label>First Job</label>
         </div>
         <div class="field inline">
           <label>Self-employed?</label>
@@ -357,7 +357,7 @@
         </div>
         <div class="field hidden" data-field="business">
           <label>Business</label>
-          <input type="text" name="another_job[{{index}}][business]" />
+          <input type="text" name="another_job[{{index}}][business_name]" />
         </div>
         <div class="field" data-field="employer">
           <label>Employer</label>
@@ -366,9 +366,9 @@
         <div class="field">
           <label>Employer/Business Type</label>
           <select name="another_job[{{index}}][business_type]">
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+            <?php foreach ($employer_types as $var) : ?>
+              <option value="<?= $var->id ?>"><?= $var->name ?></option>
+            <?php endforeach ?>
           </select>
         </div>
         <div class="field">
@@ -378,23 +378,42 @@
         <div class="field">
           <label>Monthly Salary (in Philippine Peso)</label>
           <select name="another_job[{{index}}][monthly_salary]">
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+            <?php foreach ($salaries as $sal) :?>
+              <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
+              <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
+                elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
+                else {echo $sal->minimum . " - " . $sal->maximum;} ?>
+              </option>                  
+            <?php endforeach; ?>
           </select>
         </div>
         <div class="field">
           <label>Employment Duration</label>
           <select name="another_job[{{index}}][employment_duration][start_year]" class="auto">
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+            <?php 
+              $year = date('Y');
+              while ($year >= 1980) { 
+            ?>
+              <option value="<?=$year?>" <?=is_selected($year, $job->year_started); ?>><?=$year?></option>
+            <?    
+                $year--;
+              }
+            ?>
           </select>
           <span>to</span>
           <select name="another_job[{{index}}][employment_duration][end_year]" class="auto">
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
+            <? if ($job->current_job == 1) { ?>
+              <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
+            <?}?>
+            <?php 
+              $year = date('Y');
+              while ($year >= 1980) { 
+            ?>
+              <option value="<?=$year?>" <?=is_selected($year, $job->year_ended); ?>><?=$year?></option>
+            <?    
+                $year--;
+              }
+            ?>
           </select>
         </div>
         <div class="field inline">

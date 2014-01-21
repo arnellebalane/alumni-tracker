@@ -21,26 +21,47 @@
     }
 
     public function alumni() {
-      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : 2;
-      $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : 0;
-      if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0) {
-        $alumni = $this->alumni->getAllAlumni();        
-      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0) {
+      print_r($this->session->userdata('cleaned'));
+      $prev_cleaned = ($this->session->userdata('cleaned') || $this->session->userdata('cleaned') == 0) ? $this->session->userdata('cleaned') : -2;
+      $prev_program_id = ($this->session->userdata('program_id')) ? $this->session->userdata('program_id') : -1;
+      $prev_included = ($this->session->userdata('included') || $this->session->userdata('included') == 0) ? $this->session->userdata('included') : -2;
+      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
+      $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
+      $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;
+      $this->session->set_userdata('cleaned', $cleaned);
+      $this->session->set_userdata('program_id', $program_id);
+      $this->session->set_userdata('included', $included);
+      if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
+        $alumni = $this->alumni->getAllAlumni();
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
         $alumni = $this->alumni->getAlumniByCleanStatus($cleaned);        
-      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0) {
-        $alumni = $this->alumni->getAlumniByProgram($program_id);        
-      } else {
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included < 0)) {
+        $alumni = $this->alumni->getAlumniByProgram($program_id);    
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id > 0 && ($included < 0)){
         $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);        
-      }      
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included >= 0)) {
+        $alumni = $this->alumni->getAlumniByInclusion($included);
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included >= 0)) {
+        $alumni = $this->alumni->getAlumniByInclusionAndStatus($included, $cleaned);
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included >= 0)) {
+        $alumni = $this->alumni->getAlumniByInclusionAndProgram($included, $program_id);
+      } else {
+        $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
+      }
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,
+                    'included'=>$included,
                     'programs'=>$this->values->getPrograms());
       $this->load->helper('edit_info_helper.php');
       $this->load->view('admin/alumni', $data);
     }
 
     public function clean($id) {
+      $alumni = $this->alumni->getUserById($id);
+      if (!$alumni || $alumni[0]->user_type != "alumni") {
+        redirect('admin/alumni');
+      }
       $this->load->model("values_model", "values");
       $data = array('countries'=>$this->values->getCountries(),
                     'programs'=>$this->values->getPrograms(),
@@ -214,14 +235,16 @@
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
         $this->session->set_flashdata("alert", "There are errors in the new educational background!");
       }  else if (!$this->validateJobs($_POST['jobs'])) {
-        print_r("asdas");
         $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
-      } else {            
+      } else if (!$this->validateJobs($_POST['another_job'])) {
+        $this->session->set_flashdata("alert", "Some information about the new jobs are missing!");
+      } else {
         $this->updatePersonalInfo($id, $_POST['personal_information']);
         $this->updateEducationalBackground($id, $_POST['educational_background']);
         $this->updateJobs($_POST['jobs']);
+        $this->addJobs($id, $_POST['another_job']);
+        $this->session->set_flashdata("notice", "Update successful!");
       }
-      $this->session->set_flashdata("notice", "Update successful!");
       redirect('admin/clean/'.$id);
     }
 
@@ -339,9 +362,20 @@
       foreach ($jobs as $job) {
         if ($this->hasEmptyFieldInEmploymentHistory($job) && $this->hasFilledFieldsInEmploymentHistory($job)) {          
           return false;
-        } 
+        }
       }
       return true;
+    }
+
+    private function addJobs($user_id, $info) {
+      foreach ($info as $var) : 
+        if (!$this->hasEmptyFieldInEmploymentHistory($var)) {           
+          $history_id = $this->alumni->addEmploymentDetails($var['business_type'], $var);
+          $current_job = isset($var['current_job']) ? 1 : 0;
+          $first_job = isset($var['first_job']) ? 1 : 0;
+          $this->alumni->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);          
+        }
+      endforeach;
     }
 
     private function hasEmptyFieldInEmploymentHistory($info) {
@@ -358,14 +392,58 @@
       return false;
     }
 
-    public function makeAlumniClean($id) {
+    public function markAlumniClean($id) {
       $this->alumni->markAlumniClean($id);
-      redirect('admin/clean/'.$id);
+      $this->session->set_flashdata("notice", "The alumni was marked CLEAN successfully!");      
+      redirect('admin/alumni');
     } 
 
     public function markAlumniUnClean($id) {
       $this->alumni->markAlumniUnClean($id);
-      redirect('admin/clean/'.$id);
+      $this->session->set_flashdata("notice", "The alumni was marked UNCLEAN successfully!");
+      redirect('admin/alumni');
+    }
+
+    public function updateAccount() {
+      $cur_pass = $_POST['current_password'];
+      $new_pass = $_POST['new_password'];
+      $confirm = $_POST['confirm_new_password'];
+      $username = $_POST['username'];
+      if ($new_pass != $confirm && (!$new_pass && !$confirm)) {
+        $this->session->set_flashdata("alert", "The passwords does not match!");
+      } else if(strlen($new_pass) < 5 && $new_pass != "") {
+        $this->session->set_flashdata("alert", "The password should contain at least 5 characters!");
+      } else {
+        $res = $this->alumni->getUserById($this->session->userdata('user_id'));
+        if ($res && $res[0]->password == addslashes($cur_pass)) {          
+          if ($username != "" && $new_pass != "") {
+            $u = $this->alumni->getUsersByUsername($username);
+            if ($u && $u[0]->id != $this->session->userdata('user_id')) {
+              $this->session->set_flashdata("alert", "Username not available!");
+            } else {
+              $this->alumni->updateUsername($this->session->userdata('user_id'), $username);
+              $this->alumni->updateUserPassword($this->session->userdata('user_id'), $new_pass);
+              $this->session->set_flashdata("notice", "Account successfully updated!");
+            }
+          } else if ($username != "") {
+            $u2 = $this->alumni->getUsersByUsername($username);
+            if ($u2 && $u2[0]->id != $this->session->userdata('user_id')) {
+              $this->session->set_flashdata("alert", "Username not available!");
+            } else {
+              $this->alumni->updateUsername($this->session->userdata('user_id'), $username);
+              $this->session->set_flashdata("notice", "Account successfully updated!");
+            }
+          } else if ($new_pass != "") {
+            $this->alumni->updateUserPassword($this->session->userdata('user_id'), $new_pass);
+            $this->session->set_flashdata("notice", "Account successfully updated!");
+          } else {
+            $this->session->set_flashdata("alert", "Please set a new username or password!");
+          }
+        } else {
+          $this->session->set_flashdata("alert", "Wrong password!");
+        }
+      }
+      redirect('admin/settings');
     }
 
   }

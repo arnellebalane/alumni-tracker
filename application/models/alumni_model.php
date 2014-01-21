@@ -10,6 +10,11 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}
 
+	function getusersByUsername($username) {
+		$query = $this->db->query("SELECT * FROM users WHERE username = '".addslashes($username)."'");
+		return $query->result();
+	}
+
 	function addUser($username, $password) {
 		$test = $this->db->query("SELECT * FROM users WHERE username = '$username'");		
 		if ($test->result()) {
@@ -135,6 +140,9 @@ class alumni_model extends CI_Model {
 			}			
 			$q = $this->db->query("UPDATE user_employment_histories SET current_job = 0 WHERE user_id = '$user_id' AND current_job = 1");
 		}
+		if ($first_job == 1) {
+			$q = $this->db->query("UPDATE user_employment_histories SET first_job = 0 WHERE user_id = '$user_id' AND first_job = 1");
+		}
 		$query = $this->db->query("INSERT INTO user_employment_histories VALUES ('$user_id', '$employment_detail_id', '$current_job', '$first_job')");
 	}
 	
@@ -178,7 +186,7 @@ class alumni_model extends CI_Model {
 															 INNER JOIN monthly_salaries ON monthly_salaries.id = employment_details.monthly_salary_id 
 															 WHERE user_employment_histories.current_job = 1 AND user_employment_histories.user_id = '".addslashes($user_id)."'");
 		return $query->result();
-	}	
+	}
 
 	function getUserFirstJob($user_id) {
 		$query = $this->db->query("SELECT employment_details.*, employer_types.name as employer_type, monthly_salaries.minimum, monthly_salaries.maximum FROM employment_details 
@@ -201,6 +209,12 @@ class alumni_model extends CI_Model {
 	function updateUserPassword($user_id, $new_password) {
 		$this->db->query("UPDATE users SET password = '".addslashes($new_password)."' WHERE id = '".addslashes($user_id)."'");
 	}
+
+	function updateUserName($user_id, $new_username) {
+		$this->db->query("UPDATE users SET username = '".addslashes($new_username)."' WHERE id = '".addslashes($user_id)."'");
+	}
+
+
 
 	function getAllAlumni() {
 		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.user_type='alumni'");
@@ -226,6 +240,67 @@ class alumni_model extends CI_Model {
 															 AND users.cleaned = '".addslashes($status)."' AND users.user_type='alumni'");
 		return $query->result();
 	}
+
+	function getAlumniByInclusion($included) {
+		if ($included == 1) {
+			$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 WHERE users.user_type='alumni' AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at <= (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query->result();
+		}	else {
+			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 WHERE users.created_at < (SELECT value FROM params WHERE key_name='start_submission') || users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query2->result();
+		}
+	}
+
+	function getAlumniByInclusionAndStatus($included, $status) {
+		if ($included == 1) {
+			$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.cleaned = '".addslashes($status)."' AND
+															users.user_type='alumni' AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at <= (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query->result();
+		}	else {
+			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.cleaned = '".addslashes($status)."' AND
+															users.user_type='alumni' AND users.created_at < (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query2->result();
+		}
+	}
+
+	function getAlumniByInclusionAndProgram($included, $program_id) {
+		if ($included == 1) {
+			$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."'
+															 AND users.user_type='alumni' AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at <= (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query->result();			
+		}	else {
+			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."'
+															 AND users.user_type='alumni' AND users.created_at < (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query2->result();
+		}
+	}
+
+	function getAlumniByInclusionAndStatusAndProgram($included, $status, $program_id) {
+		if ($included == 1) {
+			$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+															 AND users.cleaned = '".addslashes($status)."' AND users.user_type='alumni' AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at <= (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query->result();			
+		}	else {
+			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+															 AND users.cleaned = '".addslashes($status)."' AND users.user_type='alumni' AND users.created_at < (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission')");
+			return $query2->result();
+		}
+	}
+
 
 	function deleteAlumni($id) {
 		$query = $this->db->query("SELECT id FROM comments WHERE user_id = '".addslashes($id)."'");

@@ -10,7 +10,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="statistics degree-program">
+<body class="statistics honor-received">
   <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>
@@ -22,16 +22,15 @@
   </header>
 
   <div class="content wrapper">
-    <h1>Degree Program<?= anchor('statistics/index', 'Back to List'); ?></h1>
+    <h1>Honor Received<?= anchor('statistics/index', 'Back to List'); ?></h1>
 
     <div class="statistical-presentation clearfix">
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="BS Computer Science" data-frequency="25" data-percentage="25"></span>
-        <span class="chart table" data-label="BS Mathematics" data-frequency="50" data-percentage="50"></span>
-        <span class="chart table" data-label="BS Biology" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="BS Management" data-frequency="15" data-percentage="15"></span>
+        <span class="chart table" data-label="Summa Cum Laude" data-frequency="25" data-percentage="25"></span>
+        <span class="chart table" data-label="Magna Cum Laude" data-frequency="25" data-percentage="25"></span>
+        <span class="chart table" data-label="Cum Laude" data-frequency="50" data-percentage="50"></span>
         <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </div>

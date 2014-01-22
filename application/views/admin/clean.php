@@ -379,7 +379,7 @@
           <label>Monthly Salary (in Philippine Peso)</label>
           <select name="another_job[{{index}}][monthly_salary]">
             <?php foreach ($salaries as $sal) :?>
-              <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
+              <option value="<?=$sal->id?>" >
               <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
                 elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
                 else {echo $sal->minimum . " - " . $sal->maximum;} ?>
@@ -394,7 +394,7 @@
               $year = date('Y');
               while ($year >= 1980) { 
             ?>
-              <option value="<?=$year?>" <?=is_selected($year, $job->year_started); ?>><?=$year?></option>
+              <option value="<?=$year?>"><?=$year?></option>
             <?    
                 $year--;
               }
@@ -409,7 +409,7 @@
               $year = date('Y');
               while ($year >= 1980) { 
             ?>
-              <option value="<?=$year?>" <?=is_selected($year, $job->year_ended); ?>><?=$year?></option>
+              <option value="<?=$year?>"><?=$year?></option>
             <?    
                 $year--;
               }

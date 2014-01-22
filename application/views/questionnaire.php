@@ -400,9 +400,9 @@
               <select name="employment_history[#{index}][monthly_salary]">
                 <?php foreach ($salaries as $val): ?>
                   <?php if ($val->minimum == null): ?>
-                    <option value="<?= $val->id; ?>"><?= $val->maximum . ' and above'; ?></option>
+                    <option value="<?= $val->id; ?>"><?= $val->maximum . ' and below'; ?></option>
                   <?php elseif ($val->maximum == null): ?>
-                    <option value="<?= $val->id; ?>"><?= $val->minimum . ' and below'; ?></option>
+                    <option value="<?= $val->id; ?>"><?= $val->minimum . ' and above'; ?></option>
                   <?php else: ?>
                     <option value="<?= $val->id; ?>"><?= $val->minimum . ' - ' . $val->maximum; ?></option>
                   <?php endif; ?>

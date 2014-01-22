@@ -6,12 +6,12 @@ class alumni_model extends CI_Model {
 	}
 
 	function getUsersByPassword($pass) {
-		$query = $this->db->query("SELECT * FROM users WHERE password = '$pass'");
+		$query = $this->db->query("SELECT * FROM users WHERE password = '".addslashes($pass)."'");
 		return $query->result();
 	}
 
 	function getusersByUsername($username) {
-		$query = $this->db->query("SELECT * FROM users WHERE username = '".addslashes($username)."'");
+		$query = $this->db->query("SELECT * FROM users WHERE username = '".addslashes(trim($username))."'");
 		return $query->result();
 	}
 
@@ -20,7 +20,7 @@ class alumni_model extends CI_Model {
 		if ($test->result()) {
 			return null;
 		}
-		$query = $this->db->query("INSERT INTO users(username, password, user_type) VALUES ('$username', '$password', 'alumni')");	
+		$query = $this->db->query("INSERT INTO users(username, password, user_type) VALUES ('".addslashes(trim($username))."', '".addslashes($password)."', 'alumni')");	
 		$user_id = 	mysql_insert_id();
 
 		if ($username == '') {
@@ -32,52 +32,52 @@ class alumni_model extends CI_Model {
 	}
 
 	function addEducationalBackground($user_id, $student_number, $program, $semester, $year, $honor) {		
-		$query = $this->db->query("INSERT INTO educational_backgrounds VALUES ('$user_id', '$student_number', '$program', 
-															'$semester', '$year', '$honor')");
+		$query = $this->db->query("INSERT INTO educational_backgrounds VALUES ('".addslashes(trim($user_id))."', '".addslashes(trim($student_number))."', '".addslashes(trim($program))."', 
+															'".addslashes(trim($semester))."', '".addslashes(trim($year))."', '".addslashes(trim($honor))."')");
 	}
 
 	function updateEducationalBackground($user_id, $info) {
 		$query = $this->db->query("UPDATE educational_backgrounds SET student_number = '".$info['student_number']."', 
-															program_id='".$info['degree_program']."', semester_graduated='".$info['graduated']['semester']."',
-															year_graduated='".$info['graduated']['academic_year']."', honor_received='".$info['honor_received']."'
-															WHERE user_id='$user_id'");		
+															program_id='".addslashes(trim($info['degree_program']))."', semester_graduated='".addslashes(trim($info['graduated']['semester']))."',
+															year_graduated='".addslashes(trim($info['graduated']['academic_year']))."', honor_received='".addslashes(trim($info['honor_received']))."'
+															WHERE user_id='".addslashes(trim($user_id))."'");		
 	}
 
 	function updateUserStudentNumber($user_id, $student_number) {
-		$query = $this->db->query("UPDATE users SET username = '$student_number' WHERE id = '$user_id'");
+		$query = $this->db->query("UPDATE users SET username = '".addslashes(trim($student_number))."' WHERE id = '$user_id'");
 	}
 	
 	function addCountry($name) {
-		$query = $this->db->query("INSERT INTO countries(name) VALUES('".addslashes($name)."')");
+		$query = $this->db->query("INSERT INTO countries(name) VALUES('".addslashes(trim($name))."')");
 		return $this->db->insert_id();
 	}
 
 	function addUserSocialNetwork($user_id, $social_network_id, $account_name) {
-		$test = $this->db->query("SELECT * FROM user_social_networks WHERE user_id = '$user_id' AND social_network_id = '$social_network_id'");
+		$test = $this->db->query("SELECT * FROM user_social_networks WHERE user_id = '".addslashes($user_id)."' AND social_network_id = '".addslashes($social_network_id)."'");
 		if ($test->result()) {
-			$query = $this->db->query("UPDATE user_social_networks SET account_name = '$account_name' WHERE user_id = '$user_id' 
-																AND social_network_id='$social_network_id'");
+			$query = $this->db->query("UPDATE user_social_networks SET account_name = '".addslashes(trim($account_name))."' WHERE user_id = '".addslashes($user_id)."' 
+																AND social_network_id='".addslashes($social_network_id)."'");
 		}	else {
 			$query = $this->db->query("INSERT INTO user_social_networks(user_id, social_network_id, account_name) 
-															 VALUES('$user_id', '".addslashes($social_network_id)."', '".addslashes($account_name)."')");
+															 VALUES('$user_id', '".addslashes($social_network_id)."', '".addslashes(trim($account_name))."')");
 	  }
 	}
 
 	function addPersonalInfo($user_id, $info) {
 		$query = $this->db->query("INSERT INTO personal_infos VALUES(
-															'$user_id', '".addslashes($info['firstname'])."', '".addslashes($info['lastname'])."', 
-															'".addslashes($info['gender'])."', '".addslashes($info['present_address'])."', 
-															'".addslashes($info['country'])."', '".addslashes($info['present_address_contact_number'])."', 
-															'".addslashes($info['permanent_address'])."', '".addslashes($info['permanent_address_contact_number'])."', 
-															'".addslashes($info['email_address'])."')");
+															'$user_id', '".addslashes(trim($info['firstname']))."', '".addslashes(trim($info['lastname']))."', 
+															'".addslashes($info['gender'])."', '".addslashes(trim($info['present_address']))."', 
+															'".addslashes($info['country'])."', '".addslashes(trim($info['present_address_contact_number']))."', 
+															'".addslashes(trim($info['permanent_address']))."', '".addslashes(trim($info['permanent_address_contact_number']))."', 
+															'".addslashes(trim($info['email_address']))."')");
 	}
 
 	function updatePersonalInfo($user_id, $info) {
-		$query = $this->db->query("UPDATE personal_infos SET firstname='".addslashes($info['firstname'])."', lastname='".addslashes($info['lastname'])."', 
-															gender='".addslashes($info['gender'])."', present_address='".addslashes($info['present_address'])."', 
-															present_country_id='".addslashes($info['country'])."', present_contact_number='".addslashes($info['present_address_contact_number'])."', 
-															premanent_address='".addslashes($info['permanent_address'])."', permanent_contact_number='".addslashes($info['permanent_address_contact_number'])."', 
-															email='".addslashes($info['email_address'])."' WHERE user_id = '$user_id'");
+		$query = $this->db->query("UPDATE personal_infos SET firstname='".addslashes(trim($info['firstname']))."', lastname='".addslashes(trim($info['lastname']))."', 
+															gender='".addslashes($info['gender'])."', present_address='".addslashes(trim($info['present_address']))."', 
+															present_country_id='".addslashes($info['country'])."', present_contact_number='".addslashes(trim($info['present_address_contact_number']))."', 
+															premanent_address='".addslashes(trim($info['permanent_address']))."', permanent_contact_number='".addslashes(trim($info['permanent_address_contact_number']))."', 
+															email='".addslashes(trim($info['email_address']))."' WHERE user_id = '$user_id'");
 	}
 
 	function addComment($user_id) {
@@ -87,12 +87,12 @@ class alumni_model extends CI_Model {
 
 	function addMajors($comment_id, $name) {
 		$name = addslashes(trim($name));
-		$query = $this->db->query("INSERT INTO comment_majors VALUES('$comment_id', '$name')");
+		$query = $this->db->query("INSERT INTO comment_majors VALUES('$comment_id', '".addslashes(trim($name))."')");
 	}
 
 	function addSuggestedCourses($comment_id, $name) {
 		$name = addslashes(trim($name));
-		$query = $this->db->query("INSERT INTO comment_suggested_courses VALUES('$comment_id', '$name')");
+		$query = $this->db->query("INSERT INTO comment_suggested_courses VALUES('$comment_id', '".addslashes(trim($name))."')");
 	}
 
 	function addCommentGECourses($comment_id, $ge_id) {
@@ -102,9 +102,9 @@ class alumni_model extends CI_Model {
 
 	function addEmploymentDetails($employer_type_id, $info) {
 		$query = $this->db->query("INSERT INTO employment_details (self_employed, business, employer, employer_type_id, job_title, monthly_salary_id, 
-															job_satisfaction, reason, year_started, year_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes($info['business_name'])."',
-															'".addslashes($info['employer'])."', '".$employer_type_id."', '".addslashes($info['job_title'])."', 
-															'".addslashes($info['monthly_salary'])."', '".addslashes($info['satisfied_with_job'])."', '".addslashes($info['satisfaction_reason'])."',
+															job_satisfaction, reason, year_started, year_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes(trim($info['business_name']))."',
+															'".addslashes(trim($info['employer']))."', '".$employer_type_id."', '".addslashes(trim($info['job_title']))."', 
+															'".addslashes($info['monthly_salary'])."', '".addslashes($info['satisfied_with_job'])."', '".addslashes(trim($info['satisfaction_reason']))."',
 															'".addslashes($info['employment_duration']['start_year'])."', '".addslashes($info['employment_duration']['end_year'])."')");
 		return mysql_insert_id();
 	}
@@ -119,10 +119,10 @@ class alumni_model extends CI_Model {
 			$employer = $info['employer'];
 			$business = "";
 		}
-		$query = $this->db->query("UPDATE employment_details SET self_employed='".addslashes($info['self_employed'])."', business = '".addslashes($business)."', 
-			 												employer='".addslashes($employer)."', employer_type_id='".addslashes($info['employer_type'])."', job_title='".addslashes($info['job_title'])."',
+		$query = $this->db->query("UPDATE employment_details SET self_employed='".addslashes($info['self_employed'])."', business = '".addslashes(trim($business))."', 
+			 												employer='".addslashes(trim($employer))."', employer_type_id='".addslashes($info['employer_type'])."', job_title='".addslashes(trim($info['job_title']))."',
 			 												monthly_salary_id='".addslashes($info['monthly_salary'])."', job_satisfaction='".addslashes($info['satisfied_with_job'])."',
-			 												reason='".addslashes($info['satisfaction_reason'])."', year_started='".$info['employment_duration']['start_year']."', year_ended='".addslashes($info['employment_duration']['end_year'])."' WHERE id='".addslashes($id)."'");
+			 												reason='".addslashes(trim($info['satisfaction_reason']))."', year_started='".$info['employment_duration']['start_year']."', year_ended='".addslashes($info['employment_duration']['end_year'])."' WHERE id='".addslashes($id)."'");
 	}
 
 	function deleteEmploymentDetails($id) {
@@ -147,7 +147,7 @@ class alumni_model extends CI_Model {
 	}
 	
 	function getUserByStudentNumber($student_number) {
-		$query = $this->db->query("SELECT * FROM educational_backgrounds WHERE student_number = '$student_number'");
+		$query = $this->db->query("SELECT * FROM educational_backgrounds WHERE student_number = '".addslashes(trim($student_number))."'");
 		return $query->result();
 	}
 
@@ -211,7 +211,7 @@ class alumni_model extends CI_Model {
 	}
 
 	function updateUserName($user_id, $new_username) {
-		$this->db->query("UPDATE users SET username = '".addslashes($new_username)."' WHERE id = '".addslashes($user_id)."'");
+		$this->db->query("UPDATE users SET username = '".addslashes(trim($new_username))."' WHERE id = '".addslashes($user_id)."'");
 	}
 
 
@@ -249,8 +249,8 @@ class alumni_model extends CI_Model {
 			return $query->result();
 		}	else {
 			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
-															 WHERE users.created_at < (SELECT value FROM params WHERE key_name='start_submission') || users.created_at > (SELECT value 
-															 FROM params WHERE key_name='end_submission')");
+															 WHERE users.user_type='alumni' AND (users.created_at < (SELECT value FROM params WHERE key_name='start_submission') OR users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission'))");
 			return $query2->result();
 		}
 	}
@@ -263,8 +263,8 @@ class alumni_model extends CI_Model {
 			return $query->result();
 		}	else {
 			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.cleaned = '".addslashes($status)."' AND
-															users.user_type='alumni' AND users.created_at < (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at > (SELECT value 
-															 FROM params WHERE key_name='end_submission')");
+															users.user_type='alumni' AND (users.created_at < (SELECT value FROM params WHERE key_name='start_submission') OR users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission'))");
 			return $query2->result();
 		}
 	}
@@ -279,8 +279,8 @@ class alumni_model extends CI_Model {
 		}	else {
 			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
 															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."'
-															 AND users.user_type='alumni' AND users.created_at < (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at > (SELECT value 
-															 FROM params WHERE key_name='end_submission')");
+															 AND users.user_type='alumni' AND (users.created_at < (SELECT value FROM params WHERE key_name='start_submission') OR users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission'))");
 			return $query2->result();
 		}
 	}
@@ -295,8 +295,8 @@ class alumni_model extends CI_Model {
 		}	else {
 			$query2 = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
 															 INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
-															 AND users.cleaned = '".addslashes($status)."' AND users.user_type='alumni' AND users.created_at < (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at > (SELECT value 
-															 FROM params WHERE key_name='end_submission')");
+															 AND users.cleaned = '".addslashes($status)."' AND users.user_type='alumni' AND (users.created_at < (SELECT value FROM params WHERE key_name='start_submission') OR users.created_at > (SELECT value 
+															 FROM params WHERE key_name='end_submission'))");
 			return $query2->result();
 		}
 	}
@@ -333,6 +333,11 @@ class alumni_model extends CI_Model {
 		$this->db->query("UPDATE users SET cleaned = 0 WHERE id='".addslashes($id)."'");
 	}
 
+	function getUserByEmail($email) {
+		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id
+															WHERE personal_infos.email = '".addslashes(trim($email))."'");
+		return $query->result();
+	}
 }
 
 ?>

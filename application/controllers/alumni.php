@@ -59,7 +59,7 @@
 			}	else if (!$this->validateEmploymentHistory($_POST['employment_history'])) {
 				$this->session->set_flashdata('inputs', $_POST);
 				redirect('/home/questionnaire');
-			} else if (!$this->validatePersonalInformation($_POST['personal_information'])) {
+			} else if (!$this->validatePersonalInformation($_POST['personal_information'],0)) {
 				$this->session->set_flashdata('inputs', $_POST);
 				redirect('/home/questionnaire');
 			} else if (!$this->validateOthers($_POST['others'])) {
@@ -80,7 +80,7 @@
 			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
 			}  
-			if (!$this->validatePersonalInformation($_POST['personal_information'])) {			
+			if (!$this->validatePersonalInformation($_POST['personal_information'], $this->session->userdata('user_id'))) {			
 				redirect('alumni/home');
 			}
 
@@ -194,15 +194,26 @@
 		// ADD EMPLOYMENT HISTORY
 		private function addEmploymentHistory($user_id, $info) {
 			$this->load->model("values_model", "values");
+			$info[0]['business_name'] = trim($info[0]['business_name']);
+			$info[1]['business_name'] = trim($info[1]['business_name']);
+			$info[0]['employer'] = trim($info[0]['employer']);
+			$info[1]['employer'] = trim($info[1]['employer']);
 			if (count($info) == 2 && ($info[0]['business_name'] == $info[0]['employer'] && $info[0]['business_name'] == "") && 
 				($info[1]['business_name'] == $info[1]['employer'] && $info[1]['business_name'] == "")) {
 				return;
 			}
 			$ctr = 0;
-			foreach ($info as $var) : 
+			foreach ($info as $var) :
+				$var['business_name'] = trim($var['business_name']);
+				$var['employer'] = trim($var['employer']);
 				if (($var['business_name'] != "" || $var['employer'] != "") && (isset($var['satisfied_with_job']))) { 					
 					if ($var['employer_type'] == "others") {
-						$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
+						$var['specified_employer_type'] = trim($var['specified_employer_type']);
+						if ($var['specified_employer_type'] != "") {
+							$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
+						}	else {
+							continue;
+						}
 					}	else {
 						$employer_id = $var['employer_type'];
 					}
@@ -255,14 +266,22 @@
 		}
 
 		// VALIDATE PERSONLAL INFORMATION
-		private function validatePersonalInformation($info) {
+		private function validatePersonalInformation($info, $user_id) {
+			$info['firstname'] = trim($info['firstname']);
+      $info['lastname'] = trim($info['lastname']);
+      $info['gender'] = trim($info['gender']);
+      $info['present_address'] = trim($info['present_address']);
+      $info['present_address_contact_number'] = trim($info['present_address_contact_number']);
+      $info['permanent_address'] = trim($info['present_address']);
+      $info['permanent_address_contact_number'] = trim($info['permanent_address_contact_number']);
+      $info['email_address'] = trim($info['email_address']);
 			$this->load->model('values_model', 'values');
 			if ($info['firstname'] == '' || $info['lastname'] == '' || $info['gender'] == '' || $info['present_address'] == '' || 
 					!($info['gender'] == 'male' || $info['gender'] == 'female') ||
 					($info['country'] == 'others' && $info['specified_country'] == '') ||
 					($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
 					$info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
-					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address']))) {
+					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address'], $user_id))) {
 				$this->session->set_flashdata('alert', "You are missing a field in your Personal Information or your email is invalid.");
 				return false;
 			}
@@ -270,12 +289,15 @@
 		}
 
 		// VALIDATE EMAIL ADDRESS
-		private function validateEmail($email) {			
+		private function validateEmail($email, $user_id) {			
 			$index = strpos($email, '@');			
 			if ($index) {
 				$index2 = strpos($email, '.');
 				if ($index2 && ($index2 > $index)) {
-					return true;
+					$user = $this->model->getUserByEmail($email);
+					if (!$user || ($user[0]->id == $user_id)) {
+						return true;
+					}
 				}
 			}
 			return false;
@@ -298,6 +320,7 @@
 		}
 
 		private function validateEducationalBackground($info) {
+			$info['student_number'] = trim($info['student_number']);
 			if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {
 				$this->session->set_flashdata('alert', "Invalid student number.");
 				return false;
@@ -362,6 +385,9 @@
 		}
 
 		private function hasEmptyFieldInEmploymentHistory($info) {
+			$info['business_name'] = trim($info['business_name']);
+			$info['employer'] = trim($info['employer']);
+			$info['job_title'] = trim($info['job_title']);
 			if (($info['business_name'] == "" && $info['self_employed'] == '1') || ($info['employer'] == "" && $info['self_employed'] == '0') || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
 				return true;
 			}
@@ -369,6 +395,9 @@
 		}
 
 		private function hasFilledFieldsInEmploymentHistory($info) {
+			$info['business_name'] = trim($info['business_name']);
+			$info['employer'] = trim($info['employer']);
+			$info['job_title'] = trim($info['job_title']);
 			if (($info['business_name'] != "" && $info['self_employed'] == '1') || ($info['employer'] != "" && $info['self_employed'] == '0') || ($info['job_title'] != "")) {
 				return true;
 			}

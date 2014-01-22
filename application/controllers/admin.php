@@ -20,17 +20,31 @@
       $this->load->view('admin/index', $data);
     }
 
-    public function alumni() {
-      print_r($this->session->userdata('cleaned'));
-      $prev_cleaned = ($this->session->userdata('cleaned') || $this->session->userdata('cleaned') == 0) ? $this->session->userdata('cleaned') : -2;
-      $prev_program_id = ($this->session->userdata('program_id')) ? $this->session->userdata('program_id') : -1;
-      $prev_included = ($this->session->userdata('included') || $this->session->userdata('included') == 0) ? $this->session->userdata('included') : -2;
+    public function alumni() {      
+      if ($this->session->userdata('cleaned')) {
+        $prev_cleaned = $this->session->userdata('cleaned') - 1;
+      } else {
+        $prev_cleaned = 1;
+      }
+      if ($this->session->userdata('program_id')) {
+        $prev_program_id = $this->session->userdata('program_id')-1;
+      } else {
+        $prev_program_id = -1;
+      } 
+      if ($this->session->userdata('included')) {
+        $prev_included = $this->session->userdata('included')-1;
+      } else {
+        $prev_included = 1;
+      }      
+      // $prev_cleaned = () ? $this->session->userdata('cleaned') : 1;
+      // $prev_program_id = ($this->session->userdata('program_id')) ? $this->session->userdata('program_id') : -1;
+      // $prev_included = ($this->session->userdata('included') || $this->session->userdata('included') == 0) ? $this->session->userdata('included') : 1;
       $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
       $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
-      $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;
-      $this->session->set_userdata('cleaned', $cleaned);
-      $this->session->set_userdata('program_id', $program_id);
-      $this->session->set_userdata('included', $included);
+      $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;      
+      $this->session->set_userdata('cleaned', $cleaned+1);
+      $this->session->set_userdata('program_id', $program_id+1);
+      $this->session->set_userdata('included', $included+1);
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
         $alumni = $this->alumni->getAllAlumni();
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
@@ -80,7 +94,12 @@
     }
 
     public function enumerators() {
-      $this->load->view('admin/enumerators');
+      $this->load->model('enumerator_model', 'enumerator');
+      $data = array('programs'=>$this->values->getPrograms(),
+                    'enumerators'=>$this->enumerator->getAllEnumerators());
+      $this->load->helper('inflector');
+      $this->load->helper('enumerator_helper');
+      $this->load->view('admin/enumerators', $data);
     }
 
     public function metas() {
@@ -92,6 +111,7 @@
     }
 
     public function addCountry() {
+      $_POST['country_name'] = trim($_POST['country_name']);
       if ($_POST['country_name'] == "") {
         $this->session->set_flashdata("alert", "The country name should not be blank!");      
       }  else {
@@ -102,6 +122,7 @@
     }
 
     public function updateCountries() {
+      $_POST['country_name'] = trim($_POST['country_name']);
       if ($_POST['country_name'] == "") {
         $this->session->set_flashdata("alert", "The country name should not be blank!");        
       }  else {
@@ -115,6 +136,7 @@
     }
 
     public function addEmployerType() {
+      $_POST['employer_type'] = trim($_POST['employer_type']);
       if ($_POST['employer_type'] == "") {
         $this->session->set_flashdata("alert", "The type name should not be blank!");        
       }  else {
@@ -125,6 +147,7 @@
     }
 
     public function updateEmployerTypes() {
+      $_POST['employer_type'] = trim($_POST['employer_type']);
       if ($_POST['employer_type'] == "") {
         $this->session->set_flashdata("alert", "The type name should not be blank!");        
       }  else {
@@ -138,6 +161,7 @@
     }
 
     public function addDegreeProgram() {
+      $_POST['degree_program'] = trim($_POST['degree_program']);
       if ($_POST['degree_program'] == "") {
         $this->session->set_flashdata("alert", "The degree program should not be blank!");      
       }  else {
@@ -148,16 +172,18 @@
     }
 
     public function updateDegreeProgram() {
-        if ($_POST['degree_program'] == "") {
-            $this->session->set_flashdata("alert", "The degree program should not be blank!");            
-        }  else {
-            $id = $this->values->updateProgram($_POST['program_id'], $_POST['degree_program']);
-            $this->session->set_flashdata("notice", "The degree program has been updated!");
-        }
-        redirect('/admin/index');
+      $_POST['degree_program'] = trim($_POST['degree_program']);
+      if ($_POST['degree_program'] == "") {
+          $this->session->set_flashdata("alert", "The degree program should not be blank!");            
+      }  else {
+          $id = $this->values->updateProgram($_POST['program_id'], $_POST['degree_program']);
+          $this->session->set_flashdata("notice", "The degree program has been updated!");
+      }
+      redirect('/admin/index');
     }
 
     public function addSocialNetwork() {
+        $_POST['social_network'] = trim($_POST['social_network']);
         if ($_POST['social_network'] == "") {
             $this->session->set_flashdata("alert", "The social network should not be blank!");            
         }   else {
@@ -168,6 +194,7 @@
     }
 
     public function updateSocialNetwork() {
+        $_POST['social_network'] = trim($_POST['social_network']);
         if ($_POST['social_network'] == "") {
             $this->session->set_flashdata("alert", "The social network should not be blank!");        
         }   else {
@@ -187,6 +214,9 @@
     }
 
     public function addGECourse() {
+        $_POST['GE_name'] = trim($_POST['GE_name']);
+        $_POST['GE_code'] = trim($_POST['GE_code']);
+        $_POST['GE_description'] = trim($_POST['GE_description']);
         if ($_POST['GE_name'] == "" || $_POST['GE_code'] == "" || $_POST['GE_description'] == "") {
             $this->session->set_flashdata("alert", "All information about the GE course must be filled-up!");
         }   else {
@@ -201,6 +231,9 @@
     }
 
     public function updateGECourse() {
+        $_POST['GE_name'] = trim($_POST['GE_name']);
+        $_POST['GE_code'] = trim($_POST['GE_code']);
+        $_POST['GE_description'] = trim($_POST['GE_description']);
         if ($_POST['GE_name'] == "" || $_POST['GE_code'] == "" || $_POST['GE_description'] == "") {
             $this->session->set_flashdata("alert", "All information about the GE course must be filled-up!");
         }   else { 
@@ -230,7 +263,7 @@
     }
 
     public function updateAlumni($id) {      
-      if (!$this->validatePersonalInformation($_POST['personal_information'])) {        
+      if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
         $this->session->set_flashdata("alert", "There are errors in the new educational background!");
@@ -255,19 +288,29 @@
       // }
       $this->alumni->updatePersonalInfo($id, $info);
 
-      foreach ($info['social_networks'] as $key => $value) {       
+      foreach ($info['social_networks'] as $key => $value) {
+        $value = trim($value);
         $this->alumni->addUserSocialNetwork($id, $key, $value);
       }      
     }
 
     // VALIDATE PERSONLAL INFORMATION
-    private function validatePersonalInformation($info) {      
+    private function validatePersonalInformation($info, $user_id) {
+      $info['firstname'] = trim($info['firstname']);
+      $info['lastname'] = trim($info['lastname']);
+      $info['gender'] = trim($info['gender']);
+      $info['present_address'] = trim($info['present_address']);
+      $info['present_address_contact_number'] = trim($info['present_address_contact_number']);
+      $info['permanent_address'] = trim($info['present_address']);
+      $info['permanent_address_contact_number'] = trim($info['permanent_address_contact_number']);
+      $info['email_address'] = trim($info['email_address']);      
+
       if ($info['firstname'] == '' || $info['lastname'] == '' || $info['gender'] == '' || $info['present_address'] == '' || 
           !($info['gender'] == 'male' || $info['gender'] == 'female') ||
           // ($info['country'] == 'others' && $info['specified_country'] == '') ||
           ($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
           $info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
-          $info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address']))) {
+          $info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address'], $user_id))) {
         $this->session->set_flashdata('alert', "You are missing a field in your Personal Information or your email is invalid.");
         return false;
       }
@@ -275,12 +318,15 @@
     }
 
     // VALIDATE EMAIL ADDRESS
-    private function validateEmail($email) {      
+    private function validateEmail($email, $user_id) {      
       $index = strpos($email, '@');     
       if ($index) {
         $index2 = strpos($email, '.');
         if ($index2 && ($index2 > $index)) {
-          return true;
+          $user = $this->alumni->getUserByEmail($email);
+          if (!$user || $user[0]->id == $user_id) {
+            return true;
+          }
         }
       }
       return false;
@@ -301,6 +347,7 @@
 
     // VALIDATE NEW ALUMNI EDUCATIONAL BACKGROUND
     private function validateEducationalBackground($user_id, $info) {
+      $info['student_number'] = trim($info['student_number']);
       if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {    
         return false;
       }
@@ -345,8 +392,7 @@
       foreach ($info as $key => $value) {      
         if (!$this->hasFilledFieldsInEmploymentHistory($value)) {        
           $this->alumni->deleteEmploymentDetails($key);
-        } else {
-          print_r($value);
+        } else {          
           $this->alumni->updateEmploymentDetails($key, $value);          
         }
       }
@@ -359,7 +405,7 @@
     }
 
     private function validateJobs($jobs) {
-      foreach ($jobs as $job) {
+      foreach ($jobs as $job) {        
         if ($this->hasEmptyFieldInEmploymentHistory($job) && $this->hasFilledFieldsInEmploymentHistory($job)) {          
           return false;
         }
@@ -379,6 +425,9 @@
     }
 
     private function hasEmptyFieldInEmploymentHistory($info) {
+      $info['employer'] = trim($info['employer']);
+      $info['description'] = trim($info['description']);
+      $info['job_title'] = trim($info['job_title']);      
       if (($info['employer'] == "") || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
         return true;
       }
@@ -386,6 +435,9 @@
     }
 
     private function hasFilledFieldsInEmploymentHistory($info) {
+      $info['employer'] = trim($info['employer']);
+      $info['job_title'] = trim($info['job_title']);
+      $info['description'] = trim($info['description']);
       if (($info['employer'] != "") || ($info['job_title'] != "")) {
         return true;
       }
@@ -444,6 +496,54 @@
         }
       }
       redirect('admin/settings');
+    }
+
+    public function addEnumerator() {
+      $_POST['name'] = trim($_POST['name']);
+      $_POST['email'] = trim($_POST['email']);
+      if ($_POST['name'] == "" || $_POST['email'] == "") {
+        $this->session->set_flashdata("alert", "The name and email should not be blank!");
+      } else if ($this->validateEmail($_POST['email'], 0)) {
+        $pass = $this->generatePassword();
+        $this->load->model('enumerator_model');
+        $id = $this->enumerator_model->addEnumerator($_POST['email'], $pass, $_POST['name']);        
+        foreach ($_POST['degree_program'] as $key => $value) {               
+          $this->enumerator_model->addEnumeratorProgram($id, $key);
+        }
+        $this->enumerator_model->updateEnumeratorStatistics($id, isset($_POST['analysis_access']) ? 1 : 0);
+        $this->session->set_flashdata("notice", "New enumerator added!");
+      }
+      redirect('admin/enumerators');
+    }
+
+    public function updateEnumerator($user_id) {
+      $this->load->model('enumerator_model');
+      $this->enumerator_model->deleteAllEnumeratorPrograms($user_id);
+      foreach($_POST['degree_program'] as $key=>$value){
+        $this->enumerator_model->addEnumeratorProgram($user_id, $key);
+      } 
+      $this->enumerator_model->updateEnumeratorStatistics($user_id, isset($_POST['analysis_access']) ? 1 : 0);
+      $this->session->set_flashdata("notice", "Enumerator updated!");
+      redirect('admin/enumerators');
+    }
+
+    public function deleteEnumerator($user_id) {
+      $this->load->model('enumerator_model');
+      $this->enumerator_model->deleteEnumerator($user_id);
+      $this->session->set_flashdata("notice", "Enumerator successfully deleted!");
+      redirect('admin/enumerators');
+    }
+
+    private function generatePassword() {
+      $values = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM1234567890";
+      $pass = "";
+      do {
+        $pass = "";
+        for ($ctr = 0; $ctr < 6; $ctr++) {          
+          $pass .= $values[rand(0,strlen($values))];
+        }
+      } while($this->alumni->getUsersByPassword($pass) != null);     
+      return $pass;
     }
 
   }

@@ -32,11 +32,11 @@
     <div class="content">
       <h1><?=humanize($user_info[0]->firstname)." ".humanize($user_info[0]->lastname) ?></h1>
       <div class="clean-actions">
-        <?=($user_info[0]->cleaned == 0) ? anchor('admin/makeAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
+        <?=($user_info[0]->cleaned == 0) ? anchor('admin/markAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
         <?= anchor('admin/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
 
-        <?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
-        <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>
+        <!--<?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
+        <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>-->
       </div>
 
       <?= form_open('admin/updateAlumni/'.$user_id); ?>

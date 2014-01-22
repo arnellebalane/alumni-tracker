@@ -21,27 +21,47 @@
     }
 
     public function alumni() {
-      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : 2;
-      $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : 0;
-      $included = isset($_GET['included']) ? $_GET['included'] : 0;
-      if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0) {
-        $alumni = $this->alumni->getAllAlumni();        
-      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0) {
+      print_r($this->session->userdata('cleaned'));
+      $prev_cleaned = ($this->session->userdata('cleaned') || $this->session->userdata('cleaned') == 0) ? $this->session->userdata('cleaned') : -2;
+      $prev_program_id = ($this->session->userdata('program_id')) ? $this->session->userdata('program_id') : -1;
+      $prev_included = ($this->session->userdata('included') || $this->session->userdata('included') == 0) ? $this->session->userdata('included') : -2;
+      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
+      $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
+      $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;
+      $this->session->set_userdata('cleaned', $cleaned);
+      $this->session->set_userdata('program_id', $program_id);
+      $this->session->set_userdata('included', $included);
+      if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
+        $alumni = $this->alumni->getAllAlumni();
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
         $alumni = $this->alumni->getAlumniByCleanStatus($cleaned);        
-      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0) {
-        $alumni = $this->alumni->getAlumniByProgram($program_id);        
-      } else {
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included < 0)) {
+        $alumni = $this->alumni->getAlumniByProgram($program_id);    
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id > 0 && ($included < 0)){
         $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);        
-      }      
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included >= 0)) {
+        $alumni = $this->alumni->getAlumniByInclusion($included);
+      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included >= 0)) {
+        $alumni = $this->alumni->getAlumniByInclusionAndStatus($included, $cleaned);
+      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included >= 0)) {
+        $alumni = $this->alumni->getAlumniByInclusionAndProgram($included, $program_id);
+      } else {
+        $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
+      }
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,
+                    'included'=>$included,
                     'programs'=>$this->values->getPrograms());
       $this->load->helper('edit_info_helper.php');
       $this->load->view('admin/alumni', $data);
     }
 
     public function clean($id) {
+      $alumni = $this->alumni->getUserById($id);
+      if (!$alumni || $alumni[0]->user_type != "alumni") {
+        redirect('admin/alumni');
+      }
       $this->load->model("values_model", "values");
       $data = array('countries'=>$this->values->getCountries(),
                     'programs'=>$this->values->getPrograms(),
@@ -359,14 +379,16 @@
       return false;
     }
 
-    public function makeAlumniClean($id) {
+    public function markAlumniClean($id) {
       $this->alumni->markAlumniClean($id);
-      redirect('admin/clean/'.$id);
+      $this->session->set_flashdata("notice", "The alumni was marked CLEAN successfully!");      
+      redirect('admin/alumni');
     } 
 
     public function markAlumniUnClean($id) {
       $this->alumni->markAlumniUnClean($id);
-      redirect('admin/clean/'.$id);
+      $this->session->set_flashdata("notice", "The alumni was marked UNCLEAN successfully!");
+      redirect('admin/alumni');
     }
 
     public function updateAccount() {

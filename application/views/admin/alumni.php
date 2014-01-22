@@ -49,7 +49,7 @@
         </select>
         <select name="program_id">
           <option disabled selected>--filter by degree program--</option>
-          <option value="0" <?=is_selected(0, $program_id)?>>All Programs</option>
+          <option value="-1" <?=is_selected(-1, $program_id)?>>All Programs</option>
           <? foreach ($programs as $program) : ?>
             <option value="<?=$program->id?>" <?=is_selected($program->id, $program_id)?>><?=$program->name?></option>
           <? endforeach; ?>  

@@ -21,30 +21,27 @@
     }
 
     public function alumni() {      
-      if ($this->session->userdata('cleaned')) {
-        $prev_cleaned = $this->session->userdata('cleaned') - 1;
+      if ($this->session->userdata('cleaned') == 0 || ($this->session->userdata('cleaned') == 1) || ($this->session->userdata('cleaned') == -1)) {
+        $prev_cleaned = $this->session->userdata('cleaned');
       } else {
         $prev_cleaned = 1;
       }
-      if ($this->session->userdata('program_id')) {
-        $prev_program_id = $this->session->userdata('program_id')-1;
+      if ($this->session->userdata('program_id') > 0 || $this->session->userdata('program_id') == -1) {
+        $prev_program_id = $this->session->userdata('program_id');
       } else {
-        $prev_program_id = -1;
+        $prev_program_id = 0;
       } 
-      if ($this->session->userdata('included')) {
-        $prev_included = $this->session->userdata('included')-1;
+      if (($this->session->userdata('included') == 0) || ($this->session->userdata('included') == 1) || ($this->session->userdata('included') == -1)) {
+        $prev_included = $this->session->userdata('included');
       } else {
         $prev_included = 1;
-      }      
-      // $prev_cleaned = () ? $this->session->userdata('cleaned') : 1;
-      // $prev_program_id = ($this->session->userdata('program_id')) ? $this->session->userdata('program_id') : -1;
-      // $prev_included = ($this->session->userdata('included') || $this->session->userdata('included') == 0) ? $this->session->userdata('included') : 1;
+      }            
       $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
       $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
       $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;      
-      $this->session->set_userdata('cleaned', $cleaned+1);
-      $this->session->set_userdata('program_id', $program_id+1);
-      $this->session->set_userdata('included', $included+1);
+      $this->session->set_userdata('cleaned', $cleaned);
+      $this->session->set_userdata('program_id', $program_id);
+      $this->session->set_userdata('included', $included);
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
         $alumni = $this->alumni->getAllAlumni();
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
@@ -576,8 +573,8 @@
       $config['smtp_pass'] = '@alumnitracker123';
       $config['mailtype'] = 'html';
       $this->load->library('email', $config);
-      $account_info = $this->model->getUserById($user_id);
-      $personal_info = $this->model->getPersonalInfoById($user_id);
+      $account_info = $this->alumni->getUserById($user_id);
+      $personal_info = $this->alumni->getPersonalInfoById($user_id);
       $programs = null;
       if ($type == 'enumerator') {
         $this->load->model('enumerator_model');

@@ -670,7 +670,7 @@ aside li a.current:before {
 }
 
 .admin.enumerators .enumerator h4 {
-  font: normal 2rem/1 "Open Sans Light";
+  font: normal 2rem/1 "Open Sans Light", "OpenSansLight";
   color: #333333;
   margin-bottom: 5px;
 }

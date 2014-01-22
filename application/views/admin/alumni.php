@@ -25,6 +25,7 @@
         <li><?= anchor('admin/alumni', 'Alumni Data', array('class' => 'current')); ?></li>
         <li><?= anchor('admin/enumerators', 'Enumerator Accounts'); ?></li>
         <li><?= anchor('admin/metas', 'Meta Data'); ?></li>
+        <li><?= anchor('statistics/index', 'Statistical Presentations'); ?></li>
         <li><?= anchor('admin/settings', 'Account Settings'); ?></li>
       </ul>
     </aside>

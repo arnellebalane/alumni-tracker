@@ -1,0 +1,101 @@
+.content {
+  padding-bottom: 50px;
+}
+
+h1 {
+  font: normal 2rem "Open Sans Light", "OpenSansLight";
+  color: #8B242A;
+  margin-bottom: 15px;
+}
+
+#main-header {
+  padding: 50px 0;
+}
+
+#main-header h1 {
+  display: inline-block;
+  font: normal 4.5rem/1 "Alegreya", "AlegreyaRegular";
+  color: #555555;
+  text-transform: lowercase;
+  margin-bottom: 0;
+}
+
+#main-header h1 span {
+  display: block;
+  font: normal 2rem/1 "Open Sans Light", "OpenSansLight";
+  text-align: right;
+  margin-top: -5px;
+}
+
+nav {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+}
+
+nav a {
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #26681B;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+nav a:hover,
+nav a:focus {
+  color: #308023;
+}
+
+ul {
+  display: inline-block;
+}
+
+ul a {
+  display: block;
+  font: normal 1.6rem "Open Sans Light", "OpenSansLight";
+  color: #555555;
+  text-decoration: none;
+  padding: 7px 15px;
+  border-radius: 3px;
+}
+
+ul a:hover,
+ul a:focus {
+  color: #ffffff;
+  background-color: #399B28;
+}
+
+h1 a {
+  display: inline-block;
+  font: normal 1.3rem "Open Sans Light", "OpenSansLight";
+  color: #26681B;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 0 0 0 25px;
+}
+
+h1 a:hover,
+h1 a:focus {
+  color: #308023;
+  text-decoration: underline;
+}
+
+.statistical-presentation {
+  margin-top: 25px;
+}
+
+.statistical-chart, 
+.statistical-table {
+  float: left;
+  width: 450px;
+  height: 450px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.statistical-presentation h1 {
+  font-size: 1.8rem;
+  margin: 0 0 5px 25px;
+}

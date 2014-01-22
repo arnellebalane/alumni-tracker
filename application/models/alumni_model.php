@@ -156,26 +156,39 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}
 
+	function getPersonalInfoById($user_id) {
+		$query = $this->db->query("SELECT personal_infos.*, countries.name as 'coutry' FROM personal_infos INNER JOIN countries on countries.id = personal_infos.country_id
+			                         WHERE personal_infos.user_id = '".addslashes($user_id)."'");		
+		return $query->result();
+	}
+
 	function getUserById($id) {
-		$query = $this->db->query("SELECT * FROM users WHERE id = '$id'");
+		$query = $this->db->query("SELECT * FROM users WHERE id = '".addslashes($id)."'");
+		return $query->result();
+	}
+
+	function getUserAndUserInfoById($user_id) {
+		$query = $this->db->query("SELECT users.*, personal_infos.*, educational_backgrounds.*, programs.id as prog_id, programs.name as course, countries.id as 'country_id', countries.name as 'country' FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = personal_infos.user_id 
+															 INNER JOIN countries ON countries.id = personal_infos.present_country_id 
+															 INNER JOIN programs ON programs.id = educational_backgrounds.program_id WHERE users.id = '".addslashes($user_id)."'");
 		return $query->result();
 	}
 
 	function getUserInfoById($user_id) {
 		$query = $this->db->query("SELECT users.cleaned, users.created_at, personal_infos.*, educational_backgrounds.*, programs.id as prog_id, programs.name as course, countries.id as 'country_id', countries.name as 'country' FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = personal_infos.user_id 
 															 INNER JOIN countries ON countries.id = personal_infos.present_country_id 
-															 INNER JOIN programs ON programs.id = educational_backgrounds.program_id WHERE users.id = '$user_id'");
+															 INNER JOIN programs ON programs.id = educational_backgrounds.program_id WHERE users.id = '".addslashes($user_id)."'");
 		return $query->result();
 	}
 
 	function getUserSocialNetworksById($user_id) {
 		$query = $this->db->query("SELECT social_networks.*, user_social_networks.account_name FROM user_social_networks 
-			join social_networks on social_networks.id = user_social_networks.social_network_id WHERE user_social_networks.user_id = '$user_id'");
+			join social_networks on social_networks.id = user_social_networks.social_network_id WHERE user_social_networks.user_id = '".addslashes($user_id)."'");
 		return $query->result();
 	}
 
 	function getOtherSocialNetworksById($user_id) {
-		$query = $this->db->query("SELECT social_networks.* FROM social_networks WHERE id NOT IN (SELECT social_network_id FROM user_social_networks WHERE user_id = '$user_id')");
+		$query = $this->db->query("SELECT social_networks.* FROM social_networks WHERE id NOT IN (SELECT social_network_id FROM user_social_networks WHERE user_id = '".addslashes($user_id)."')");
 		return $query->result();
 	}
 

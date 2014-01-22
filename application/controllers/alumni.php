@@ -52,7 +52,7 @@
 			redirect('alumni/home');
 		}
 
-		public function add() {		
+		public function add() {	
 		  if (!$this->validateEducationalBackground($_POST['educational_background'])) {
 				$this->session->set_flashdata('inputs', $_POST);
 				redirect('/home/questionnaire');
@@ -72,6 +72,7 @@
 			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
 			$this->addOthers($user_id, $_POST['others']);
 			$this->session->set_userdata('saved', $user_id);
+			$sent = $this->mailer($user_id);			
 			redirect('/home/saved');
 		}
 
@@ -93,6 +94,7 @@
 				$this->model->addUserSocialNetwork($this->session->userdata('user_id'), $key, $value);
 			}
 			$this->session->set_flashdata('notice', 'Update successful!');
+			$this->mailer($this->session->userdata('user_id'));
 			redirect('alumni/home');
 		}
 
@@ -143,8 +145,10 @@
 			}
 			$pass = $this->generatePassword();
 			$user_id = $this->model->addUser(addslashes($username), $pass);
-			if ($user_id == null) {
-				return null;
+			$ctr=0;
+			while($user_id == null) {
+				$user_id = $this->model->addUser(addslashes($username.$ctr), $pass);
+				$ctr++;
 			}
 			$this->model->addEducationalBackground($user_id, addslashes($info['student_number']), addslashes($info['degree_program']), 
 				addslashes($info['graduated']['semester']), addslashes($info['graduated']['academic_year']), addslashes($info['honor_received']));
@@ -175,7 +179,7 @@
 			$this->model->updateEducationalBackground($this->session->userdata('user_id'), $_POST['educational_background']);
 			$this->model->updateUserStudentNumber($this->session->userdata('user_id'), $_POST['educational_background']['student_number']);
 			$this->session->set_flashdata('notice', 'Update successful!'.$addnote);
-
+			$this->mailer($this->session->userdata('user_id'));
 			redirect('alumni/home');
 		}
 
@@ -404,7 +408,31 @@
 		}
 
 		private function mailer($user_id) {
-			
+			$config['protocol'] = 'smtp';
+      $config['smtp_host'] = 'ssl://gator4052.hostgator.com';
+      $config['smtp_port'] = 465;
+      $config['smtp_user'] = 'alumnitracker@wefoundyou.org';
+      $config['smtp_pass'] = '@alumnitracker123';
+      $config['mailtype'] = 'html';
+      $this->load->library('email', $config);
+      $account_info = $this->model->getUserById($user_id);
+      $personal_info = $this->model->getPersonalInfoById($user_id);
+      $data = array('account_info'=>$account_info, 
+      	            'personal_info'=>$personal_info);     
+      $message = $this->load->view('mailer/welcome_alumni.php', $data, true);
+      $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
+      $this->email->to(urldecode($personal_info[0]->email));
+      $this->email->subject('Welcome Alumni');
+      $this->email->message($message);
+      if ($this->email->send()) {
+      	$this->session->set_flashdata("notice", "Email Sent!");
+        // echo '<pre>MESSAGE SENT</pre>';
+        return true;
+      } else {
+      	$this->session->set_flashdata("alert", "Failed to send Email!");
+        // echo '<pre>MESSAGE SENDING FAILED</pre>';
+        return false;
+      }
 		}
 	}
 ?>

@@ -58,6 +58,14 @@ class enumerator_model extends CI_Model {
     $this->db->query("INSERT INTO users (password, user_type) VALUES ('".addslashes($password)."', 'moderator')");
     $id = mysql_insert_id();
     $username = "enumerator".$id;
+    $test = $this->db->query("SELECT * FROM users WHERE username='$username'");
+    $res = $test->result();
+    $ctr = 0;
+    while ($res) {
+      $username = $username . $ctr;
+      $test = $this->db->query("SELECT * FROM users WHERE username='$username'");
+      $res = $test->result();
+    }
     $this->db->query("UPDATE users SET username='".addslashes(trim($username))."' WHERE id = '$id'");
     $this->db->query("INSERT INTO personal_infos (user_id, firstname, email) VALUES ('$id', '".addslashes(trim($firstname))."', '".addslashes(trim($email))."')");
     return $id;

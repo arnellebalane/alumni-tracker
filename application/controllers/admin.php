@@ -277,6 +277,7 @@
         $this->updateJobs($_POST['jobs']);
         $this->addJobs($id, $_POST['another_job']);
         $this->session->set_flashdata("notice", "Update successful!");
+        $this->mailer($id, 'alumni');
       }
       redirect('admin/clean/'.$id);
     }
@@ -380,6 +381,24 @@
       return true;
     }
 
+    private function isStudentNumber($var) {
+      if ((strlen($var) != 10)) {    
+        return false;
+      }      
+      for($ctr = 0; $ctr < 10; $ctr++) {
+        if ($ctr != 4) {
+          if (!$this->isNumber($var[$ctr])) {              
+            return false;
+          }
+        } else {
+          if ($var[4] != '-') {              
+            return false;
+          }
+        }
+      }
+      return true;  
+    }
+
     // CHECK IF INPUT IS A NUMBER
     private function isNumber($num) {
       if ($num == '0' || $num == '1' || $num == '2' || $num == '3' || $num == '4' || $num == '5' || $num == '6' || $num == '7' || $num == '8'
@@ -465,6 +484,8 @@
         $this->session->set_flashdata("alert", "The passwords does not match!");
       } else if(strlen($new_pass) < 5 && $new_pass != "") {
         $this->session->set_flashdata("alert", "The password should contain at least 5 characters!");
+      } else if ($this->isStudentNumber(trim($username))) {
+        $this->session->set_flashdata("alert", "A student number cannot be a username!");
       } else {
         $res = $this->alumni->getUserById($this->session->userdata('user_id'));
         if ($res && $res[0]->password == addslashes($cur_pass)) {          
@@ -512,6 +533,7 @@
         }
         $this->enumerator_model->updateEnumeratorStatistics($id, isset($_POST['analysis_access']) ? 1 : 0);
         $this->session->set_flashdata("notice", "New enumerator added!");
+        $this->mailer($id, 'enumerator');
       }
       redirect('admin/enumerators');
     }
@@ -546,6 +568,39 @@
       return $pass;
     }
 
+    private function mailer($user_id, $type) {
+      $config['protocol'] = 'smtp';
+      $config['smtp_host'] = 'ssl://gator4052.hostgator.com';
+      $config['smtp_port'] = 465;
+      $config['smtp_user'] = 'alumnitracker@wefoundyou.org';
+      $config['smtp_pass'] = '@alumnitracker123';
+      $config['mailtype'] = 'html';
+      $this->load->library('email', $config);
+      $account_info = $this->model->getUserById($user_id);
+      $personal_info = $this->model->getPersonalInfoById($user_id);
+      $programs = null;
+      if ($type == 'enumerator') {
+        $this->load->model('enumerator_model');
+        $programs = $this->enumerator_model->getEnumeratorPrograms($user_id);
+      }
+      $data = array('account_info'=>$account_info, 
+                    'personal_info'=>$personal_info,
+                    'programs'=>$programs);     
+      $message = $this->load->view('mailer/welcome_'.$type.'.php', $data, true);
+      $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
+      $this->email->to(urldecode($personal_info[0]->email));
+      $this->email->subject('Welcome Alumni');
+      $this->email->message($message);
+      if ($this->email->send()) {
+        $this->session->set_flashdata("notice", "Email Sent!");
+        // echo '<pre>MESSAGE SENT</pre>';
+        return true;
+      } else {
+        $this->session->set_flashdata("alert", "Failed to send Email!");
+        // echo '<pre>MESSAGE SENDING FAILED</pre>';
+        return false;
+      }
+    }
   }
 
 ?>

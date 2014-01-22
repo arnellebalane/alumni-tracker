@@ -19,8 +19,9 @@
       $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
       $this->email->to(urldecode($email));
       $this->email->subject('Test Email');
-      $this->email->message($message);
+      $this->email->message($message);      
       if ($this->email->send()) {
+
         echo '<pre>MESSAGE SENT</pre>';
       } else {
         echo '<pre>MESSAGE SENDING FAILED</pre>';

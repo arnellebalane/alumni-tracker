@@ -276,7 +276,7 @@
           $this->addJobs($id, $_POST['another_job']);
         }      
         $res = $this->mailer($id, 'alumni');
-        $message = "Update successful!" . (($res) ? " Email Send!" : " Failed to send email!");
+        $message = "Update successful!" . (($res) ? " Email sent!" : " Failed to send email!");
         $this->session->set_flashdata("notice", $message);
       }
       redirect('admin/clean/'.$id);
@@ -533,7 +533,7 @@
         }
         $this->enumerator_model->updateEnumeratorStatistics($id, isset($_POST['analysis_access']) ? 1 : 0);        
         $res = $this->mailer($id, 'enumerator');
-        $message = "New enumerator added!" . (($res) ? " Email send!" : " Failed to send email!");
+        $message = "New enumerator added!" . (($res) ? " Email sent!" : " Failed to send email!");
         $this->session->set_flashdata("notice", $message);
       }
       redirect('admin/enumerators');
@@ -578,6 +578,7 @@
       $config['mailtype'] = 'html';
       $this->load->library('email', $config);
       $account_info = $this->alumni->getUserById($user_id);
+      $personal_info = null;
       if ($type == "enumerator") {
         $personal_info = $this->alumni->getEnumeratorInfoById($user_id);
       } else {

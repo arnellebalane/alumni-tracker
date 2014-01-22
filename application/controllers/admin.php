@@ -259,20 +259,22 @@
       redirect('admin/alumni');
     }
 
-    public function updateAlumni($id) {      
+    public function updateAlumni($id) {
       if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
         $this->session->set_flashdata("alert", "There are errors in the new educational background!");
       }  else if (!$this->validateJobs($_POST['jobs'])) {
         $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
-      } else if (!$this->validateJobs($_POST['another_job'])) {
+      } else if ((isset($_POST['another_job'])) && !$this->validateJobs($_POST['another_job'])) {
         $this->session->set_flashdata("alert", "Some information about the new jobs are missing!");
       } else {
         $this->updatePersonalInfo($id, $_POST['personal_information']);
         $this->updateEducationalBackground($id, $_POST['educational_background']);
         $this->updateJobs($_POST['jobs']);
-        $this->addJobs($id, $_POST['another_job']);
+        if (isset($_POST['another_job'])) {
+          $this->addJobs($id, $_POST['another_job']);
+        }
         $this->session->set_flashdata("notice", "Update successful!");
         $this->mailer($id, 'alumni');
       }
@@ -442,7 +444,7 @@
 
     private function hasEmptyFieldInEmploymentHistory($info) {
       $info['employer'] = trim($info['employer']);
-      $info['description'] = trim($info['description']);
+      $info['satisfaction_reason'] = trim($info['satisfaction_reason']);
       $info['job_title'] = trim($info['job_title']);      
       if (($info['employer'] == "") || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
         return true;
@@ -453,7 +455,7 @@
     private function hasFilledFieldsInEmploymentHistory($info) {
       $info['employer'] = trim($info['employer']);
       $info['job_title'] = trim($info['job_title']);
-      $info['description'] = trim($info['description']);
+      $info['satisfaction_reason'] = trim($info['satisfaction_reason']);
       if (($info['employer'] != "") || ($info['job_title'] != "")) {
         return true;
       }

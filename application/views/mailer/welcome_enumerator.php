@@ -20,7 +20,7 @@
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Your login information can be found below:</p>
       <div style="margin: 15px 0 15px 25px;">
         <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Username:</span><?=$account_info[0]->username?></p>
-        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Password:</span<?=$account_info[0]->password?>/p>
+        <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Password:</span><?=$account_info[0]->password?></p>
       </div>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Please change your account password upon logging in.</p>
       <div style="margin-top: 25px;">

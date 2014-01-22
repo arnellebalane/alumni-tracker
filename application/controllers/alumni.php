@@ -402,5 +402,9 @@
 				return true;
 			}
 		}
+
+		private function mailer($user_id) {
+			
+		}
 	}
 ?>

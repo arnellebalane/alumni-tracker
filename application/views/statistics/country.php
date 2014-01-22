@@ -42,8 +42,8 @@
     var chartOptions = {
       enableInteractivity: false,
       chartArea: {
-        width: 450,
-        height: 450
+        width: 400,
+        height: '90%'
       },
       legend: {
         position: 'right'
@@ -51,6 +51,7 @@
       tooltip: {
         trigger: 'none'
       },
+      height: 300,
       width: 450
     };
     var tableOptions = {

@@ -10,7 +10,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="statistics employer-type">
+<body class="statistics salary">
   <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>
@@ -60,14 +60,15 @@
         <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </div>
+  </div>
 
-    <script src="https://www.google.com/jsapi"></script>
+  <script src="https://www.google.com/jsapi"></script>
   <script>
     var chartOptions = {
       enableInteractivity: false,
       chartArea: {
         width: 300,
-        height: 300
+        height: '90%'
       },
       legend: {
         position: 'none'
@@ -75,6 +76,7 @@
       tooltip: {
         trigger: 'none'
       },
+      height: 300,
       width: 450,
       hAxis: {
         title: 'Monthly Salary'
@@ -119,6 +121,5 @@
       });
     });
   </script>
-  </div>
 </body>
 </html>

@@ -68,7 +68,7 @@
       enableInteractivity: false,
       chartArea: {
         width: 300,
-        height: 300
+        height: '90%'
       },
       legend: {
         position: 'none'
@@ -76,6 +76,7 @@
       tooltip: {
         trigger: 'none'
       },
+      height: 300,
       width: 450,
       hAxis: {
         title: 'Employer/Business Type'

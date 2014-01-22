@@ -10,7 +10,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="statistics gender">
+<body class="statistics country">
   <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>

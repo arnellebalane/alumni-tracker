@@ -48,7 +48,7 @@
       },
       tooltip: {
         trigger: 'none'
-      }
+      },
       width: 450
     };
     var tableOptions = {

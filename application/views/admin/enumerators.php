@@ -47,6 +47,8 @@
           </ul>
           <? if ($enumerator_stat && ($enumerator_stat[0]->statistics == 1)) : ?>
             <h5 class="green">can view statistical analysis</h5>
+          <? elseif ($enumerator_stat && ($enumerator_stat[0]->statistics == 0)): ?>
+            <h5 class="red">cannot view statistical analysis</h5>
           <? endif; ?>
         </div>
         <div class="editable hidden">

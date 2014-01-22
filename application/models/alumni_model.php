@@ -157,7 +157,7 @@ class alumni_model extends CI_Model {
 	}
 
 	function getPersonalInfoById($user_id) {
-		$query = $this->db->query("SELECT personal_infos.*, countries.name as 'coutry' FROM personal_infos INNER JOIN countries on countries.id = personal_infos.country_id
+		$query = $this->db->query("SELECT personal_infos.*, countries.name as 'country' FROM personal_infos INNER JOIN countries on countries.id = personal_infos.present_country_id
 			                         WHERE personal_infos.user_id = '".addslashes($user_id)."'");		
 		return $query->result();
 	}

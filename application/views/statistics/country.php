@@ -22,7 +22,7 @@
   </header>
 
   <div class="content wrapper">
-    <h1>Country/State of Present Address</h1>
+    <h1>Country/State of Present Address<?= anchor('statistics/index', 'Back to List'); ?></h1>
 
     <section class="statistical-presentation clearfix">
       <div class="statistical-chart"></div>

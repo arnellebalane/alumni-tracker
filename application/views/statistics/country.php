@@ -32,7 +32,7 @@
         <span class="chart table" data-label="Japan" data-males="10" data-females="15" data-frequency="25" data-percentage="25"></span>
         <span class="chart table" data-label="North Korea" data-males="5" data-females="10" data-frequency="15" data-percentage="15"></span>
         <span class="chart table" data-label="Singapore" data-males="5" data-females="5" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="Total" data-males="45" data-females="55" data-frequency="100" data-percentage="100"></span>
+        <span class="table" data-label="<b>Total</b>" data-males="<b>45</b>" data-females="<b>55</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </section>
   </div>
@@ -48,18 +48,23 @@
       legend: {
         position: 'right'
       },
+      tooltip: {
+        trigger: 'none'
+      },
       width: 450
     };
     var tableOptions = {
-      width: 450
+      width: 450,
+      sort: 'disable',
+      allowHtml: true
     };
 
     google.load('visualization', '1', { packages: ['corechart', 'table'] });
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var chartData = [['Gender', 'Percentage']];
-        var tableData = [['Gender', 'Males', 'Females', 'Frequency', 'Percentage']];
+        var chartData = [['Country', 'Percentage']];
+        var tableData = [['Country', 'Males', 'Females', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');

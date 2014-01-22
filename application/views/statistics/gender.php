@@ -30,7 +30,7 @@
       <div class="statistical-data hidden">
         <span class="chart table" data-label="Male" data-frequency="30" data-percentage="30"></span>
         <span class="chart table" data-label="Female" data-frequency="70" data-percentage="70"></span>
-        <span class="table" data-label="Total" data-frequency="100" data-percentage="100"></span>
+        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </section>
   </div>
@@ -46,10 +46,15 @@
       legend: {
         position: 'right'
       },
+      tooltip: {
+        trigger: 'none'
+      }
       width: 450
     };
     var tableOptions = {
-      width: 450
+      width: 450,
+      sort: 'disable',
+      allowHtml: true
     };
 
     google.load('visualization', '1', { packages: ['corechart', 'table'] });

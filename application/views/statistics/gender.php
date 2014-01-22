@@ -35,18 +35,51 @@
     </section>
   </div>
 
+  <script src="https://www.google.com/jsapi"></script>
   <script>
-    $('.statistical-presentation').each(function() {
-      var presentation = $(this);
-      var chart = [];
-      presentation.find('.statistical-data .chart').each(function() {
-        var data = {};
-        data['label'] = $(this).data('label');
-        data['frequency'] = $(this).data('frequency');
-        data['percentage'] = $(this).data('percentage');
-        chart.push(data);
+    var chartOptions = {
+      enableInteractivity: false,
+      chartArea: {
+        width: 450,
+        height: 450
+      },
+      legend: {
+        position: 'right'
+      },
+      width: 450
+    };
+    var tableOptions = {
+      width: 450
+    };
+
+    google.load('visualization', '1', { packages: ['corechart', 'table'] });
+    google.setOnLoadCallback(function() {
+      $('.statistical-presentation').each(function() {
+        var presentation = $(this);
+        var chartData = [['Gender', 'Percentage']];
+        var tableData = [['Gender', 'Frequency', 'Percentage']];
+        presentation.find('.statistical-data span').each(function() {
+          var data = {};
+          data['label'] = $(this).data('label');
+          data['frequency'] = $(this).data('frequency');
+          data['percentage'] = $(this).data('percentage');
+
+          if ($(this).hasClass('chart')) {
+            chartData.push([data['label'], data['percentage']]);
+          }
+          if ($(this).hasClass('table')) {
+            tableData.push([data['label'], data['frequency'], data['percentage']]);
+          }
+        });
+
+        chartData = google.visualization.arrayToDataTable(chartData);
+        var chart = new google.visualization.PieChart(presentation.find('.statistical-chart')[0]);
+        chart.draw(chartData, chartOptions);
+
+        tableData = google.visualization.arrayToDataTable(tableData);
+        var table = new google.visualization.Table(presentation.find('.statistical-table')[0]);
+        table.draw(tableData, tableOptions);
       });
-      console.log(chart);
     });
   </script>
 </body>

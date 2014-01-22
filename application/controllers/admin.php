@@ -235,14 +235,16 @@
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
         $this->session->set_flashdata("alert", "There are errors in the new educational background!");
       }  else if (!$this->validateJobs($_POST['jobs'])) {
-        print_r("asdas");
         $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
-      } else {            
+      } else if (!$this->validateJobs($_POST['another_job'])) {
+        $this->session->set_flashdata("alert", "Some information about the new jobs are missing!");
+      } else {
         $this->updatePersonalInfo($id, $_POST['personal_information']);
         $this->updateEducationalBackground($id, $_POST['educational_background']);
         $this->updateJobs($_POST['jobs']);
+        $this->addJobs($id, $_POST['another_job']);
+        $this->session->set_flashdata("notice", "Update successful!");
       }
-      $this->session->set_flashdata("notice", "Update successful!");
       redirect('admin/clean/'.$id);
     }
 
@@ -360,9 +362,20 @@
       foreach ($jobs as $job) {
         if ($this->hasEmptyFieldInEmploymentHistory($job) && $this->hasFilledFieldsInEmploymentHistory($job)) {          
           return false;
-        } 
+        }
       }
       return true;
+    }
+
+    private function addJobs($user_id, $info) {
+      foreach ($info as $var) : 
+        if (!$this->hasEmptyFieldInEmploymentHistory($var)) {           
+          $history_id = $this->alumni->addEmploymentDetails($var['business_type'], $var);
+          $current_job = isset($var['current_job']) ? 1 : 0;
+          $first_job = isset($var['first_job']) ? 1 : 0;
+          $this->alumni->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);          
+        }
+      endforeach;
     }
 
     private function hasEmptyFieldInEmploymentHistory($info) {

@@ -140,6 +140,9 @@ class alumni_model extends CI_Model {
 			}			
 			$q = $this->db->query("UPDATE user_employment_histories SET current_job = 0 WHERE user_id = '$user_id' AND current_job = 1");
 		}
+		if ($first_job == 1) {
+			$q = $this->db->query("UPDATE user_employment_histories SET first_job = 0 WHERE user_id = '$user_id' AND first_job = 1");
+		}
 		$query = $this->db->query("INSERT INTO user_employment_histories VALUES ('$user_id', '$employment_detail_id', '$current_job', '$first_job')");
 	}
 	
@@ -183,7 +186,7 @@ class alumni_model extends CI_Model {
 															 INNER JOIN monthly_salaries ON monthly_salaries.id = employment_details.monthly_salary_id 
 															 WHERE user_employment_histories.current_job = 1 AND user_employment_histories.user_id = '".addslashes($user_id)."'");
 		return $query->result();
-	}	
+	}
 
 	function getUserFirstJob($user_id) {
 		$query = $this->db->query("SELECT employment_details.*, employer_types.name as employer_type, monthly_salaries.minimum, monthly_salaries.maximum FROM employment_details 

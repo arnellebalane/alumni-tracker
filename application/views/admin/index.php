@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/fonts.css'; ?>" />
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/application.css'; ?>" />
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/admin.css'; ?>" />
-  <script src="<?= base_url() . 'assets/javascripts/jquery-2'; ?>.js"></script>
+  <script src="<?= base_url() . 'assets/javascripts/jquery-2.js'; ?>.js"></script>
   <script src="<?= base_url() . 'assets/javascripts/application.js'; ?>"></script>
   <?php $this->load->view('partials/google_analytics'); ?>
   <title>Alumni Tracker</title>

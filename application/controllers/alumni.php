@@ -72,7 +72,7 @@
 			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
 			$this->addOthers($user_id, $_POST['others']);
 			$this->session->set_userdata('saved', $user_id);
-			$sent = $this->mailer($user_id);			
+			$sent = $this->mailer($user_id);
 			redirect('/home/saved');
 		}
 
@@ -92,9 +92,10 @@
 
 			foreach ($_POST['personal_information']['social_networks'] as $key => $value) {				
 				$this->model->addUserSocialNetwork($this->session->userdata('user_id'), $key, $value);
-			}
-			$this->session->set_flashdata('notice', 'Update successful!');
-			$this->mailer($this->session->userdata('user_id'));
+			}			
+			$res= $this->mailer($this->session->userdata('user_id'));
+			$message = "Update successful! " . (($res) ? " Email Sent!" : " Failed to send email!");
+			$this->session->set_flashdata('notice', $message);
 			redirect('alumni/home');
 		}
 
@@ -177,9 +178,10 @@
 			}
 
 			$this->model->updateEducationalBackground($this->session->userdata('user_id'), $_POST['educational_background']);
-			$this->model->updateUserStudentNumber($this->session->userdata('user_id'), $_POST['educational_background']['student_number']);
-			$this->session->set_flashdata('notice', 'Update successful!'.$addnote);
-			$this->mailer($this->session->userdata('user_id'));
+			$this->model->updateUserStudentNumber($this->session->userdata('user_id'), $_POST['educational_background']['student_number']);			
+			$res = $this->mailer($this->session->userdata('user_id'));			
+			$message = 'Update successful!'.$addnote . (($res) ? " Email Sent!" : " Failed to send email!");
+			$this->session->set_flashdata('notice', $message);
 			redirect('alumni/home');
 		}
 
@@ -424,12 +426,10 @@
       $this->email->to(urldecode($personal_info[0]->email));
       $this->email->subject('Welcome Alumni');
       $this->email->message($message);
-      if ($this->email->send()) {
-      	$this->session->set_flashdata("notice", "Email Sent!");
+      if ($this->email->send()) {      	
         // echo '<pre>MESSAGE SENT</pre>';
         return true;
-      } else {
-      	$this->session->set_flashdata("alert", "Failed to send Email!");
+      } else {      	
         // echo '<pre>MESSAGE SENDING FAILED</pre>';
         return false;
       }

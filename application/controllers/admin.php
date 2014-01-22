@@ -274,9 +274,10 @@
         $this->updateJobs($_POST['jobs']);
         if (isset($_POST['another_job'])) {
           $this->addJobs($id, $_POST['another_job']);
-        }
-        $this->session->set_flashdata("notice", "Update successful!");
-        $this->mailer($id, 'alumni');
+        }      
+        $res = $this->mailer($id, 'alumni');
+        $message = "Update successful!" . (($res) ? " Email Send!" : " Failed to send email!");
+        $this->session->set_flashdata("notice", $message);
       }
       redirect('admin/clean/'.$id);
     }
@@ -530,9 +531,10 @@
         foreach ($_POST['degree_program'] as $key => $value) {               
           $this->enumerator_model->addEnumeratorProgram($id, $key);
         }
-        $this->enumerator_model->updateEnumeratorStatistics($id, isset($_POST['analysis_access']) ? 1 : 0);
-        $this->session->set_flashdata("notice", "New enumerator added!");
-        $this->mailer($id, 'enumerator');
+        $this->enumerator_model->updateEnumeratorStatistics($id, isset($_POST['analysis_access']) ? 1 : 0);        
+        $res = $this->mailer($id, 'enumerator');
+        $message = "New enumerator added!" . (($res) ? " Email send!" : " Failed to send email!");
+        $this->session->set_flashdata("notice", $message);
       }
       redirect('admin/enumerators');
     }
@@ -576,7 +578,11 @@
       $config['mailtype'] = 'html';
       $this->load->library('email', $config);
       $account_info = $this->alumni->getUserById($user_id);
-      $personal_info = $this->alumni->getPersonalInfoById($user_id);
+      if ($type == "enumerator") {
+        $personal_info = $this->alumni->getEnumeratorInfoById($user_id);
+      } else {
+        $personal_info = $this->alumni->getPersonalInfoById($user_id);
+      }
       $programs = null;
       if ($type == 'enumerator') {
         $this->load->model('enumerator_model');
@@ -590,12 +596,10 @@
       $this->email->to(urldecode($personal_info[0]->email));
       $this->email->subject('Welcome Alumni');
       $this->email->message($message);
-      if ($this->email->send()) {
-        $this->session->set_flashdata("notice", "Email Sent!");
+      if ($this->email->send()) {        
         // echo '<pre>MESSAGE SENT</pre>';
         return true;
-      } else {
-        $this->session->set_flashdata("alert", "Failed to send Email!");
+      } else {        
         // echo '<pre>MESSAGE SENDING FAILED</pre>';
         return false;
       }

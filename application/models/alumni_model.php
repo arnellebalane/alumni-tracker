@@ -162,6 +162,11 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}
 
+	function getEnumeratorInfoById($user_id) {
+		$query = $this->db->query("SELECT firstname, email FROM personal_infos WHERE user_id = '".addslashes($user_id)."'");
+		return $query->result();
+	}
+
 	function getUserById($id) {
 		$query = $this->db->query("SELECT * FROM users WHERE id = '".addslashes($id)."'");
 		return $query->result();

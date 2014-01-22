@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 10, 2014 at 06:06 AM
+-- Generation Time: Jan 22, 2014 at 06:06 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -56,8 +56,6 @@ CREATE TABLE IF NOT EXISTS `comment_ge_courses` (
 -- Dumping data for table `comment_ge_courses`
 --
 
-INSERT INTO `comment_ge_courses` (`comment_id`, `GE_course_id`) VALUES
-(2, 2);
 
 -- --------------------------------------------------------
 
@@ -126,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `countries`
@@ -136,10 +134,10 @@ INSERT INTO `countries` (`id`, `name`) VALUES
 (5, 'North Korea'),
 (6, 'Vietnam'),
 (10, 'US'),
-(12, 'Philippines'),
 (13, 'Japan'),
 (14, 'South Korea'),
-(15, 'Thailand');
+(15, 'Thailand'),
+(18, 'Philippines');
 
 -- --------------------------------------------------------
 
@@ -163,12 +161,9 @@ CREATE TABLE IF NOT EXISTS `educational_backgrounds` (
 --
 
 INSERT INTO `educational_backgrounds` (`user_id`, `student_number`, `program_id`, `semester_graduated`, `year_graduated`, `honor_received`) VALUES
-(46, '2011-37567', 2, 2, '2012-2013', 'none'),
+(46, '2011-37567', 2, 2, '0 - 0', 'none'),
 (47, '2011-37568', 2, 2, '2013-2014', 'none'),
-(48, '2011-37560', 5, 2, '2013-2014', 'summa cum laude'),
-(49, '2011-37511', 2, 1, '2013-2014', 'none'),
-(50, '1111-11112', 2, 2, '1998-1999', 'none'),
-(51, '2222-22222', 2, 1, '2013-2014', 'none');
+(48, '1111-11111', 2, 2, '1980-1981', 'summa cum laude');
 
 -- --------------------------------------------------------
 
@@ -180,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `employer_types` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `employer_types`
@@ -221,25 +216,12 @@ CREATE TABLE IF NOT EXISTS `employment_details` (
   PRIMARY KEY (`id`),
   KEY `employer_type_id` (`employer_type_id`),
   KEY `monthly_salary_id` (`monthly_salary_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `employment_details`
 --
 
-INSERT INTO `employment_details` (`id`, `self_employed`, `business`, `employer`, `employer_type_id`, `job_title`, `monthly_salary_id`, `job_satisfaction`, `reason`, `year_started`, `year_ended`) VALUES
-(47, 0, '', 'Eman', 5, 'CEO', 2, 1, '', 2014, 100000),
-(48, 1, 'Fuck', '', 17, 'CEO', 2, 1, 'yeah', 1996, 2000),
-(49, 0, '', 'Eman2', 17, 'CEO', 2, 1, 'yeah', 2014, 100000),
-(50, 0, '', 'EMAn', 17, 'CEO', 2, 1, 'yeah', 2014, 2014),
-(51, 0, '', 'Eman', 17, 'CEO', 2, 1, '', 2014, 100000),
-(52, 0, '', 'Dana', 17, 'Janitor', 3, 0, 'yeah', 2013, 2014),
-(53, 0, '', 'Testing', 2, 'Tester', 9, 1, 'hell yeah!', 2013, 100000),
-(54, 0, '', 'Eman', 17, 'asd', 2, 1, 'asda', 2014, 100000),
-(55, 0, '', 'asda', 17, 'asd', 2, 1, 'asdas', 1997, 2014),
-(56, 0, '', 'asda', 17, 'dasd', 2, 1, 'asdas', 1995, 1995),
-(57, 0, '', 'asd', 2, 'asda', 2, 1, '', 2014, 100000),
-(58, 0, '', 'b', 2, 'b', 2, 1, '', 2014, 100000);
 
 -- --------------------------------------------------------
 
@@ -260,8 +242,7 @@ CREATE TABLE IF NOT EXISTS `ge_courses` (
 --
 
 INSERT INTO `ge_courses` (`id`, `name`, `code`, `description`) VALUES
-(1, 'Philippine Literature', 'Lit 1', 'Introduction to Philippine Literature'),
-(2, 'Speech', 'Comm 3', 'Introduction to proper speaking in front of a crowd.'),
+(1, 'Philippine Literature2', 'Lit 3', 'Introduction to Philippine Literature'),
 (3, 'Biology', 'Bio 1', 'Introduction to Biology, a brief overview.');
 
 -- --------------------------------------------------------
@@ -317,6 +298,28 @@ INSERT INTO `monthly_salaries` (`id`, `minimum`, `maximum`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `params`
+--
+
+CREATE TABLE IF NOT EXISTS `params` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `key_name` varchar(255) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `params`
+--
+
+INSERT INTO `params` (`id`, `key_name`, `value`) VALUES
+(2, 'Cleaning', NULL),
+(3, 'start_submission', '0000-00-00 00:00:00'),
+(4, 'end_submission', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personal_infos`
 --
 
@@ -340,12 +343,9 @@ CREATE TABLE IF NOT EXISTS `personal_infos` (
 --
 
 INSERT INTO `personal_infos` (`user_id`, `firstname`, `lastname`, `gender`, `present_address`, `present_country_id`, `present_contact_number`, `premanent_address`, `permanent_contact_number`, `email`) VALUES
-(46, 'Emmanuel', 'Lodovice', 'male', 'Cebu', 12, '09228297070', 'Argao', '09229365294', 'name3anad@gmail.com'),
-(47, 'Eman', 'Lod', 'female', 'Ceb', 12, '09228297070', 'Argao', '09229365294', 'name3anad@gmail.com'),
-(48, 'Dana', 'Barrameda', 'female', 'Cebu', 12, '092293', 'Miglanilla', '09228297070', 'bluesteel_vanesse@yahoo.com'),
-(49, 'Emmanuel', 'Lod', 'male', 'a', 12, 'a', 'a', 'a', 'a@'),
-(50, 'a', 'a', 'male', 'a', 5, 'a', 'a', 'a', 'a'),
-(51, 'b', 'b', 'female', 'b', 5, 'b', 'b', 'b', 'b');
+(46, 'Emmanuel', 'Lodovice', 'male', 'Lahug Cebu City', 18, '09228297070', 'Jampang Argao', '09229365294', 'name3anad@gmail.com'),
+(47, 'Eman', 'Lod', 'female', 'Ceb', 18, '09228297070', 'Argao', '09229365294', 'name3anad@gmail.com'),
+(48, 'Dana', 'Barrameda', 'female', 'Cebu', 5, '09229365294', 'Miglanilla', '09228297070', 'bluesteel_vanesse@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -357,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `programs` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `programs`
@@ -373,8 +373,7 @@ INSERT INTO `programs` (`id`, `name`) VALUES
 (8, 'BA in Psychology'),
 (9, 'BA (Mass Communication)'),
 (10, 'B of Fine Arts'),
-(11, 'Certificate in Fine Arts'),
-(14, 'bbb');
+(11, 'Certificate in Fine Arts');
 
 -- --------------------------------------------------------
 
@@ -393,9 +392,8 @@ CREATE TABLE IF NOT EXISTS `social_networks` (
 --
 
 INSERT INTO `social_networks` (`id`, `name`) VALUES
-(1, 'Facebook'),
 (2, 'Twitter'),
-(3, 'LinkedIn');
+(3, 'Facebook');
 
 -- --------------------------------------------------------
 
@@ -449,7 +447,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cleaned` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
 -- Dumping data for table `users`
@@ -457,11 +455,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `created_at`, `cleaned`) VALUES
 (46, '2011-37567', 'name_anad', 'alumni', '0000-00-00 00:00:00', 0),
-(47, '2011-37568', 'EtAKa6', 'alumni', '0000-00-00 00:00:00', 0),
-(48, '2011-37560', 'ftFVUm', 'alumni', '0000-00-00 00:00:00', 0),
-(49, '1111-11111', 'pass', 'super admin', '0000-00-00 00:00:00', 0),
-(50, '1111-11112', 'L0b5l2', 'alumni', '0000-00-00 00:00:00', 0),
-(51, '2222-22222', 'YGr3LV', 'alumni', '2014-01-09 20:58:55', 0);
+(47, 'name_anad', 'name_anad', 'super admin', '0000-00-00 00:00:00', 0),
+(48, '1111-11111', 'ftFVUm', 'alumni', '0000-00-00 00:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -482,19 +477,6 @@ CREATE TABLE IF NOT EXISTS `user_employment_histories` (
 -- Dumping data for table `user_employment_histories`
 --
 
-INSERT INTO `user_employment_histories` (`user_id`, `employment_details_id`, `current_job`, `first_job`) VALUES
-(46, 47, 0, 0),
-(46, 48, 0, 1),
-(46, 52, 0, 0),
-(46, 53, 1, 0),
-(47, 49, 1, 0),
-(47, 50, 0, 1),
-(48, 51, 1, 1),
-(49, 54, 1, 0),
-(49, 55, 0, 1),
-(49, 56, 0, 0),
-(50, 57, 1, 1),
-(51, 58, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -515,12 +497,10 @@ CREATE TABLE IF NOT EXISTS `user_social_networks` (
 --
 
 INSERT INTO `user_social_networks` (`user_id`, `social_network_id`, `account_name`) VALUES
-(46, 1, 'Eman'),
 (46, 2, 'nameanad'),
-(46, 3, 'yeahman'),
-(47, 1, 'Eman'),
-(48, 1, 'Dana Natasha'),
-(48, 2, 'Barrameda');
+(46, 3, 'EmmanuelLodovice'),
+(48, 2, 'Barrameda2'),
+(48, 3, 'Dat');
 
 --
 -- Constraints for dumped tables

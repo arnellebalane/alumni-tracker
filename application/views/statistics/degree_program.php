@@ -40,16 +40,12 @@
   <script src="https://www.google.com/jsapi"></script>
   <script>
     var chartOptions = {
-      enableInteractivity: false,
       chartArea: {
         width: 300,
-        height: '90%'
+        height: '80%'
       },
       legend: {
         position: 'none'
-      },
-      tooltip: {
-        trigger: 'none'
       },
       height: 300,
       width: 450,

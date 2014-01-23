@@ -4,8 +4,6 @@ application/logs/
 # ignore mpdf library temporary directories
 application/libraries/mpdf/tmp/*
 application/libraries/mpdf/ttfontdata/*
-!application/libraries/mpdf/tmp/dummy.txt
-!application/libraries/mpdf/ttfontdata/dummy.txt
 
 # ignore the deploy script
 deploy.sh

@@ -172,6 +172,41 @@ class values_model extends CI_Model {
 		return count($query->result()) == 1;
 	}
 
+	function getMetaData($key) {
+		$query = $this->db->query("SELECT * FROM params WHERE key_name = '$key'");
+		return $query->result();
+	}
+
+	function toggleSubmission() {
+		$query = $this->db->query("SELECT * FROM params WHERE key_name = 'submission'");
+		$result = $query->result();
+		if ($result[0]->value == 'true') {
+			$this->db->query("UPDATE params SET value = 'false' WHERE key_name = 'submission'");
+			return false;
+		} else {
+			$this->db->query("UPDATE params SET value = 'true' WHERE key_name = 'submission'");
+			return true;
+		}
+	}
+
+	function toggleCleaning() {
+		$query = $this->db->query("SELECT * FROM params WHERE key_name = 'cleaning'");
+		$result = $query->result();
+		if ($result[0]->value == 'true') {
+			$this->db->query("UPDATE params SET value = 'false' WHERE key_name = 'cleaning'");
+			return false;
+		} else {
+			$this->db->query("UPDATE params SET value = 'true' WHERE key_name = 'cleaning'");
+			return true;
+		}
+	}
+
+	function updateMetadata($start_submission, $end_submission, $start_cleaning, $end_cleaning) {
+		$this->db->query("UPDATE params SET value = '$start_submission' WHERE key_name = 'start_submission'");
+		$this->db->query("UPDATE params SET value = '$end_submission' WHERE key_name = 'end_submission'");
+		$this->db->query("UPDATE params SET value = '$start_cleaning' WHERE key_name = 'start_cleaning'");
+		$this->db->query("UPDATE params SET value = '$end_cleaning' WHERE key_name = 'end_cleaning'");
+	}
 
 }
 ?>

@@ -100,7 +100,54 @@
     }
 
     public function metas() {
-      $this->load->view('admin/metas');
+      $data = array('submission'=>$this->values->getMetaData('submission'),
+                    'cleaning'=>$this->values->getMetaData('cleaning'),
+                    'start_submission'=>$this->values->getMetaData('start_submission'),
+                    'end_submission'=>$this->values->getMetaData('end_submission'),
+                    'start_cleaning'=>$this->values->getMetaData('start_cleaning'),
+                    'end_cleaning'=>$this->values->getMetaData('end_cleaning'));
+      $this->load->view('admin/metas', $data);
+    }
+
+    public function updateMeta() {
+      $substr = $_POST['submission_period']['start'];
+      $subend = $_POST['submission_period']['end'];
+      $clnstr = $_POST['cleaning_period']['start'];
+      $clnend = $_POST['cleaning_period']['end'];
+
+      if (($substr != '' && $subend != '' && $subend < $substr) ||
+          ($clnstr != '' && $clnend != '' && $clnend < $clnstr)) {
+        $this->session->set_flashdata('alert', 'End dates should not be earlier than start dates.');
+        redirect('admin/metas');
+      }
+
+      $this->values->updateMetadata(addslashes($substr), addslashes($subend), addslashes($clnstr), addslashes($clnend));
+      $this->session->set_flashdata('notice', 'Meta Data updated.');
+      redirect('admin/metas');
+    }
+
+    public function toggleCleaning() {
+      $result = $this->values->toggleCleaning();
+      echo $result;
+      if ($result) {
+        $this->session->set_flashdata('notice', 'Data Cleaning Enabled');
+      } else {
+        $this->session->set_flashdata('notice', 'Data Cleaning Disabled');
+      }
+
+      redirect('/admin/metas');
+    }
+
+    public function toggleSubmission() {
+      $result = $this->values->toggleSubmission();
+      echo $result;
+      if ($result) {
+        $this->session->set_flashdata('notice', 'Submissions Enabled');
+      } else {
+        $this->session->set_flashdata('notice', 'Submissions Disabled');
+      }
+
+      redirect('/admin/metas');
     }
 
     public function settings() {

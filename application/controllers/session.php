@@ -13,6 +13,8 @@
 					redirect('/alumni/home');
 				}	else if ($this->session->userdata('user_type') == 'super admin') {
 					redirect('/admin/index');
+				}	else {
+					redirect('/enumerator/index');
 				}
 			}	else {
 				$this->load->helper('questionnaire_helper');
@@ -35,6 +37,10 @@
 				}
 				if ($user_data[0]->user_type == "super admin") {
 					redirect('/admin/index');
+				}	else if ($user_data[0]->user_type == "moderator") {
+					$enumerator_info = $this->alumni_model->getEnumeratorInfoById($user_data[0]->id);
+					$this->session->set_flashdata("notice", "Welcome, " . $enumerator_info[0]->firstname);
+					redirect('/enumerator/index');
 				}
 				redirect('/alumni/home');
 			}	else {

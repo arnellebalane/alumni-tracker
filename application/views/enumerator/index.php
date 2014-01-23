@@ -29,40 +29,40 @@
 
     <div class="content">
       <h1>Alumni Data</h1>
-      <p>This shows the data submitted by the alumni from your assigned departments.</p>
+      <p>This is a listing of all the data submitted by the alumni through the questionnaire.</p>
 
-      <?= form_open('#', array('class' => 'filter', 'method' => 'GET')); ?>
+      <?= form_open('enumerator/index', array('class' => 'filter', 'method' => 'GET')); ?>
         <select name="included">
           <option disabled selected>--filter by time submitted--</option>
-          <option>All Entries</option>
-          <option value="1">Included in Analysis</option>
-          <option value="0">Excluded from Analysis</option>
+          <option value="-1" <?=is_selected(-1, $included)?>>All Entries</option>
+          <option value="1" <?=is_selected(1, $included)?>>Included in Analysis</option>
+          <option value="0" <?=is_selected(0, $included)?>>Excluded from Analysis</option>
         </select>
         <select name="cleaned">
           <option disabled selected>--filter by cleanliness--</option>
-          <option>All Entries</option>
-          <option value="1">Cleaned Entries</option>
-          <option value="0">Uncleaned Entries</option>
+          <option value="-1" <?=is_selected(-1, $cleaned)?>>All Entries</option>
+          <option value="1" <?=is_selected(1, $cleaned)?>>Cleaned Entries</option>
+          <option value="0" <?=is_selected(0, $cleaned)?>>Uncleaned Entries</option>
         </select>
         <select name="program_id">
           <option disabled selected>--filter by degree program--</option>
-          <option value="0">All Programs Assigned</option>
-          <option value="1">Course 1</option>
-          <option value="2">Course 2</option>
-          <option value="3">Course 3</option>
+          <option value="-1" <?=is_selected(-1, $program_id)?>>All Programs</option>
+          <? foreach ($programs as $program) : ?>
+            <option value="<?=$program->id?>" <?=is_selected($program->id, $program_id)?>><?=$program->name?></option>
+          <? endforeach; ?>  
         </select>
         <input type="submit" value="filter" />
       <?= form_close(); ?>
 
       <ul class="list">
-        <?php for ($i = 0; $i < 50; $i++): ?>
+        <?php foreach ($alumni as $alumnus): ?>
           <li>
-            <?= anchor('enumerator/clean', 'Arnelle Balane'); ?>
+            <?= anchor('enumerator/clean/'.$alumnus->id, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
             <div class="actions">
-              <?= anchor('#', 'Discard'); ?>
+              <?= anchor('enumerator/deleteAlumni/'.$alumnus->id, 'Discard'); ?>
             </div>
           </li>
-        <?php endfor; ?>
+        <?php endforeach; ?>
       </ul>
     </div>
   </div>

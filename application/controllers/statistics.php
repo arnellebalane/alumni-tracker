@@ -49,7 +49,7 @@
       $pdf->WriteHTML($_POST['html']);
       $pdf->Output(uniqid() . '.pdf', 'D');
       $this->load->remove_package_path(APPPATH . 'libraries/mpdf');
-      redirect($_POST['page']);
+      redirect($_SERVER['HTTP_REFERER']);
     }
 
   }

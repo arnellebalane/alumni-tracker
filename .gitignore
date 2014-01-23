@@ -1,0 +1,5 @@
+# ignore log files directory
+application/logs/
+
+# ignore the deploy script
+deploy.sh

@@ -28,6 +28,9 @@
       <h1>Degree Program</h1>
       <?= anchor('statistics/index', 'Back to List'); ?>
       <input type="button" value="Generate PDF" data-behavior="generate-pdf" />
+      <?= form_open('statistics/generate_pdf', array('class' => 'hidden')); ?>
+        <input type="hidden" name="html" />
+      <?= form_close(); ?>
     </header>
 
     <div class="statistical-presentation clearfix">

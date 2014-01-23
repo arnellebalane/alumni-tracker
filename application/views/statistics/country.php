@@ -28,6 +28,9 @@
       <h1>Country/State of Present Address</h1>
       <?= anchor('statistics/index', 'Back to List'); ?>
       <input type="button" value="Generate PDF" data-behavior="generate-pdf" />
+      <?= form_open('statistics/generate_pdf', array('class' => 'hidden')); ?>
+        <input type="hidden" name="html" />
+      <?= form_close(); ?>
     </header>
 
     <section class="statistical-presentation clearfix">

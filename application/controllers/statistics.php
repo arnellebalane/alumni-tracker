@@ -43,10 +43,13 @@
     }
 
     public function generate_pdf() {
-      echo '<pre>';
-      print_r($_POST);
-      echo '</pre>';
-      exit;
+      $this->load->add_package_path(APPPATH . 'libraries/mpdf');
+      $this->load->library('mpdf');
+      $pdf = new mPDF();
+      $pdf->WriteHTML($_POST['html']);
+      $pdf->Output(uniqid() . '.pdf', 'D');
+      $this->load->remove_package_path(APPPATH . 'libraries/mpdf');
+      redirect($_POST['page']);
     }
 
   }

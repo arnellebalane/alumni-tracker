@@ -85,8 +85,9 @@ h1 a:focus {
 
 .statistical-chart, 
 .statistical-table {
-  width: 450px;
-  height: 450px;
+  float: left;
+  width: 500px;
+  max-height: 450px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -o-box-sizing: border-box;
@@ -94,15 +95,11 @@ h1 a:focus {
   box-sizing: border-box;
 }
 
-.statistical-chart {
-  float: left;
-}
-
-.statistical-table {
-  float: right;
-}
-
 .statistical-presentation h1 {
   font-size: 1.8rem;
   margin: 0 0 5px 25px;
+}
+
+.statistical-presentation b {
+  font-weight: bold;
 }

@@ -11,7 +11,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="statistics gender">
+<body class="statistics honor-received">
   <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>
@@ -23,31 +23,38 @@
   </header>
 
   <div class="content wrapper">
-    <h1>Gender<?= anchor('statistics/index', 'Back to List'); ?></h1>
+    <h1>Honor Received<?= anchor('statistics/index', 'Back to List'); ?></h1>
 
-    <section class="statistical-presentation clearfix">
+    <div class="statistical-presentation clearfix">
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="Male" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="Female" data-frequency="70" data-percentage="70"></span>
+        <span class="chart table" data-label="Summa Cum Laude" data-frequency="25" data-percentage="25"></span>
+        <span class="chart table" data-label="Magna Cum Laude" data-frequency="25" data-percentage="25"></span>
+        <span class="chart table" data-label="Cum Laude" data-frequency="50" data-percentage="50"></span>
         <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
-    </section>
+    </div>
   </div>
 
   <script src="https://www.google.com/jsapi"></script>
   <script>
     var chartOptions = {
       chartArea: {
-        width: 400,
-        height: '90%'
+        width: 300,
+        height: '80%'
       },
       legend: {
-        position: 'right'
+        position: 'none'
       },
       height: 300,
-      width: 450
+      width: 450,
+      hAxis: {
+        title: 'Monthly Salary'
+      },
+      vAxis: {
+        title: 'Frequency'
+      }
     };
     var tableOptions = {
       width: 450,
@@ -59,8 +66,8 @@
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var chartData = [['Gender', 'Percentage']];
-        var tableData = [['Gender', 'Frequency', 'Percentage']];
+        var chartData = [['Degree Program', 'Frequency']];
+        var tableData = [['Degree Program', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');
@@ -68,7 +75,7 @@
           data['percentage'] = $(this).data('percentage');
 
           if ($(this).hasClass('chart')) {
-            chartData.push([data['label'], data['percentage']]);
+            chartData.push([data['label'], data['frequency']]);
           }
           if ($(this).hasClass('table')) {
             tableData.push([data['label'], data['frequency'], data['percentage']]);
@@ -76,7 +83,7 @@
         });
 
         chartData = google.visualization.arrayToDataTable(chartData);
-        var chart = new google.visualization.PieChart(presentation.find('.statistical-chart')[0]);
+        var chart = new google.visualization.ColumnChart(presentation.find('.statistical-chart')[0]);
         chart.draw(chartData, chartOptions);
 
         tableData = google.visualization.arrayToDataTable(tableData);

@@ -11,7 +11,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="statistics gender">
+<body class="statistics country">
   <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>
@@ -23,15 +23,17 @@
   </header>
 
   <div class="content wrapper">
-    <h1>Gender<?= anchor('statistics/index', 'Back to List'); ?></h1>
+    <h1>Country/State of Present Address<?= anchor('statistics/index', 'Back to List'); ?></h1>
 
     <section class="statistical-presentation clearfix">
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="Male" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="Female" data-frequency="70" data-percentage="70"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+        <span class="chart table" data-label="Philippines" data-males="25" data-females="25" data-frequency="50" data-percentage="50"></span>
+        <span class="chart table" data-label="Japan" data-males="10" data-females="15" data-frequency="25" data-percentage="25"></span>
+        <span class="chart table" data-label="North Korea" data-males="5" data-females="10" data-frequency="15" data-percentage="15"></span>
+        <span class="chart table" data-label="Singapore" data-males="5" data-females="5" data-frequency="10" data-percentage="10"></span>
+        <span class="table" data-label="<b>Total</b>" data-males="<b>45</b>" data-females="<b>55</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </section>
   </div>
@@ -59,11 +61,13 @@
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var chartData = [['Gender', 'Percentage']];
-        var tableData = [['Gender', 'Frequency', 'Percentage']];
+        var chartData = [['Country', 'Percentage']];
+        var tableData = [['Country', 'Males', 'Females', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');
+          data['males'] = $(this).data('males');
+          data['females'] = $(this).data('females');
           data['frequency'] = $(this).data('frequency');
           data['percentage'] = $(this).data('percentage');
 
@@ -71,7 +75,7 @@
             chartData.push([data['label'], data['percentage']]);
           }
           if ($(this).hasClass('table')) {
-            tableData.push([data['label'], data['frequency'], data['percentage']]);
+            tableData.push([data['label'], data['males'], data['females'], data['frequency'], data['percentage']]);
           }
         });
 

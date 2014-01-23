@@ -595,7 +595,7 @@
       $message = $this->load->view('mailer/welcome_'.$type.'.php', $data, true);
       $this->email->from('alumnitracker@wefoundyou.org', 'Alumni Tracker');
       $this->email->to(urldecode($personal_info[0]->email));
-      $this->email->subject('Welcome Alumni');
+      $this->email->subject('Welcome' . (($type == "enumerator") ? "Alumni" : "Enumerator"));
       $this->email->message($message);
       if ($this->email->send()) {        
         // echo '<pre>MESSAGE SENT</pre>';

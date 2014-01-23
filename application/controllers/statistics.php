@@ -42,6 +42,13 @@
       $this->load->view('statistics/self_employed');
     }
 
+    public function generate_pdf() {
+      echo '<pre>';
+      print_r($_POST);
+      echo '</pre>';
+      exit;
+    }
+
   }
 
 ?>

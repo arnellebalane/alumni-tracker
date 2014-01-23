@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/application.css'; ?>" />
   <link rel="stylesheet" href="<?= base_url() . 'assets/stylesheets/statistics.css'; ?>">
   <script src="<?= base_url() . 'assets/javascripts/jquery-2.js'; ?>"></script>
+  <script src="<?= base_url() . 'assets/javascripts/statistics.js'; ?>"></script>
   <?php $this->load->view('partials/google_analytics'); ?>
   <title>Alumni Tracker</title>
 </head>
@@ -23,7 +24,11 @@
   </header>
 
   <div class="content wrapper">
-    <h1>Degree Program<?= anchor('statistics/index', 'Back to List'); ?></h1>
+    <header>
+      <h1>Degree Program</h1>
+      <?= anchor('statistics/index', 'Back to List'); ?>
+      <input type="button" value="Generate PDF" data-behavior="generate-pdf" />
+    </header>
 
     <div class="statistical-presentation clearfix">
       <div class="statistical-chart"></div>

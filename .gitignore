@@ -1,0 +1,9 @@
+# ignore log files directory
+application/logs/
+
+# ignore mpdf library temporary directories
+application/libraries/mpdf/tmp/*
+application/libraries/mpdf/ttfontdata/*
+
+# ignore the deploy script
+deploy.sh

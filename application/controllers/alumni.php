@@ -52,7 +52,11 @@
 			redirect('alumni/home');
 		}
 
-		public function add() {	
+		public function add() {
+			if (!$this->model->canSubmit()) {
+				$this->session->set_flashdata("alert", "Sorry! We are not accepting submissions right now!");
+				redirect('/home/questionnaire');				
+			}
 		  if (!$this->validateEducationalBackground($_POST['educational_background'])) {
 				$this->session->set_flashdata('inputs', $_POST);
 				redirect('/home/questionnaire');

@@ -18,6 +18,11 @@
   	}
 
   	public function questionnaire() {
+      $this->load->model('alumni_model');
+      if (!$this->alumni_model->canSubmit()) {
+        $this->session->set_flashdata("alert", "Sorry! We are not accepting submissions right now!");
+        redirect('home/index');        
+      }
   		$this->load->model("values_model", "model");
   		$data = array('countries'=>$this->model->getCountries(),
   									'programs'=>$this->model->getPrograms(),

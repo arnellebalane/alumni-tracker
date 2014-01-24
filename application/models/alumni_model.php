@@ -356,6 +356,15 @@ class alumni_model extends CI_Model {
 															WHERE personal_infos.email = '".addslashes(trim($email))."'");
 		return $query->result();
 	}
+
+	function canSubmit() {
+		$query = $this->db->query("SELECT value FROM params WHERE key_name='submission'");
+    $res = $query->result();
+    if ($res && $res[0]->value == "true") {
+    	return true;
+    }
+    return false;
+	}
 }
 
 ?>

@@ -168,5 +168,22 @@ class enumerator_model extends CI_Model {
     return false;
   }
 
+  function canClean() {
+    $query = $this->db->query("SELECT value FROM params WHERE key_name='cleaning'");
+    $res = $query->result();
+    if ($res && $res[0]->value == "true") {
+      $query2 = $this->db->query("SELECT value FROM params WHERE key_name='start_cleaning'");      
+      $res2 = $query2->result();      
+      if ($res2 && $res2[0]->value <= date('Y-m-d')) {
+        $query3 = $this->db->query("SELECT value FROM params WHERE key_name='end_cleaning'");
+        $res3 = $query3->result();        
+        if ($res3 && $res3[0]->value >= date('Y-m-d')) {          
+          return true;
+        }
+      }       
+    }
+    return false;
+  }
+
 
 }

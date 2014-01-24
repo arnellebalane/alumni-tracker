@@ -37,7 +37,7 @@
         <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>-->
       </div>
 
-      <?= form_open('admin/updateAlumni/'.$user_id); ?>
+      <?= form_open('enumerator/updateAlumni/'.$user_id); ?>
         <section id="personal-information">
           <h3>Personal Information</h3>
           <div class="field">
@@ -223,7 +223,7 @@
               }
 
              ?>
-            <h4><?= $job_text . anchor('admin/deleteJob/'.$user_id.'/'.$job->id, '[Delete this Job]'); ?></h4>
+            <h4><?= $job_text . anchor('enumerator/deleteJob/'.$user_id.'/'.$job->id, '[Delete this Job]'); ?></h4>
             <div class="field radio">
               <label>Self-employed?</label>
               <h4><?=($job->self_employed == 0) ? "No" : "Yes";?></h4>

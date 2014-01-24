@@ -31,7 +31,7 @@
       <h1>Account Settings</h1>
       <p>Edit the information used to login to your account.</p>
 
-      <?= form_open('#'); ?>
+      <?= form_open('enumerator/updateAccount'); ?>
         <div class="field">
           <label>Username</label>
           <input type="text" name="username" />

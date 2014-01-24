@@ -58,7 +58,7 @@
       height: 300,
       width: 450,
       hAxis: {
-        title: 'Monthly Salary'
+        title: 'Honor Received'
       },
       vAxis: {
         title: 'Frequency'
@@ -74,8 +74,8 @@
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var chartData = [['Degree Program', 'Frequency']];
-        var tableData = [['Degree Program', 'Frequency', 'Percentage']];
+        var chartData = [['Honor Received', 'Frequency']];
+        var tableData = [['Honor Received', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');

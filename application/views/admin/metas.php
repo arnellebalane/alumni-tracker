@@ -36,20 +36,22 @@
       <p>These are data that affects the system-wide behaviors of the application.</p>
 
       <div class="metas-actions">
-        <?= anchor('#', 'Enable Submissions'); ?>
-        <?= anchor('#', 'Enable Data Cleaning'); ?>
+        <?php $sub = ($submission[0]->value == 'true') ? 'Disable' : 'Enable' ?>
+        <?= anchor('admin/toggleSubmission', $sub.' Submissions'); ?>
+        <?php $clean = ($cleaning[0]->value == 'true') ? 'Disable' : 'Enable' ?>
+        <?= anchor('admin/toggleCleaning', $clean.' Data Cleaning'); ?>
       </div>
 
-      <?= form_open('#'); ?>
+      <?= form_open('admin/updateMeta'); ?>
         <section id="submission-period">
           <h1>Submission Period</h1>
           <div class="field">
             <label>Start Date</label>
-            <input type="date" name="submission_period[start]" />
+            <input type="date" name="submission_period[start]" value="<?= $start_submission[0]->value ?>" />
           </div>
           <div class="field">
             <label>End Date</label>
-            <input type="date" name="submission_period[end" />
+            <input type="date" name="submission_period[end]" value="<?= $end_submission[0]->value ?>" />
           </div>
         </section>
 
@@ -57,11 +59,11 @@
           <h1>Cleaning Period</h1>
           <div class="field">
             <label>Start Date</label>
-            <input type="date" name="cleaning_period[start]" />
+            <input type="date" name="cleaning_period[start]" value="<?= $start_cleaning[0]->value ?>" />
           </div>
           <div class="field">
             <label>End Date</label>
-            <input type="date" name="cleaning_period[end]" />
+            <input type="date" name="cleaning_period[end]" value="<?= $end_cleaning[0]->value ?>" />
           </div>
         </section>
 

@@ -255,7 +255,7 @@
 
     public function deleteAlumni($id) {
       $this->alumni->deleteAlumni($id);
-      $this->session->set_flashdata("notice", "Alumni moved!");
+      $this->session->set_flashdata("notice", "Alumni removed!");
       redirect('admin/alumni');
     }
 

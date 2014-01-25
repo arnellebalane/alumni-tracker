@@ -37,10 +37,9 @@
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="BS Computer Science" data-frequency="25" data-percentage="25"></span>
-        <span class="chart table" data-label="BS Mathematics" data-frequency="50" data-percentage="50"></span>
-        <span class="chart table" data-label="BS Biology" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="BS Management" data-frequency="15" data-percentage="15"></span>
+        <? foreach ($programs as $prog) : ?>
+          <span class="chart table" data-label="<?=$prog->name?>" data-frequency="<?=$prog->count?>" data-percentage="<?=($prog->count/$total)*100?>"></span>
+        <? endforeach; ?>        
         <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </div>
@@ -59,7 +58,7 @@
       height: 300,
       width: 450,
       hAxis: {
-        title: 'Monthly Salary'
+        title: 'Degree Programs'
       },
       vAxis: {
         title: 'Frequency'

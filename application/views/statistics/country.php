@@ -37,11 +37,10 @@
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="Philippines" data-males="25" data-females="25" data-frequency="50" data-percentage="50"></span>
-        <span class="chart table" data-label="Japan" data-males="10" data-females="15" data-frequency="25" data-percentage="25"></span>
-        <span class="chart table" data-label="North Korea" data-males="5" data-females="10" data-frequency="15" data-percentage="15"></span>
-        <span class="chart table" data-label="Singapore" data-males="5" data-females="5" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="<b>Total</b>" data-males="<b>45</b>" data-females="<b>55</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+        <?php foreach ($countries as $country) : ?>
+          <span class="chart table" data-label="<?=$country->name?>" data-males="<?=$country->males?>" data-females="<?=$country->females?>" data-frequency="<?=$country->count?>" data-percentage="<?=($country->count/$total)*100?>"></span>
+        <?php endforeach; ?>        
+        <span class="table" data-label="<b>Total</b>" data-males="<b><?=$males?></b>" data-females="<b><?=$females?></b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
       </div>
     </section>
   </div>

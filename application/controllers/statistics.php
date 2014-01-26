@@ -52,11 +52,39 @@
     }
 
     public function employer_type() {
-      $this->load->view('statistics/employer_type');
+      $programs = $this->values->getPrograms();
+      $data = array();
+      foreach ($programs as $prog) {
+        $types = $this->stat->businessType($prog->id);
+        $data['programs'][$prog->name] = $types;
+        $totalCur = 0;
+        $totalFir = 0;
+        foreach ($types as $type) {
+          $totalCur += $type->curJobCount;
+          $totalFir += $type->firstJobCount;
+        }
+        $data['total'][$prog->name]['first'] = $totalFir;
+        $data['total'][$prog->name]['current'] = $totalCur;
+      }
+      $this->load->view('statistics/employer_type', $data);
     }
 
     public function salary() {
-      $this->load->view('statistics/salary');
+      $programs = $this->values->getPrograms();
+      $data = array();
+      foreach ($programs as $prog) {
+        $salary = $this->stat->monthlySalary($prog->id);
+        $data['programs'][$prog->name] = $salary;
+        $totalCur = 0;
+        $totalFir = 0;
+        foreach ($salary as $salary) {
+          $totalCur += $salary->curJobCount;
+          $totalFir += $salary->firstJobCount;
+        }
+        $data['total'][$prog->name]['first'] = $totalFir;
+        $data['total'][$prog->name]['current'] = $totalCur;
+      }
+      $this->load->view('statistics/salary', $data);
     }
 
     public function job_title() {
@@ -75,7 +103,10 @@
     }
 
     public function honor_received() {
-      $this->load->view('statistics/honor_received');
+      $honors = $this->stat->honorsReceived();
+      $total = $honors[0]->suma + $honors[0]->magna + $honors[0]->cum + $honors[0]->none;
+      $data = array('honors'=>$honors, 'total'=>$total);
+      $this->load->view('statistics/honor_received', $data);
     }
 
     public function self_employed() {

@@ -37,10 +37,11 @@
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="Summa Cum Laude" data-frequency="25" data-percentage="25"></span>
-        <span class="chart table" data-label="Magna Cum Laude" data-frequency="25" data-percentage="25"></span>
-        <span class="chart table" data-label="Cum Laude" data-frequency="50" data-percentage="50"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+        <span class="chart table" data-label="Summa Cum Laude" data-frequency="<?=$honors[0]->suma?>" data-percentage="<?=($total > 0)? ($honors[0]->suma / $total) * 100 : 0?>"></span>        
+        <span class="chart table" data-label="Magna Cum Laude" data-frequency="<?=$honors[0]->magna?>" data-percentage="<?=($total > 0)? ($honors[0]->magna / $total) * 100 : 0?>"></span>        
+        <span class="chart table" data-label="Cum Laude" data-frequency="<?=$honors[0]->cum?>" data-percentage="<?=($total > 0)? ($honors[0]->cum / $total) * 100 : 0?>"></span>
+        <span class="chart table" data-label="No Honors" data-frequency="<?=$honors[0]->none?>" data-percentage="<?=($total > 0)? ($honors[0]->none / $total) * 100 : 0?>"></span>
+        <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
       </div>
     </div>
   </div>
@@ -58,7 +59,7 @@
       height: 300,
       width: 450,
       hAxis: {
-        title: 'Monthly Salary'
+        title: 'Honors Received'
       },
       vAxis: {
         title: 'Frequency'

@@ -32,43 +32,34 @@
         <input type="hidden" name="html" />
       <?= form_close(); ?>
     </header>
-
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="IT Industry" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="BPO" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="Health" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="NGO" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+    <?php foreach ($programs as $name=>$stat) : ?>
+      <div class="statistical-presentation clearfix">
+        <h1><?=$name?> - Current Job</h1>      
+        <div class="statistical-chart"></div>      
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">
+          <?php foreach($stat as $type) : ?>
+            <? if ($type->curJobCount > 0) { ?>
+              <span class="chart table" data-label="<?=$type->name?>" data-frequency="<?=$type->curJobCount?>" data-percentage="<?=($total[$name]['current'] > 0) ? ($type->curJobCount / $total[$name]['current']) * 100 : 0?>"></span>
+            <? } ?>
+          <?php endforeach; ?>        
+          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['current']?></b>" data-percentage="<b>100</b>"></span>
+        </div>      
       </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="IT Industry" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="BPO" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="Health" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="NGO" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+      <div class="statistical-presentation clearfix">
+        <h1><?=$name?> - First Job</h1>              
+        <div class="statistical-chart"></div>        
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">
+          <?php foreach($stat as $type) : ?>      
+            <? if ($type->firstJobCount > 0) { ?>    
+              <span class="chart table" data-label="<?=$type->name?>" data-frequency="<?=$type->firstJobCount?>" data-percentage="<?=($total[$name]['first'] > 0) ? ($type->firstJobCount / $total[$name]['first']) * 100 : 0?>"></span>
+            <? } ?>
+          <?php endforeach; ?>        
+          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['first']?></b>" data-percentage="<b>100</b>"></span>
+        </div>      
       </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="IT Industry" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="BPO" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="Health" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="NGO" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
+    <?php endforeach; ?>    
   </div>
 
   <script src="https://www.google.com/jsapi"></script>

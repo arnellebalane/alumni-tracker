@@ -31,44 +31,51 @@
       <?= form_open('statistics/generate_pdf', array('class' => 'hidden')); ?>
         <input type="hidden" name="html" />
       <?= form_close(); ?>
-    </header>
-
+    </header>    
+    <?php foreach($programs as $name=>$salaries) : ?>    
     <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="10000-20000" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="20000-30000" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="30000-40000" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="40000-50000" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+        <h1><?=$name?> - Current Job</h1>        
+        <div class="statistical-chart"></div>        
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">
+          <? foreach($salaries as $salary) : ?>           
+            <?php $sal = "";
+            if ($salary->minimum == null && $salary->maximum != null) {
+              $sal = $salary->maximum . " and below";
+            } else if ($salary->minimum != null && $salary->maximum == null) {
+              $sal = $salary->minimum . " and above";
+            } else {
+              $sal = $salary->minimum . " - " . $salary->maximum;
+            } ?>
+            <? if ($salary->curJobCount > 0) { ?>
+              <span class="chart table" data-label="<?=$sal?>" data-frequency="<?=$salary->curJobCount?>" data-percentage="<?=($total[$name]['current'] > 0) ? ($salary->curJobCount/$total[$name]['current']) * 100 : 0?>"></span>
+            <?php } ?>
+          <? endforeach; ?>          
+          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['current']?></b>" data-percentage="<b><?=($total[$name]['current'] > 0) ? 100 : 0 ?></b>"></span>
+        </div>
       </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="10000-20000" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="20000-30000" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="30000-40000" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="40000-50000" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+      <div class="statistical-presentation clearfix">
+        <h1><?=$name?> - First Job</h1>
+        <div class="statistical-chart"></div>
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">
+          <? foreach($salaries as $salary) : ?> 
+            <?php $sal = "";
+            if ($sal->minimum == null && $sal->maximum != null) {
+              $sal = $salary->maximum . " and below";
+            } else if ($sal->minimum != null && $sal->maximum == null) {
+              $sal = $salary->minimum . " and above";
+            } else {
+              $sal = $salary->minimum . " - " . $salary->maximum;
+            } ?>
+            <? if ($salary->firstJobCount > 0) { ?>
+              <span class="chart table" data-label="<?=$sal?>" data-frequency="<?=$salary->firstJobCount?>" data-percentage="<?=($total[$name]['first'] > 0) ? ($salary->firstJobCount/$total[$name]['first']) * 100 : 0?>"></span>
+            <?php } ?>
+          <? endforeach; ?>          
+          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['first']?></b>" data-percentage="<b><?=($total[$name]['first'] > 0) ? 100 : 0 ?></b>"></span>
+        </div>
       </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="10000-20000" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="20000-30000" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="30000-40000" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="40000-50000" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
+    <? endforeach; ?>    
   </div>
 
   <script src="https://www.google.com/jsapi"></script>

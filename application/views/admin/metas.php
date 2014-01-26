@@ -40,6 +40,7 @@
         <?= anchor('admin/toggleSubmission', $sub.' Submissions'); ?>
         <?php $clean = ($cleaning[0]->value == 'true') ? 'Disable' : 'Enable' ?>
         <?= anchor('admin/toggleCleaning', $clean.' Data Cleaning'); ?>
+        <?= anchor('#', 'Generate Excel'); ?>
       </div>
 
       <?= form_open('admin/updateMeta'); ?>

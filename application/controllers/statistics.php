@@ -110,7 +110,8 @@
     }
 
     public function self_employed() {
-      $this->load->view('statistics/self_employed');
+      $data = array("employment" => $this->stat->selfEmployed());
+      $this->load->view('statistics/self_employed', $data);
     }
 
     public function employment_gap() {

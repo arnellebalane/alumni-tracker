@@ -23,25 +23,38 @@
     </div>
   </header>
 
-  <div class="content wrapper">
-    <header>
-      <h1>Self Employed</h1>
-      <?= anchor('statistics/index', 'Back to List'); ?>
-      <input type="button" value="Generate PDF" data-behavior="generate-pdf" />
-      <?= form_open('statistics/generate_pdf', array('class' => 'hidden')); ?>
-        <input type="hidden" name="html" />
-      <?= form_close(); ?>
-    </header>
-
-    <div class="statistical-presentation clearfix">
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="table" data-label="Yes" data-frequency="60" data-percentage="60"></span>
-        <span class="table" data-label="No" data-frequency="40" data-percentage="40"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
-  </div>
+  <div class="content wrapper">    
+      <header>
+        <h1>Self Employed</h1>
+        <?= anchor('statistics/index', 'Back to List'); ?>
+        <input type="button" value="Generate PDF" data-behavior="generate-pdf" />
+        <?= form_open('statistics/generate_pdf', array('class' => 'hidden')); ?>
+          <input type="hidden" name="html" />
+        <?= form_close(); ?>
+      </header>    
+      <?php if ($employment) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1>Current Job</h1>
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php $totalCurrent = $employment[0]->yesCurrent + $employment[0]->noCurrent; ?>
+            <span class="table" data-label="Yes" data-frequency="<?=$employment[0]->yesCurrent?>" data-percentage="<?=($employment[0]->yesCurrent / $totalCurrent) * 100?>"></span>
+            <span class="table" data-label="No" data-frequency="<?=$employment[0]->noCurrent?>" data-percentage="<?=($employment[0]->noCurrent / $totalCurrent) * 100?>"></span>
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$totalCurrent?></b>" data-percentage="<b>100</b>"></span>
+          </div>        
+        </div>  
+        <div class="statistical-presentation clearfix">
+          <h1>First Job</h1>
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php $totalFirst = $employment[0]->yesFirst + $employment[0]->noFirst; ?>
+            <span class="table" data-label="Yes" data-frequency="<?=$employment[0]->yesFirst?>" data-percentage="<?=($employment[0]->yesFirst / $totalFirst) * 100 ?>"></span>
+            <span class="table" data-label="No" data-frequency="<?=$employment[0]->noFirst?>" data-percentage="<?=($employment[0]->noFirst / $totalFirst) * 100 ?>"></span>
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$totalFirst?></b>" data-percentage="<b>100</b>"></span>
+          </div>        
+        </div>  
+      <? endif; ?>
+  </div>  
 
   <script src="https://www.google.com/jsapi"></script>
   <script>

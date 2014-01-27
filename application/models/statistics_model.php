@@ -57,13 +57,51 @@ class statistics_model extends CI_Model{
 
   function monthlySalary($program_id) {
     $query= $this->db->query("SELECT monthly_salaries.minimum, monthly_salaries.maximum, SUM(CASE WHEN employment_details.monthly_salary_id= monthly_salaries.id AND user_employment_histories.current_job = '1' then 1 else 0 end) curJobCount,
-                              SUM(CASE WHEN employment_details.monthly_salary_id= monthly_salaries.id AND user_employment_histories.first_job = '1' then 1 else 0 end) firstJobCount FROM monthly_salaries RIGHT JOIN employment_details
-                              ON employment_details.monthly_salary_id = monthly_salaries.id RIGHT JOIN user_employment_histories ON user_employment_histories.employment_details_id = employment_details.id
-                              RIGHT JOIN users ON users.id = user_employment_histories.user_id RIGHT JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE (user_employment_histories.current_job = '1'
+                              SUM(CASE WHEN employment_details.monthly_salary_id= monthly_salaries.id AND user_employment_histories.first_job = '1' then 1 else 0 end) firstJobCount FROM monthly_salaries LEFT JOIN employment_details
+                              ON employment_details.monthly_salary_id = monthly_salaries.id LEFT JOIN user_employment_histories ON user_employment_histories.employment_details_id = employment_details.id
+                              LEFT JOIN users ON users.id = user_employment_histories.user_id LEFT JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE (user_employment_histories.current_job = '1'
                               OR user_employment_histories.first_job = '1') AND educational_backgrounds.program_id = '".addslashes($program_id)."' AND users.user_type='alumni'
                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') GROUP BY monthly_salaries.id");
     return $query->result();
   }
+
+  function selfEmployed() {
+    $query = $this->db->query("SELECT SUM(CASE WHEN employment_details.self_employed = '1' AND user_employment_histories.first_job = '1' then 1 else 0 end) yesFirst, 
+                               SUM(CASE WHEN employment_details.self_employed = '0' AND user_employment_histories.first_job = '1' then 1 else 0 end) noFirst, 
+                               SUM(CASE WHEN employment_details.self_employed = '1' AND user_employment_histories.current_job  ='1' then 1 else 0 end) yesCurrent, 
+                               SUM(CASE WHEN employment_details.self_employed = '0' AND user_employment_histories.current_job  ='1' then 1 else 0 end) noCurrent 
+                               FROM user_employment_histories LEFT JOIN employment_details ON employment_details.id = user_employment_histories.employment_details_id 
+                               INNER JOIN users ON users.id = user_employment_histories.user_id 
+                               WHERE (user_employment_histories.first_job = 1 OR user_employment_histories.current_job = 1) AND users.user_type='alumni' 
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission')");
+    return $query->result();
+  } 
+
+  function jobTitleCurrentJob($program_id) {
+    $query = $this->db->query("SELECT DISTINCT employment_details.job_title, COUNT(employment_details.job_title) as count FROM employment_details 
+                               INNER JOIN user_employment_histories on user_employment_histories.employment_details_id = employment_details.id 
+                               INNER JOIN users on users.id = user_employment_histories.user_id INNER JOIN educational_backgrounds 
+                               ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+                               AND users.user_type='alumni' 
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') 
+                               AND user_employment_histories.current_job = '1' GROUP BY  employment_details.job_title");
+    return $query->result();
+  }
+
+  function jobTitleFirstJob($program_id) {
+    $query = $this->db->query("SELECT DISTINCT employment_details.job_title, COUNT(employment_details.job_title) as count FROM employment_details 
+                               INNER JOIN user_employment_histories on user_employment_histories.employment_details_id = employment_details.id 
+                               INNER JOIN users on users.id = user_employment_histories.user_id INNER JOIN educational_backgrounds 
+                               ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+                               AND users.user_type='alumni' 
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') 
+                               AND user_employment_histories.first_job = '1' GROUP BY  employment_details.job_title");
+    return $query->result();
+  }
 }
+
 ?>

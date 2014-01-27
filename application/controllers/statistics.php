@@ -113,6 +113,10 @@
       $this->load->view('statistics/self_employed');
     }
 
+    public function employment_gap() {
+      $this->load->view('statistics/employment_gap');
+    }
+
     public function generate_pdf() {
       $this->load->add_package_path(APPPATH . 'libraries/mpdf');
       $this->load->library('mpdf');

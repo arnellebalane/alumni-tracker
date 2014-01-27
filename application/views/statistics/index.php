@@ -34,6 +34,7 @@
       <li><?= anchor('statistics/degree_program', 'Degree Program'); ?></li>
       <li><?= anchor('statistics/honor_received', 'Honor Received'); ?></li>
       <li><?= anchor('statistics/self_employed', 'Self-employed'); ?></li>
+      <li><?= anchor('statistics/employment_gap', 'Graduation to Employment Gap'); ?></li>
     </ul>
   </div>
 </body>

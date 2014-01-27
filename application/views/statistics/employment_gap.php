@@ -12,7 +12,7 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="statistics honor-received">
+<body class="statistics employment-gap">
   <header id="main-header">
     <div class="wrapper">
       <h1>Alumni Tracker<span>Statistical Presentations</span></h1>
@@ -25,7 +25,7 @@
 
   <div class="content wrapper">
     <header>
-      <h1>Honor Received</h1>
+      <h1>Graduation to Employment Gap</h1>
       <?= anchor('statistics/index', 'Back to List'); ?>
       <input type="button" value="Generate PDF" data-behavior="generate-pdf" />
       <?= form_open('statistics/generate_pdf', array('class' => 'hidden')); ?>
@@ -34,14 +34,39 @@
     </header>
 
     <div class="statistical-presentation clearfix">
+      <h1>BS Computer Science</h1>
       <div class="statistical-chart"></div>
       <div class="statistical-table"></div>
       <div class="statistical-data hidden">
-        <span class="chart table" data-label="Summa Cum Laude" data-frequency="<?=$honors[0]->suma?>" data-percentage="<?=($total > 0)? ($honors[0]->suma / $total) * 100 : 0?>"></span>        
-        <span class="chart table" data-label="Magna Cum Laude" data-frequency="<?=$honors[0]->magna?>" data-percentage="<?=($total > 0)? ($honors[0]->magna / $total) * 100 : 0?>"></span>        
-        <span class="chart table" data-label="Cum Laude" data-frequency="<?=$honors[0]->cum?>" data-percentage="<?=($total > 0)? ($honors[0]->cum / $total) * 100 : 0?>"></span>
-        <span class="chart table" data-label="No Honors" data-frequency="<?=$honors[0]->none?>" data-percentage="<?=($total > 0)? ($honors[0]->none / $total) * 100 : 0?>"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
+        <span class="chart table" data-label="2 months" data-frequency="10" data-percentage="10"></span>
+        <span class="chart table" data-label="3 months" data-frequency="30" data-percentage="30"></span>
+        <span class="chart table" data-label="4 months" data-frequency="40" data-percentage="40"></span>
+        <span class="chart table" data-label="5 months" data-frequency="20" data-percentage="20"></span>
+        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+      </div>
+    </div>
+    <div class="statistical-presentation clearfix">
+      <h1>BS Computer Science</h1>
+      <div class="statistical-chart"></div>
+      <div class="statistical-table"></div>
+      <div class="statistical-data hidden">
+        <span class="chart table" data-label="2 months" data-frequency="10" data-percentage="10"></span>
+        <span class="chart table" data-label="3 months" data-frequency="30" data-percentage="30"></span>
+        <span class="chart table" data-label="4 months" data-frequency="40" data-percentage="40"></span>
+        <span class="chart table" data-label="5 months" data-frequency="20" data-percentage="20"></span>
+        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+      </div>
+    </div>
+    <div class="statistical-presentation clearfix">
+      <h1>BS Computer Science</h1>
+      <div class="statistical-chart"></div>
+      <div class="statistical-table"></div>
+      <div class="statistical-data hidden">
+        <span class="chart table" data-label="2 months" data-frequency="10" data-percentage="10"></span>
+        <span class="chart table" data-label="3 months" data-frequency="30" data-percentage="30"></span>
+        <span class="chart table" data-label="4 months" data-frequency="40" data-percentage="40"></span>
+        <span class="chart table" data-label="5 months" data-frequency="20" data-percentage="20"></span>
+        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
       </div>
     </div>
   </div>
@@ -59,7 +84,7 @@
       height: 300,
       width: 450,
       hAxis: {
-        title: 'Honor Received'
+        title: 'Graduation to Employment Gap'
       },
       vAxis: {
         title: 'Frequency'
@@ -75,8 +100,8 @@
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var chartData = [['Honor Received', 'Frequency']];
-        var tableData = [['Honor Received', 'Frequency', 'Percentage']];
+        var chartData = [['Graduation to Employment Gap', 'Frequency']];
+        var tableData = [['Graduation to Employment Gap', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');

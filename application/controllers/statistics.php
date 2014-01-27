@@ -88,7 +88,25 @@
     }
 
     public function job_title() {
-      $this->load->view('statistics/job_title');
+      $programs = $this->values->getPrograms();
+      $data = array();      
+      foreach ($programs as $prog) {
+        $first = $this->stat->jobTitleFirstJob($prog->id);
+        $first_total = 0;
+        foreach ($first as $job) {
+          $first_total += $job->count;
+        }
+        $data['programs'][$prog->name]['first_job'] = $first;
+        $data['programs'][$prog->name]['first_total'] = $first_total;
+        $current = $this->stat->jobTitleCurrentJob($prog->id);
+        $current_total = 0;
+        foreach($current as $cur_job) {
+          $current_total += $cur_job->count;
+        }
+        $data['programs'][$prog->name]['current_job'] = $current;
+        $data['programs'][$prog->name]['current_total'] = $current_total;
+      }
+      $this->load->view('statistics/job_title', $data);
     }
 
     public function degree_program() {

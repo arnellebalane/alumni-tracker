@@ -78,6 +78,30 @@ class statistics_model extends CI_Model{
                                AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission')");
     return $query->result();
   } 
+
+  function jobTitleCurrentJob($program_id) {
+    $query = $this->db->query("SELECT DISTINCT employment_details.job_title, COUNT(employment_details.job_title) as count FROM employment_details 
+                               INNER JOIN user_employment_histories on user_employment_histories.employment_details_id = employment_details.id 
+                               INNER JOIN users on users.id = user_employment_histories.user_id INNER JOIN educational_backgrounds 
+                               ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+                               AND users.user_type='alumni' 
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') 
+                               AND user_employment_histories.current_job = '1' GROUP BY  employment_details.job_title");
+    return $query->result();
+  }
+
+  function jobTitleFirstJob($program_id) {
+    $query = $this->db->query("SELECT DISTINCT employment_details.job_title, COUNT(employment_details.job_title) as count FROM employment_details 
+                               INNER JOIN user_employment_histories on user_employment_histories.employment_details_id = employment_details.id 
+                               INNER JOIN users on users.id = user_employment_histories.user_id INNER JOIN educational_backgrounds 
+                               ON educational_backgrounds.user_id = users.id WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+                               AND users.user_type='alumni' 
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') 
+                               AND user_employment_histories.first_job = '1' GROUP BY  employment_details.job_title");
+    return $query->result();
+  }
 }
 
 ?>

@@ -33,39 +33,32 @@
       <?= form_close(); ?>
     </header>
 
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="table" data-label="Developer" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="Designer" data-frequency="30" data-percentage="30"></span>
-        <span class="table" data-label="CEO" data-frequency="40" data-percentage="40"></span>
-        <span class="table" data-label="CTO" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="table" data-label="Developer" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="Designer" data-frequency="30" data-percentage="30"></span>
-        <span class="table" data-label="CEO" data-frequency="40" data-percentage="40"></span>
-        <span class="table" data-label="CTO" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="table" data-label="Developer" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="Designer" data-frequency="30" data-percentage="30"></span>
-        <span class="table" data-label="CEO" data-frequency="40" data-percentage="40"></span>
-        <span class="table" data-label="CTO" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
+    <?php foreach ($programs as $name=>$titles) : ?>
+      <?php if ($titles['current_total'] > 0) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1><?=$name . " - Current Job"?></h1>
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php foreach ($titles['current_job'] as $title) : ?>
+              <span class="table" data-label="<?=$title->job_title?>" data-frequency="<?=$title->count?>" data-percentage="<?=($title->count/$titles['current_total']) * 100?>"></span>
+            <?php endforeach; ?>            
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$titles['current_total']?></b>" data-percentage="<b>100</b>"></span>
+          </div>
+        </div>
+      <?php endif;?>
+      <?php if ($titles['first_total'] > 0) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1><?=$name . " - First Job"?></h1>
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php foreach ($titles['first_job'] as $title) : ?>
+              <span class="table" data-label="<?=$title->job_title?>" data-frequency="<?=$title->count?>" data-percentage="<?=($title->count/$titles['first_total']) * 100?>"></span>
+            <?php endforeach; ?>            
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$titles['first_total']?></b>" data-percentage="<b>100</b>"></span>
+          </div>
+        </div>
+      <?php endif; ?>
+    <?php endforeach; ?>    
   </div>
 
   <script src="https://www.google.com/jsapi"></script>

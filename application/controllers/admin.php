@@ -652,6 +652,19 @@
         return false;
       }
     }
+
+    public function generateExcel() {
+      $alumni = $this->alumni->getAllAlumniInfo();
+      $jobs = array();
+
+      foreach ($alumni as $var) {
+        array_push($jobs, $this->alumni->getUserAllJobs($var->u_id));
+      }
+
+      $data = array('alumni'=>$alumni, 'jobs'=>$jobs);
+      $this->load->view('excel', $data);
+    }
+
   }
 
 ?>

@@ -232,10 +232,19 @@ class alumni_model extends CI_Model {
 		$this->db->query("UPDATE users SET username = '".addslashes(trim($new_username))."' WHERE id = '".addslashes($user_id)."'");
 	}
 
-
-
 	function getAllAlumni() {
 		$query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.user_type='alumni'");
+		return $query->result();
+	}
+
+	function getAllAlumniInfo() {
+		$query = $this->db->query("SELECT *, users.id AS u_id, countries.name AS country, programs.name AS program FROM users 
+															INNER JOIN personal_infos ON users.id = personal_infos.user_id 
+															INNER JOIN countries ON personal_infos.present_country_id = countries.id
+															INNER JOIN educational_backgrounds ON users.id = educational_backgrounds.user_id
+															INNER JOIN programs ON educational_backgrounds.program_id = programs.id
+															WHERE users.user_type = 'alumni'
+															ORDER BY personal_infos.lastname");
 		return $query->result();
 	}
 

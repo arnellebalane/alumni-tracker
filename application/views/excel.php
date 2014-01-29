@@ -22,6 +22,8 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 			<td colspan="9">PERSONAL INFO</td>
 			<td colspan="5">EDUCATIONAL BACKGROUND</td>
 			<td colspan="11">EMPLOYMENT HISTORY</td>
+			<td></td>
+			<td></td>
 		</tr>
 		<tr class="center">
 			<td>#</td>
@@ -52,6 +54,9 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 			<td>DURATION</td>
 			<td>JOB SATISFACTION</td>
 			<td>REASON</td>
+
+			<td>DATE CREATED</td>
+			<td>CLEANED</td>
 		</tr>
 
 		<?php $count = 0;  ?>
@@ -75,9 +80,36 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 				<td rowspan="<?= $rows ?>"><?= $var->semester_graduated ?></td>
 				<td rowspan="<?= $rows ?>"><?= $var->honor_received ?></td>
 
-			<?php for ($i=0; $i < $rows; $i++) : ?>
+				<?php $job = $jobs[$count][0]; ?>
+				<td><?= ($job->current_job == '1') ? 'yes': 'no'; ?></td>
+				<td><?= ($job->first_job == '1') ? 'yes': 'no'; ?></td>
+				<td><?= ($job->self_employed == '1') ? 'yes': 'no'; ?></td>
+				<td><?= $job->business ?></td>
+				<td><?= $job->employer ?></td>
+				<td><?= $job->employer_type ?></td>
+				<td><?= $job->job_title ?></td>
+				<td>
+				<?php if ($job->minimum == NULL) : ?>
+					<?= $job->maximum.' and below' ?>
+				<?php elseif ($job->maximum == NULL) : ?>
+					<?= $job->minimum.' and above' ?>
+				<?php else: ?>
+					<?= $job->minimum.' - '.$job->maximum ?>
+				<?php endif; ?>
+				</td>
+				<?php $year_ended = ($job->year_ended == '100000') ? 'ongoing' : $job->year_ended; ?>
+				<td><?= $job->year_started.' - '.$year_ended ?></td>
+				<td><?= ($job->job_satisfaction == '1') ? 'yes': 'no'; ?></td>
+				<td><?= $job->reason ?></td>
+
+				<td rowspan="<?= $rows ?>"><?= date('F j, Y', strtotime($var->created_at)) ?></td>
+				<td rowspan="<?= $rows ?>"><?= ($var->cleaned == '1') ? 'yes':'no' ?></td>
+
+			</tr>
+
+			<?php for ($i=1; $i < $rows; $i++) : ?>
 				<?php $job = $jobs[$count][$i]; ?>
-				<?= ($i == 0) ? '':'<tr>'; ?>
+				<tr>
 					<td><?= ($job->current_job == '1') ? 'yes': 'no'; ?></td>
 					<td><?= ($job->first_job == '1') ? 'yes': 'no'; ?></td>
 					<td><?= ($job->self_employed == '1') ? 'yes': 'no'; ?></td>
@@ -85,7 +117,15 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 					<td><?= $job->employer ?></td>
 					<td><?= $job->employer_type ?></td>
 					<td><?= $job->job_title ?></td>
-					<td><?= $job->minimum.' - '.$job->maximum ?></td>
+					<td>
+					<?php if ($job->minimum == NULL) : ?>
+						<?= $job->maximum.' and below' ?>
+					<?php elseif ($job->maximum == NULL) : ?>
+						<?= $job->minimum.' and above' ?>
+					<?php else: ?>
+						<?= $job->minimum.' - '.$job->maximum ?>
+					<?php endif; ?>
+					</td>
 					<?php $year_ended = ($job->year_ended == '100000') ? 'ongoing' : $job->year_ended; ?>
 					<td><?= $job->year_started.' - '.$year_ended ?></td>
 					<td><?= ($job->job_satisfaction == '1') ? 'yes': 'no'; ?></td>

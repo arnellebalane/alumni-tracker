@@ -92,10 +92,13 @@ var questionnaire = {
         && ($('input[name="personal_information[permanent_address]"]').val().trim().length > 0)
         && ($('input[name="personal_information[permanent_address_contact_number]"]').val().trim().length > 0)
         && ($('input[name="personal_information[email_address]"]').val().trim().length > 0)) {
-        return {valid: true};
-      } else {
-        return {valid: false, error: "Please fill up all required fields."};
+        var emailRegEx = /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/;
+        if ($('input[name="personal_information[email_address]"]').val().trim().match(emailRegEx)) {
+          return {valid: true};
+        }
+        return {valid: false, error: 'Your email address is not in a valid format.'}
       }
+      return {valid: false, error: 'Please fill up all required fields.'};
     },
     'educational-background': function() {
       var studentNumber = $('input[name="educational_background[student_number]"]').val().trim();

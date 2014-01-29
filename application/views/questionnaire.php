@@ -189,6 +189,20 @@
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
+              <select name="employment_history[0][employment_duration][start_month]"  class="narrow">
+                <option value="1" <?=is_selected('employment_history', '0', 'employment_duraion', 'start_month', 1)?>>January</option>
+                <option value="2" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 2)?>>February</option>
+                <option value="3" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 3)?>>March</option>
+                <option value="4" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 4)?>>April</option>
+                <option value="5" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 5)?>>May</option>
+                <option value="6" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 6)?>>June</option>
+                <option value="7" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 7)?>>July</option>
+                <option value="8" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 8)?>>August</option>
+                <option value="9" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 9)?>>September</option>
+                <option value="10" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 10)?>>October</option>
+                <option value="11" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 11)?>>November</option>
+                <option value="12" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 12)?>>December</option>
+              </select>
               <select name="employment_history[0][employment_duration][start_year]" class="narrow">
                 <?php 
                   $year = date('Y');
@@ -201,6 +215,20 @@
                 ?>                
               </select>
               <i>to</i>
+              <select name="employment_history[0][employment_duration][end_month]"  class="narrow">
+                <option value="1" <?=is_selected('employment_history', '0', 'employment_duraion', 'end_month', 1)?>>January</option>
+                <option value="2" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 2)?>>February</option>
+                <option value="3" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 3)?>>March</option>
+                <option value="4" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 4)?>>April</option>
+                <option value="5" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 5)?>>May</option>
+                <option value="6" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 6)?>>June</option>
+                <option value="7" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 7)?>>July</option>
+                <option value="8" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 8)?>>August</option>
+                <option value="9" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 9)?>>September</option>
+                <option value="10" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 10)?>>October</option>
+                <option value="11" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 11)?>>November</option>
+                <option value="12" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 12)?>>December</option>
+              </select>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
                 <option value="100000" <?=is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>ongoing</option>
                 <?php 
@@ -278,6 +306,20 @@
               </div>
               <div class="field indented">
                 <label>Employment Duration</label>
+                <select name="employment_history[<?=$i?>][employment_duration][start_month]"  class="narrow">
+                  <option value="1" <?=is_selected('employment_history', $i, 'employment_duraion', 'start_month', 1)?>>January</option>
+                  <option value="2" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 2)?>>February</option>
+                  <option value="3" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 3)?>>March</option>
+                  <option value="4" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 4)?>>April</option>
+                  <option value="5" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 5)?>>May</option>
+                  <option value="6" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 6)?>>June</option>
+                  <option value="7" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 7)?>>July</option>
+                  <option value="8" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 8)?>>August</option>
+                  <option value="9" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 9)?>>September</option>
+                  <option value="10" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 10)?>>October</option>
+                  <option value="11" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 11)?>>November</option>
+                  <option value="12" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 12)?>>December</option>
+                </select>
                 <select name="employment_history[<?=$i?>][employment_duration][start_year]" class="narrow">
                   <?php 
                     $year = date('Y');
@@ -290,6 +332,20 @@
                   ?>   
                 </select>
                 <i>to</i>
+                <select name="employment_history[<?=$i?>][employment_duration][end_month]"  class="narrow">
+                  <option value="1" <?=is_selected('employment_history', $i, 'employment_duraion', 'end_month', 1)?>>January</option>
+                  <option value="2" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 2)?>>February</option>
+                  <option value="3" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 3)?>>March</option>
+                  <option value="4" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 4)?>>April</option>
+                  <option value="5" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 5)?>>May</option>
+                  <option value="6" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 6)?>>June</option>
+                  <option value="7" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 7)?>>July</option>
+                  <option value="8" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 8)?>>August</option>
+                  <option value="9" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 9)?>>September</option>
+                  <option value="10" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 10)?>>October</option>
+                  <option value="11" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 11)?>>November</option>
+                  <option value="12" <?=is_selected('employment_history', $i, 'employment_duration', 'end_month', 12)?>>December</option>
+                </select>
                 <select name="employment_history[<?=$i?>][employment_duration][end_year]" class="narrow">                  
                   <?php 
                     $year = date('Y');
@@ -412,6 +468,20 @@
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
+              <select name="employment_history[#{index}][employment_duration][start_month]"  class="narrow">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
               <?php $year = date('Y'); ?>
               <select name="employment_history[#{index}][employment_duration][start_year]" class="narrow">
                 <?php for ($y = $year; $y >= 1980; $y--): ?>
@@ -419,6 +489,20 @@
                 <?php endfor; ?>
               </select>
               <i>to</i>
+              <select name="employment_history[#{index}][employment_duration][end_month]"  class="narrow">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
               <select name="employment_history[#{index}][employment_duration][end_year]" class="narrow">                
                 <?php for ($y = $year; $y >= 1980; $y--): ?>
                   <option value="<?= $y; ?>"><?= $y; ?></option>

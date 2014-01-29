@@ -33,32 +33,36 @@
       <?= form_close(); ?>
     </header>
     <?php foreach ($programs as $name=>$stat) : ?>
-      <div class="statistical-presentation clearfix">
-        <h1><?=$name?> - Current Job</h1>      
-        <div class="statistical-chart"></div>      
-        <div class="statistical-table"></div>
-        <div class="statistical-data hidden">
-          <?php foreach($stat as $type) : ?>
-            <? if ($type->curJobCount > 0) { ?>
-              <span class="chart table" data-label="<?=$type->name?>" data-frequency="<?=$type->curJobCount?>" data-percentage="<?=($total[$name]['current'] > 0) ? ($type->curJobCount / $total[$name]['current']) * 100 : 0?>"></span>
-            <? } ?>
-          <?php endforeach; ?>        
-          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['current']?></b>" data-percentage="<b>100</b>"></span>
-        </div>      
-      </div>
-      <div class="statistical-presentation clearfix">
-        <h1><?=$name?> - First Job</h1>              
-        <div class="statistical-chart"></div>        
-        <div class="statistical-table"></div>
-        <div class="statistical-data hidden">
-          <?php foreach($stat as $type) : ?>      
-            <? if ($type->firstJobCount > 0) { ?>    
-              <span class="chart table" data-label="<?=$type->name?>" data-frequency="<?=$type->firstJobCount?>" data-percentage="<?=($total[$name]['first'] > 0) ? ($type->firstJobCount / $total[$name]['first']) * 100 : 0?>"></span>
-            <? } ?>
-          <?php endforeach; ?>        
-          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['first']?></b>" data-percentage="<b>100</b>"></span>
-        </div>      
-      </div>
+      <?php if ($total[$name]['current'] > 0) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1><?=$name?> - Current Job</h1>      
+          <div class="statistical-chart"></div>      
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php foreach($stat as $type) : ?>
+              <? if ($type->curJobCount > 0) { ?>
+                <span class="chart table" data-label="<?=$type->name?>" data-frequency="<?=$type->curJobCount?>" data-percentage="<?=($total[$name]['current'] > 0) ? ($type->curJobCount / $total[$name]['current']) * 100 : 0?>"></span>
+              <? } ?>
+            <?php endforeach; ?>        
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['current']?></b>" data-percentage="<b>100</b>"></span>
+          </div>        
+        </div>
+      <? endif; ?>
+      <?php if ($total[$name]['first'] > 0) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1><?=$name?> - First Job</h1>              
+          <div class="statistical-chart"></div>        
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php foreach($stat as $type) : ?>      
+              <? if ($type->firstJobCount > 0) { ?>    
+                <span class="chart table" data-label="<?=$type->name?>" data-frequency="<?=$type->firstJobCount?>" data-percentage="<?=($total[$name]['first'] > 0) ? ($type->firstJobCount / $total[$name]['first']) * 100 : 0?>"></span>
+              <? } ?>
+            <?php endforeach; ?>        
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]['first']?></b>" data-percentage="<b>100</b>"></span>
+          </div>      
+        </div>
+      <? endif; ?>
     <?php endforeach; ?>    
   </div>
 

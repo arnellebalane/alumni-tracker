@@ -287,8 +287,22 @@
                 <? endforeach; ?>                 
               </select>
             </div>
-            <div class="field indented">
+            <div class="field indented" data-field="employment-duration">
               <label>Employment Duration</label>
+              <select name="employment_history[#{index}][employment_duration][start_month]"  class="narrow">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
               <select name="employment_history[0][employment_duration][start_year]" class="narrow">
                 <?php 
                   $year = date('Y');
@@ -301,6 +315,20 @@
                 ?>                
               </select>
               <i>to</i>
+              <select name="employment_history[#{index}][employment_duration][end_month]"  class="narrow">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
                 <option value="100000" <?=pop_is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>ongoing</option>
                 <?php 

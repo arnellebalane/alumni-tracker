@@ -187,7 +187,7 @@
                 <? endforeach; ?>                 
               </select>
             </div>
-            <div class="field indented">
+            <div class="field indented" data-field="employment-duration">
               <label>Employment Duration</label>
               <select name="employment_history[0][employment_duration][start_month]"  class="narrow">
                 <option value="1" <?=is_selected('employment_history', '0', 'employment_duraion', 'start_month', 1)?>>January</option>
@@ -304,7 +304,7 @@
                   <? endforeach; ?> 
                 </select>
               </div>
-              <div class="field indented">
+              <div class="field indented" data-field="employment-duration">
                 <label>Employment Duration</label>
                 <select name="employment_history[<?=$i?>][employment_duration][start_month]"  class="narrow">
                   <option value="1" <?=is_selected('employment_history', $i, 'employment_duraion', 'start_month', 1)?>>January</option>
@@ -466,7 +466,7 @@
                 <?php endforeach; ?> 
               </select>
             </div>
-            <div class="field indented">
+            <div class="field indented" data-field="employment-duration">
               <label>Employment Duration</label>
               <select name="employment_history[#{index}][employment_duration][start_month]"  class="narrow">
                 <option value="1">January</option>

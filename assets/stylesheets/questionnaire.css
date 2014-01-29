@@ -199,7 +199,8 @@ aside li:after {
 }
 
 .content .slide[data-name="employment-history"] select.narrow {
-  width: 130px;
+  width: 139px;
+  margin-right: 1px;
 }
 
 .content .slide[data-name="employment-history"] .job-form {
@@ -219,6 +220,15 @@ aside li:after {
 
 .content .slide[data-name="employment-history"] .field[data-field="another-job"] {
   margin-top: 25px;
+}
+
+.content .slide[data-name="employment-history"] .field[data-field="employment-duration"] i {
+  display: block;
+  margin-left: 413px;
+}
+
+.content .slide[data-name="employment-history"] .field[data-field="employment-duration"] i + select {
+  margin-left: 278px;
 }
 
 .content .slide[data-name="others"] .field {

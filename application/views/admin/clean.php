@@ -291,8 +291,13 @@
             </div>
             <div class="field">
               <label>Employment Duration</label>
-              <h4><?=$job->year_started?> - <?=($job->year_ended != 100000) ? $job->year_ended: "ongoing";?></h4>
+              <h4><?=to_month($job->month_started)." ".$job->year_started?> - <?=($job->year_ended != 100000) ? to_month($job->month_ended)." ".$job->year_ended: "ongoing";?></h4>
               <div class="editable hidden">
+                <select name="jobs[<?=$job->id?>][employment_duration][start_month]"  class="auto" data-current="<?=$job->month_started?>">
+                  <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
+                    <option value="<?=$ctr?>" <?=is_selected($ctr, $job->month_started)?>><?=to_month($ctr)?></option>
+                  <?php } ?>
+                </select>
                 <select name="jobs[<?=$job->id?>][employment_duration][start_year]" class="auto" data-current="<?=$job->year_started?>">
                   <?php 
                     $year = date('Y');
@@ -304,7 +309,12 @@
                     }
                   ?>
                 </select>
-                <span>to</span>
+                <span>to</span>                
+                <select name="jobs[<?=$job->id?>][employment_duration][end_month]"  class="auto" data-current="<?=$job->month_ended?>">
+                  <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
+                    <option value="<?=$ctr?>" <?=is_selected($ctr, $job->month_ended)?>><?=to_month($ctr)?></option>
+                  <?php } ?>
+                </select>
                 <select name="jobs[<?=$job->id?>][employment_duration][end_year]" class="auto" data-current="<?=$job->year_ended?>">
                   <? if ($job->current_job == 1) { ?>
                     <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
@@ -391,6 +401,11 @@
         </div>
         <div class="field">
           <label>Employment Duration</label>
+          <select name="another_job[{{index}}][employment_duration][start_month]"  class="auto">
+            <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
+              <option value="<?=$ctr?>"><?=to_month($ctr)?></option>
+            <?php } ?>
+          </select>
           <select name="another_job[{{index}}][employment_duration][start_year]" class="auto">
             <?php 
               $year = date('Y');
@@ -403,10 +418,14 @@
             ?>
           </select>
           <span>to</span>
-          <select name="another_job[{{index}}][employment_duration][end_year]" class="auto">
-            <? if ($job->current_job == 1) { ?>
-              <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
-            <?}?>
+          <select name="another_job[{{index}}][employment_duration][end_month]"  class="auto">
+            <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
+              <option value="<?=$ctr?>"><?=to_month($ctr)?></option>
+            <?php } ?>
+          </select>
+          <select name="another_job[{{index}}][employment_duration][end_year]" class="auto">            
+            <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
+            
             <?php 
               $year = date('Y');
               while ($year >= 1980) { 

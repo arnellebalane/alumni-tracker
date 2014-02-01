@@ -133,7 +133,39 @@
     }
 
     public function employment_gap() {
-      $this->load->view('statistics/employment_gap');
+      $programs = $this->values->getPrograms();
+      $data = array();
+      $data['programs'] = null;
+      foreach ($programs as $prog) {
+        $first = $this->stat->employmentGap($prog->id);
+        $data['total'][$prog->name] = 0;
+        foreach ($first as $job) {
+          $dif = 0;
+          $month_grad = 0;
+          $year_grad = 0;          
+          if ($job->semester_graduated == 1) {
+            $month_grad = 9;
+            $year_grad = substr($job->year_graduated, 0, 4);            
+          } else if ($job->semester_graduated == 2) {
+            $month_grad = 4;
+            $year_grad = substr($job->year_graduated, 5);
+          } else {
+            $year_grad = substr($job->year_graduated, 5);
+            $month_grad = 5;
+          }
+          $gap = (($job->year_started - $year_grad) * 12) + ($job->month_started - $month_grad);
+          $gap += ($gap > 0) ? -1 : 0;
+          if (isset($data['programs'][$prog->name][$gap])) {
+            $data['programs'][$prog->name][$gap]++;
+          } else {
+            $data['programs'][$prog->name][$gap] = 1;
+          }
+          ksort($data['programs'][$prog->name]);          
+          $data['total'][$prog->name]++;
+        }
+      }
+
+      $this->load->view('statistics/employment_gap', $data);
     }
 
     public function generate_pdf() {

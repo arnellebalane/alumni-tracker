@@ -229,7 +229,7 @@
             </div>
             <div class="field indented">
               <label>Employment Duration</label>
-              <h2><?php echo $current_job[0]->year_started; echo ($current_job[0]->year_ended == 100000)? " until now" : " - " . $current_job[0]->year_ended; ?></h2>
+              <h2><?php echo to_month($current_job[0]->month_started)." ".$current_job[0]->year_started; echo ($current_job[0]->year_ended == 100000)? " until now" : " - " . to_month($current_job[0]->month_ended)." ".$current_job[0]->year_ended; ?></h2>
             </div>
             <div class="field indented">
               <label>Satisfied with this job?</label>
@@ -289,7 +289,7 @@
             </div>
             <div class="field indented" data-field="employment-duration">
               <label>Employment Duration</label>
-              <select name="employment_history[#{index}][employment_duration][start_month]"  class="narrow">
+              <select name="employment_history[0][employment_duration][start_month]"  class="narrow">
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -315,7 +315,7 @@
                 ?>                
               </select>
               <i>to</i>
-              <select name="employment_history[#{index}][employment_duration][end_month]"  class="narrow">
+              <select name="employment_history[0][employment_duration][end_month]"  class="narrow">
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>

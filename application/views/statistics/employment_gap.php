@@ -33,42 +33,21 @@
       <?= form_close(); ?>
     </header>
 
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="2 months" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="3 months" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="4 months" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="5 months" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="2 months" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="3 months" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="4 months" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="5 months" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
-    <div class="statistical-presentation clearfix">
-      <h1>BS Computer Science</h1>
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="2 months" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="3 months" data-frequency="30" data-percentage="30"></span>
-        <span class="chart table" data-label="4 months" data-frequency="40" data-percentage="40"></span>
-        <span class="chart table" data-label="5 months" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
+    <?php foreach ($programs as $name=>$gap) : ?>
+      <?php if ($total[$name] > 0) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1><?=$name?></h1>
+          <div class="statistical-chart"></div>
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php foreach ($gap as $g=>$value) : ?>
+              <span class="chart table" data-label="<?=$g?> months" data-frequency="<?=$value?>" data-percentage="<?=(($value/$total[$name]) * 100)?>"></span>
+            <?php endforeach; ?>
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]?></b>" data-percentage="<b>100</b>"></span>
+          </div>
+        </div>
+      <?php endif ?>
+    <?php endforeach; ?>    
   </div>
 
   <script src="https://www.google.com/jsapi"></script>

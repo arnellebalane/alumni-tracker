@@ -102,10 +102,10 @@ class alumni_model extends CI_Model {
 
 	function addEmploymentDetails($employer_type_id, $info) {
 		$query = $this->db->query("INSERT INTO employment_details (self_employed, business, employer, employer_type_id, job_title, monthly_salary_id, 
-															job_satisfaction, reason, year_started, year_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes(trim($info['business_name']))."',
+															job_satisfaction, reason, year_started, month_started, year_ended, month_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes(trim($info['business_name']))."',
 															'".addslashes(trim($info['employer']))."', '".$employer_type_id."', '".addslashes(trim($info['job_title']))."', 
 															'".addslashes($info['monthly_salary'])."', '".addslashes($info['satisfied_with_job'])."', '".addslashes(trim($info['satisfaction_reason']))."',
-															'".addslashes($info['employment_duration']['start_year'])."', '".addslashes($info['employment_duration']['end_year'])."')");
+															'".addslashes($info['employment_duration']['start_year'])."', '".addslashes($info['employment_duration']['start_month'])."' ,'".addslashes($info['employment_duration']['end_year'])."', '".addslashes($info['employment_duration']['end_month'])."')");
 		return mysql_insert_id();
 	}
 
@@ -122,7 +122,7 @@ class alumni_model extends CI_Model {
 		$query = $this->db->query("UPDATE employment_details SET self_employed='".addslashes($info['self_employed'])."', business = '".addslashes(trim($business))."', 
 			 												employer='".addslashes(trim($employer))."', employer_type_id='".addslashes($info['employer_type'])."', job_title='".addslashes(trim($info['job_title']))."',
 			 												monthly_salary_id='".addslashes($info['monthly_salary'])."', job_satisfaction='".addslashes($info['satisfied_with_job'])."',
-			 												reason='".addslashes(trim($info['satisfaction_reason']))."', year_started='".$info['employment_duration']['start_year']."', year_ended='".addslashes($info['employment_duration']['end_year'])."' WHERE id='".addslashes($id)."'");
+			 												reason='".addslashes(trim($info['satisfaction_reason']))."', year_started='".$info['employment_duration']['start_year']."', month_started = '".addslashes($info['employment_duration']['start_month'])."',year_ended='".addslashes($info['employment_duration']['end_year'])."', month_ended='".addslashes($info['employment_duration']['end_month'])."' WHERE id='".addslashes($id)."'");
 	}
 
 	function deleteEmploymentDetails($id) {
@@ -333,7 +333,7 @@ class alumni_model extends CI_Model {
 		$query = $this->db->query("SELECT id FROM comments WHERE user_id = '".addslashes($id)."'");
 		$comments = $query->result();
 		foreach ($comments as $comment) {
-			$this->db->query("DELETE FROM comment_get_courses WHERE comment_id = '".addslashes($comment->id)."'");
+			$this->db->query("DELETE FROM comment_ge_courses WHERE comment_id = '".addslashes($comment->id)."'");
 			$this->db->query("DELETE FROM comment_majors WHERE comment_id = '".addslashes($comment->id)."'");
 			$this->db->query("DELETE FROM comment_suggested_courses WHERE comment_id = '".addslashes($comment->id)."'");
 		}

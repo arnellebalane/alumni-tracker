@@ -285,7 +285,7 @@
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
-            <div class="field">
+            <div class="field" data-field="employment-duration">
               <label>Employment Duration</label>
               <h4><?=to_month($job->month_started)." ".$job->year_started?> - <?=($job->year_ended != 100000) ? to_month($job->month_ended)." ".$job->year_ended: "ongoing";?></h4>
               <div class="editable hidden">
@@ -395,7 +395,7 @@
             <?php endforeach; ?>
           </select>
         </div>
-        <div class="field">
+        <div class="field" data-field="employment-duration">
           <label>Employment Duration</label>
           <select name="another_job[{{index}}][employment_duration][start_month]"  class="auto">
             <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>

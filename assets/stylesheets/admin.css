@@ -508,7 +508,7 @@ aside li a.current:before {
 
 .admin.clean .editable {
   display: inline-block;
-  min-width: 150px;
+  max-width: 300px;
 }
 
 .admin.clean .job-form .field input[type="text"],
@@ -552,6 +552,25 @@ aside li a.current:before {
 .admin.clean .job-form .field select,
 .admin.clean .editable select {
   width: 212px;
+}
+
+.admin.clean .field[data-field="employment-duration"] select,
+.admin.clean .job-form .field[data-field="employment-duration"] select {
+  width: 104px !important;
+  margin-right: 1px;
+}
+
+.admin.clean .job-form .field[data-field="employment-duration"] select:nth-of-type(3) {
+  margin-left: 296px;
+}
+
+.admin.clean .field[data-field="employment-duration"] span {
+  display: block;
+  text-align: center;
+}
+
+.admin.clean .job-form .field[data-field="employment-duration"] span {
+  margin-left: 144px;
 }
 
 .admin.clean .job-form .field textarea,

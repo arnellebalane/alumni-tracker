@@ -68,6 +68,7 @@
           </li>
         <?php endforeach; ?>
       </ul>
+      <?= $paginator->paginate(); ?>
     </div>
   </div>
 </body>

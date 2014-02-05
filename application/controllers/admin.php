@@ -20,7 +20,7 @@
       $this->load->view('admin/index', $data);
     }
 
-    public function alumni() {      
+    public function alumni() {
       if ($this->session->userdata('cleaned') == 0 || ($this->session->userdata('cleaned') == 1) || ($this->session->userdata('cleaned') == -1)) {
         $prev_cleaned = $this->session->userdata('cleaned');
       } else {
@@ -59,12 +59,18 @@
       } else {
         $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
       }
+
+      $this->load->add_package_path(APPPATH . 'libraries/paginator');
+      $this->load->library('paginator');
+      $this->paginator->initialize(1000);
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,
                     'included'=>$included,
-                    'programs'=>$this->values->getPrograms());
+                    'programs'=>$this->values->getPrograms(),
+                    'paginator' => $this->paginator);
       $this->load->helper('edit_info_helper.php');
+      $this->load->remove_package_path(APPPATH . 'libraries/paginator');
       $this->load->view('admin/alumni', $data);
     }
 

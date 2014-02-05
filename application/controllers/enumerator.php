@@ -56,12 +56,18 @@
       } else {
         $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
       }
+
+      $this->load->add_package_path(APPPATH . 'libraries/paginator');
+      $this->load->library('paginator');
+      $this->paginator->initialize(count($alumni));
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,
                     'included'=>$included,
-                    'programs'=>$this->model->getEnumeratorPrograms($user_id));
+                    'programs'=>$this->model->getEnumeratorPrograms($user_id),
+                    'paginator' => $this->paginator);
       $this->load->helper('edit_info_helper.php');
+      $this->load->remove_package_path(APPPATH . 'libraries/paginator');
       $this->load->view('enumerator/index', $data);
     }
 

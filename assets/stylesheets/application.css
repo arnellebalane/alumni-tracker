@@ -70,3 +70,33 @@ html {
 #sign-out:focus {
   color: #308023;
 }
+
+.pagination {
+  font: normal 1.3rem "Open Sans Light", "OpenSansLight";
+  color: #333333;
+  text-align: center;
+  text-transform: uppercase;
+  margin-top: 25px;
+}
+
+.pagination span,
+.pagination a,
+.pagination em {
+  display: inline-block;
+  margin: 0 1px;
+  padding: 3px 8px;
+  color: #32881A;
+  text-decoration: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.pagination a:hover,
+.pagination .pagination-current {
+  color: #ffffff;
+  background-color: #32881A;
+}
+
+.pagination .disabled {
+  display: none;
+}

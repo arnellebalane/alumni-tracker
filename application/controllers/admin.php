@@ -62,7 +62,7 @@
 
       $this->load->add_package_path(APPPATH . 'libraries/paginator');
       $this->load->library('paginator');
-      $this->paginator->initialize(1000);
+      $this->paginator->initialize(count($alumni));
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,

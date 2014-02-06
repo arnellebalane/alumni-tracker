@@ -102,9 +102,7 @@ var questionnaire = {
     },
     'educational-background': function() {
       var studentNumber = $('input[name="educational_background[student_number]"]').val().trim();
-      if (studentNumber.length == 0) {
-        return {valid: false, error: 'Please fill up all required fields.'};
-      } else if (studentNumber.length > 0 && !studentNumber.match(/^\d{4}-\d{5}/)) {
+      if (studentNumber.length > 0 && !studentNumber.match(/^\d{4}-\d{5}/)) {
         return {valid: false, error: 'Please fill up the student number with the correct format.'};
       }
       return {valid: true};

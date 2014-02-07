@@ -61,9 +61,9 @@
       <ul class="list">
         <?php foreach ($alumni as $alumnus): ?>
           <li>
-            <?= anchor('admin/clean/'.$alumnus->id, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+            <?= anchor('admin/clean/'.$alumnus->id.'/'.$page, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
             <div class="actions">
-              <?= anchor('admin/deleteAlumni/'.$alumnus->id, 'Discard'); ?>
+              <?= anchor('admin/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
             </div>
           </li>
         <?php endforeach; ?>

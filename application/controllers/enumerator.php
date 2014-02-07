@@ -32,7 +32,17 @@
         $prev_included = $this->session->userdata('included');
       } else {
         $prev_included = 1;
-      }            
+      }
+
+      $limit = 1;
+      if (isset($_GET['page'])) {
+        $offset = ($_GET['page'] - 1) * $limit;
+        $page = $_GET['page'];
+      } else {
+        $offset = 0;
+        $page = 1;
+      }
+
       $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
       $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
       $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;      
@@ -40,32 +50,49 @@
       $this->session->set_userdata('program_id', $program_id);
       $this->session->set_userdata('included', $included);
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
-        $alumni = $this->model->getAllAlumni($user_id);
+        $alumni = $this->model->getAllAlumniPaginate($user_id, $offset, $limit);
+        $count = $this->model->countAllAlumni($user_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
-        $alumni = $this->model->getAlumniByCleanStatus($cleaned, $user_id);        
+        $alumni = $this->model->getAlumniByCleanStatusPaginate($cleaned, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByCleanStatus($cleaned, $user_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included < 0)) {
-        $alumni = $this->model->getAlumniByProgram($program_id, $user_id);    
+        $alumni = $this->model->getAlumniByProgramPaginate($program_id, $user_id, $offset, $limit);    
+        $count = $this->model->countAlumniByProgram($program_id, $user_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id > 0 && ($included < 0)){
-        $alumni = $this->model->getAlumniByCleanStatusAndProgram($cleaned, $program_id, $user_id);        
+        $alumni = $this->model->getAlumniByCleanStatusAndProgramPaginate($cleaned, $program_id, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByCleanStatusAndProgram($cleaned, $program_id, $user_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included >= 0)) {
-        $alumni = $this->model->getAlumniByInclusion($included, $user_id);
+        $alumni = $this->model->getAlumniByInclusionPaginate($included, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusion($included, $user_id, $offset);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included >= 0)) {
-        $alumni = $this->model->getAlumniByInclusionAndStatus($included, $cleaned, $user_id);
+        $alumni = $this->model->getAlumniByInclusionAndStatusPaginate($included, $cleaned, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusionAndStatus($included, $cleaned, $user_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included >= 0)) {
-        $alumni = $this->model->getAlumniByInclusionAndProgram($included, $program_id, $user_id);
+        $alumni = $this->model->getAlumniByInclusionAndProgramPaginate($included, $program_id, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusionAndProgram($included, $program_id, $user_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else {
-        $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
+        $alumni = $this->model->getAlumniByInclusionAndStatusAndProgramPaginate($included, $cleaned, $program_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
+        $count = ($count) ? $count[0]->count : 0;
       }
 
       $this->load->add_package_path(APPPATH . 'libraries/paginator');
-      $this->load->library('paginator');
-      $this->paginator->initialize(count($alumni));
+      $this->load->library('paginator', array('items_per_page'=>$limit));
+      $this->paginator->initialize($count);
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,
                     'included'=>$included,
                     'programs'=>$this->model->getEnumeratorPrograms($user_id),
-                    'paginator' => $this->paginator);
+                    'paginator' => $this->paginator,
+                    'page' => $page);
       $this->load->helper('edit_info_helper.php');
       $this->load->remove_package_path(APPPATH . 'libraries/paginator');
       $this->load->view('enumerator/index', $data);
@@ -78,7 +105,7 @@
       $this->load->view('enumerator/cleaning_disabled');
     }
 
-    public function clean($id) {
+    public function clean($id, $page = 1) {
       if (!$this->model->canClean()) {
         $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
         redirect('enumerator/cleaning_disabled');
@@ -86,7 +113,7 @@
       $user_id = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id, $id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       } 
       // if (!$this->model->canClean()) {
       //   $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
@@ -107,7 +134,8 @@
                       'user_social_networks'=>$this->alumni->getUserSocialNetworksById($id),
                       'social_networks'=>$this->alumni->getOtherSocialNetworksById($id),
                       'jobs'=>$this->alumni->getUserAllJobs($id),
-                      'user_id'=>$id
+                      'user_id'=>$id,
+                      'page'=>$page
                       );      
         $this->load->helper('edit_info_helper.php');
         $this->load->helper('inflector');      
@@ -163,7 +191,7 @@
       redirect('enumerator/settings');
     }
 
-    public function deleteAlumni($id) {
+    public function deleteAlumni($id, $page = 1) {
       if (!$this->model->canClean()) {
         $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
         redirect('enumerator/cleaning_disabled');
@@ -171,15 +199,15 @@
       $user_id = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id, $id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       } else {
         $this->alumni->deleteAlumni($id);
         $this->session->set_flashdata("notice", "Alumni removed!");
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       }
     }
 
-    public function markAlumniClean($id) {
+    public function markAlumniClean($id, $page = 1) {
       if (!$this->model->canClean()) {
         $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
         redirect('enumerator/cleaning_disabled');
@@ -187,15 +215,15 @@
       $user_id = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id, $id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       } else {
         $this->alumni->markAlumniClean($id);
         $this->session->set_flashdata("notice", "The alumni was marked CLEAN successfully!");      
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       }
     } 
 
-    public function markAlumniUnClean($id) {
+    public function markAlumniUnClean($id, $page = 1) {
       if (!$this->model->canClean()) {
         $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
         redirect('enumerator/cleaning_disabled');
@@ -203,15 +231,15 @@
       $user_id = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id, $id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       } else {
         $this->alumni->markAlumniUnClean($id);
         $this->session->set_flashdata("notice", "The alumni was marked UNCLEAN successfully!");
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       }
     }
 
-    public function updateAlumni($id) {
+    public function updateAlumni($id, $page = 1) {
       if (!$this->model->canClean()) {
         $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
         redirect('enumerator/cleaning_disabled');
@@ -219,7 +247,7 @@
       $user_id = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id, $id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       }
       if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
@@ -240,7 +268,7 @@
         $message = "Update successful!" . (($res) ? " Email sent!" : " Failed to send email!");
         $this->session->set_flashdata("notice", $message);
       }
-      redirect('enumerator/clean/'.$id);
+      redirect('enumerator/clean/'.$id.'/'.$page);
     }
 
     // UPDATE PERSONAL INFORMATION
@@ -378,15 +406,15 @@
       }
     }
 
-    public function deleteJob($user_id, $id) {
+    public function deleteJob($user_id, $id, $page = 1) {
       $user_id2 = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id2, $user_id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
-        redirect('enumerator/index');
+        redirect('enumerator/index?page='.$page);
       }
       $this->alumni->deleteEmploymentDetails($id);
       $this->session->set_flashdata("notice", "Job deleted!");
-      redirect('enumerator/clean/'.$user_id);
+      redirect('enumerator/clean/'.$user_id.'/'.$page);
     }
 
     private function validateJobs($jobs) {

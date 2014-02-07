@@ -35,7 +35,15 @@
         $prev_included = $this->session->userdata('included');
       } else {
         $prev_included = 1;
-      }            
+      }
+      $limit = 1;
+      if (isset($_GET['page'])) {
+        $offset = ($_GET['page'] - 1) * $limit;
+        $page = $_GET['page'];
+      } else {
+        $offset = 0;
+        $page = 1;
+      }      
       $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
       $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
       $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;      
@@ -43,41 +51,57 @@
       $this->session->set_userdata('program_id', $program_id);
       $this->session->set_userdata('included', $included);
       if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
-        $alumni = $this->alumni->getAllAlumni();
+        $alumni = $this->alumni->getAllAlumniPaginate($offset,$limit);
+        $count = $this->alumni->countAllAlumni();
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
-        $alumni = $this->alumni->getAlumniByCleanStatus($cleaned);        
+        $alumni = $this->alumni->getAlumniByCleanStatusPaginate($cleaned, $offset, $limit);
+        $count = $this->alumni->countAlumniByCleanStatus($cleaned);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included < 0)) {
-        $alumni = $this->alumni->getAlumniByProgram($program_id);    
+        $alumni = $this->alumni->getAlumniByProgramPaginate($program_id, $offset, $limit);    
+        $count = $this->alumni->countAlumniByProgram($program_id);    
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id > 0 && ($included < 0)){
-        $alumni = $this->alumni->getAlumniByCleanStatusAndProgram($cleaned, $program_id);        
+        $alumni = $this->alumni->getAlumniByCleanStatusAndProgramPaginate($cleaned, $program_id, $offset, $limit);        
+        $count = $this->alumni->countAlumniByCleanStatusAndProgram($cleaned, $program_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included >= 0)) {
-        $alumni = $this->alumni->getAlumniByInclusion($included);
+        $alumni = $this->alumni->getAlumniByInclusionPaginate($included, $offset, $limit);
+        $count = $this->alumni->countAlumniByInclusion($included);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included >= 0)) {
-        $alumni = $this->alumni->getAlumniByInclusionAndStatus($included, $cleaned);
+        $alumni = $this->alumni->getAlumniByInclusionAndStatusPaginate($included, $cleaned, $offset, $limit);
+        $count = $this->alumni->countAlumniByInclusionAndStatus($included, $cleaned);
+        $count = ($count) ? $count[0]->count : 0;
       } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included >= 0)) {
-        $alumni = $this->alumni->getAlumniByInclusionAndProgram($included, $program_id);
+        $alumni = $this->alumni->getAlumniByInclusionAndProgramPaginate($included, $program_id, $offset, $limit);
+        $count = $this->alumni->countAlumniByInclusionAndProgram($included, $program_id);
+        $count = ($count) ? $count[0]->count : 0;
       } else {
-        $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
-      }
-
+        $alumni = $this->alumni->getAlumniByInclusionAndStatusAndProgramPaginate($included, $cleaned, $program_id, $offset, $limit);
+        $count = $this->alumni->countAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
+        $count = ($count) ? $count[0]->count : 0;
+      }      
       $this->load->add_package_path(APPPATH . 'libraries/paginator');
-      $this->load->library('paginator');
-      $this->paginator->initialize(count($alumni));
+      $this->load->library('paginator', array('items_per_page'=>$limit));
+      $this->paginator->initialize($count);
       $data = array('alumni'=>$alumni,
                     'cleaned'=>$cleaned,
                     'program_id'=>$program_id,
                     'included'=>$included,
                     'programs'=>$this->values->getPrograms(),
-                    'paginator' => $this->paginator);
+                    'paginator' => $this->paginator, 
+                    'page' => $page);
       $this->load->helper('edit_info_helper.php');
       $this->load->remove_package_path(APPPATH . 'libraries/paginator');
       $this->load->view('admin/alumni', $data);
     }
 
-    public function clean($id) {
+    public function clean($id, $page = 1) {
       $alumni = $this->alumni->getUserById($id);
       if (!$alumni || $alumni[0]->user_type != "alumni") {
-        redirect('admin/alumni');
+        redirect('admin/alumni?page='.$page);
       }
       $this->load->model("values_model", "values");
       $data = array('countries'=>$this->values->getCountries(),
@@ -89,7 +113,8 @@
                     'user_social_networks'=>$this->alumni->getUserSocialNetworksById($id),
                     'social_networks'=>$this->alumni->getOtherSocialNetworksById($id),
                     'jobs'=>$this->alumni->getUserAllJobs($id),
-                    'user_id'=>$id
+                    'user_id'=>$id,
+                    'page' => $page
                     );
       $this->load->helper('edit_info_helper.php');
       $this->load->helper('inflector');
@@ -306,25 +331,27 @@
         redirect('/admin/index');
     }
 
-    public function deleteAlumni($id) {
+    public function deleteAlumni($id, $page = 1) {
       $this->alumni->deleteAlumni($id);
       $this->session->set_flashdata("notice", "Alumni removed!");
-      redirect('admin/alumni');
+      redirect('admin/alumni?page='.$page);
     }
 
-    public function updateAlumni($id) {
+    public function updateAlumni($id, $page = 1) {
       if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
         $this->session->set_flashdata("alert", "There are errors in the new educational background!");
-      }  else if (!$this->validateJobs($_POST['jobs'])) {
+      }  else if ($_POST['jobs'] && !$this->validateJobs($_POST['jobs'])) {
         $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
       } else if ((isset($_POST['another_job'])) && !$this->validateJobs($_POST['another_job'])) {
         $this->session->set_flashdata("alert", "Some information about the new jobs are missing!");
       } else {
         $this->updatePersonalInfo($id, $_POST['personal_information']);
         $this->updateEducationalBackground($id, $_POST['educational_background']);
-        $this->updateJobs($_POST['jobs']);
+        if (isset($_POST['jobs'])) {
+          $this->updateJobs($_POST['jobs']);
+        }
         if (isset($_POST['another_job'])) {
           $this->addJobs($id, $_POST['another_job']);
         }      
@@ -332,7 +359,7 @@
         $message = "Update successful!" . (($res) ? " Email sent!" : " Failed to send email!");
         $this->session->set_flashdata("notice", $message);
       }
-      redirect('admin/clean/'.$id);
+      redirect('admin/clean/'.$id.'/'.$page);
     }
 
     // UPDATE PERSONAL INFORMATION
@@ -470,10 +497,10 @@
       }
     }
 
-    public function deleteJob($user_id, $id) {
+    public function deleteJob($user_id, $id, $page = 1) {
       $this->alumni->deleteEmploymentDetails($id);
       $this->session->set_flashdata("notice", "Job deleted!");
-      redirect('admin/clean/'.$user_id);
+      redirect('admin/clean/'.$user_id.'/'.$page);
     }
 
     private function validateJobs($jobs) {
@@ -516,16 +543,16 @@
       return false;
     }
 
-    public function markAlumniClean($id) {
+    public function markAlumniClean($id, $page = 1) {
       $this->alumni->markAlumniClean($id);
       $this->session->set_flashdata("notice", "The alumni was marked CLEAN successfully!");      
-      redirect('admin/alumni');
+      redirect('admin/alumni?page='.$page);
     } 
 
-    public function markAlumniUnClean($id) {
+    public function markAlumniUnClean($id, $page = 1) {
       $this->alumni->markAlumniUnClean($id);
       $this->session->set_flashdata("notice", "The alumni was marked UNCLEAN successfully!");
-      redirect('admin/alumni');
+      redirect('admin/alumni?page='.$page);
     }
 
     public function updateAccount() {

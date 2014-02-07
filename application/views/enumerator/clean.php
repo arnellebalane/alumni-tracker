@@ -30,14 +30,14 @@
     <div class="content">
       <h1><?=humanize($user_info[0]->firstname)." ".humanize($user_info[0]->lastname) ?></h1>
       <div class="clean-actions">
-        <?=($user_info[0]->cleaned == 0) ? anchor('enumerator/markAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('enumerator/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
-        <?= anchor('enumerator/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
+        <?=($user_info[0]->cleaned == 0) ? anchor('enumerator/markAlumniClean/'.$user_id.'/'.$page, 'Mark as Clean', array('class' => 'green')) : anchor('enumerator/markAlumniUnClean/'.$user_id.'/'.$page, 'Mark as UnClean', array('class' => 'green')); ?>
+        <?= anchor('enumerator/deleteAlumni/'.$user_id.'/'.$page, 'Discard', array('class' => 'red')); ?>
 
         <!--<?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
         <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>-->
       </div>
 
-      <?= form_open('enumerator/updateAlumni/'.$user_id); ?>
+      <?= form_open('enumerator/updateAlumni/'.$user_id.'/'.$page); ?>
         <section id="personal-information">
           <h3>Personal Information</h3>
           <div class="field">

@@ -34,14 +34,14 @@
     <div class="content">
       <h1><?=humanize($user_info[0]->firstname)." ".humanize($user_info[0]->lastname) ?></h1>
       <div class="clean-actions">
-        <?=($user_info[0]->cleaned == 0) ? anchor('admin/markAlumniClean/'.$user_id, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id, 'Mark as UnClean', array('class' => 'green')); ?>
-        <?= anchor('admin/deleteAlumni/'.$user_id, 'Discard', array('class' => 'red')); ?>
+        <?=($user_info[0]->cleaned == 0) ? anchor('admin/markAlumniClean/'.$user_id.'/'.$page, 'Mark as Clean', array('class' => 'green')) : anchor('admin/markAlumniUnClean/'.$user_id.'/'.$page, 'Mark as UnClean', array('class' => 'green')); ?>
+        <?= anchor('admin/deleteAlumni/'.$user_id.'/'.$page, 'Discard', array('class' => 'red')); ?>
 
         <!--<?= anchor('#', 'Previous Alumni', array('class' => 'navigation')); ?>
         <?= anchor('#', 'Next Alumni', array('class' => 'navigation')); ?>-->
       </div>
 
-      <?= form_open('admin/updateAlumni/'.$user_id); ?>
+      <?= form_open('admin/updateAlumni/'.$user_id.'/'.$page); ?>
         <section id="personal-information">
           <h3>Personal Information</h3>
           <div class="field">
@@ -227,7 +227,7 @@
               }
 
              ?>
-            <h4><?= $job_text . anchor('admin/deleteJob/'.$user_id.'/'.$job->id, '[Delete this Job]'); ?></h4>
+            <h4><?= $job_text . anchor('admin/deleteJob/'.$user_id.'/'.$job->id.'/'.$page, '[Delete this Job]'); ?></h4>
             <div class="field radio">
               <label>Self-employed?</label>
               <h4><?=($job->self_employed == 0) ? "No" : "Yes";?></h4>
@@ -424,7 +424,7 @@
             <?php } ?>
           </select>
           <select name="another_job[{{index}}][employment_duration][end_year]" class="auto">            
-            <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
+            <option value="100000"> ongoing</option>
             
             <?php 
               $year = date('Y');

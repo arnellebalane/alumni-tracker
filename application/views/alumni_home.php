@@ -67,7 +67,7 @@
               <? foreach ($countries as $var): ?>
                 <option value="<?= $var->id; ?>" <?=is_selected($var->id, $user_info[0]->country_id)?>><?= $var->name; ?></option>
               <? endforeach; ?>           
-              <option value="others">Others</option>
+              <!-- <option value="others">Others</option> -->
             </select>
             <a href="#" data-behavior="edit">[edit]</a>
             <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify hidden" />

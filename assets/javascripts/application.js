@@ -309,6 +309,9 @@ var admin = {
       e.preventDefault();
       $(this).closest('.job-form').remove();
     });
+    job.find('input[type="range"]').on('change', function() {
+      $(this).next('span').text($(this).val());
+    });
   },
   initializeEnumerators: function() {
     if ($('body').hasClass('admin enumerators')) {

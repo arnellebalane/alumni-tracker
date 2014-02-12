@@ -56,6 +56,10 @@ var questionnaire = {
         questionnaire.addAnotherJob();
       }
     });
+
+    $('input[type="range"]').on('change', function() {
+      $(this).next('span').text($(this).val());
+    });
   },
   initializeOthers: function() {
     $('input[type="radio"][name="others[jobs_related]"]').on('change', function() {
@@ -77,6 +81,9 @@ var questionnaire = {
       } else {
         $(this).siblings('.specify').addClass('hidden').val('');
       }
+    });
+    newJobForm.find('input[type="range"]').on('change', function() {
+      $(this).next('span').text($(this).val());
     });
     $('.field[data-field="another-job"]').before(newJobForm);
   },

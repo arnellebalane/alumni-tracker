@@ -9,14 +9,15 @@ var questionnaire = {
   initialize: function() {
     questionnaire.initializeSlides();
     questionnaire.initializeSelectBoxes();
+    questionnaire.initializeEducationalBackground();
     questionnaire.initializeEmploymentHistory();
     questionnaire.initializeOthers();
   },
   initializeSlides: function() {
     $('.slide .button.continue').on('click', function() {
       var validation = questionnaire.validateSlide[$(".slide.current").data('name')]();
-      if (validation.valid) {
-      //if (true) {
+      // if (validation.valid) {
+      if (true) {
         $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
         $('aside li.current').removeClass('current').next('li').addClass('current visited');
       } else {
@@ -35,6 +36,23 @@ var questionnaire = {
       } else {
         $(this).siblings('.specify').addClass('hidden').val('');
       }
+    });
+  },
+  initializeEducationalBackground: function() {
+    $('input[data-behavior="took-another-degree"]').on('change', function() {
+      if ($(this).val() == 'yes') {
+        var index = $('.educational-history-list .educational-history').length;
+        $('.educational-history-list').removeClass('hidden');
+        $('.educational-history-list a').before($('#educational-history-template').html().replace(/#{index}/g, index));
+      } else {
+        $('.educational-history-list').addClass('hidden').find('.educational-history').remove();
+      }
+    });
+
+    $('.educational-history-list a').on('click', function(e) {
+      e.preventDefault();
+      var index = $('.educational-history-list .educational-history').length;
+      $(this).before($('#educational-history-template').html().replace(/#{index}/g, index));
     });
   },
   initializeEmploymentHistory: function() {

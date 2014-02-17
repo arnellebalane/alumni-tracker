@@ -131,6 +131,14 @@
               <option value="cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "cum laude"); ?>>Cum Laude</option>              
             </select>
           </div>
+          <div class="field">
+            <label>Did you finish any other degree?</label>
+            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" data-behavior="took-another-degree"  /><label for="od-yes">Yes</label>
+            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" checked /><label for="od-no">No</label>
+          </div>
+          <div class="educational-history-list hidden">
+            <a href="#">Add Another Degree</a>
+          </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />
             <input type="button" value="Continue" class="button continue" />
@@ -529,6 +537,26 @@
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
               <textarea name="employment_history[#{index}][satisfaction_reason]"></textarea>
+            </div>
+          </div>
+        </div>
+        <div id="educational-history-template" class="hidden">
+          <div class="educational-history">
+            <div class="field indented">
+              <label>Degree</label>
+              <input type="text" name="educational_background[educational_history][#{index}][degree]" />
+            </div>
+            <div class="field indented">
+              <label>School Taken</label>
+              <input type="text" name="educational_background[educational_history][#{index}][school_taken]" />
+            </div>
+            <div class="field indented">
+              <label>Year Finished</label>
+              <select name="educational_background[educational_history][#{index}][year_finished]">
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+              </select>
             </div>
           </div>
         </div>

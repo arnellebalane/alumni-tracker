@@ -179,6 +179,40 @@
             </select>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
+          <div class="field">
+            <label>Did you finish any other degree?</label>
+            <h2>Yes</h2>
+            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" class="editable hidden" data-behavior="took-another-degree" data-current="true" checked /><label for="od-yes">Yes</label>
+            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" class="editable hidden" data-behavior="took-another-degree" data-current="false" /><label for="od-no">No</label>
+            <a href="#" data-behavior="edit">[edit]</a>
+          </div>
+          <div class="educational-history-list">
+            <div class="educational-history">
+              <div class="field indented">
+                <label>Degree</label>
+                <h2>Masters in Computer Science</h2>
+                <input type="text" name="educational_background[educational_history][#{index}][degree]" class="editable hidden" />
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field indented">
+                <label>School Taken</label>
+                <h2>UP Cebu</h2>
+                <input type="text" name="educational_background[educational_history][#{index}][school_taken]" class="editable hidden" />
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field indented">
+                <label>Year Finished</label>
+                <h2>2015</h2>
+                <select name="educational_background[educational_history][#{index}][year_finished]" class="editable hidden">
+                  <option value="2014">2014</option>
+                  <option value="2013">2013</option>
+                  <option value="2012">2012</option>
+                </select>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+            </div>
+            <a href="#" data-behavior="add-another-degree">Add Another Degree</a>
+          </div>
           <div class="field actions">
             <input type="submit" value="Save Changes" class="button hidden" />
           </div>
@@ -386,6 +420,27 @@
           </div>
         </div>
       <?= form_close(); ?>
+    </div>
+  </div>
+
+  <div id="educational-history-template" class="hidden">
+    <div class="educational-history">
+      <div class="field indented">
+        <label>Degree</label>
+        <input type="text" name="educational_background[new_educational_history][#{index}][degree]" />
+      </div>
+      <div class="field indented">
+        <label>School Taken</label>
+        <input type="text" name="educational_background[new_educational_history][#{index}][school_taken]" />
+      </div>
+      <div class="field indented">
+        <label>Year Finished</label>
+        <select name="educational_background[new_educational_history][#{index}][year_finished]">
+          <option value="2014">2014</option>
+          <option value="2013">2013</option>
+          <option value="2012">2012</option>
+        </select>
+      </div>
     </div>
   </div>
 </body>

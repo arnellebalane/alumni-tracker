@@ -49,7 +49,7 @@ var questionnaire = {
       }
     });
 
-    $('.educational-history-list a').on('click', function(e) {
+    $('.educational-history-list a[data-behavior="add-another-degree"]').on('click', function(e) {
       e.preventDefault();
       var index = $('.educational-history-list .educational-history').length;
       $(this).before($('#educational-history-template').html().replace(/#{index}/g, index));

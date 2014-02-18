@@ -630,6 +630,16 @@ aside li a.current:before {
   width: auto;
 }
 
+.admin.clean .job-form input[type="range"] {
+  width: 190px;
+  outline: none;
+}
+
+.admin.clean .job-form input[type="range"] + span {
+  vertical-align: top;
+  margin: 2px 0 0 5px;
+}
+
 .admin.clean .button {
   margin: 40px 0 0 335px;
 }

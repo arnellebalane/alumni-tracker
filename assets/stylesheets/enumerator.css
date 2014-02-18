@@ -516,6 +516,16 @@ aside li a.current:before {
   margin-left: 144px;
 }
 
+.enumerator.clean .job-form input[type="range"] {
+  width: 190px;
+  outline: none;
+}
+
+.enumerator.clean .job-form input[type="range"] + span {
+  vertical-align: top;
+  margin: 2px 0 0 5px;
+}
+
 .enumerator.clean .button {
   margin: 40px 0 0 335px;
 }

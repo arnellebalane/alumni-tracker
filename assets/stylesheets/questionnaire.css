@@ -231,6 +231,14 @@ aside li:after {
   border-bottom: none;
 }
 
+.content .slide[data-name="educational-background"] .educational-history > a {
+  display: inline-block;
+  font: normal 1rem "Open Sans Light", "OpenSansLight";
+  color: #005BC2;
+  text-transform: uppercase;
+  margin: 0 0 0 25px;
+}
+
 .content .slide[data-name="employment-history"] select.narrow {
   width: 139px;
   margin-right: 1px;

@@ -188,6 +188,7 @@
           </div>
           <div class="educational-history-list">
             <div class="educational-history">
+              <a href="#">[Delete This Degree]</a>
               <div class="field indented">
                 <label>Degree</label>
                 <h2>Masters in Computer Science</h2>
@@ -425,6 +426,7 @@
 
   <div id="educational-history-template" class="hidden">
     <div class="educational-history">
+      <a href="#">[Delete This Degree]</a>
       <div class="field indented">
         <label>Degree</label>
         <input type="text" name="educational_background[new_educational_history][#{index}][degree]" />

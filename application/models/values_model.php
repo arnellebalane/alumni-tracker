@@ -6,7 +6,7 @@ class values_model extends CI_Model {
 	}
 
 	function getCountries() {
-		$query = $this->db->query("SELECT * from countries");
+		$query = $this->db->query("SELECT * from countries order by countries.name");
 		return $query->result();
 	}
 

@@ -311,9 +311,22 @@ var admin = {
       });
     }
 
+    $('input[type="button"][data-behavior="add-another-degree"]').on('click', function() {
+      admin.addAnotherDegree();
+    });
+
+    $('.educational-history-list').on('click', '.educational-history > a', function(e) {
+      e.preventDefault();
+      $(this).closest('.educational-history').remove();
+    });
+
     $('input[type="button"][data-behavior="add-another-job"]').on('click', function() {
       admin.addAnotherJob();
     });
+  },
+  addAnotherDegree: function() {
+    var index = $('.educational-history-list .educational-history').length;
+    $('.educational-history-list .educational-history').first().before($('#educational-history-template').html().replace(/#{index}/g, index));
   },
   addAnotherJob: function() {
     var index = $('.job-form').length;

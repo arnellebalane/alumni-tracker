@@ -137,7 +137,7 @@
             <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" checked /><label for="od-no">No</label>
           </div>
           <div class="educational-history-list hidden">
-            <a href="#">Add Another Degree</a>
+            <a href="#" data-behavior="add-another-degree">Add Another Degree</a>
           </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />

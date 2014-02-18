@@ -401,6 +401,17 @@
           <p>Rest assured that these information will be treated with high confidentiality.</p>
 
           <div class="field">
+            <label>Courses/subjects/topics that you think are useful in your field.</label>
+            <textarea name="others[useful_topics]"></textarea>
+          </div>
+          <div class="field actions">
+            <input type="button" value="Back" class="button back" />
+            <input type="submit" value="Submit Answers" class="button" />
+            <em>Please review your answers before submitting the form</em>
+          </div>
+
+          <!-- 
+          <div class="field">
             <label>Is any of your jobs related to the degree program you finished?</label>
             <em>(examples of degree programs: BS Mathematics, BS Computer Science, etc)</em>
             <input type="radio" name="others[jobs_related]" value="yes" id="jr_yes" <?= (isset($post['others']['jobs_related'])) ? is_checked('others', 'jobs_related', null, null, 'yes') : ''; ?> /><label for="jr_yes">Yes</label>
@@ -431,13 +442,10 @@
               </div>
             <? endforeach; ?>
           </div>
-          <div class="field actions">
-            <input type="button" value="Back" class="button back" />
-            <input type="submit" value="Submit Answers" class="button" />
-            <em>Please review your answers before submitting the form</em>
-          </div>
+          -->
         </div>
         <?= form_close(); ?>
+
         <div id="job-form-template" class="hidden">
           <div class="job-form" data-job-form="other-job">
             <span>Other Job Information</span>

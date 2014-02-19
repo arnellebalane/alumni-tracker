@@ -11,14 +11,16 @@
       $this->load->model("alumni_model", "alumni");
     }
 
-    public function index() {      
+    public function index() {          
       $data = array('countries' => $this->values->getCountries(),
                     'employer_types'=>$this->values->getEmployerTypes(), 
                     'programs'=>$this->values->getPrograms(),
                     'ge_courses'=>$this->values->getGECourses(),
                     'social_networks' => $this->values->getSocialNetworks());
-      $this->load->view('admin/index', $data);
+      $this->load->view('admin/index', $data);      
     }
+
+    
 
     public function alumni() {
       if ($this->session->userdata('cleaned') == 0 || ($this->session->userdata('cleaned') == 1) || ($this->session->userdata('cleaned') == -1)) {

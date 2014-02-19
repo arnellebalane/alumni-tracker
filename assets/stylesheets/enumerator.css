@@ -348,6 +348,35 @@ aside li a.current:before {
   margin-top: 3px;
 }
 
+.enumerator.clean .educational-history-list .educational-history {
+  padding: 0 0 15px 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px dotted #cccccc;
+}
+
+.enumerator.clean .educational-history-list .educational-history:last-of-type {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.enumerator.clean .educational-history a {
+  display: inline-block;
+  vertical-align: top;
+  font: normal 1rem "Open Sans Light", "OpenSansLight";
+  color: #005BC2;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.enumerator.clean .educational-history .field a {
+  margin: 3px 0 0 10px;
+}
+
+.enumerator.clean .educational-history .field label {
+  width: 260px;
+}
+
 .enumerator.clean .job {
   margin-bottom: 15px;
   padding-bottom: 15px;
@@ -407,6 +436,8 @@ aside li a.current:before {
 .enumerator.clean .editable input[type="text"],
 .enumerator.clean .editable select,
 .enumerator.clean .editable textarea,
+.enumerator.clean .educational-history input[type="text"],
+.enumerator.clean .educational-history select,
 .enumerator.settings input[type="text"],
 .enumerator.settings input[type="password"] {
   width: 200px;
@@ -430,13 +461,16 @@ aside li a.current:before {
 .enumerator.clean .editable input[type="text"]:focus,
 .enumerator.clean .editable select:focus,
 .enumerator.clean .editable textarea:focus,
+.enumerator.clean .educational-history input[type="text"]:focus,
+.enumerator.clean .educational-history select:focus,
 .enumerator.settings input[type="text"]:focus,
 .enumerator.settings input[type="password"]:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
 .enumerator.clean .job-form .field select,
-.enumerator.clean .editable select {
+.enumerator.clean .editable select,
+.enumerator.clean .educational-history select {
   width: 212px;
 }
 

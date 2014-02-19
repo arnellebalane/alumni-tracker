@@ -56,7 +56,7 @@
               <?foreach ($countries as $var) : ?>
                 <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?> ><?=$var->name?></option>
               <? endforeach; ?>              
-              <option value="others" <?=is_selected('personal_information', 'country', null, null, 'others');?> >Others</option>
+              <!-- <option value="others" <?=is_selected('personal_information', 'country', null, null, 'others');?> >Others</option> -->
             </select>          
             <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify <?= (is_selected('personal_information', 'country', null, null, 'others') == 'selected') ? '' : 'hidden'; ?>" value="<?=set_field_value('personal_information', 'specified_country', null, null); ?>"/>
           </div>
@@ -130,6 +130,14 @@
               <option value="magna cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "magna cum laude"); ?>>Magna Cum Laude</option>
               <option value="cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "cum laude"); ?>>Cum Laude</option>              
             </select>
+          </div>
+          <div class="field">
+            <label>Did you finish any other degree?</label>
+            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" data-behavior="took-another-degree"  /><label for="od-yes">Yes</label>
+            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" checked /><label for="od-no">No</label>
+          </div>
+          <div class="educational-history-list hidden">
+            <a href="#">Add Another Degree</a>
           </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />
@@ -243,9 +251,13 @@
               </select>
             </div>
             <div class="field indented">
-              <label>Satisfied with this job?</label>
+              <label>Job Satisfaction</label>
+              <!--
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 1); ?>/><label for="employment_history[0][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 0); ?>/><label for="employment_history[0][swj-no]">No</label>
+              -->
+              <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="11" step="1" value="6" />
+              <span>6</span>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
@@ -359,9 +371,13 @@
                 </select>
               </div>
               <div class="field indented">
-                <label>Satisfied with this job?</label>
+                <label>Job Satisfaction</label>
+                <!--
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="1" id="employment_history[<?=$i?>][swj-yes]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 1); ?>/><label for="employment_history[1][swj-yes]">Yes</label>
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="0" id="employment_history[<?=$i?>][swj-no]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 0); ?>/><label for="employment_history[1][swj-no]">No</label>
+                -->
+                <input type="range" name="employment_history[<?= $i; ?>][job_satisfaction]" min="1" max="11" step="1" value="6" />
+                <span>6</span>
               </div>
               <div class="field indented textarea">
                 <label>Why or why not satisfied?</label>
@@ -510,13 +526,37 @@
               </select>
             </div>
             <div class="field indented">
-              <label>Satisfied with this job?</label>
+              <label>Job Satisfaction</label>
+              <!--
               <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="1" id="employment_history[#{index}][swj-yes]" /><label for="employment_history[#{index}][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="0" id="employment_history[#{index}][swj-no]" /><label for="employment_history[#{index}][swj-no]">No</label>
+              -->
+              <input type="range" name="employment_history[#{index}][job_satisfaction]" min="1" max="11" step="1" value="6" />
+              <span>6</span>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
               <textarea name="employment_history[#{index}][satisfaction_reason]"></textarea>
+            </div>
+          </div>
+        </div>
+        <div id="educational-history-template" class="hidden">
+          <div class="educational-history">
+            <div class="field indented">
+              <label>Degree</label>
+              <input type="text" name="educational_background[educational_history][#{index}][degree]" />
+            </div>
+            <div class="field indented">
+              <label>School Taken</label>
+              <input type="text" name="educational_background[educational_history][#{index}][school_taken]" />
+            </div>
+            <div class="field indented">
+              <label>Year Finished</label>
+              <select name="educational_background[educational_history][#{index}][year_finished]">
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+              </select>
             </div>
           </div>
         </div>

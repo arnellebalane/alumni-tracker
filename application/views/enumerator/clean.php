@@ -205,6 +205,40 @@
             </div>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
+          <div class="educational-history-list">
+            <input type="button" value="Add Another Degree" data-behavior="add-another-degree" />
+            <div class="educational-history">
+              <a href="#">[Delete This Degree]</a>
+              <div class="field">
+                <label>Degree</label>
+                <h4>Masters in Computer Science</h4>
+                <div class="editable hidden">
+                  <input type="text" name="educational_background[educational_history][0][degree]" value="Masters in Computer Science" data-current="Masters in Computer Science" />
+                </div>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field">
+                <label>School Taken</label>
+                <h4>University of the Philippines Cebu</h4>
+                <div class="editable hidden">
+                  <input type="text" name="educational_background[educational_history][0][school_taken]" value="University of the Philippines Cebu" data-current="University of the Philippnines Cebu" />
+                </div>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field">
+                <label>Year Finished</label>
+                <h4>2014</h4>
+                <div class="editable hidden">
+                  <select name="educational_background[educational_history][#{index}][year_finished]" data-current="2014">
+                    <option value="2014" selected>2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                  </select>
+                </div>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="employment-history">
@@ -329,11 +363,18 @@
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
             <div class="field radio">
-              <label>Satisfied with job?</label>
+              <label>Job Satisfaction</label>
+              <!--
               <h4><?=($job->job_satisfaction == 1) ? "Yes" : "No";?></h4>
+              -->
+              <h4>6</h4>
               <div class="editable hidden">
+                <!--
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="1" data-current="<?=($job->job_satisfaction == 1) ? 'true':'false';?>" <?=is_checked(1, $job->job_satisfaction)?> />Yes</label>
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="0" data-current="<?=($job->job_satisfaction == 0) ? 'true':'false';?>" <?=is_checked(0, $job->job_satisfaction)?> />No</label>
+                -->
+                <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="11" step="1" value="6" data-current="6" />
+                <span>6</span>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
@@ -433,13 +474,38 @@
           </select>
         </div>
         <div class="field inline">
-          <label>Satisfied with Job?</label>
+          <label>Job Satisfaction</label>
+          <!--
           <input type="radio" name="another_job[{{index}}][satisfied_with_job]" value="yes" checked /><label>Yes</label>
           <input type="radio" name="another_job[{{index}}][satisfied_with_job]" value="no" /><label>No</label>
+          -->
+          <input type="range" name="another_job[#{{index}}][job_satisfaction]" min="1" max="11" step="1" value="6" />
+          <span>6</span>
         </div>
         <div class="field">
           <label>Why or why not satisfied?</label>
           <textarea name="another_job[{{index}}][satisfaction_reason]"></textarea>
+        </div>
+      </div>
+      <div id="educational-history-template" class="hidden">
+        <div class="educational-history">
+          <a href="#">[Delete This Degree]</a>
+          <div class="field">
+            <label>Degree</label>
+            <input type="text" name="educational_background[new_educational_history][#{index}][degree]" />
+          </div>
+          <div class="field">
+            <label>School Taken</label>
+            <input type="text" name="educational_background[new_educational_history][#{index}][school_taken]" />
+          </div>
+          <div class="field">
+            <label>Year Finished</label>
+            <select name="educational_background[new_educational_history][#{index}][year_finished]">
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+              <option value="2012">2012</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

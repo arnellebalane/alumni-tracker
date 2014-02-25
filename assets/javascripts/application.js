@@ -173,6 +173,7 @@ var alumni = {
     if ($('body').hasClass('alumni')) {
       alumni.initializeSidebar();
       alumni.initializeEditableFields();
+      alumni.initializeEducationalBackground();
       alumni.initializeEmploymentHistory();
     }
   },
@@ -206,7 +207,26 @@ var alumni = {
       $(this).siblings('input[type="radio"].editable').each(function() {
         $(this).prop('checked', $(this).data('current') == 'checked');
       });
-      if ($(this).closest('.slide').find('.editable').not('.hidden').length == 0) {
+      if ($(this).closest('.slide').find('.editable').not('.hidden').length == 0
+        && $(this).closest('.slide').find('.educational-history').filter(function() {
+          return $(this).has('input[name^="educational_background[new_educational_history]"]');
+        }).length == 0) {
+        $(this).closest('.slide').find('.actions input[type="submit"]').addClass('hidden');
+      }
+    });
+  },
+  initializeEducationalBackground: function() {
+    $('.alumni.home a[data-behavior="add-another-degree"]').on('click', function(e) {
+      e.preventDefault();
+      $(this).closest('.slide').find('.actions input[type="submit"]').removeClass('hidden');
+    });
+
+    $('.alumni.home .educational-history-list').on('click', ' .educational-history a', function(e) {
+      e.preventDefault();
+      if ($(this).closest('.slide').find('.editable').not('.hidden').length == 0
+        && $(this).closest('.slide').find('.educational-history').filter(function() {
+          return $(this).has('input[name^="educational_background[new_educational_history]"]');
+        }).length == 1) {
         $(this).closest('.slide').find('.actions input[type="submit"]').addClass('hidden');
       }
     });

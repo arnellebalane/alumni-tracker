@@ -345,7 +345,7 @@ var admin = {
   },
   addAnotherDegree: function() {
     var index = $('.educational-history-list .educational-history').length;
-    $('.educational-history-list .educational-history').first().before($('#educational-history-template').html().replace(/#{index}/g, index));
+    $('input[type="button"][data-behavior="add-another-degree"]').after($('#educational-history-template').html().replace(/#{index}/g, index));
   },
   addAnotherJob: function() {
     var index = $('.job-form').length;

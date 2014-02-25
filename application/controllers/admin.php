@@ -38,7 +38,7 @@
       } else {
         $prev_included = 1;
       }
-      $limit = 1;
+      $limit = 10;
       if (isset($_GET['page'])) {
         $offset = ($_GET['page'] - 1) * $limit;
         $page = $_GET['page'];
@@ -116,7 +116,8 @@
                     'social_networks'=>$this->alumni->getOtherSocialNetworksById($id),
                     'jobs'=>$this->alumni->getUserAllJobs($id),
                     'user_id'=>$id,
-                    'page' => $page
+                    'page' => $page,
+                    'other_degree'=>$this->alumni->getOtherDegreeByUserId($id)
                     );
       $this->load->helper('edit_info_helper.php');
       $this->load->helper('inflector');
@@ -339,7 +340,7 @@
       redirect('admin/alumni?page='.$page);
     }
 
-    public function updateAlumni($id, $page = 1) {
+    public function updateAlumni($id, $page = 1) {      
       if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
@@ -422,10 +423,28 @@
       if (($stud != null && $stud[0]->student_number != '') && $info['student_number'] == '') {
         $info['student_number'] = $stud[0]->student_number;
         $addnote = ' (w/ student number unchanged)';
-      }    
+      }
 
       $this->alumni->updateEducationalBackground($id, $info);
-      $this->alumni->updateUserStudentNumber($id, $info['student_number']);      
+      $this->alumni->updateUserStudentNumber($id, $info['student_number']);
+      if (isset($info['educational_history'])) {
+        foreach ($info['educational_history'] as $key => $value) {        
+          $value['degree'] = trim($value['degree']);
+          $value['school_taken'] = trim($value['school_taken']);
+          if ($value['degree'] != '' && $value['school_taken'] != '') { 
+            $this->alumni->updateOtherDegree($key, $value);
+          }
+        }
+      }
+      if (isset($info['new_educational_history'])) {
+        foreach ($info['new_educational_history'] as $key => $value) {  
+          $value['degree'] = trim($value['degree']);
+          $value['school_taken'] = trim($value['school_taken']);      
+          if ($value['degree'] != '' && $value['school_taken'] != '') { 
+            $this->alumni->addOtherDegree($id, $value);
+          }
+        }
+      }      
     }
 
     // VALIDATE NEW ALUMNI EDUCATIONAL BACKGROUND
@@ -451,7 +470,7 @@
       }
       $number = $this->alumni->getEducationalBackground($user_id);
       if ($number && ($number[0]->student_number != "") && ($info['student_number'] == "")) {
-        $this->session->set_flashdata("alert", "Student number must not be black!");
+        $this->session->set_flashdata("alert", "Student number must not be blank!");
         return false;
       }
       $stud = $this->alumni->getUserByStudentNumber(addslashes($info['student_number']));
@@ -459,6 +478,24 @@
       if ($stud && ($stud[0]->user_id != $user_id)) {
         $this->session->set_flashdata('alert', "Student number not available.");
         return false;
+      }
+      if (isset($info['educational_history'])) {        
+        foreach ($info['educational_history'] as $key => $value) {       
+          $value['degree'] = trim($value['degree']);
+          $value['school_taken'] = trim($value['school_taken']);
+          if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+            $this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+            return false;
+          }
+        }
+      }
+      if (isset($info['new_educational_history'])) {
+        foreach ($info['new_educational_history'] as $key => $value) {        
+          if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+            $this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+            return false;
+          }
+        }
       }
       return true;
     }
@@ -494,6 +531,8 @@
         if (!$this->hasFilledFieldsInEmploymentHistory($value)) {        
           $this->alumni->deleteEmploymentDetails($key);
         } else {          
+          $value['job_satisfaction'] = ($value['job_satisfaction'] <= 0) ? 1 : $value['job_satisfaction'];
+          $value['job_satisfaction'] = ($value['job_satisfaction'] > 10) ? 10 : $value['job_satisfaction'];
           $this->alumni->updateEmploymentDetails($key, $value);          
         }
       }
@@ -502,6 +541,15 @@
     public function deleteJob($user_id, $id, $page = 1) {
       $this->alumni->deleteEmploymentDetails($id);
       $this->session->set_flashdata("notice", "Job deleted!");
+      redirect('admin/clean/'.$user_id.'/'.$page);
+    }
+
+    public function deleteOtherDegree($user_id, $degree_id, $page = 1) {      
+      if ($this->model->deleteOtherDegree($user_id, $degree_id)) {
+        $this->session->set_flashdata("notice", "Degree Information Deleted!");
+      } else {
+        $this->session->set_flashdata("alert", "An error has occured while deleting the information!");
+      }
       redirect('admin/clean/'.$user_id.'/'.$page);
     }
 
@@ -516,7 +564,9 @@
 
     private function addJobs($user_id, $info) {
       foreach ($info as $var) : 
-        if (!$this->hasEmptyFieldInEmploymentHistory($var)) {           
+        if (!$this->hasEmptyFieldInEmploymentHistory($var)) {
+          $var['job_satisfaction'] = ($var['job_satisfaction'] <= 0) ? 1 : $var['job_satisfaction'];
+          $var['job_satisfaction'] = ($var['job_satisfaction'] > 10) ? 10 : $var['job_satisfaction'];
           $history_id = $this->alumni->addEmploymentDetails($var['business_type'], $var);
           $current_job = isset($var['current_job']) ? 1 : 0;
           $first_job = isset($var['first_job']) ? 1 : 0;
@@ -529,7 +579,7 @@
       $info['employer'] = trim($info['employer']);
       $info['satisfaction_reason'] = trim($info['satisfaction_reason']);
       $info['job_title'] = trim($info['job_title']);      
-      if (($info['employer'] == "") || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
+      if (($info['employer'] == "") || ($info['job_title'] == "")) {
         return true;
       }
       return false;

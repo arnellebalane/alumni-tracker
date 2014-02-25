@@ -140,8 +140,7 @@ var questionnaire = {
             || $('input[name="employment_history[' + i + '][specified_employer_type]"]').val().trim().length > 0)
           && ($('input[name="employment_history[' + i + '][job_title]"]').val().trim().length > 0)
           && (parseInt($('select[name="employment_history[' + i + '][employment_duration][start_year]"]').val()) 
-            <= parseInt($('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))
-          && ($('input[name="employment_history[' + i + '][satisfied_with_job]"]:checked').length > 0)) {
+            <= parseInt($('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))) {
           
         } else {
           return {valid: false, error: "Please fill up all required fields."};

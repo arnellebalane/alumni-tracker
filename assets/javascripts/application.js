@@ -334,7 +334,7 @@ var admin = {
       admin.addAnotherDegree();
     });
 
-    $('.educational-history-list').on('click', '.educational-history > a', function(e) {
+    $('.educational-history-list').on('click', '.educational-history:has(.field > input) > a', function(e) {
       e.preventDefault();
       $(this).closest('.educational-history').remove();
     });

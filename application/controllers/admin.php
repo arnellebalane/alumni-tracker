@@ -344,7 +344,7 @@
       if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
-        $this->session->set_flashdata("alert", "There are errors in the new educational background!");
+        // $this->session->set_flashdata("alert", "There are errors in the new educational background!");
       }  else if ($_POST['jobs'] && !$this->validateJobs($_POST['jobs'])) {
         $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
       } else if ((isset($_POST['another_job'])) && !$this->validateJobs($_POST['another_job'])) {
@@ -475,7 +475,7 @@
       }
       $stud = $this->alumni->getUserByStudentNumber(addslashes($info['student_number']));
 
-      if ($stud && ($stud[0]->user_id != $user_id)) {
+      if ($stud && ($stud[0]->user_id != $user_id && $info['student_number'] != '')) {
         $this->session->set_flashdata('alert', "Student number not available.");
         return false;
       }
@@ -749,6 +749,17 @@
       $data = array('alumni'=>$alumni, 'jobs'=>$jobs);
       $this->load->view('excel', $data);
     }
+
+    // public function addCountriesFromFile() {
+    //   $file = fopen('countries.txt', 'r');
+    //   while(!feof($file)) {
+    //     $name = fgets($file);
+    //     if (strlen(trim($name)) > 0) {
+    //       $this->values->addCountry(trim($name));
+    //     }
+    //   }
+    //   fclose($file);      
+    // }
 
   }
 

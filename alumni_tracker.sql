@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 04, 2014 at 07:22 AM
+-- Generation Time: Feb 26, 2014 at 07:20 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -30,14 +30,12 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `user_id` int(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `user_id`) VALUES
-(2, 47);
 
 -- --------------------------------------------------------
 
@@ -73,9 +71,6 @@ CREATE TABLE IF NOT EXISTS `comment_majors` (
 -- Dumping data for table `comment_majors`
 --
 
-INSERT INTO `comment_majors` (`comment_id`, `name`) VALUES
-(2, 'CMSC11'),
-(2, 'CMSC123');
 
 -- --------------------------------------------------------
 
@@ -111,8 +106,6 @@ CREATE TABLE IF NOT EXISTS `comment_suggested_courses` (
 -- Dumping data for table `comment_suggested_courses`
 --
 
-INSERT INTO `comment_suggested_courses` (`comment_id`, `name`) VALUES
-(2, '');
 
 -- --------------------------------------------------------
 
@@ -124,21 +117,218 @@ CREATE TABLE IF NOT EXISTS `countries` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=428 ;
 
 --
 -- Dumping data for table `countries`
 --
 
 INSERT INTO `countries` (`id`, `name`) VALUES
-(5, 'North Korea'),
-(6, 'Vietnam'),
-(10, 'US'),
-(13, 'Japan'),
-(14, 'South Korea'),
-(15, 'Thailand'),
-(18, 'Philippines'),
-(21, 'Saudi Arabia');
+(223, 'Afghanistan'),
+(224, 'Albania'),
+(225, 'Algeria'),
+(226, 'Andorra'),
+(227, 'Angola'),
+(228, 'Antigua and Barbuda'),
+(229, 'Argentina'),
+(230, 'Armenia'),
+(231, 'Aruba'),
+(232, 'Australia'),
+(233, 'Austria'),
+(234, 'Azerbaijan'),
+(235, 'Bahamas, The'),
+(236, 'Bahrain'),
+(237, 'Bangladesh'),
+(238, 'Barbados'),
+(239, 'Belarus'),
+(240, 'Belgium'),
+(241, 'Belize'),
+(242, 'Benin'),
+(243, 'Bhutan'),
+(244, 'Bolivia'),
+(245, 'Bosnia and Herzegovina'),
+(246, 'Botswana'),
+(247, 'Brazil'),
+(248, 'Brunei'),
+(249, 'Bulgaria'),
+(250, 'Burkina Faso'),
+(251, 'Burma'),
+(252, 'Burundi'),
+(253, 'Cambodia'),
+(254, 'Cameroon'),
+(255, 'Canada'),
+(256, 'Cape Verde'),
+(257, 'Central African Republic'),
+(258, 'Chad'),
+(259, 'Chile'),
+(260, 'China'),
+(261, 'Colombia'),
+(262, 'Comoros'),
+(263, 'Congo, Democratic Republic of the'),
+(264, 'Congo, Republic of the'),
+(265, 'Costa Rica'),
+(266, 'Cote d''Ivoire'),
+(267, 'Croatia'),
+(268, 'Cuba'),
+(269, 'Curacao'),
+(270, 'Cyprus'),
+(271, 'Czech Republic'),
+(272, 'Denmark'),
+(273, 'Djibouti'),
+(274, 'Dominica'),
+(275, 'Dominican Republic'),
+(276, 'East Timor (see Timor-Leste)'),
+(277, 'Ecuador'),
+(278, 'Egypt'),
+(279, 'El Salvador'),
+(280, 'Equatorial Guinea'),
+(281, 'Eritrea'),
+(282, 'Estonia'),
+(283, 'Ethiopia'),
+(284, 'Fiji'),
+(285, 'Finland'),
+(286, 'France'),
+(287, 'Gabon'),
+(288, 'Gambia, The'),
+(289, 'Georgia'),
+(290, 'Germany'),
+(291, 'Ghana'),
+(292, 'Greece'),
+(293, 'Grenada'),
+(294, 'Guatemala'),
+(295, 'Guinea'),
+(296, 'Guinea-Bissau'),
+(297, 'Guyana'),
+(298, 'Haiti'),
+(299, 'Holy See'),
+(300, 'Honduras'),
+(301, 'Hong Kong'),
+(302, 'Hungary'),
+(303, 'Iceland'),
+(304, 'India'),
+(305, 'Indonesia'),
+(306, 'Iran'),
+(307, 'Iraq'),
+(308, 'Ireland'),
+(309, 'Israel'),
+(310, 'Italy'),
+(311, 'Jamaica'),
+(312, 'Japan'),
+(313, 'Jordan'),
+(314, 'Kazakhstan'),
+(315, 'Kenya'),
+(316, 'Kiribati'),
+(317, 'Korea, North'),
+(318, 'Korea, South'),
+(319, 'Kosovo'),
+(320, 'Kuwait'),
+(321, 'Kyrgyzstan'),
+(322, 'Laos'),
+(323, 'Latvia'),
+(324, 'Lebanon'),
+(325, 'Lesotho'),
+(326, 'Liberia'),
+(327, 'Libya'),
+(328, 'Liechtenstein'),
+(329, 'Lithuania'),
+(330, 'Luxembourg'),
+(331, 'Macau'),
+(332, 'Macedonia'),
+(333, 'Madagascar'),
+(334, 'Malawi'),
+(335, 'Malaysia'),
+(336, 'Maldives'),
+(337, 'Mali'),
+(338, 'Malta'),
+(339, 'Marshall Islands'),
+(340, 'Mauritania'),
+(341, 'Mauritius'),
+(342, 'Mexico'),
+(343, 'Micronesia'),
+(344, 'Moldova'),
+(345, 'Monaco'),
+(346, 'Mongolia'),
+(347, 'Montenegro'),
+(348, 'Morocco'),
+(349, 'Mozambique'),
+(350, 'Namibia'),
+(351, 'Nauru'),
+(352, 'Nepal'),
+(353, 'Netherlands'),
+(354, 'Netherlands Antilles'),
+(355, 'New Zealand'),
+(356, 'Nicaragua'),
+(357, 'Niger'),
+(358, 'Nigeria'),
+(359, 'North Korea'),
+(360, 'Norway'),
+(361, 'Oman'),
+(362, 'Pakistan'),
+(363, 'Palau'),
+(364, 'Palestinian Territories'),
+(365, 'Panama'),
+(366, 'Papua New Guinea'),
+(367, 'Paraguay'),
+(368, 'Peru'),
+(369, 'Philippines'),
+(370, 'Poland'),
+(371, 'Portugal'),
+(372, 'Qatar'),
+(373, 'Romania'),
+(374, 'Russia'),
+(375, 'Rwanda'),
+(376, 'Saint Kitts and Nevis'),
+(377, 'Saint Lucia'),
+(378, 'Saint Vincent and the Grenadines'),
+(379, 'Samoa'),
+(380, 'San Marino'),
+(381, 'Sao Tome and Principe'),
+(382, 'Saudi Arabia'),
+(383, 'Senegal'),
+(384, 'Serbia'),
+(385, 'Seychelles'),
+(386, 'Sierra Leone'),
+(387, 'Singapore'),
+(388, 'Sint Maarten'),
+(389, 'Slovakia'),
+(390, 'Slovenia'),
+(391, 'Solomon Islands'),
+(392, 'Somalia'),
+(393, 'South Africa'),
+(394, 'South Korea'),
+(395, 'South Sudan'),
+(396, 'Spain'),
+(397, 'Sri Lanka'),
+(398, 'Sudan'),
+(399, 'Suriname'),
+(400, 'Swaziland'),
+(401, 'Sweden'),
+(402, 'Switzerland'),
+(403, 'Syria'),
+(404, 'Taiwan'),
+(405, 'Tajikistan'),
+(406, 'Tanzania'),
+(407, 'Thailand'),
+(408, 'Timor-Leste'),
+(409, 'Togo'),
+(410, 'Tonga'),
+(411, 'Trinidad and Tobago'),
+(412, 'Tunisia'),
+(413, 'Turkey'),
+(414, 'Turkmenistan'),
+(415, 'Tuvalu'),
+(416, 'Uganda'),
+(417, 'Ukraine'),
+(418, 'United Arab Emirates'),
+(419, 'United Kingdom'),
+(420, 'Uruguay'),
+(421, 'Uzbekistan'),
+(422, 'Vanuatu'),
+(423, 'Venezuela'),
+(424, 'Vietnam'),
+(425, 'Yemen'),
+(426, 'Zambia'),
+(427, 'Zimbabwe');
 
 -- --------------------------------------------------------
 
@@ -161,12 +351,6 @@ CREATE TABLE IF NOT EXISTS `educational_backgrounds` (
 -- Dumping data for table `educational_backgrounds`
 --
 
-INSERT INTO `educational_backgrounds` (`user_id`, `student_number`, `program_id`, `semester_graduated`, `year_graduated`, `honor_received`) VALUES
-(46, '2011-37567', 2, 2, '0 - 0', 'summa cum laude'),
-(47, '2011-37568', 2, 2, '2013-2014', 'none'),
-(50, '1111-11111', 2, 2, '2012-2013', 'summa cum laude'),
-(72, '1234-12345', 3, 1, '2013-2014', 'none'),
-(74, '4323-54321', 2, 1, '2013-2014', 'none');
 
 -- --------------------------------------------------------
 
@@ -221,21 +405,12 @@ CREATE TABLE IF NOT EXISTS `employment_details` (
   PRIMARY KEY (`id`),
   KEY `employer_type_id` (`employer_type_id`),
   KEY `monthly_salary_id` (`monthly_salary_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=48 ;
 
 --
 -- Dumping data for table `employment_details`
 --
 
-INSERT INTO `employment_details` (`id`, `self_employed`, `business`, `employer`, `employer_type_id`, `job_title`, `monthly_salary_id`, `job_satisfaction`, `reason`, `year_started`, `month_started`, `year_ended`, `month_ended`) VALUES
-(1, 0, '', 'Azeus', 2, 'CEO', 8, 1, 'Mao lang', 2014, 1, 100000, 1),
-(2, 0, '', 'Dana', 2, 'Teacher 1', 4, 0, 'Kapuy', 2012, 1, 2013, 1),
-(3, 0, '', 'Dat', 3, 'Janitor', 4, 1, 'mao lang', 2014, 1, 2014, 1),
-(14, 1, 'asdas', '', 2, 'fucker', 2, 1, '', 2014, 1, 100000, 1),
-(17, 1, 'pablo', '', 2, 'Programmer', 3, 1, 'sdas', 1996, 10, 2014, 11),
-(18, 0, '', 'asda', 2, 'dasda', 2, 1, '', 2014, 12, 100000, 2),
-(19, 0, '', 'asdsa', 5, 'asdas', 2, 0, '', 2014, 1, 100000, 1),
-(22, 0, '', 'asda', 2, 'dasd', 2, 0, '', 2014, 8, 2014, 7);
 
 -- --------------------------------------------------------
 
@@ -254,18 +429,6 @@ CREATE TABLE IF NOT EXISTS `enumerator_programs` (
 -- Dumping data for table `enumerator_programs`
 --
 
-INSERT INTO `enumerator_programs` (`user_id`, `program_id`) VALUES
-(69, 2),
-(62, 5),
-(69, 5),
-(62, 6),
-(62, 8),
-(63, 8),
-(69, 8),
-(71, 8),
-(62, 9),
-(63, 11),
-(71, 11);
 
 -- --------------------------------------------------------
 
@@ -283,11 +446,6 @@ CREATE TABLE IF NOT EXISTS `enumerator_statistics` (
 -- Dumping data for table `enumerator_statistics`
 --
 
-INSERT INTO `enumerator_statistics` (`user_id`, `statistics`) VALUES
-(62, 1),
-(63, 1),
-(69, 1),
-(71, 0);
 
 -- --------------------------------------------------------
 
@@ -307,9 +465,6 @@ CREATE TABLE IF NOT EXISTS `ge_courses` (
 -- Dumping data for table `ge_courses`
 --
 
-INSERT INTO `ge_courses` (`id`, `name`, `code`, `description`) VALUES
-(1, 'Philippine Literature2', 'Lit 3', 'Introduction to Philippine Literature'),
-(3, 'Biology', 'Bio 1', 'Introduction to Biology, a brief overview.');
 
 -- --------------------------------------------------------
 
@@ -329,10 +484,6 @@ CREATE TABLE IF NOT EXISTS `major_courses` (
 -- Dumping data for table `major_courses`
 --
 
-INSERT INTO `major_courses` (`id`, `name`, `code`, `description`) VALUES
-(1, 'Introduction to Programming', 'CMSC 11', 'Brief overview of computer programming.'),
-(2, 'Date Structure', 'CSMC 123', 'Data structures for computer programming.'),
-(3, 'Introduction to Calculus', 'Math 100', 'Introduction to basic calculus.');
 
 -- --------------------------------------------------------
 
@@ -364,6 +515,27 @@ INSERT INTO `monthly_salaries` (`id`, `minimum`, `maximum`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `other_degree`
+--
+
+CREATE TABLE IF NOT EXISTS `other_degree` (
+  `user_id` int(255) NOT NULL,
+  `other_degree_id` int(255) NOT NULL AUTO_INCREMENT,
+  `degree` varchar(255) NOT NULL,
+  `school_taken` varchar(255) DEFAULT NULL,
+  `year_finished` int(255) DEFAULT NULL,
+  PRIMARY KEY (`other_degree_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+--
+-- Dumping data for table `other_degree`
+--
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `params`
 --
 
@@ -380,11 +552,11 @@ CREATE TABLE IF NOT EXISTS `params` (
 
 INSERT INTO `params` (`id`, `key_name`, `value`) VALUES
 (3, 'start_submission', '2014-01-01'),
-(4, 'end_submission', '2014-01-31'),
+(4, 'end_submission', '2014-04-30'),
 (5, 'submission', 'true'),
 (6, 'cleaning', 'true'),
 (7, 'start_cleaning', '2014-01-01'),
-(8, 'end_cleaning', '2014-01-31');
+(8, 'end_cleaning', '2014-02-28');
 
 -- --------------------------------------------------------
 
@@ -411,16 +583,6 @@ CREATE TABLE IF NOT EXISTS `personal_infos` (
 -- Dumping data for table `personal_infos`
 --
 
-INSERT INTO `personal_infos` (`user_id`, `firstname`, `lastname`, `gender`, `present_address`, `present_country_id`, `present_contact_number`, `premanent_address`, `permanent_contact_number`, `email`) VALUES
-(46, 'Emmanuel', 'Lodovice', 'female', 'Lahug Cebu City Yeah', 21, '09228297070', 'Jampang Argao', '092293652940', 'name3anad@gmail.com'),
-(47, 'Eman', 'Lod', 'female', 'Ceb', 18, '09228297070', 'Argao', '09229365294', 'name3anad@gmail.com'),
-(50, 'Emmanuel', 'Lodovice', 'male', 'Cebu', 18, '09228297070', 'Argao', '09229365294', 'name1anad@gmail.com'),
-(62, 'Paw', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'paw@gmail.com'),
-(63, 'Eman', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'eman@gmail.com'),
-(69, 'Dads', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dads@gmail.com'),
-(71, 'Ryan Ciriaco M. Dulaca', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rmdulaca@up.edu.ph'),
-(72, 'Sadsadas', 'Sadasdsa', 'female', 'Sadasdsad', 18, 'Sadasdsad', 'Asdsadsa', 'Sadasdas', 'sadsad@gmail.com'),
-(74, 'Pablo', 'P', 'male', 'Asd', 5, 'Dsad', 'Dsad', 'Das', 'name1anad@yahoo.com');
 
 -- --------------------------------------------------------
 
@@ -522,22 +684,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cleaned` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=75 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=95 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `user_type`, `created_at`, `cleaned`) VALUES
-(46, '2011-37567', 'name_anad', 'alumni', '0000-00-00 00:00:00', 1),
-(47, 'name_anad', 'name_anad', 'super admin', '0000-00-00 00:00:00', 0),
-(50, '1111-11111', '123', 'alumni', '2014-01-21 23:14:22', 1),
-(62, 'enumerator62', '9tpugH', 'moderator', '2014-01-22 01:06:10', 0),
-(63, 'enumerator63', 'pAgYsD', 'moderator', '2014-01-22 01:06:49', 0),
-(69, 'enumerator690', 'R8w81O', 'moderator', '2014-01-22 12:41:47', 0),
-(71, 'dat', 'name_anad', 'moderator', '2014-01-22 15:01:22', 0),
-(72, '1234-12345', 'LZOCsA', 'alumni', '2014-01-23 22:48:43', 0),
-(74, '4323-54321', 'pass', 'alumni', '2014-01-30 01:00:26', 0);
+(47, 'name_anad', 'name_anad', 'super admin', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -558,15 +712,6 @@ CREATE TABLE IF NOT EXISTS `user_employment_histories` (
 -- Dumping data for table `user_employment_histories`
 --
 
-INSERT INTO `user_employment_histories` (`user_id`, `employment_details_id`, `current_job`, `first_job`) VALUES
-(46, 19, 1, 0),
-(46, 22, 0, 0),
-(50, 1, 1, 0),
-(50, 2, 0, 1),
-(50, 3, 0, 0),
-(72, 14, 1, 1),
-(74, 17, 0, 1),
-(74, 18, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -586,15 +731,6 @@ CREATE TABLE IF NOT EXISTS `user_social_networks` (
 -- Dumping data for table `user_social_networks`
 --
 
-INSERT INTO `user_social_networks` (`user_id`, `social_network_id`, `account_name`) VALUES
-(46, 2, ''),
-(46, 3, 'EmmanuelLodovice'),
-(50, 2, ''),
-(50, 3, ''),
-(72, 2, ''),
-(72, 3, ''),
-(74, 2, ''),
-(74, 3, '');
 
 --
 -- Constraints for dumped tables
@@ -658,6 +794,12 @@ ALTER TABLE `enumerator_programs`
 --
 ALTER TABLE `enumerator_statistics`
   ADD CONSTRAINT `enumerator_statistics_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `other_degree`
+--
+ALTER TABLE `other_degree`
+  ADD CONSTRAINT `other_degree_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `personal_infos`

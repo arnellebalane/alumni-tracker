@@ -92,18 +92,18 @@ class alumni_model extends CI_Model {
 
 	function addMajors($comment_id, $name) {
 		$name = addslashes(trim($name));
-		$query = $this->db->query("INSERT INTO comment_majors VALUES('$comment_id', '".addslashes(trim($name))."')");
+		$query = $this->db->query("INSERT INTO comment_majors VALUES('$comment_id', '$name')");
 	}
 
-	function addSuggestedCourses($comment_id, $name) {
-		$name = addslashes(trim($name));
-		$query = $this->db->query("INSERT INTO comment_suggested_courses VALUES('$comment_id', '".addslashes(trim($name))."')");
-	}
+	// function addSuggestedCourses($comment_id, $name) {
+	// 	$name = addslashes(trim($name));
+	// 	$query = $this->db->query("INSERT INTO comment_suggested_courses VALUES('$comment_id', '".addslashes(trim($name))."')");
+	// }
 
-	function addCommentGECourses($comment_id, $ge_id) {
-		$ge_id = addslashes($ge_id);
-		$query = $this->db->query("INSERT INTO comment_ge_courses VALUES('$comment_id', '$ge_id')");
-	}
+	// function addCommentGECourses($comment_id, $ge_id) {
+	// 	$ge_id = addslashes($ge_id);
+	// 	$query = $this->db->query("INSERT INTO comment_ge_courses VALUES('$comment_id', '$ge_id')");
+	// }
 
 	function addEmploymentDetails($employer_type_id, $info) {
 		$query = $this->db->query("INSERT INTO employment_details (self_employed, business, employer, employer_type_id, job_title, monthly_salary_id, 

@@ -33,17 +33,22 @@
       <?= form_close(); ?>
     </header>
 
-    <div class="statistical-presentation clearfix">
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="table" data-label="math11" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="math17" data-frequency="30" data-percentage="30"></span>
-        <span class="table" data-label="math100" data-frequency="30" data-percentage="30"></span>
-        <span class="table" data-label="cmsc123" data-frequency="20" data-percentage="20"></span>
-        <span class="table" data-label="cmsc141" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
-    </div>
+    <?php foreach ($total as $name => $count) : ?>
+      <?php if ($count != 0) : ?>
+        <div class="statistical-presentation clearfix">
+          <h1><?= $name ?></h1>
+          <div class="statistical-table"></div>
+          <div class="statistical-data hidden">
+            <?php foreach ($programs[$name] as $topic => $n) : ?>
+              <span class="table" data-label="<?= $topic ?>" data-frequency="<?= $n ?>" data-percentage="<?= ($n / $count * 100) ?>"></span>
+            <?php endforeach; ?>
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?= $count ?></b>" data-percentage="<b>100</b>"></span>
+          </div>
+        </div>
+      <?php endif; ?>
+    <?php endforeach; ?>
+
+    
   </div>
 
   <script src="https://www.google.com/jsapi"></script>
@@ -58,7 +63,7 @@
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var tableData = [['Job Title/Position', 'Frequency', 'Percentage']];
+        var tableData = [['Suggested Topic', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');

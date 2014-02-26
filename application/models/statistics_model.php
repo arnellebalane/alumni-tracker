@@ -122,6 +122,20 @@ class statistics_model extends CI_Model{
                               AND user_employment_histories.first_job = '1'");
     return $query->result();
   }
+
+  function suggestions($program_id) {
+    $query = $this->db->query("SELECT DISTINCT comment_majors.name, COUNT(comment_majors.name) as count FROM comment_majors 
+                               INNER JOIN comments on comments.id = comment_majors.comment_id 
+                               INNER JOIN users on users.id = comments.user_id 
+                               INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id 
+                               WHERE educational_backgrounds.program_id = '".addslashes($program_id)."' 
+                               AND users.user_type='alumni' AND educational_backgrounds.year_graduated != '0 - 0'
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') 
+                               GROUP BY comment_majors.name
+                               ORDER BY count DESC");
+    return $query->result();
+  } 
 }
 
 ?>

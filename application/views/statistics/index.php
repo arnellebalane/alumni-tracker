@@ -36,6 +36,7 @@
       <li><?= anchor('statistics/self_employed', 'Self-employed'); ?></li>
       <li><?= anchor('statistics/employment_gap', 'Graduation to Employment Gap'); ?></li>
       <li><?= anchor('statistics/job_satisfaction', 'Job Satisfaction'); ?></li>
+      <li><?= anchor('statistics/course_suggestions', 'Course Suggestions'); ?></li>
     </ul>
   </div>
 </body>

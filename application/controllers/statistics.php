@@ -172,6 +172,10 @@
       $this->load->view('statistics/job_satisfaction');
     }
 
+    public function course_suggestions() {
+      $this->load->view('statistics/course_suggestions');
+    }
+
     public function generate_pdf() {
       $this->load->add_package_path(APPPATH . 'libraries/mpdf');
       $this->load->library('mpdf');

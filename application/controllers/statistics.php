@@ -168,6 +168,10 @@
       $this->load->view('statistics/employment_gap', $data);
     }
 
+    public function job_satisfaction() {
+      $this->load->view('statistics/job_satisfaction');
+    }
+
     public function generate_pdf() {
       $this->load->add_package_path(APPPATH . 'libraries/mpdf');
       $this->load->library('mpdf');

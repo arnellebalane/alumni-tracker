@@ -434,7 +434,7 @@
 
           <div class="field">
             <label>Courses/subjects/topics that you think are useful in your field.</label>
-            <textarea name="others[useful_topics]"></textarea>
+            <textarea name="others[useful_topics]"><?=set_field_value('others', 'useful_topics', null, null);?></textarea>
           </div>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />

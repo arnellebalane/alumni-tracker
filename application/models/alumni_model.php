@@ -36,6 +36,11 @@ class alumni_model extends CI_Model {
 															'".addslashes(trim($semester))."', '".addslashes(trim($year))."', '".addslashes(trim($honor))."')");
 	}
 
+	function addOtherDegree($user_id, $history) {
+		$query = $this->db->query("INSERT INTO other_degree (user_id, degree, school_taken, year_finished) VALUES ('".addslashes($user_id)."', '".
+			                         addslashes(trim($history['degree']))."' , '".addslashes(trim($history['school_taken']))."', '".addslashes(trim($history['year_finished']))."')");
+	}
+
 	function updateEducationalBackground($user_id, $info) {
 		$query = $this->db->query("UPDATE educational_backgrounds SET student_number = '".$info['student_number']."', 
 															program_id='".addslashes(trim($info['degree_program']))."', semester_graduated='".addslashes(trim($info['graduated']['semester']))."',
@@ -104,7 +109,7 @@ class alumni_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO employment_details (self_employed, business, employer, employer_type_id, job_title, monthly_salary_id, 
 															job_satisfaction, reason, year_started, month_started, year_ended, month_ended) VALUES ('".addslashes($info['self_employed'])."', '".addslashes(trim($info['business_name']))."',
 															'".addslashes(trim($info['employer']))."', '".$employer_type_id."', '".addslashes(trim($info['job_title']))."', 
-															'".addslashes($info['monthly_salary'])."', '".addslashes($info['satisfied_with_job'])."', '".addslashes(trim($info['satisfaction_reason']))."',
+															'".addslashes($info['monthly_salary'])."', '".addslashes($info['job_satisfaction'])."', '".addslashes(trim($info['satisfaction_reason']))."',
 															'".addslashes($info['employment_duration']['start_year'])."', '".addslashes($info['employment_duration']['start_month'])."' ,'".addslashes($info['employment_duration']['end_year'])."', '".addslashes($info['employment_duration']['end_month'])."')");
 		return mysql_insert_id();
 	}
@@ -121,7 +126,7 @@ class alumni_model extends CI_Model {
 		}
 		$query = $this->db->query("UPDATE employment_details SET self_employed='".addslashes($info['self_employed'])."', business = '".addslashes(trim($business))."', 
 			 												employer='".addslashes(trim($employer))."', employer_type_id='".addslashes($info['employer_type'])."', job_title='".addslashes(trim($info['job_title']))."',
-			 												monthly_salary_id='".addslashes($info['monthly_salary'])."', job_satisfaction='".addslashes($info['satisfied_with_job'])."',
+			 												monthly_salary_id='".addslashes($info['monthly_salary'])."', job_satisfaction='".addslashes($info['job_satisfaction'])."',
 			 												reason='".addslashes(trim($info['satisfaction_reason']))."', year_started='".$info['employment_duration']['start_year']."', month_started = '".addslashes($info['employment_duration']['start_month'])."',year_ended='".addslashes($info['employment_duration']['end_year'])."', month_ended='".addslashes($info['employment_duration']['end_month'])."' WHERE id='".addslashes($id)."'");
 	}
 
@@ -183,6 +188,11 @@ class alumni_model extends CI_Model {
 		$query = $this->db->query("SELECT users.cleaned, users.created_at, personal_infos.*, educational_backgrounds.*, programs.id as prog_id, programs.name as course, countries.id as 'country_id', countries.name as 'country' FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = personal_infos.user_id 
 															 INNER JOIN countries ON countries.id = personal_infos.present_country_id 
 															 INNER JOIN programs ON programs.id = educational_backgrounds.program_id WHERE users.id = '".addslashes($user_id)."'");
+		return $query->result();
+	}
+
+	function getOtherDegreeByUserId($user_id) {
+		$query = $this->db->query("SELECT * FROM other_degree WHERE user_id = '".addslashes($user_id)."' order by year_finished desc");
 		return $query->result();
 	}
 
@@ -555,6 +565,20 @@ class alumni_model extends CI_Model {
     }
     return false;
 	}
+
+	function deleteOtherDegree($user_id, $degree_id) {		
+		$this->db->query("DELETE FROM other_degree WHERE other_degree_id = '".addslashes($degree_id)."' AND user_id = '".addslashes($user_id)."'");		
+	}
+
+	function deleteAllOtherDegree($user_id) {
+		$this->db->query("DELETE FROM other_degree WHERE user_id='".addslashes($user_id)."'");
+	}
+
+	function updateOtherDegree($degree_id, $history) {
+		$query = $this->db->query("UPDATE other_degree SET degree = '".addslashes(trim($history['degree']))."', school_taken = '".addslashes(trim($history['school_taken']))."', 
+			                         year_finished = '".addslashes(trim($history['year_finished']))."' WHERE other_degree_id = '".addslashes($degree_id)."'");
+	}
+
 }
 
 ?>

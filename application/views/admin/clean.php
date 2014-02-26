@@ -211,37 +211,45 @@
           </div>
           <div class="educational-history-list">
             <input type="button" value="Add Another Degree" data-behavior="add-another-degree" />
-            <div class="educational-history">
-              <a href="#">[Delete This Degree]</a>
-              <div class="field">
-                <label>Degree</label>
-                <h4>Masters in Computer Science</h4>
-                <div class="editable hidden">
-                  <input type="text" name="educational_background[educational_history][0][degree]" value="Masters in Computer Science" data-current="Masters in Computer Science" />
+            <?php foreach ($other_degree as $other) : ?>
+              <div class="educational-history">              
+                <?=anchor('admin/deleteOtherDegree/'.$user_id.'/'.$other->other_degree_id.'/'.$page, '[Delete This Degree]')?>
+                <div class="field">
+                  <label>Degree</label>
+                  <h4><?=humanize($other->degree)?></h4>
+                  <div class="editable hidden">
+                    <input type="text" name="educational_background[educational_history][<?=$other->other_degree_id?>][degree]" value="<?=$other->degree?>" data-current="<?=$other->degree?>" />
+                  </div>
+                  <a href="#" data-behavior="edit">[edit]</a>
                 </div>
-                <a href="#" data-behavior="edit">[edit]</a>
-              </div>
-              <div class="field">
-                <label>School Taken</label>
-                <h4>University of the Philippines Cebu</h4>
-                <div class="editable hidden">
-                  <input type="text" name="educational_background[educational_history][0][school_taken]" value="University of the Philippines Cebu" data-current="University of the Philippnines Cebu" />
+                <div class="field">
+                  <label>School Taken</label>
+                  <h4><?=humanize($other->school_taken)?></h4>
+                  <div class="editable hidden">
+                    <input type="text" name="educational_background[educational_history][<?=$other->other_degree_id?>][school_taken]" value="<?=$other->school_taken?>" data-current="<?=$other->school_taken?>" />
+                  </div>
+                  <a href="#" data-behavior="edit">[edit]</a>
                 </div>
-                <a href="#" data-behavior="edit">[edit]</a>
-              </div>
-              <div class="field">
-                <label>Year Finished</label>
-                <h4>2014</h4>
-                <div class="editable hidden">
-                  <select name="educational_background[educational_history][#{index}][year_finished]" data-current="2014">
-                    <option value="2014" selected>2014</option>
-                    <option value="2013">2013</option>
-                    <option value="2012">2012</option>
-                  </select>
+                <div class="field">
+                  <label>Year Finished</label>
+                  <h4><?=$other->year_finished?></h4>
+                  <div class="editable hidden">
+                    <select name="educational_background[educational_history][<?=$other->other_degree_id?>][year_finished]" data-current="<?=$other->year_finished?>">
+                      <?php 
+                      $year = date('Y');
+                      while ($year >= 1980) { 
+                      ?>
+                        <option value="<?=$year?>" <?=is_selected($year, $other->year_finished); ?>><?=$year?></option>
+                      <?    
+                        $year--;
+                      } 
+                      ?>  
+                    </select>
+                  </div>
+                  <a href="#" data-behavior="edit">[edit]</a>
                 </div>
-                <a href="#" data-behavior="edit">[edit]</a>
               </div>
-            </div>
+            <?php endforeach; ?>
           </div>
         </section>
 
@@ -371,14 +379,14 @@
               <!--
               <h4><?=($job->job_satisfaction == 1) ? "Yes" : "No";?></h4>
               -->
-              <h4>6</h4>
+              <h4><?=$job->job_satisfaction?></h4>
               <div class="editable hidden">
                 <!--
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="1" data-current="<?=($job->job_satisfaction == 1) ? 'true':'false';?>" <?=is_checked(1, $job->job_satisfaction)?> />Yes</label>
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="0" data-current="<?=($job->job_satisfaction == 0) ? 'true':'false';?>" <?=is_checked(0, $job->job_satisfaction)?> />No</label>
                 -->
-                <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="11" step="1" value="6" data-current="6" />
-                <span>6</span>
+                <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="10" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" />
+                <span><?=$job->job_satisfaction?></span>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
@@ -506,9 +514,15 @@
           <div class="field">
             <label>Year Finished</label>
             <select name="educational_background[new_educational_history][#{index}][year_finished]">
-              <option value="2014">2014</option>
-              <option value="2013">2013</option>
-              <option value="2012">2012</option>
+              <?php 
+                $year = date('Y');
+                while ($year >= 1980) { 
+              ?>
+                <option value="<?=$year?>"><?=$year?></option>
+              <?    
+                  $year--;
+                }
+              ?>
             </select>
           </div>
         </div>

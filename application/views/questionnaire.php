@@ -133,12 +133,44 @@
           </div>
           <div class="field">
             <label>Did you finish any other degree?</label>
-            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" data-behavior="took-another-degree"  /><label for="od-yes">Yes</label>
-            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" checked /><label for="od-no">No</label>
-          </div>
-          <div class="educational-history-list hidden">
+            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" data-behavior="took-another-degree"  <?=is_checked('educational_background','another_degree',null,null,'yes')?>/><label for="od-yes">Yes</label>
+            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" <?=(isset($post)) ? is_checked('educational_background','another_degree', null, null, 'no') : 'checked'?> /><label for="od-no">No</label>
+          </div>          
+          <?php if (isset($post['educational_background']['another_degree']) && $post['educational_background']['another_degree'] == 'yes') { ?>
+            <div class="educational-history-list">
+            <?php for ($i = 0; $i < ((isset($post['educational_background']['educational_history'])) ? count($post['educational_background']['educational_history']) : 0); $i++): ?>            
+              <div class="educational-history">
+                <div class="field indented">
+                  <label>Degree</label>
+                  <input type="text" name="educational_background[educational_history][<?=$i?>][degree]" value="<?=$post['educational_background']['educational_history'][$i]['degree']?>"/>
+                </div>
+                <div class="field indented">
+                  <label>School Taken</label>
+                  <input type="text" name="educational_background[educational_history][<?=$i?>][school_taken]" value="<?=$post['educational_background']['educational_history'][$i]['school_taken']?>"/>
+                </div>
+                <div class="field indented">
+                  <label>Year Finished</label>
+                  <select name="educational_background[educational_history][<?=$i?>][year_finished]">
+                    <?php 
+                      $year = date('Y');
+                      while ($year >= 1980) { 
+                    ?>
+                      <option value="<?=$year?>" <?=is_selected('educational_background','educational_history', $i,'year_finished', $year)?>><?=$year?></option>
+                    <?    
+                        $year--;
+                      } 
+                    ?>
+                  </select>
+                </div>
+              </div>            
+            <? endfor;?>
+              <a href="#" data-behavior="add-another-degree">Add Another Degree</a>
+            </div>            
+          <? } else { ?>          
+          <div class="educational-history-list hidden">            
             <a href="#" data-behavior="add-another-degree">Add Another Degree</a>
           </div>
+          <? } ?>
           <div class="field actions">
             <input type="button" value="Back" class="button back" />
             <input type="button" value="Continue" class="button continue" />
@@ -561,9 +593,15 @@
             <div class="field indented">
               <label>Year Finished</label>
               <select name="educational_background[educational_history][#{index}][year_finished]">
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
+                <?php 
+                  $year = date('Y');
+                  while ($year >= 1980) { 
+                ?>
+                  <option value="<?=$year?>"><?=$year?></option>
+                <?    
+                    $year--;
+                  } 
+                ?>
               </select>
             </div>
           </div>

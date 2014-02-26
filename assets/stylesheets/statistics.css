@@ -49,6 +49,12 @@ ul {
   display: inline-block;
 }
 
+ul li {
+  display: inline-block;
+  width: 270px;
+  margin-right: 100px;
+}
+
 ul a {
   display: block;
   font: normal 1.6rem "Open Sans Light", "OpenSansLight";

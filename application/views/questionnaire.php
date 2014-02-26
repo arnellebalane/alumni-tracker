@@ -32,26 +32,27 @@
         <div class="slide current" data-name="personal-information">
           <h1>Personal Information</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
+          <span class="note">* --- these fields are required</span>
 
           <div class="field">
-            <label>First Name</label>
+            <label class="required">First Name</label>
             <input type="text" name="personal_information[firstname]" value="<?=set_field_value('personal_information', 'firstname', null, null); ?>" />
           </div>
           <div class="field">
-            <label>Last Name</label>
+            <label class="required">Last Name</label>
             <input type="text" name="personal_information[lastname]" value="<?=set_field_value('personal_information', 'lastname', null, null); ?>" />
           </div>
           <div class="field">
-            <label>Gender</label>
+            <label class="required">Gender</label>
             <input type="radio" name="personal_information[gender]" value="male" id="g-male" <?=is_checked('personal_information', 'gender', null, null, 'male');?> /><label for="g-male">Male</label>
             <input type="radio" name="personal_information[gender]" value="female" id="g-female" <?=is_checked('personal_information', 'gender', null, null, 'female');?> /><label for="g-female">Female</label>
           </div>
           <div class="field">
-            <label>Present Address</label>
+            <label class="required">Present Address</label>
             <input type="text" name="personal_information[present_address]" value="<?=set_field_value('personal_information', 'present_address', null, null); ?>" />
           </div>
           <div class="field">
-            <label>Country/State of Present Address</label>
+            <label class="required">Country/State of Present Address</label>
             <select name="personal_information[country]" class="specifiable">
               <?foreach ($countries as $var) : ?>
                 <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?> ><?=$var->name?></option>
@@ -61,19 +62,19 @@
             <input type="text" name="personal_information[specified_country]" placeholder="Country/State of Present Address" class="specify <?= (is_selected('personal_information', 'country', null, null, 'others') == 'selected') ? '' : 'hidden'; ?>" value="<?=set_field_value('personal_information', 'specified_country', null, null); ?>"/>
           </div>
           <div class="field">
-            <label>Contact Number in Present Address</label>
+            <label class="required">Contact Number in Present Address</label>
             <input type="text" name="personal_information[present_address_contact_number]" value="<?=set_field_value('personal_information', 'present_address_contact_number', null, null); ?>" />
           </div>
           <div class="field">
-            <label>Permanent Address</label>
+            <label class="required">Permanent Address</label>
             <input type="text" name="personal_information[permanent_address]" value="<?=set_field_value('personal_information', 'permanent_address', null, null); ?>" />
           </div>
           <div class="field">
-            <label>Contact Number in Permanent Address</label>
+            <label class="required">Contact Number in Permanent Address</label>
             <input type="text" name="personal_information[permanent_address_contact_number]" value="<?=set_field_value('personal_information', 'permanent_address_contact_number', null, null); ?>" />
           </div>
           <div class="field">
-            <label>Email Address</label>
+            <label class="required">Email Address</label>
             <input type="text" name="personal_information[email_address]" value="<?=set_field_value('personal_information', 'email_address', null, null); ?>" />
           </div>
           <span>Social Network Contact Information</span>
@@ -91,13 +92,14 @@
         <div class="slide hidden" data-name="educational-background">
           <h1>Educational Background</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
+          <span class="note">* --- these fields are required</span>
 
           <div class="field">
             <label>Student Number</label>
             <input type="text" name="educational_background[student_number]" placeholder="xxxx-xxxxx" value="<?=set_field_value('educational_background', 'student_number', null, null); ?>"/>
           </div>
           <div class="field">
-            <label>Degree Program</label>
+            <label class="required">Degree Program</label>
             <select name="educational_background[degree_program]">
               <?foreach ($programs as $var) : ?>
                 <option value="<?=$var->id?>" <?=is_selected('educational_background', 'degree_program', null, null, $var->id); ?>><?=$var->name?></option>
@@ -105,7 +107,7 @@
             </select>
           </div>
           <div class="field">
-            <label>Semester/Summer and Year Graduated</label>
+            <label class="required">Semester/Summer and Year Graduated</label>
             <select name="educational_background[graduated][semester]">
               <option value="1" <?=is_selected('educational_background', 'graduated', 'semester', null, 1); ?>>1st Semester</option>
               <option value="2" <?=is_selected('educational_background', 'graduated', 'semester', null, 2); ?>>2nd Semester</option>
@@ -123,7 +125,7 @@
             </select>
           </div>
           <div class="field">
-            <label>Honor Received</label>
+            <label class="required">Honor Received</label>
             <select name="educational_background[honor_received]">
               <option value="none" selected>None</option>
               <option value="summa cum laude" <?=is_selected('educational_background', 'honor_received', null, null, "summa cum laude"); ?>>Summa Cum Laude</option>
@@ -132,7 +134,7 @@
             </select>
           </div>
           <div class="field">
-            <label>Did you finish any other degree?</label>
+            <label class="required">Did you finish any other degree?</label>
             <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" data-behavior="took-another-degree"  <?=is_checked('educational_background','another_degree',null,null,'yes')?>/><label for="od-yes">Yes</label>
             <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" <?=(isset($post)) ? is_checked('educational_background','another_degree', null, null, 'no') : 'checked'?> /><label for="od-no">No</label>
           </div>          
@@ -180,24 +182,25 @@
         <div class="slide hidden" data-name="employment-history">
           <h1>Employment History</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
+          <span class="note">* --- these fields are required</span>
 
           <div class="job-form" data-job-form="current-job">
             <span>Current Job Information</span>
             <div class="field indented">
-              <label>Are you self-employed?</label>
+              <label class="required">Are you self-employed?</label>
               <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?= is_checked("employment_history", '0', "self_employed", null, 1); ?> /><label for="employment_history[0][se-yes]">Yes</label>
               <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? 'checked' : ''; ?> /><label for="employment_history[0][se-no]">No</label>
             </div>
             <div class="field indented <?= (is_checked("employment_history", '0', "self_employed", null, 1) == 'checked') ? '' : 'hidden'; ?>" data-field="business-name">
-              <label>What is your business/work?</label>
+              <label class="required">What is your business/work?</label>
               <input type="text" name="employment_history[0][business_name]" value="<?=set_field_value('employment_history', '0', 'business_name', null); ?>"/>
             </div>
             <div class="field indented <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? '' : 'hidden'; ?>" data-field="employer">
-              <label>Employer</label>
+              <label class="required">Employer</label>
               <input type="text" name="employment_history[0][employer]" value="<?=set_field_value('employment_history', '0', 'employer', null); ?>"/>
             </div>
             <div class="field indented">
-              <label>Employer/Business Type</label>
+              <label class="required">Employer/Business Type</label>
               <select name="employment_history[0][employer_type]" class="specifiable">
                 <?php foreach ($employer_types as $type) { ?>
                   <option value="<?=$type->id?>" <?=is_selected('employment_history', '0', 'employer_type', null, $type->id); ?>><?=$type->name?></option>
@@ -207,11 +210,11 @@
               <input type="text" name="employment_history[0][specified_employer_type]" placeholder="Employer/Business Type" value="<?= set_field_value('employment_history', '0', 'specified_employer_type', null); ?>" class="specify <?= (is_selected('employment_history', '0', 'employer_type', null, 'others') == 'selected') ? '' : 'hidden'; ?>" />
             </div>
             <div class="field indented">
-              <label>Job Title/Position</label>
+              <label class="required">Job Title/Position</label>
               <input type="text" name="employment_history[0][job_title]" value="<?=set_field_value('employment_history', '0', 'job_title', null); ?>"/>
             </div>
             <div class="field indented">
-              <label>Monthly Salary (in Philippine Peso)</label>
+              <label class="required">Monthly Salary (in Philippine Peso)</label>
               <select name="employment_history[0][monthly_salary]">
                 <?php foreach ($salaries as $val) : ?>
                   <option value="<?=$val->id?>" <?=is_selected('employment_history', '0', 'monthly_salary', null, $val->id); ?>>
@@ -228,7 +231,7 @@
               </select>
             </div>
             <div class="field indented" data-field="employment-duration">
-              <label>Employment Duration</label>
+              <label class="required">Employment Duration</label>
               <select name="employment_history[0][employment_duration][start_month]"  class="narrow">
                 <option value="1" <?=is_selected('employment_history', '0', 'employment_duraion', 'start_month', 1)?>>January</option>
                 <option value="2" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 2)?>>February</option>
@@ -283,7 +286,7 @@
               </select>
             </div>
             <div class="field indented">
-              <label>Job Satisfaction</label>
+              <label class="required">Job Satisfaction</label>
               <!--
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 1); ?>/><label for="employment_history[0][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 0); ?>/><label for="employment_history[0][swj-no]">No</label>
@@ -305,20 +308,20 @@
             <div class="job-form <?= (is_checked("employment_history", '0', "first_job", null, 'no') == 'checked') ? '' : 'hidden'; ?>" data-job-form="<?= ($i == 1) ? 'first-job' : 'other-job'; ?>">
               <span><?= ($i == 1) ? 'First' : 'Other'; ?> Job Information</span>
               <div class="field indented">
-                <label>Were you self-employed?</label>
+                <label class="required">Were you self-employed?</label>
                 <input type="radio" name="employment_history[<?=$i?>][self_employed]" value="1" id="employment_history[<?=$i?>][se-yes]" data-behavior="toggle-self-employed" <?= is_checked("employment_history", $i, "self_employed", null, 1); ?>/><label for="employment_history[1][se-yes]">Yes</label>
                 <input type="radio" name="employment_history[<?=$i?>][self_employed]" value="0" id="employment_history[<?=$i?>][se-no]" data-behavior="toggle-self-employed" <?= (is_checked("employment_history", $i, "self_employed", null, 1) != 'checked') ? 'checked' : ''; ?> /><label for="employment_history[1][se-no]">No</label>
               </div>
               <div class="field indented <?= (is_checked("employment_history", $i, "self_employed", null, 1) == 'checked') ? '' : 'hidden'; ?>" data-field="business-name">
-                <label>What is your business/work?</label>
+                <label class="required">What is your business/work?</label>
                 <input type="text" name="employment_history[<?=$i?>][business_name]" value="<?=set_field_value('employment_history', $i, 'business_name', null); ?>"/>
               </div>
               <div class="field indented <?= (is_checked("employment_history", $i, "self_employed", null, 1) != 'checked') ? '' : 'hidden'; ?>" data-field="employer">
-                <label>Employer</label>
+                <label class="required">Employer</label>
                 <input type="text" name="employment_history[<?=$i?>][employer]" value="<?=set_field_value('employment_history', $i, 'employer', null); ?>"/>
               </div>
               <div class="field indented">
-                <label>Employer/Business Type</label>
+                <label class="required">Employer/Business Type</label>
                 <select name="employment_history[<?=$i?>][employer_type]" class="specifiable">
                   <?php foreach ($employer_types as $type) { ?>
                     <option value="<?=$type->id?>" <?=is_selected('employment_history', $i, 'employer_type', null, $type->id);?>><?=$type->name?></option>
@@ -328,11 +331,11 @@
                 <input type="text" name="employment_history[<?=$i?>][specified_employer_type]" placeholder="Employer/Business Type" class="specify hidden" value="<?=set_field_value('employment_history', $i, 'specified_employer_type', null); ?>"/>
               </div>
               <div class="field indented">
-                <label>Job Title/Position</label>
+                <label class="required">Job Title/Position</label>
                 <input type="text" name="employment_history[<?=$i?>][job_title]" value="<?=set_field_value('employment_history', $i, 'job_title', null); ?>"/>
               </div>
               <div class="field indented">
-                <label>Monthly Salary (in Philippine Peso)</label>
+                <label class="required">Monthly Salary (in Philippine Peso)</label>
                 <select name="employment_history[<?=$i?>][monthly_salary]">
                   <?php foreach ($salaries as $val) : ?>
                     <option value="<?=$val->id?>" <?=is_selected('employment_history', $i, 'monthly_salary', null, $val->id)?>>
@@ -349,7 +352,7 @@
                 </select>
               </div>
               <div class="field indented" data-field="employment-duration">
-                <label>Employment Duration</label>
+                <label class="required">Employment Duration</label>
                 <select name="employment_history[<?=$i?>][employment_duration][start_month]"  class="narrow">
                   <option value="1" <?=is_selected('employment_history', $i, 'employment_duraion', 'start_month', 1)?>>January</option>
                   <option value="2" <?=is_selected('employment_history', $i, 'employment_duration', 'start_month', 2)?>>February</option>
@@ -403,13 +406,13 @@
                 </select>
               </div>
               <div class="field indented">
-                <label>Job Satisfaction</label>
+                <label class="required">Job Satisfaction</label>
                 <!--
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="1" id="employment_history[<?=$i?>][swj-yes]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 1); ?>/><label for="employment_history[1][swj-yes]">Yes</label>
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="0" id="employment_history[<?=$i?>][swj-no]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 0); ?>/><label for="employment_history[1][swj-no]">No</label>
                 -->
                 <input type="range" name="employment_history[<?= $i; ?>][job_satisfaction]" min="1" max="10" step="1" value="<?=$post['employment_history'][$i]['job_satisfaction']?>" />
-                <span><?=$post['employment_history'][$i]['job_satisfaction']?></span>
+                <span><?= isset($post['employment_history'][$i]['job_satisfaction']) ? $post['employment_history'][$i]['job_satisfaction'] : 6; ?></span>
               </div>
               <div class="field indented textarea">
                 <label>Why or why not satisfied?</label>
@@ -431,6 +434,7 @@
         <div class="slide hidden" data-name="others">
           <h1>Others</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
+          <span class="note">* --- these fields are required</span>
 
           <div class="field">
             <label>Courses/subjects/topics that you think are useful in your field.</label>
@@ -482,20 +486,20 @@
           <div class="job-form" data-job-form="other-job">
             <span>Other Job Information</span>
             <div class="field indented">
-              <label>Were you self-employed?</label>
+              <label class="required">Were you self-employed?</label>
               <input type="radio" name="employment_history[#{index}][self_employed]" value="1" id="employment_history[#{index}][se-yes]" data-behavior="toggle-self-employed" /><label for="employment_history[#{index}][se-yes]">Yes</label>
               <input type="radio" name="employment_history[#{index}][self_employed]" value="0" id="employment_history[#{index}][se-no]" data-behavior="toggle-self-employed" checked /><label for="employment_history[#{index}][se-no]">No</label>
             </div>
             <div class="field indented hidden" data-field="business-name">
-              <label>What is your business/work?</label>
+              <label class="required">What is your business/work?</label>
               <input type="text" name="employment_history[#{index}][business_name]" />
             </div>
             <div class="field indented" data-field="employer">
-              <label>Employer</label>
+              <label class="required">Employer</label>
               <input type="text" name="employment_history[#{index}][employer]" />
             </div>
             <div class="field indented">
-              <label>Employer/Business Type</label>
+              <label class="required">Employer/Business Type</label>
               <select name="employment_history[#{index}][employer_type]" class="specifiable">
                 <?php foreach ($employer_types as $type): ?>
                   <option value="<?= $type->id; ?>"><?= $type->name; ?></option>
@@ -505,11 +509,11 @@
               <input type="text" name="employment_history[#{index}][specified_employer_type]" placeholder="Employer/Business Type" class="specify hidden" />
             </div>
             <div class="field indented">
-              <label>Job Title/Position</label>
+              <label class="required">Job Title/Position</label>
               <input type="text" name="employment_history[#{index}][job_title]" />
             </div>
             <div class="field indented">
-              <label>Monthly Salary (in Philippine Peso)</label>
+              <label class="required">Monthly Salary (in Philippine Peso)</label>
               <select name="employment_history[#{index}][monthly_salary]">
                 <?php foreach ($salaries as $val): ?>
                   <?php if ($val->minimum == null): ?>
@@ -523,7 +527,7 @@
               </select>
             </div>
             <div class="field indented" data-field="employment-duration">
-              <label>Employment Duration</label>
+              <label class="required">Employment Duration</label>
               <select name="employment_history[#{index}][employment_duration][start_month]"  class="narrow">
                 <option value="1">January</option>
                 <option value="2">February</option>
@@ -566,7 +570,7 @@
               </select>
             </div>
             <div class="field indented">
-              <label>Job Satisfaction</label>
+              <label class="required">Job Satisfaction</label>
               <!--
               <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="1" id="employment_history[#{index}][swj-yes]" /><label for="employment_history[#{index}][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="0" id="employment_history[#{index}][swj-no]" /><label for="employment_history[#{index}][swj-no]">No</label>
@@ -583,15 +587,15 @@
         <div id="educational-history-template" class="hidden">
           <div class="educational-history">
             <div class="field indented">
-              <label>Degree</label>
+              <label class="required">Degree</label>
               <input type="text" name="educational_background[educational_history][#{index}][degree]" />
             </div>
             <div class="field indented">
-              <label>School Taken</label>
+              <label class="required">School Taken</label>
               <input type="text" name="educational_background[educational_history][#{index}][school_taken]" />
             </div>
             <div class="field indented">
-              <label>Year Finished</label>
+              <label class="required">Year Finished</label>
               <select name="educational_background[educational_history][#{index}][year_finished]">
                 <?php 
                   $year = date('Y');

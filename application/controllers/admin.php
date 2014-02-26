@@ -38,7 +38,7 @@
       } else {
         $prev_included = 1;
       }
-      $limit = 10;
+      $limit = 20;
       if (isset($_GET['page'])) {
         $offset = ($_GET['page'] - 1) * $limit;
         $page = $_GET['page'];
@@ -545,11 +545,7 @@
     }
 
     public function deleteOtherDegree($user_id, $degree_id, $page = 1) {      
-      if ($this->model->deleteOtherDegree($user_id, $degree_id)) {
-        $this->session->set_flashdata("notice", "Degree Information Deleted!");
-      } else {
-        $this->session->set_flashdata("alert", "An error has occured while deleting the information!");
-      }
+      $this->alumni->deleteOtherDegree($user_id, $degree_id);       
       redirect('admin/clean/'.$user_id.'/'.$page);
     }
 

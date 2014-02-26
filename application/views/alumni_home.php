@@ -62,7 +62,7 @@
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <h2><?=humanize($user_info[0]->country)?></h2>
+            <h2><?=$user_info[0]->country?></h2>
             <select name="personal_information[country]" class="specifiable editable hidden" data-current="<?=$user_info[0]->country_id?>">
               <? foreach ($countries as $var): ?>
                 <option value="<?= $var->id; ?>" <?=is_selected($var->id, $user_info[0]->country_id)?>><?= $var->name; ?></option>
@@ -192,13 +192,13 @@
                 <?=anchor('/alumni/deleteOtherDegree/'.$other->other_degree_id,'[Delete This Degree]')?>
                 <div class="field indented">
                   <label>Degree</label>
-                  <h2><?=humanize($other->degree)?></h2>
+                  <h2><?=$other->degree?></h2>
                   <input type="text" name="educational_background[educational_history][<?=$other->other_degree_id?>][degree]" class="editable hidden" data-current="<?=$other->degree?>" value="<?=$other->degree?>"/>
                   <a href="#" data-behavior="edit">[edit]</a>
                 </div>              
                 <div class="field indented">
                   <label>School Taken</label>
-                  <h2><?=humanize($other->school_taken)?></h2>
+                  <h2><?=$other->school_taken?></h2>
                   <input type="text" name="educational_background[educational_history][<?=$other->other_degree_id?>][school_taken]" class="editable hidden" data-current="<?=$other->school_taken?>" value="<?=$other->school_taken?>"/>
                   <a href="#" data-behavior="edit">[edit]</a>
                 </div>

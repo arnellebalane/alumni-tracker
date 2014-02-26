@@ -433,11 +433,11 @@
 				return false;
 			}
 			if (isset($info['another_degree']) && $info['another_degree'] == 'yes') {
-				$history_count = count($info['educational_history']);
-				$info['educational_history'][$i]['degree'] = trim($info['educational_history'][$i]['degree']);
-				$info[$i]['educational_history']['school_taken'] = trim($info[$i]['educational_history']['school_taken']);
+				$history_count = count($info['educational_history']);				
 				for ($i = 0; $i < $history_count; $i++) {			
-					if (($info['educational_history'][$i]['degree'] == '' && $info[$i]['educational_history']['school_taken'] != '') || ($info['educational_history'][$i]['degree'] != '' && $info['educational_history'][$i]['school_taken'] == '')) {
+					$info['educational_history'][$i]['degree'] = trim($info['educational_history'][$i]['degree']);
+					$info['educational_history'][$i]['school_taken'] = trim($info['educational_history'][$i]['school_taken']);
+					if (($info['educational_history'][$i]['degree'] == '' && $info['educational_history'][$i]['school_taken'] != '') || ($info['educational_history'][$i]['degree'] != '' && $info['educational_history'][$i]['school_taken'] == '')) {
 						$this->session->set_flashdata('alert', "Please fill all all fields in your educational history!");
 						return false;
 					}

@@ -79,7 +79,7 @@
           </div>
           <div class="field">
             <label>Country/State of Present Address</label>
-            <h4><?=humanize($user_info[0]->country)?></h4>
+            <h4><?=$user_info[0]->country?></h4>
             <div class="editable hidden">
               <select name="personal_information[country]" data-current="<?=$user_info[0]->country_id?>">
                 <? foreach ($countries as $var): ?>
@@ -216,7 +216,7 @@
                 <?=anchor('admin/deleteOtherDegree/'.$user_id.'/'.$other->other_degree_id.'/'.$page, '[Delete This Degree]')?>
                 <div class="field">
                   <label>Degree</label>
-                  <h4><?=humanize($other->degree)?></h4>
+                  <h4><?=$other->degree?></h4>
                   <div class="editable hidden">
                     <input type="text" name="educational_background[educational_history][<?=$other->other_degree_id?>][degree]" value="<?=$other->degree?>" data-current="<?=$other->degree?>" />
                   </div>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="field">
                   <label>School Taken</label>
-                  <h4><?=humanize($other->school_taken)?></h4>
+                  <h4><?=$other->school_taken?></h4>
                   <div class="editable hidden">
                     <input type="text" name="educational_background[educational_history][<?=$other->other_degree_id?>][school_taken]" value="<?=$other->school_taken?>" data-current="<?=$other->school_taken?>" />
                   </div>
@@ -492,7 +492,7 @@
           <input type="radio" name="another_job[{{index}}][satisfied_with_job]" value="yes" checked /><label>Yes</label>
           <input type="radio" name="another_job[{{index}}][satisfied_with_job]" value="no" /><label>No</label>
           -->
-          <input type="range" name="another_job[#{{index}}][job_satisfaction]" min="1" max="11" step="1" value="6" />
+          <input type="range" name="another_job[{{index}}][job_satisfaction]" min="1" max="11" step="1" value="6" />
           <span>6</span>
         </div>
         <div class="field">

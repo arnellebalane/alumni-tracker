@@ -34,7 +34,7 @@
         $prev_included = 1;
       }
 
-      $limit = 1;
+      $limit = 20;
       if (isset($_GET['page'])) {
         $offset = ($_GET['page'] - 1) * $limit;
         $page = $_GET['page'];
@@ -135,7 +135,8 @@
                       'social_networks'=>$this->alumni->getOtherSocialNetworksById($id),
                       'jobs'=>$this->alumni->getUserAllJobs($id),
                       'user_id'=>$id,
-                      'page'=>$page
+                      'page'=>$page,
+                      'other_degree'=>$this->alumni->getOtherDegreeByUserId($id)
                       );      
         $this->load->helper('edit_info_helper.php');
         $this->load->helper('inflector');      
@@ -333,6 +334,24 @@
 
       $this->alumni->updateEducationalBackground($id, $info);
       $this->alumni->updateUserStudentNumber($id, $info['student_number']);      
+      if (isset($info['educational_history'])) {
+        foreach ($info['educational_history'] as $key => $value) {        
+          $value['degree'] = trim($value['degree']);
+          $value['school_taken'] = trim($value['school_taken']);
+          if ($value['degree'] != '' && $value['school_taken'] != '') { 
+            $this->alumni->updateOtherDegree($key, $value);
+          }
+        }
+      }
+      if (isset($info['new_educational_history'])) {
+        foreach ($info['new_educational_history'] as $key => $value) {  
+          $value['degree'] = trim($value['degree']);
+          $value['school_taken'] = trim($value['school_taken']);      
+          if ($value['degree'] != '' && $value['school_taken'] != '') { 
+            $this->alumni->addOtherDegree($id, $value);
+          }
+        }
+      }
     }
 
     // VALIDATE NEW ALUMNI EDUCATIONAL BACKGROUND
@@ -363,9 +382,27 @@
       }
       $stud = $this->alumni->getUserByStudentNumber(addslashes($info['student_number']));
 
-      if ($stud && ($stud[0]->user_id != $user_id)) {
+      if ($stud && ($stud[0]->user_id != $user_id && $info['student_number'] != '')) {
         $this->session->set_flashdata('alert', "Student number not available.");
         return false;
+      }
+      if (isset($info['educational_history'])) {        
+        foreach ($info['educational_history'] as $key => $value) {       
+          $value['degree'] = trim($value['degree']);
+          $value['school_taken'] = trim($value['school_taken']);
+          if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+            $this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+            return false;
+          }
+        }
+      }
+      if (isset($info['new_educational_history'])) {
+        foreach ($info['new_educational_history'] as $key => $value) {        
+          if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+            $this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+            return false;
+          }
+        }
       }
       return true;
     }
@@ -417,6 +454,16 @@
       redirect('enumerator/clean/'.$user_id.'/'.$page);
     }
 
+    public function deleteOtherDegree($user_id, $degree_id, $page = 1) {      
+      $user_id2 = $this->session->userdata('user_id');
+      if (!$this->model->isAlumniUnderEnumerator($user_id2, $user_id)) {
+        $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
+        redirect('enumerator/index?page='.$page);
+      }
+      $this->alumni->deleteOtherDegree($user_id, $degree_id);       
+      redirect('enumerator/clean/'.$user_id.'/'.$page);
+    }
+
     private function validateJobs($jobs) {
       foreach ($jobs as $job) {        
         if ($this->hasEmptyFieldInEmploymentHistory($job) && $this->hasFilledFieldsInEmploymentHistory($job)) {          
@@ -428,7 +475,9 @@
 
     private function addJobs($user_id, $info) {
       foreach ($info as $var) : 
-        if (!$this->hasEmptyFieldInEmploymentHistory($var)) {           
+        if (!$this->hasEmptyFieldInEmploymentHistory($var)) {
+          $var['job_satisfaction'] = ($var['job_satisfaction'] <= 0) ? 1 : $var['job_satisfaction'];
+          $var['job_satisfaction'] = ($var['job_satisfaction'] > 10) ? 10 : $var['job_satisfaction'];
           $history_id = $this->alumni->addEmploymentDetails($var['business_type'], $var);
           $current_job = isset($var['current_job']) ? 1 : 0;
           $first_job = isset($var['first_job']) ? 1 : 0;
@@ -441,7 +490,7 @@
       $info['employer'] = trim($info['employer']);
       $info['satisfaction_reason'] = trim($info['satisfaction_reason']);
       $info['job_title'] = trim($info['job_title']);      
-      if (($info['employer'] == "") || ($info['job_title'] == "") || !isset($info['satisfied_with_job'])) {
+      if (($info['employer'] == "") || ($info['job_title'] == "")) {
         return true;
       }
       return false;

@@ -414,7 +414,7 @@
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="0" id="employment_history[<?=$i?>][swj-no]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 0); ?>/><label for="employment_history[1][swj-no]">No</label>
                 -->
                 <input type="range" name="employment_history[<?= $i; ?>][job_satisfaction]" min="1" max="11" step="1" value="<?=$post['employment_history'][$i]['job_satisfaction']?>" />
-                <span><?=$post['employment_history'][$i]['job_satisfaction']?></span>
+                <span><?=($post['employment_history'][$i]['job_satisfaction']) ? $post['employment_history'][$i]['job_satisfaction'] : 6?></span>
                 <i>[1 - lowest, 11 - highest]</i>
               </div>
               <div class="field indented textarea">

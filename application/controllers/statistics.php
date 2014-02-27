@@ -169,7 +169,27 @@
     }
 
     public function job_satisfaction() {
-      $this->load->view('statistics/job_satisfaction');
+      $programs = $this->values->getPrograms();
+      $data = array();
+      $data['programs'] = null;
+      foreach ($programs as $prog) {
+        $totalFirst = 0;
+        $totalCur = 0;
+        $jobsF = $this->stat->jobSatisfactionFirstJob($prog->id);
+        foreach ($jobsF as $job) {
+          $data['programs'][$prog->name]['first'][$job->job_satisfaction] = $job->count;
+          $totalFirst += $job->count;
+        }
+        $data['total'][$prog->name]['first'] = $totalFirst;
+        $jobsC = $this->stat->jobSatisfactionCurrentJob($prog->id);
+        foreach ($jobsC as $job) {
+          $data['programs'][$prog->name]['current'][$job->job_satisfaction] = $job->count;
+          $totalCur += $job->count;
+        }
+        $data['total'][$prog->name]['current'] = $totalCur;
+      }
+
+      $this->load->view('statistics/job_satisfaction', $data);
     }
 
     public function course_suggestions() {

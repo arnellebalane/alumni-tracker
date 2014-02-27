@@ -38,9 +38,9 @@
           <div class="statistical-table"></div>
           <div class="statistical-data hidden">
             <?php $totalCurrent = $employment[0]->yesCurrent + $employment[0]->noCurrent; ?>
-            <span class="table" data-label="Yes" data-frequency="<?=$employment[0]->yesCurrent?>" data-percentage="<?=($employment[0]->yesCurrent / $totalCurrent) * 100?>"></span>
-            <span class="table" data-label="No" data-frequency="<?=$employment[0]->noCurrent?>" data-percentage="<?=($employment[0]->noCurrent / $totalCurrent) * 100?>"></span>
-            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$totalCurrent?></b>" data-percentage="<b>100</b>"></span>
+            <span class="table" data-label="Yes" data-frequency="<?=$employment[0]->yesCurrent?>" data-percentage="<?=($totalCurrent > 0) ? ($employment[0]->yesCurrent / $totalCurrent) * 100 : 0?>"></span>
+            <span class="table" data-label="No" data-frequency="<?=$employment[0]->noCurrent?>" data-percentage="<?=($totalCurrent > 0) ? ($employment[0]->noCurrent / $totalCurrent) * 100 : 0?>"></span>
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$totalCurrent?></b>" data-percentage="<b><?=($totalCurrent > 0) ? 100 : 0?></b>"></span>
           </div>        
         </div>  
         <div class="statistical-presentation clearfix">
@@ -48,9 +48,9 @@
           <div class="statistical-table"></div>
           <div class="statistical-data hidden">
             <?php $totalFirst = $employment[0]->yesFirst + $employment[0]->noFirst; ?>
-            <span class="table" data-label="Yes" data-frequency="<?=$employment[0]->yesFirst?>" data-percentage="<?=($employment[0]->yesFirst / $totalFirst) * 100 ?>"></span>
-            <span class="table" data-label="No" data-frequency="<?=$employment[0]->noFirst?>" data-percentage="<?=($employment[0]->noFirst / $totalFirst) * 100 ?>"></span>
-            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$totalFirst?></b>" data-percentage="<b>100</b>"></span>
+            <span class="table" data-label="Yes" data-frequency="<?=$employment[0]->yesFirst?>" data-percentage="<?=($totalFirst > 0) ? ($employment[0]->yesFirst / $totalFirst) * 100  : 0?>"></span>
+            <span class="table" data-label="No" data-frequency="<?=$employment[0]->noFirst?>" data-percentage="<?=($totalFirst > 0) ? ($employment[0]->noFirst / $totalFirst) * 100 : 0?>"></span>
+            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$totalFirst?></b>" data-percentage="<b><?=($totalFirst > 0) ? 100 : 0?></b>"></span>
           </div>        
         </div>  
       <? endif; ?>

@@ -267,15 +267,15 @@
 			$info[1]['business_name'] = trim($info[1]['business_name']);
 			$info[0]['employer'] = trim($info[0]['employer']);
 			$info[1]['employer'] = trim($info[1]['employer']);
-			if ($info[1]['job_satisfaction'] < 0) {
-				$info[1]['job_satisfaction'] = 0;
-			}	else if ($info[1]['job_satisfaction'] > 10) {
-				$info[1]['job_satisfaction'] = 10;
+			if ($info[1]['job_satisfaction'] < 1) {
+				$info[1]['job_satisfaction'] = 1;
+			}	else if ($info[1]['job_satisfaction'] > 11) {
+				$info[1]['job_satisfaction'] = 11;
 			}
-			if ($info[0]['job_satisfaction'] < 0) {
-				$info[0]['job_satisfaction'] = 0;
-			}	else if ($info[0]['job_satisfaction'] > 10) {
-				$info[0]['job_satisfaction'] = 10;
+			if ($info[0]['job_satisfaction'] < 1) {
+				$info[0]['job_satisfaction'] = 1;
+			}	else if ($info[0]['job_satisfaction'] > 11) {
+				$info[0]['job_satisfaction'] = 11;
 			}
 			if (count($info) == 2 && ($info[0]['business_name'] == $info[0]['employer'] && $info[0]['business_name'] == "") && 
 				($info[1]['business_name'] == $info[1]['employer'] && $info[1]['business_name'] == "")) {
@@ -296,10 +296,10 @@
 					}	else {
 						$employer_id = $var['employer_type'];
 					}
-					if ($var['job_satisfaction'] < 0) {
-						$var['job_satisfaction'] = 0;
-					}	else if ($var['job_satisfaction'] > 10) {
-						$var['job_satisfaction'] = 10;
+					if ($var['job_satisfaction'] < 1) {
+						$var['job_satisfaction'] = 1;
+					}	else if ($var['job_satisfaction'] > 11) {
+						$var['job_satisfaction'] = 11;
 					}
 					$history_id = $this->model->addEmploymentDetails($employer_id, $var);					
 					if ($ctr == 0) {						
@@ -337,10 +337,10 @@
 			}	else {
 				$employer_id = $info['employer_type'];
 			}
-			if ($info['job_satisfaction'] < 0) {
-				$info['job_satisfaction'] = 0;
-			} else if ($_POST['job_satisfaction'] > 10) {
-				$info['job_satisfaction'] = 10;
+			if ($info['job_satisfaction'] < 1) {
+				$info['job_satisfaction'] = 1;
+			} else if ($_POST['job_satisfaction'] > 11) {
+				$info['job_satisfaction'] = 11;
 			}
 			$history_id = $this->model->addEmploymentDetails($employer_id, $info);
 			$first_job = $this->model->getUserFirstJob($this->session->userdata('user_id'));

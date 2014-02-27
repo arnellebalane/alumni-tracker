@@ -32,24 +32,44 @@
         <input type="hidden" name="html" />
       <?= form_close(); ?>
     </header>
-    <div class="statistical-presentation clearfix">
-      <div class="statistical-chart"></div>      
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="1" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="2" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="3" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="4" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="5" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="6" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="7" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="8" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="9" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="10" data-frequency="10" data-percentage="10"></span>
-        <span class="chart table" data-label="11" data-frequency="10" data-percentage="10"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>        
-    </div>
+    <?php if ($programs != null) : ?>
+      <?php foreach ($programs as $name=>$value) : ?>  
+        <div class="statistical-presentation clearfix">        
+          <?php if ($total[$name]['first'] > 0) : ?>      
+            <h1><?=$name." - First Jobs"?></h1>
+            <div class="statistical-chart"></div>      
+            <div class="statistical-table"></div>
+            <div class="statistical-data hidden">
+              <?php for($ctr = 1; $ctr <= 11; $ctr++) : ?>
+                <?php if ($value['first'][$ctr]) { ?>
+                  <span class="chart table" data-label="<?=$ctr?>" data-frequency="<?=$value['first'][$ctr]?>" data-percentage="<?=($value['first'][$ctr] / $total[$name]['first']) * 100?>"></span>
+                <?php } else { ?>
+                  <span class="chart table" data-label="<?=$ctr?>" data-frequency="0" data-percentage="0"></span>
+                <?php } ?>
+              <?php endfor; ?>            
+              <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+            </div>
+          <?php endif;?>
+        </div>
+        <div class="statistical-presentation clearfix">     
+          <?php if ($total[$name]['current'] > 0) : ?>      
+            <h1><?=$name." - Current Jobs"?></h1>
+            <div class="statistical-chart"></div>      
+            <div class="statistical-table"></div>
+            <div class="statistical-data hidden">
+              <?php for($ctr = 1; $ctr <= 11; $ctr++) : ?>
+                <?php if ($value['current'][$ctr]) { ?>
+                  <span class="chart table" data-label="<?=$ctr?>" data-frequency="<?=$value['current'][$ctr]?>" data-percentage="<?=($value['current'][$ctr] / $total[$name]['current']) * 100?>"></span>
+                <?php } else { ?>
+                  <span class="chart table" data-label="<?=$ctr?>" data-frequency="0" data-percentage="0"></span>
+                <?php } ?>
+              <?php endfor; ?>            
+              <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+            </div>
+          <?php endif;?>      
+        </div>
+      <?php endforeach;?>
+    <?php endif;?>
   </div>
 
   <script src="https://www.google.com/jsapi"></script>
@@ -81,8 +101,8 @@
     google.setOnLoadCallback(function() {
       $('.statistical-presentation').each(function() {
         var presentation = $(this);
-        var chartData = [['Employer/Business Type', 'Frequency']];
-        var tableData = [['Employer/Business Type', 'Frequency', 'Percentage']];
+        var chartData = [['Job Satisfaction', 'Frequency']];
+        var tableData = [['Job Satisfaction', 'Frequency', 'Percentage']];
         presentation.find('.statistical-data span').each(function() {
           var data = {};
           data['label'] = $(this).data('label');

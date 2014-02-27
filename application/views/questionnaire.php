@@ -288,7 +288,7 @@
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 1); ?>/><label for="employment_history[0][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 0); ?>/><label for="employment_history[0][swj-no]">No</label>
               -->
-              <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="10" step="1" value="<?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?>" />
+              <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="11" step="1" value="<?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?>" />
               <span><?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?></span>
             </div>
             <div class="field indented textarea">
@@ -408,7 +408,7 @@
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="1" id="employment_history[<?=$i?>][swj-yes]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 1); ?>/><label for="employment_history[1][swj-yes]">Yes</label>
                 <input type="radio" name="employment_history[<?=$i?>][satisfied_with_job]" value="0" id="employment_history[<?=$i?>][swj-no]" <?=is_checked("employment_history", $i, "satisfied_with_job", null, 0); ?>/><label for="employment_history[1][swj-no]">No</label>
                 -->
-                <input type="range" name="employment_history[<?= $i; ?>][job_satisfaction]" min="1" max="10" step="1" value="<?=$post['employment_history'][$i]['job_satisfaction']?>" />
+                <input type="range" name="employment_history[<?= $i; ?>][job_satisfaction]" min="1" max="11" step="1" value="<?=$post['employment_history'][$i]['job_satisfaction']?>" />
                 <span><?=$post['employment_history'][$i]['job_satisfaction']?></span>
               </div>
               <div class="field indented textarea">
@@ -571,7 +571,7 @@
               <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="1" id="employment_history[#{index}][swj-yes]" /><label for="employment_history[#{index}][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[#{index}][satisfied_with_job]" value="0" id="employment_history[#{index}][swj-no]" /><label for="employment_history[#{index}][swj-no]">No</label>
               -->
-              <input type="range" name="employment_history[#{index}][job_satisfaction]" min="1" max="10" step="1" value="6" />
+              <input type="range" name="employment_history[#{index}][job_satisfaction]" min="1" max="11" step="1" value="6" />
               <span>6</span>
             </div>
             <div class="field indented textarea">

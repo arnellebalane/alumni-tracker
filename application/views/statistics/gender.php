@@ -34,13 +34,15 @@
     </header>
 
     <section class="statistical-presentation clearfix">
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <span class="chart table" data-label="Male" data-frequency="<?=$genders[0]->males?>" data-percentage="<?=($genders[0]->males/$total)*100?>"></span>
-        <span class="chart table" data-label="Female" data-frequency="<?=$genders[0]->females?>" data-percentage="<?=($genders[0]->females/$total)*100?>"></span>
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
-      </div>
+      <?php if ($total > 0) :  ?>
+        <div class="statistical-chart"></div>
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">
+          <span class="chart table" data-label="Male" data-frequency="<?=$genders[0]->males?>" data-percentage="<?=($genders[0]->males/$total)*100?>"></span>
+          <span class="chart table" data-label="Female" data-frequency="<?=$genders[0]->females?>" data-percentage="<?=($genders[0]->females/$total)*100?>"></span>
+          <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
+        </div>
+      <?php endif;?>
     </section>
   </div>
 

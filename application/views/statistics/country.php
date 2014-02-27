@@ -34,14 +34,16 @@
     </header>
 
     <section class="statistical-presentation clearfix">
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <?php foreach ($countries as $country) : ?>
-          <span class="chart table" data-label="<?=$country->name?>" data-males="<?=$country->males?>" data-females="<?=$country->females?>" data-frequency="<?=$country->count?>" data-percentage="<?=($country->count/$total)*100?>"></span>
-        <?php endforeach; ?>        
-        <span class="table" data-label="<b>Total</b>" data-males="<b><?=$males?></b>" data-females="<b><?=$females?></b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
-      </div>
+      <?php if ($total > 0) : ?>
+        <div class="statistical-chart"></div>
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">        
+          <?php foreach ($countries as $country) : ?>
+            <span class="chart table" data-label="<?=$country->name?>" data-males="<?=$country->males?>" data-females="<?=$country->females?>" data-frequency="<?=$country->count?>" data-percentage="<?=($country->count/$total)*100?>"></span>
+          <?php endforeach; ?>        
+          <span class="table" data-label="<b>Total</b>" data-males="<b><?=$males?></b>" data-females="<b><?=$females?></b>" data-frequency="<b><?=$total?></b>" data-percentage="<b>100</b>"></span>
+        </div>
+      <?php endif; ?>
     </section>
   </div>
 

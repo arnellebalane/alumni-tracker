@@ -385,7 +385,7 @@
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="1" data-current="<?=($job->job_satisfaction == 1) ? 'true':'false';?>" <?=is_checked(1, $job->job_satisfaction)?> />Yes</label>
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="0" data-current="<?=($job->job_satisfaction == 0) ? 'true':'false';?>" <?=is_checked(0, $job->job_satisfaction)?> />No</label>
                 -->
-                <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="10" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" />
+                <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="11" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" />
                 <span><?=$job->job_satisfaction?></span>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>

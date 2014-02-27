@@ -32,22 +32,23 @@
         <input type="hidden" name="html" />
       <?= form_close(); ?>
     </header>
-
-    <?php foreach ($programs as $name=>$gap) : ?>
-      <?php if ($total[$name] > 0) : ?>
-        <div class="statistical-presentation clearfix">
-          <h1><?=$name?></h1>
-          <div class="statistical-chart"></div>
-          <div class="statistical-table"></div>
-          <div class="statistical-data hidden">
-            <?php foreach ($gap as $g=>$value) : ?>
-              <span class="chart table" data-label="<?=$g?> months" data-frequency="<?=$value?>" data-percentage="<?=(($value/$total[$name]) * 100)?>"></span>
-            <?php endforeach; ?>
-            <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]?></b>" data-percentage="<b>100</b>"></span>
+    <?php if ($programs != null) : ?>
+      <?php foreach ($programs as $name=>$gap) : ?>
+        <?php if ($total[$name] > 0) : ?>
+          <div class="statistical-presentation clearfix">
+            <h1><?=$name?></h1>
+            <div class="statistical-chart"></div>
+            <div class="statistical-table"></div>
+            <div class="statistical-data hidden">
+              <?php foreach ($gap as $g=>$value) : ?>
+                <span class="chart table" data-label="<?=$g?> months" data-frequency="<?=$value?>" data-percentage="<?=(($value/$total[$name]) * 100)?>"></span>
+              <?php endforeach; ?>
+              <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$total[$name]?></b>" data-percentage="<b>100</b>"></span>
+            </div>
           </div>
-        </div>
-      <?php endif ?>
-    <?php endforeach; ?>    
+        <?php endif ?>
+      <?php endforeach; ?>    
+    <?php endif; ?>
   </div>
 
   <script src="https://www.google.com/jsapi"></script>

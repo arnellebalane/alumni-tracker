@@ -477,7 +477,7 @@
       foreach ($info as $var) : 
         if (!$this->hasEmptyFieldInEmploymentHistory($var)) {
           $var['job_satisfaction'] = ($var['job_satisfaction'] <= 0) ? 1 : $var['job_satisfaction'];
-          $var['job_satisfaction'] = ($var['job_satisfaction'] > 10) ? 10 : $var['job_satisfaction'];
+          $var['job_satisfaction'] = ($var['job_satisfaction'] > 11) ? 11 : $var['job_satisfaction'];
           $history_id = $this->alumni->addEmploymentDetails($var['business_type'], $var);
           $current_job = isset($var['current_job']) ? 1 : 0;
           $first_job = isset($var['first_job']) ? 1 : 0;

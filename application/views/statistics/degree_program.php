@@ -34,14 +34,16 @@
     </header>
 
     <div class="statistical-presentation clearfix">
-      <div class="statistical-chart"></div>
-      <div class="statistical-table"></div>
-      <div class="statistical-data hidden">
-        <? foreach ($programs as $prog) : ?>
-          <span class="chart table" data-label="<?=$prog->name?>" data-frequency="<?=$prog->count?>" data-percentage="<?=($prog->count/$total)*100?>"></span>
-        <? endforeach; ?>        
-        <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
-      </div>
+      <?php if ($total > 0) : ?>
+        <div class="statistical-chart"></div>
+        <div class="statistical-table"></div>
+        <div class="statistical-data hidden">
+          <? foreach ($programs as $prog) : ?>
+            <span class="chart table" data-label="<?=$prog->name?>" data-frequency="<?=$prog->count?>" data-percentage="<?=($prog->count/$total)*100?>"></span>
+          <? endforeach; ?>        
+          <span class="table" data-label="<b>Total</b>" data-frequency="<b>100</b>" data-percentage="<b>100</b>"></span>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 

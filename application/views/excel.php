@@ -21,6 +21,7 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 			<td></td>
 			<td colspan="9">PERSONAL INFO</td>
 			<td colspan="5">EDUCATIONAL BACKGROUND</td>
+			<td colspan="3">OTHER DEGREES FINISHED</td>
 			<td colspan="11">EMPLOYMENT HISTORY</td>
 			<td></td>
 			<td></td>
@@ -43,6 +44,10 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 			<td>SEMESTER GRADUATED</td>
 			<td>HONOR RECEIVED</td>
 
+			<td>DEGREE</td>
+			<td>SCHOOL TAKEN</td>
+			<td>YEAR FINISHED</td>
+
 			<td>CURRENT JOB</td>
 			<td>FIRST JOB</td>
 			<td>SELF EMPLOYED</td>
@@ -62,8 +67,8 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 		<?php $count = 0;  ?>
 		<?php foreach ($alumni as $var) : ?>
 			<tr class="non-center" valign="top">
-				<?php $rows = count($jobs[$count]); ?>
-				<td rowspan="<?= $rows ?>"><?= $count+1 ?></td>
+				<?php $rows = (count($jobs[$count]) >= count($otherDegrees[$count])) ? count($jobs[$count]) : count($otherDegrees[$count]) ; ?>
+				<td rowspan="<?= $rows ?>"><?= ($count+1) ?></td>
 				<td rowspan="<?= $rows ?>"><?= $var->lastname ?></td>
 				<td rowspan="<?= $rows ?>"><?= $var->firstname ?></td>
 				<td rowspan="<?= $rows ?>"><?= $var->gender ?></td>
@@ -79,6 +84,17 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 				<td rowspan="<?= $rows ?>"><?= $var->year_graduated ?></td>
 				<td rowspan="<?= $rows ?>"><?= $var->semester_graduated ?></td>
 				<td rowspan="<?= $rows ?>"><?= $var->honor_received ?></td>
+
+				<?php $degree = $otherDegrees[$count]; ?>
+				<?php if (isset($degree[0])) : ?>
+					<td><?= $degree[0]->degree; ?></td>
+					<td><?= $degree[0]->school_taken; ?></td>
+					<td><?= $degree[0]->year_finished; ?></td>
+				<?php else : ?>
+					<td></td>
+					<td></td>
+					<td></td>
+				<?php endif; ?>
 
 				<?php $job = $jobs[$count][0]; ?>
 				<td><?= ($job->current_job == '1') ? 'yes': 'no'; ?></td>
@@ -99,7 +115,7 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 				</td>
 				<?php $year_ended = ($job->year_ended == '100000') ? 'ongoing' : $job->year_ended; ?>
 				<td><?= $job->year_started.' - '.$year_ended ?></td>
-				<td><?= ($job->job_satisfaction == '1') ? 'yes': 'no'; ?></td>
+				<td><?= $job->job_satisfaction ?></td>
 				<td><?= $job->reason ?></td>
 
 				<td rowspan="<?= $rows ?>"><?= date('F j, Y', strtotime($var->created_at)) ?></td>
@@ -108,8 +124,22 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 			</tr>
 
 			<?php for ($i=1; $i < $rows; $i++) : ?>
-				<?php $job = $jobs[$count][$i]; ?>
 				<tr>
+
+				<?php $degree = $otherDegrees[$count]; ?>
+				<?php if (isset($degree[$i])) : ?>
+					<td><?= $degree[$i]->degree; ?></td>
+					<td><?= $degree[$i]->school_taken; ?></td>
+					<td><?= $degree[$i]->year_finished; ?></td>
+				<?php else : ?>
+					<td></td>
+					<td></td>
+					<td></td>
+				<?php endif; ?>
+
+				<?php if (isset($jobs[$count][$i])) : ?>
+					<?php $job = $jobs[$count][$i]; ?>
+				
 					<td><?= ($job->current_job == '1') ? 'yes': 'no'; ?></td>
 					<td><?= ($job->first_job == '1') ? 'yes': 'no'; ?></td>
 					<td><?= ($job->self_employed == '1') ? 'yes': 'no'; ?></td>
@@ -128,8 +158,23 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 					</td>
 					<?php $year_ended = ($job->year_ended == '100000') ? 'ongoing' : $job->year_ended; ?>
 					<td><?= $job->year_started.' - '.$year_ended ?></td>
-					<td><?= ($job->job_satisfaction == '1') ? 'yes': 'no'; ?></td>
+					<td><?= $job->job_satisfaction; ?></td>
 					<td><?= $job->reason ?></td>
+				
+				<?php else : ?>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				<?php endif; ?>
+
 				</tr>
 			<?php endfor; ?>
 			

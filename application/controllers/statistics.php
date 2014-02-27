@@ -193,7 +193,17 @@
     }
 
     public function course_suggestions() {
-      $this->load->view('statistics/course_suggestions');
+      $programs = $this->values->getPrograms();
+      $data = array();
+      foreach ($programs as $prog) {
+        $topics = $this->stat->suggestions($prog->id);
+        $data['total'][$prog->name] = 0;
+        foreach ($topics as $topic) {
+          $data['programs'][$prog->name][$topic->name] = $topic->count;
+          $data['total'][$prog->name] += $topic->count;
+        }
+      }
+      $this->load->view('statistics/course_suggestions', $data);
     }
 
     public function generate_pdf() {

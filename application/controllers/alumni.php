@@ -76,7 +76,7 @@
 			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);	
 			$this->addPersonalInformation($user_id, $_POST['personal_information']);
 			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
-			// $this->addOthers($user_id, $_POST['others']);
+			$this->addOthers($user_id, $_POST['others']);
 			$this->session->set_userdata('saved', $user_id);
 			$sent = $this->mailer($user_id);
 			redirect('/home/saved');
@@ -123,25 +123,34 @@
 
 		// ADD OTHER COMMENTS
 		private function addOthers($user_id, $info) {
-			if ($info['jobs_related'] == 'yes') {
+			if (trim($info['useful_topics']) != '') {
 				$comment_id = $this->model->addComment($user_id);
 
-				$useful_courses = explode(',', $info['useful_courses']);
-				foreach ($useful_courses as $key => $value) {
+				$useful_topics = explode(',', $info['useful_topics']);
+				foreach ($useful_topics as $key => $value) {
 					$this->model->addMajors($comment_id, $value);
 				}
-
-				$course_suggestions = explode(',', $info['course_suggestions']);
-				foreach ($course_suggestions as $key => $value) {
-					$this->model->addSuggestedCourses($comment_id, $value);
-				}
-
-				if (isset($info['useful_ge'])) {
-					foreach ($info['useful_ge'] as $key => $value) {
-						$this->model->addCommentGECourses($comment_id, $key);
-					}
-				}
 			}
+
+			// if ($info['jobs_related'] == 'yes') {
+			// 	$comment_id = $this->model->addComment($user_id);
+
+			// 	$useful_courses = explode(',', $info['useful_courses']);
+			// 	foreach ($useful_courses as $key => $value) {
+			// 		$this->model->addMajors($comment_id, $value);
+			// 	}
+
+			// 	$course_suggestions = explode(',', $info['course_suggestions']);
+			// 	foreach ($course_suggestions as $key => $value) {
+			// 		$this->model->addSuggestedCourses($comment_id, $value);
+			// 	}
+
+			// 	if (isset($info['useful_ge'])) {
+			// 		foreach ($info['useful_ge'] as $key => $value) {
+			// 			$this->model->addCommentGECourses($comment_id, $key);
+			// 		}
+			// 	}
+			// }
 		}
 
 		// ADD EDUCATIONAL BACKGROUND
@@ -392,20 +401,20 @@
 		}
 
 		// VALIDATE OTHER INFORMATION
-		private function validateOthers($info) {
-			$this->load->model('values_model', 'values');
-			if (!isset($info['jobs_related'])) {
-				return false;
-			}
-			if (isset($info['useful_ge'])) {
-				foreach ($info['useful_ge'] as $key => $value) {
-					if (!$this->values->isGECourse(addslashes($key))) {
-						return false;
-					}
-				}
-			}
-			return true;
-		}
+		// private function validateOthers($info) {
+		// 	$this->load->model('values_model', 'values');
+		// 	if (!isset($info['jobs_related'])) {
+		// 		return false;
+		// 	}
+		// 	if (isset($info['useful_ge'])) {
+		// 		foreach ($info['useful_ge'] as $key => $value) {
+		// 			if (!$this->values->isGECourse(addslashes($key))) {
+		// 				return false;
+		// 			}
+		// 		}
+		// 	}
+		// 	return true;
+		// }
 
 		private function validateEducationalBackground($info) {
 			$info['student_number'] = trim($info['student_number']);

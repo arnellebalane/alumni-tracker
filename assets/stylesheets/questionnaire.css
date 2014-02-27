@@ -82,6 +82,11 @@ aside li:after {
   margin-bottom: 40px;
 }
 
+.content .note {
+  font: normal 1.4rem/1 "Open Sans Light", "OpenSansLight";
+  color: #777777;
+}
+
 .content .field {
   margin-bottom: 5px;
 }
@@ -91,6 +96,12 @@ aside li:after {
   width: 275px;
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
+}
+
+.content label.required:after {
+  content: "*";
+  color: #999999;
+  margin-left: 3px;
 }
 
 .content span {

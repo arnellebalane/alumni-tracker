@@ -168,13 +168,15 @@
 			}
 			$this->model->addEducationalBackground($user_id, addslashes($info['student_number']), addslashes($info['degree_program']), 
 				addslashes($info['graduated']['semester']), addslashes($info['graduated']['academic_year']), addslashes($info['honor_received']));
-			$count = count($info['educational_history']);
-			for ($i = 0; $i < $count; $i++) {
-				$history = $info['educational_history'][$i];
-				$history['degree'] = trim($history['degree']);
-				$history['school_taken'] = trim($history['school_taken']);
-				if ($history['degree'] != '' && $history['school_taken'] != '') {
-					$this->model->addOtherDegree($user_id, $history);
+			if (isset($info['another_degree']) && $info['another_degree'] == 'yes') {
+				$count = count($info['educational_history']);
+				for ($i = 0; $i < $count; $i++) {
+					$history = $info['educational_history'][$i];
+					$history['degree'] = trim($history['degree']);
+					$history['school_taken'] = trim($history['school_taken']);
+					if ($history['degree'] != '' && $history['school_taken'] != '') {
+						$this->model->addOtherDegree($user_id, $history);
+					}
 				}
 			}
 			return $user_id;
@@ -184,8 +186,7 @@
 		public function updateEducationalBackground() {		
 			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
-			}  
-			// print_r($_POST);
+			}  			
 
 			if ($this->validateNewEducationalBackground($_POST['educational_background'])) {				
 				$addnote = '';

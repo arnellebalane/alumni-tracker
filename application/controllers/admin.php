@@ -737,12 +737,19 @@
     public function generateExcel() {
       $alumni = $this->alumni->getAllAlumniInfo();
       $jobs = array();
+      $otherDegrees = array();
 
       foreach ($alumni as $var) {
         array_push($jobs, $this->alumni->getUserAllJobs($var->u_id));
+        array_push($otherDegrees, $this->alumni->getOtherDegreeByUserId($var->u_id));
       }
 
-      $data = array('alumni'=>$alumni, 'jobs'=>$jobs);
+      $data = array('alumni'=>$alumni, 'jobs'=>$jobs, 'otherDegrees'=>$otherDegrees);
+      
+      // echo '<pre>';
+      // print_r($data);
+      // echo '</pre>';
+
       $this->load->view('excel', $data);
     }
 

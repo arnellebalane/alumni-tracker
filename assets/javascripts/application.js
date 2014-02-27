@@ -9,6 +9,7 @@ var questionnaire = {
   initialize: function() {
     questionnaire.initializeSlides();
     questionnaire.initializeSelectBoxes();
+    questionnaire.initializePersonalInformation();
     questionnaire.initializeEducationalBackground();
     questionnaire.initializeEmploymentHistory();
     questionnaire.initializeOthers();
@@ -36,6 +37,12 @@ var questionnaire = {
       } else {
         $(this).siblings('.specify').addClass('hidden').val('');
       }
+    });
+  },
+  initializePersonalInformation: function() {
+    $('a[data-behavior="same-address"]').on('click', function(e) {
+      e.preventDefault();
+      $('input[name="personal_information[permanent_address]"]').val($('input[name="personal_information[present_address]"]').val());
     });
   },
   initializeEducationalBackground: function() {

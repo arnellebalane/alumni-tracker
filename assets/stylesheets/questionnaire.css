@@ -217,6 +217,19 @@ aside li:after {
   background-color: #399B28;
 }
 
+.content .slide[data-name="personal-information"] a[data-behavior="same-address"] {
+  display: block;
+  margin: 3px 0 10px 278px;
+  font: normal 1.4rem/1 "Open Sans Light", "OpenSansLight";
+  color: #399B28;
+  text-decoration: none;
+}
+
+.content .slide[data-name="personal-information"] a[data-behavior="same-address"]:hover,
+.content .slide[data-name="personal-information"] a[data-behavior="same-address"]:focus {
+  text-decoration: underline;
+}
+
 .content .slide[data-name="educational-background"] select[name^="educational_background[graduated]"] {
   width: 139px;
   margin-right: 1px;

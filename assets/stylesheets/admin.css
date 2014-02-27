@@ -640,6 +640,24 @@ aside li a.current:before {
   margin: 2px 0 0 5px;
 }
 
+.admin.clean .field[data-field="job-satisfaction"] .editable span {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 4px;
+}
+
+.admin.clean .field[data-field="job-satisfaction"] .editable i {
+  display: block;
+  font: normal 1.2rem/1 "Open Sans Light", "OpenSansLight";
+  color: #999999;
+}
+
+.admin.clean .job-form i {
+  display: block;
+  font: normal 1.2rem/1 "Open Sans Light", "OpenSansLight";
+  color: #999999;
+}
+
 .admin.clean .button {
   margin: 40px 0 0 335px;
 }

@@ -374,7 +374,7 @@
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
-            <div class="field radio">
+            <div class="field" data-field="job-satisfaction">
               <label>Job Satisfaction</label>
               <!--
               <h4><?=($job->job_satisfaction == 1) ? "Yes" : "No";?></h4>
@@ -387,6 +387,7 @@
                 -->
                 <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="11" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" />
                 <span><?=$job->job_satisfaction?></span>
+                <i>[1 - lowest, 11 - highest]</i>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>
             </div>
@@ -494,6 +495,7 @@
           -->
           <input type="range" name="another_job[{{index}}][job_satisfaction]" min="1" max="11" step="1" value="6" />
           <span>6</span>
+          <i>[1 - lowest, 11 - highest]</i>
         </div>
         <div class="field">
           <label>Why or why not satisfied?</label>

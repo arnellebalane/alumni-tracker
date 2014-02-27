@@ -393,6 +393,7 @@
               -->
               <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="10" step="1" value="6" />
               <span>6</span>
+              <i>[1 - lowest, 11 - highest]</i>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>

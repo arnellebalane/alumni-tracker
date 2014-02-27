@@ -294,6 +294,7 @@
               -->
               <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="11" step="1" value="<?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?>" />
               <span><?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?></span>
+              <i>[1 - lowest, 11 - highest]</i>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>
@@ -414,7 +415,7 @@
                 -->
                 <input type="range" name="employment_history[<?= $i; ?>][job_satisfaction]" min="1" max="11" step="1" value="<?=$post['employment_history'][$i]['job_satisfaction']?>" />
                 <span><?=$post['employment_history'][$i]['job_satisfaction']?></span>
-
+                <i>[1 - lowest, 11 - highest]</i>
               </div>
               <div class="field indented textarea">
                 <label>Why or why not satisfied?</label>
@@ -579,6 +580,7 @@
               -->
               <input type="range" name="employment_history[#{index}][job_satisfaction]" min="1" max="11" step="1" value="6" />
               <span>6</span>
+              <i>[1 - lowest, 11 - highest]</i>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>

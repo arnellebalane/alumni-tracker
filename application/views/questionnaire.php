@@ -73,6 +73,7 @@
           <div class="field">
             <label class="required">Contact Number in Permanent Address</label>
             <input type="text" name="personal_information[permanent_address_contact_number]" value="<?=set_field_value('personal_information', 'permanent_address_contact_number', null, null); ?>" />
+            <a href="#" data-behavior="same-contact-number">[same with contact number in present address]</a>
           </div>
           <div class="field">
             <label class="required">Email Address</label>

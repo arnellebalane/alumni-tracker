@@ -218,7 +218,7 @@ aside li:after {
   background-color: #399B28;
 }
 
-.content .slide[data-name="personal-information"] a[data-behavior="same-address"] {
+.content .slide[data-name="personal-information"] a[data-behavior^="same"] {
   display: block;
   margin: 3px 0 10px 278px;
   font: normal 1.4rem/1 "Open Sans Light", "OpenSansLight";
@@ -226,8 +226,8 @@ aside li:after {
   text-decoration: none;
 }
 
-.content .slide[data-name="personal-information"] a[data-behavior="same-address"]:hover,
-.content .slide[data-name="personal-information"] a[data-behavior="same-address"]:focus {
+.content .slide[data-name="personal-information"] a[data-behavior^="same"]:hover,
+.content .slide[data-name="personal-information"] a[data-behavior^="same"]:focus {
   text-decoration: underline;
 }
 

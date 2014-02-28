@@ -23,6 +23,7 @@
     <aside>
       <ul>
         <li><?= anchor('enumerator/index', 'Alumni Data', array('class' => 'current')); ?></li>
+        <li><?= anchor('statistics/index', 'Statistical Presentations'); ?></li>
         <li><?= anchor('enumerator/settings', 'Account Settings'); ?></li>
       </ul>
     </aside>

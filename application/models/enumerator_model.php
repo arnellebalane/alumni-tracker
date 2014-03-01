@@ -6,12 +6,12 @@ class enumerator_model extends CI_Model {
   }
 
   function getAllEnumerators() {
-    $query = $this->db->query("SELECT users.*, personal_infos.firstname, personal_infos.email FROM users INNER JOIN personal_infos ON personal_infos.user_id =                         users.id WHERE users.user_type='moderator' ORDER BY users.id DESC");
+    $query = $this->db->query("SELECT users.*, personal_infos.firstname, personal_infos.email FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE users.user_type='moderator' ORDER BY users.id DESC");
     return $query->result();
   }
 
   function getEnumeratorPrograms($id) {
-    $query = $this->db->query("SELECT programs.* FROM programs INNER JOIN enumerator_programs ON enumerator_programs.program_id =                         programs.id WHERE enumerator_programs.user_id = '".addslashes($id)."'");
+    $query = $this->db->query("SELECT programs.* FROM programs INNER JOIN enumerator_programs ON enumerator_programs.program_id = programs.id WHERE enumerator_programs.user_id = '".addslashes($id)."'");
     return $query->result();
   }
 
@@ -26,7 +26,7 @@ class enumerator_model extends CI_Model {
   }
 
   function addEnumeratorProgram($user_id, $program_id) {
-    $query = $this->db->query("SELECT * FROM enumerator_programs WHERE user_id='".addslashes($user_id)."' AND program_id = '".addslashes(                         $user_id)."'");
+    $query = $this->db->query("SELECT * FROM enumerator_programs WHERE user_id='".addslashes($user_id)."' AND program_id = '".addslashes($user_id)."'");
     $res = $query->result();
     if (!$res) {
       $this->db->query("INSERT INTO enumerator_programs VALUES('".addslashes($user_id)."', '".addslashes($program_id)."')");

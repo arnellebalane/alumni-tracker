@@ -15,6 +15,18 @@ class statistics_model extends CI_Model{
     return $query->result();
   }
 
+  function genderEnumerator($user_id) {
+    $query = $this->db->query("SELECT SUM(CASE WHEN personal_infos.gender = 'male' then 1 else 0 end) males, 
+                               SUM(CASE WHEN personal_infos.gender = 'female' then 1 else 0 end) females
+                               FROM personal_infos LEFT JOIN users ON users.id = personal_infos.user_id
+                               LEFT JOIN educational_backgrounds on educational_backgrounds.user_id = users.id
+                               WHERE users.user_type='alumni' AND educational_backgrounds.year_graduated != '0 - 0' AND educational_backgrounds.program_id IN 
+                               (SELECT program_id FROM enumerator_programs WHERE user_id = '".addslashes($user_id)."') AND users.created_at >= 
+                               (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at <= (SELECT value 
+                               FROM params WHERE key_name='end_submission')");
+    return $query->result();
+  }
+
   function countries() {
     $query = $this->db->query("SELECT countries.name, SUM(CASE WHEN personal_infos.present_country_id= countries.id then 1 else 0 end) count, SUM(CASE WHEN personal_infos.gender = 'male' then 1 else 0 end) males,
                                SUM(CASE WHEN personal_infos.gender = 'female' then 1 else 0 end) females
@@ -26,11 +38,34 @@ class statistics_model extends CI_Model{
     return $query->result();
   }
 
+  function countriesEnumerator($user_id) {
+    $query = $this->db->query("SELECT countries.name, SUM(CASE WHEN personal_infos.present_country_id= countries.id then 1 else 0 end) count, SUM(CASE WHEN personal_infos.gender = 'male' then 1 else 0 end) males,
+                               SUM(CASE WHEN personal_infos.gender = 'female' then 1 else 0 end) females
+                               FROM countries LEFT JOIN personal_infos ON personal_infos.present_country_id = countries.id LEFT JOIN users ON users.id = personal_infos.user_id
+                               LEFT JOIN educational_backgrounds on educational_backgrounds.user_id = users.id
+                               WHERE users.user_type='alumni' AND educational_backgrounds.year_graduated != '0 - 0' 
+                               AND educational_backgrounds.program_id IN (SELECT program_id FROM enumerator_programs WHERE user_id = '".addslashes($user_id)."') AND users.created_at >= 
+                               (SELECT value FROM params WHERE key_name='start_submission') AND users.created_at <= (SELECT value 
+                               FROM params WHERE key_name='end_submission') GROUP BY countries.id");
+    return $query->result();
+  }
+
   function programs() {
     $query = $this->db->query("SELECT programs.name, SUM(CASE WHEN educational_backgrounds.program_id = programs.id then 1 else 0 end)count 
                                FROM programs LEFT JOIN educational_backgrounds ON educational_backgrounds.program_id = programs.id 
                                LEFT JOIN users on users.id = educational_backgrounds.user_id WHERE users.user_type='alumni' 
                                AND educational_backgrounds.year_graduated != '0 - 0'
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') GROUP BY programs.id");
+    return $query->result();
+  }
+
+  function programsEnumerator($user_id) {
+    $query = $this->db->query("SELECT programs.name, SUM(CASE WHEN educational_backgrounds.program_id = programs.id then 1 else 0 end)count 
+                               FROM programs LEFT JOIN educational_backgrounds ON educational_backgrounds.program_id = programs.id 
+                               LEFT JOIN users on users.id = educational_backgrounds.user_id WHERE users.user_type='alumni' 
+                               AND educational_backgrounds.year_graduated != '0 - 0'
+                               AND programs.id IN (SELECT program_id FROM enumerator_programs WHERE user_id = '".addslashes($user_id)."')
                                AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
                                AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission') GROUP BY programs.id");
     return $query->result();
@@ -82,6 +117,22 @@ class statistics_model extends CI_Model{
                                LEFT JOIN educational_backgrounds on educational_backgrounds.user_id = users.id
                                WHERE (user_employment_histories.first_job = 1 OR user_employment_histories.current_job = 1) AND users.user_type='alumni' 
                                AND educational_backgrounds.year_graduated != '0 - 0'
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission')");
+    return $query->result();
+  } 
+
+  function selfEmployedEnumerator($user_id) {
+    $query = $this->db->query("SELECT SUM(CASE WHEN employment_details.self_employed = '1' AND user_employment_histories.first_job = '1' then 1 else 0 end) yesFirst, 
+                               SUM(CASE WHEN employment_details.self_employed = '0' AND user_employment_histories.first_job = '1' then 1 else 0 end) noFirst, 
+                               SUM(CASE WHEN employment_details.self_employed = '1' AND user_employment_histories.current_job  ='1' then 1 else 0 end) yesCurrent, 
+                               SUM(CASE WHEN employment_details.self_employed = '0' AND user_employment_histories.current_job  ='1' then 1 else 0 end) noCurrent 
+                               FROM user_employment_histories LEFT JOIN employment_details ON employment_details.id = user_employment_histories.employment_details_id 
+                               INNER JOIN users ON users.id = user_employment_histories.user_id
+                               LEFT JOIN educational_backgrounds on educational_backgrounds.user_id = users.id
+                               WHERE (user_employment_histories.first_job = 1 OR user_employment_histories.current_job = 1) AND users.user_type='alumni' 
+                               AND educational_backgrounds.year_graduated != '0 - 0'
+                               AND educational_backgrounds.program_id IN (SELECT program_id FROM enumerator_programs WHERE user_id = '".addslashes($user_id)."')
                                AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
                                AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission')");
     return $query->result();

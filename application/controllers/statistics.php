@@ -27,7 +27,12 @@
     }
 
     public function gender() {
-      $genders = $this->stat->gender();
+      $genders = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $genders = $this->stat->gender();
+      } else {
+        $genders = $this->stat->genderEnumerator($this->session->userdata('user_id'));
+      }
       $total = $genders[0]->males + $genders[0]->females;
       $data = array('genders'=>$genders,
                     'total'=>$total);
@@ -35,7 +40,12 @@
     }
 
     public function country() {
-      $countries = $this->stat->countries();
+      $countries = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $countries = $this->stat->countries();
+      } else {
+        $countries = $this->stat->countriesEnumerator($this->session->userdata('user_id'));
+      }
       $total = 0;
       $males = 0;
       $females = 0;
@@ -70,7 +80,12 @@
     }
 
     public function salary() {
-      $programs = $this->values->getPrograms();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->values->getPrograms();
+      } else {
+        $programs = $this->enumerator->getEnumeratorPrograms($this->session->userdata('user_id'));
+      }
       $data = array();
       foreach ($programs as $prog) {
         $salary = $this->stat->monthlySalary($prog->id);
@@ -110,7 +125,12 @@
     }
 
     public function degree_program() {
-      $programs = $this->stat->programs();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->stat->programs();
+      } else {
+        $programs = $this->stat->programsEnumerator($this->session->userdata('user_id'));
+      }
       $total = 0;
       foreach ($programs as $prog) {
         $total += $prog->count;
@@ -128,7 +148,13 @@
     }
 
     public function self_employed() {
-      $data = array("employment" => $this->stat->selfEmployed());
+      $employment = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $employment = $this->stat->selfEmployed();
+      } else {
+        $employment = $this->stat->selfEmployedEnumerator($this->session->userdata('user_id'));
+      }
+      $data = array("employment" => $employment);
       $this->load->view('statistics/self_employed', $data);
     }
 
@@ -169,7 +195,12 @@
     }
 
     public function job_satisfaction() {
-      $programs = $this->values->getPrograms();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->values->getPrograms();
+      } else {        
+        $programs = $this->enumerator->getEnumeratorPrograms($this->session->userdata('user_id'));
+      }
       $data = array();
       $data['programs'] = null;
       foreach ($programs as $prog) {

@@ -293,9 +293,9 @@
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="1" id="employment_history[0][swj-yes]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 1); ?>/><label for="employment_history[0][swj-yes]">Yes</label>
               <input type="radio" name="employment_history[0][satisfied_with_job]" value="0" id="employment_history[0][swj-no]" <?=is_checked("employment_history", '0', "satisfied_with_job", null, 0); ?>/><label for="employment_history[0][swj-no]">No</label>
               -->
-              <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="11" step="1" value="<?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?>" />
-              <span><?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 6 ?></span>
-              <i>[1 - lowest, 11 - highest]</i>
+              <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="7" step="1" value="<?=($post) ? $post['employment_history'][0]['job_satisfaction'] : 4 ?>" />
+              <span><?=($post) ? $post['employment_history'][0]['job_satisfaction'] : '4 - neutral' ?></span>
+              <i>[1 - lowest, 7 - highest]</i>
             </div>
             <div class="field indented textarea">
               <label>Why or why not satisfied?</label>

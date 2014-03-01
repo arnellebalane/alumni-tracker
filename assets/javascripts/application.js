@@ -87,7 +87,18 @@ var questionnaire = {
     });
 
     $('input[type="range"]').on('change', function() {
-      $(this).next('span').text($(this).val());
+      var value = parseInt($(this).val());
+      var satisfaction;
+      switch (value) {
+        case 1: satisfaction = 'very unsatisfied'; break;
+        case 2: satisfaction = 'unsatisfied'; break;
+        case 3: satisfaction = 'a bit unsatisfied'; break;
+        case 4: satisfaction = 'neutral'; break;
+        case 5: satisfaction = 'a bit satisfied'; break;
+        case 6: satisfaction = 'satisfied'; break;
+        case 7: satisfaction = 'very satisfied'; break;
+      }
+      $(this).next('span').text(value + ' - ' + satisfaction);
     });
   },
   initializeOthers: function() {
@@ -112,7 +123,18 @@ var questionnaire = {
       }
     });
     newJobForm.find('input[type="range"]').on('change', function() {
-      $(this).next('span').text($(this).val());
+      var value = parseInt($(this).val());
+      var satisfaction;
+      switch (value) {
+        case 1: satisfaction = 'very unsatisfied'; break;
+        case 2: satisfaction = 'unsatisfied'; break;
+        case 3: satisfaction = 'a bit unsatisfied'; break;
+        case 4: satisfaction = 'neutral'; break;
+        case 5: satisfaction = 'a bit satisfied'; break;
+        case 6: satisfaction = 'satisfied'; break;
+        case 7: satisfaction = 'very satisfied'; break;
+      }
+      $(this).next('span').text(value + ' - ' + satisfaction);
     });
     $('.field[data-field="another-job"]').before(newJobForm);
   },
@@ -371,7 +393,18 @@ var admin = {
       $(this).closest('.job-form').remove();
     });
     job.find('input[type="range"]').on('change', function() {
-      $(this).next('span').text($(this).val());
+      var value = parseInt($(this).val());
+      var satisfaction;
+      switch (value) {
+        case 1: satisfaction = 'very unsatisfied'; break;
+        case 2: satisfaction = 'unsatisfied'; break;
+        case 3: satisfaction = 'a bit unsatisfied'; break;
+        case 4: satisfaction = 'neutral'; break;
+        case 5: satisfaction = 'a bit satisfied'; break;
+        case 6: satisfaction = 'satisfied'; break;
+        case 7: satisfaction = 'very satisfied'; break;
+      }
+      $(this).next('span').text(value + ' - ' + satisfaction);
     });
   },
   initializeEnumerators: function() {

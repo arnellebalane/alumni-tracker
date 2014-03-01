@@ -40,7 +40,7 @@
             <div class="statistical-chart"></div>      
             <div class="statistical-table"></div>
             <div class="statistical-data hidden">
-              <?php for($ctr = 1; $ctr <= 11; $ctr++) : ?>
+              <?php for($ctr = 1; $ctr <= 10; $ctr++) : ?>
                 <?php if ($value['first'][$ctr]) { ?>
                   <span class="chart table" data-label="<?=$ctr?>" data-frequency="<?=$value['first'][$ctr]?>" data-percentage="<?=($value['first'][$ctr] / $total[$name]['first']) * 100?>"></span>
                 <?php } else { ?>
@@ -57,7 +57,7 @@
             <div class="statistical-chart"></div>      
             <div class="statistical-table"></div>
             <div class="statistical-data hidden">
-              <?php for($ctr = 1; $ctr <= 11; $ctr++) : ?>
+              <?php for($ctr = 1; $ctr <= 10; $ctr++) : ?>
                 <?php if ($value['current'][$ctr]) { ?>
                   <span class="chart table" data-label="<?=$ctr?>" data-frequency="<?=$value['current'][$ctr]?>" data-percentage="<?=($value['current'][$ctr] / $total[$name]['current']) * 100?>"></span>
                 <?php } else { ?>

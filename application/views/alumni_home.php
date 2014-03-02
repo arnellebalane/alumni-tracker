@@ -276,7 +276,7 @@
             </div>
             <div class="field indented">
               <label>Job Satisfaction</label>
-              <h2><?=$current_job[0]->job_satisfaction?></h2>
+              <h2><?=job_satisfaction_label($current_job[0]->job_satisfaction)?></h2>
             </div>
             <div class="field indented">
               <label>Why or why not satisfied?</label>

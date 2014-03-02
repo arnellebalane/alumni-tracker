@@ -23,7 +23,9 @@
     <aside>
       <ul>
         <li><?= anchor('enumerator/index', 'Alumni Data'); ?></li>
-        <li><?= anchor('statistics/index', 'Statistical Presentations'); ?></li>
+        <?php if ($view_stat == 1) { ?>
+          <li><?= anchor('statistics/index', 'Statistical Presentations'); ?></li>
+        <?php } ?>
         <li><?= anchor('enumerator/settings', 'Account Settings', array('class' => 'current')); ?></li>
       </ul>
     </aside>

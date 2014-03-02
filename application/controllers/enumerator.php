@@ -17,6 +17,11 @@
         $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
         redirect('enumerator/cleaning_disabled');
       }
+      $canView = 0;
+      $viewStatPrev = $this->model->getEnumeratorStatistics($this->session->userdata('user_id'));                
+      if ($viewStatPrev) {
+        $canView = $viewStatPrev[0]->statistics;
+      }
       $user_id = $this->session->userdata('user_id');
       if ($this->session->userdata('cleaned') == 0 || ($this->session->userdata('cleaned') == 1) || ($this->session->userdata('cleaned') == -1)) {
         $prev_cleaned = $this->session->userdata('cleaned');
@@ -92,7 +97,8 @@
                     'included'=>$included,
                     'programs'=>$this->model->getEnumeratorPrograms($user_id),
                     'paginator' => $this->paginator,
-                    'page' => $page);
+                    'page' => $page,
+                    'view_stat' => $canView);
       $this->load->helper('edit_info_helper.php');
       $this->load->remove_package_path(APPPATH . 'libraries/paginator');
       $this->load->view('enumerator/index', $data);
@@ -111,6 +117,11 @@
         redirect('enumerator/cleaning_disabled');
       }
       $user_id = $this->session->userdata('user_id');
+      $canView = 0;
+      $viewStatPrev = $this->model->getEnumeratorStatistics($user_id);                
+      if ($viewStatPrev) {
+        $canView = $viewStatPrev[0]->statistics;
+      }
       if (!$this->model->isAlumniUnderEnumerator($user_id, $id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
         redirect('enumerator/index?page='.$page);
@@ -136,7 +147,8 @@
                       'jobs'=>$this->alumni->getUserAllJobs($id),
                       'user_id'=>$id,
                       'page'=>$page,
-                      'other_degree'=>$this->alumni->getOtherDegreeByUserId($id)
+                      'other_degree'=>$this->alumni->getOtherDegreeByUserId($id),
+                      'view_stat'=>$canView
                       );      
         $this->load->helper('edit_info_helper.php');
         $this->load->helper('inflector');      
@@ -145,7 +157,13 @@
     }
 
     public function settings() {
-      $this->load->view('enumerator/settings');
+      $canView = 0;
+      $viewStatPrev = $this->model->getEnumeratorStatistics($this->session->userdata('user_id'));                
+      if ($viewStatPrev) {
+        $canView = $viewStatPrev[0]->statistics;
+      }
+      $data = array('view_stat'=>$canView);
+      $this->load->view('enumerator/settings', $data);
     }
 
     public function updateAccount() {
@@ -438,6 +456,8 @@
         if (!$this->hasFilledFieldsInEmploymentHistory($value)) {        
           $this->alumni->deleteEmploymentDetails($key);
         } else {          
+          $value['job_satisfaction'] = ($value['job_satisfaction'] <= 0) ? 1 : $value['job_satisfaction'];
+          $value['job_satisfaction'] = ($value['job_satisfaction'] > 7) ? 7 : $value['job_satisfaction'];
           $this->alumni->updateEmploymentDetails($key, $value);          
         }
       }
@@ -477,7 +497,7 @@
       foreach ($info as $var) : 
         if (!$this->hasEmptyFieldInEmploymentHistory($var)) {
           $var['job_satisfaction'] = ($var['job_satisfaction'] <= 0) ? 1 : $var['job_satisfaction'];
-          $var['job_satisfaction'] = ($var['job_satisfaction'] > 11) ? 11 : $var['job_satisfaction'];
+          $var['job_satisfaction'] = ($var['job_satisfaction'] > 7) ? 7 : $var['job_satisfaction'];
           $history_id = $this->alumni->addEmploymentDetails($var['business_type'], $var);
           $current_job = isset($var['current_job']) ? 1 : 0;
           $first_job = isset($var['first_job']) ? 1 : 0;

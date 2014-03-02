@@ -23,7 +23,9 @@
     <aside>
       <ul>
         <li><?= anchor('enumerator/index', 'Alumni Data', array('class' => 'current')); ?></li>
-        <li><?= anchor('statistics/index', 'Statistical Presentations'); ?></li>
+        <?php if ($view_stat == 1) { ?>
+          <li><?= anchor('statistics/index', 'Statistical Presentations'); ?></li>
+        <?php } ?>
         <li><?= anchor('enumerator/settings', 'Account Settings'); ?></li>
       </ul>
     </aside>
@@ -376,14 +378,14 @@
               <!--
               <h4><?=($job->job_satisfaction == 1) ? "Yes" : "No";?></h4>
               -->
-              <h4><?=$job->job_satisfaction?></h4>
+              <h4><?=job_satisfaction_label($job->job_satisfaction)?></h4>
               <div class="editable hidden">
                 <!--
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="1" data-current="<?=($job->job_satisfaction == 1) ? 'true':'false';?>" <?=is_checked(1, $job->job_satisfaction)?> />Yes</label>
                 <label><input type="radio" name="jobs[<?=$job->id?>][satisfied_with_job]" value="0" data-current="<?=($job->job_satisfaction == 0) ? 'true':'false';?>" <?=is_checked(0, $job->job_satisfaction)?> />No</label>
                 -->
                 <input type="range" name="jobs[<?= $job->id; ?>][job_satisfaction]" min="1" max="7" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" />
-                <span><?=$job->job_satisfaction?></span>
+                <span><?=job_satisfaction_label($job->job_satisfaction)?></span>
                 <i>[1 - lowest, 7 - highest]</i>
               </div>
               <a href="#" data-behavior="edit">[edit]</a>

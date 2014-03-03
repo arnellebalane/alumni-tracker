@@ -83,6 +83,20 @@ class statistics_model extends CI_Model{
     return $query->result();
   }
 
+  function honorsReceivedEnumerator($user_id) {
+    $query = $this->db->query("SELECT SUM(CASE WHEN educational_backgrounds.honor_received ='summa cum laude' then 1 else 0 end) suma, 
+                               SUM(CASE WHEN educational_backgrounds.honor_received='magna cum laude' then 1 else 0 end) magna,
+                               SUM(CASE WHEN educational_backgrounds.honor_received='cum laude' then 1 else 0 end) cum,
+                               SUM(CASE WHEN educational_backgrounds.honor_received='none' then 1 else 0 end) none
+                               FROM educational_backgrounds LEFT JOIN users ON users.id = educational_backgrounds.user_id 
+                               WHERE users.user_type='alumni'
+                               AND educational_backgrounds.program_id IN (SELECT program_id FROM enumerator_programs WHERE user_id = '".addslashes($user_id)."')
+                               AND educational_backgrounds.year_graduated != '0 - 0'
+                               AND users.created_at >= (SELECT value FROM params WHERE key_name='start_submission') 
+                               AND users.created_at <= (SELECT value FROM params WHERE key_name='end_submission')");
+    return $query->result();
+  }
+
   function businessType($program_id) {
     $query= $this->db->query("SELECT employer_types.name, SUM(CASE WHEN employment_details.employer_type_id= employer_types.id AND user_employment_histories.current_job = '1' then 1 else 0 end) curJobCount,
                               SUM(CASE WHEN employment_details.employer_type_id= employer_types.id AND user_employment_histories.first_job = '1' then 1 else 0 end) firstJobCount FROM employer_types RIGHT JOIN employment_details

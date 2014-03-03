@@ -62,7 +62,12 @@
     }
 
     public function employer_type() {
-      $programs = $this->values->getPrograms();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->values->getPrograms();
+      } else {
+        $programs = $this->enumerator->getEnumeratorPrograms($this->session->userdata('user_id'));
+      }
       $data = array();
       foreach ($programs as $prog) {
         $types = $this->stat->businessType($prog->id);
@@ -103,7 +108,12 @@
     }
 
     public function job_title() {
-      $programs = $this->values->getPrograms();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->values->getPrograms();
+      } else {
+        $programs = $this->enumerator->getEnumeratorPrograms($this->session->userdata('user_id'));
+      }
       $data = array();      
       foreach ($programs as $prog) {
         $first = $this->stat->jobTitleFirstJob($prog->id);
@@ -141,7 +151,12 @@
     }
 
     public function honor_received() {
-      $honors = $this->stat->honorsReceived();
+      $honors = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $honors = $this->stat->honorsReceived();
+      } else {
+        $honors = $this->stat->honorsReceivedEnumerator($this->session->userdata('user_id'));
+      }
       $total = $honors[0]->suma + $honors[0]->magna + $honors[0]->cum + $honors[0]->none;
       $data = array('honors'=>$honors, 'total'=>$total);
       $this->load->view('statistics/honor_received', $data);
@@ -159,7 +174,12 @@
     }
 
     public function employment_gap() {
-      $programs = $this->values->getPrograms();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->values->getPrograms();
+      } else {
+        $programs = $this->enumerator->getEnumeratorPrograms($this->session->userdata('user_id'));
+      }
       $data = array();
       $data['programs'] = null;
       foreach ($programs as $prog) {
@@ -224,7 +244,12 @@
     }
 
     public function course_suggestions() {
-      $programs = $this->values->getPrograms();
+      $programs = null;
+      if ($this->session->userdata('user_type') == "super admin") {
+        $programs = $this->values->getPrograms();
+      } else {
+        $programs = $this->enumerator->getEnumeratorPrograms($this->session->userdata('user_id'));
+      }
       $data = array();
       foreach ($programs as $prog) {
         $topics = $this->stat->suggestions($prog->id);

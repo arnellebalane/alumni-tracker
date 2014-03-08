@@ -34,6 +34,10 @@
       <h1>Alumni Data</h1>
       <p>This is a listing of all the data submitted by the alumni through the questionnaire.</p>
 
+      <?= form_open('#', array('class' => 'search', 'method' => 'GET')); ?>
+        <input type="text" name="query" placeholder="Search an alumni" />
+        <input type="submit" value="search" />
+      <?= form_close(); ?>
       <?= form_open('enumerator/index', array('class' => 'filter', 'method' => 'GET')); ?>
         <select name="included">
           <option disabled selected>--filter by time submitted--</option>

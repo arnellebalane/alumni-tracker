@@ -214,11 +214,17 @@ aside li a.current:before {
   margin-bottom: 20px;
 }
 
+.search {
+  text-align: right;
+  margin-bottom: 3px;
+}
+
 .filter {
   text-align: right;
   margin-bottom: 20px;
 }
 
+.search input[type="text"],
 .filter select {
   font: normal 1.4rem "Open Sans Light", "OpenSansLight";
   color: #333333;
@@ -234,10 +240,16 @@ aside li a.current:before {
   transition: box-shadow 250ms ease;
 }
 
+.search input[type="text"] {
+  padding: 3px 5px 4px 5px;
+}
+
+.search input[type="text"]:focus,
 .filter select:focus {
   box-shadow: 0 0 3px #30FC0D;
 }
 
+.search input[type="submit"],
 .filter input[type="submit"] {
   display: inline-block;
   vertical-align: top;
@@ -252,6 +264,8 @@ aside li a.current:before {
   cursor: pointer;
 }
 
+.search input[type="submit"]:hover,
+.search input[type="submit"]:focus,
 .filter input[type="submit"]:hover,
 .filter input[type="submit"]:focus {
   background-color: #32881A;

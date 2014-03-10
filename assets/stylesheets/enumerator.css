@@ -108,6 +108,10 @@ aside li a.current:before {
   margin-bottom: 3px;
 }
 
+.search.solo {
+  margin-bottom: 20px;
+}
+
 .filter {
   text-align: right;
   margin-bottom: 20px;

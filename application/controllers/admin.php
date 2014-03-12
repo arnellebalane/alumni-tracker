@@ -753,6 +753,12 @@
       $this->load->view('excel', $data);
     }
 
+    public function search() {
+      $key = trim($_GET['query']);
+      $data = array('result' => $this->alumni->seach($key), 'key' => $key);
+      $this->load->view("admin/search_results", $data);
+    }
+
     // public function addCountriesFromFile() {
     //   $file = fopen('countries.txt', 'r');
     //   while(!feof($file)) {

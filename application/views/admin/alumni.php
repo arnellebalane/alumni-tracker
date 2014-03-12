@@ -35,12 +35,12 @@
       <h1>Alumni Data</h1>
       <p>This is a listing of all the data submitted by the alumni through the questionnaire.</p>
 
-      <!--
-      <?= form_open('#', array('class' => 'search', 'method' => 'GET')); ?>
+      
+      <?= form_open('admin/search', array('class' => 'search', 'method' => 'GET')); ?>
         <input type="text" name="query" placeholder="Search an alumni" />
         <input type="submit" value="search" />
       <?= form_close(); ?>
-      -->
+      
       <?= form_open('admin/alumni', array('class' => 'filter', 'method' => 'GET')); ?>
         <select name="included">
           <option disabled selected>--filter by time submitted--</option>
@@ -65,14 +65,18 @@
       <?= form_close(); ?>
 
       <ul class="list">
-        <?php foreach ($alumni as $alumnus): ?>
-          <li>
-            <?= anchor('admin/clean/'.$alumnus->id.'/'.$page, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
-            <div class="actions">
-              <?= anchor('admin/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
-            </div>
-          </li>
-        <?php endforeach; ?>
+        <?php if ($alumni) { ?>
+          <?php foreach ($alumni as $alumnus): ?>
+            <li>
+              <?= anchor('admin/clean/'.$alumnus->id.'/'.$page, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+              <div class="actions">
+                <?= anchor('admin/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
+              </div>
+            </li>
+          <?php endforeach; ?>
+        <?php } else { ?>
+          <li><p>No Alumni!</p><li>
+        <?php } ?>
       </ul>
       <?= $paginator->paginate(); ?>
     </div>

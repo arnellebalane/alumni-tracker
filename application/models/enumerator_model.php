@@ -371,5 +371,28 @@ class enumerator_model extends CI_Model {
     return false;
   }
 
+  function seach($key, $user_id) {
+    $key = trim($key);
+    $lastSpace = strrpos($key, ' ');    
+    $keys = explode(" ", $key);
+    $subquery = "";
+    for ($ctr = 0; $ctr < count($keys); $ctr++) {
+      $k = trim($keys[$ctr]);     
+      if (strlen($k) > 0) {       
+        $subquery .= "personal_infos.firstname LIKE '".addslashes($keys[$ctr])."%' OR personal_infos.firstname LIKE '% ".addslashes($keys[$ctr])."%'  OR personal_infos.lastname LIKE '".addslashes($keys[$ctr])."%' OR personal_infos.lastname LIKE '% ".addslashes($keys[$ctr])."%' ";
+      }
+      if ($ctr+1 != count($keys) && strlen($k) > 0) {
+        $subquery .="OR ";
+      }
+    }
+    $first = ($lastSpace) ? substr($key, 0, $lastSpace) : $key;
+    $family = ($lastSpace) ? substr($key, $lastSpace+1) : $key;       
+    $query = $this->db->query("SELECT users.*, personal_infos.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id 
+                               INNER JOIN educational_backgrounds ON educational_backgrounds.user_id = users.id WHERE users.user_type='alumni' AND (educational_backgrounds.student_number LIKE '%".addslashes(trim($key))."%' 
+                                OR ".$subquery.") AND educational_backgrounds.program_id IN (SELECT program_id FROM enumerator_programs WHERE user_id = '".addslashes($user_id)."')
+                               order by users.id desc");
+    return $query->result();
+  }
+
 
 }

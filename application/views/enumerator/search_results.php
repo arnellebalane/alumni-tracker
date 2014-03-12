@@ -34,18 +34,24 @@
       <h1>Search Results</h1>
       <p>Search Query: [insert query here]</p>
 
-      <?= form_open('#', array('class' => 'search solo', 'method' => 'GET')); ?>
-        <input type="text" name="query" placeholder="Search an alumni" value="[insert query here]" />
+      <?= form_open('enumerator/search', array('class' => 'search solo', 'method' => 'GET')); ?>
+        <input type="text" name="query" placeholder="Search an alumni" value="<?=$key?>" />
         <input type="submit" value="search" />
       <?= form_close(); ?>
 
       <ul class="list">
-        <li>
-          <a href="<?= site_url('enumerator/clean/1'); ?>" class="cleaned">Arnelle Balane</a>
-          <div class="actions">
-            <a href="<?= site_url('enumerator/deleteAlumni/1'); ?>">Discard</a>
-          </div>
-        </li>
+        <?php if ($result) { ?>
+          <?php foreach ($result as $alumnus): ?>
+            <li>
+              <?= anchor('admin/clean/'.$alumnus->id.'/1', $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+              <div class="actions">
+                <?= anchor('admin/deleteAlumni/'.$alumnus->id.'/1', 'Discard'); ?>
+              </div>
+            </li>
+          <?php endforeach; ?>
+        <?php } else { ?>
+          <li><p>No results found!</p><li>
+        <?php } ?>
       </ul>
     </div>
   </div>

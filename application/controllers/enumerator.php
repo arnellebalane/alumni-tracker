@@ -13,10 +13,10 @@
     }
 
     public function index() {
-      if (!$this->model->canClean()) {
-        $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
-        redirect('enumerator/cleaning_disabled');
-      }
+      // if (!$this->model->canClean()) {
+      //   $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
+      //   redirect('enumerator/cleaning_disabled');
+      // }
       $canView = 0;
       $viewStatPrev = $this->model->getEnumeratorStatistics($this->session->userdata('user_id'));                
       if ($viewStatPrev) {
@@ -112,10 +112,10 @@
     }
 
     public function clean($id, $page = 1) {
-      if (!$this->model->canClean()) {
-        $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
-        redirect('enumerator/cleaning_disabled');
-      }
+      // if (!$this->model->canClean()) {
+      //   $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
+      //   redirect('enumerator/cleaning_disabled');
+      // }
       $user_id = $this->session->userdata('user_id');
       $canView = 0;
       $viewStatPrev = $this->model->getEnumeratorStatistics($user_id);                
@@ -464,6 +464,10 @@
     }
 
     public function deleteJob($user_id, $id, $page = 1) {
+      if (!$this->model->canClean()) {
+        $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
+        redirect('enumerator/cleaning_disabled');
+      }
       $user_id2 = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id2, $user_id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
@@ -474,7 +478,11 @@
       redirect('enumerator/clean/'.$user_id.'/'.$page);
     }
 
-    public function deleteOtherDegree($user_id, $degree_id, $page = 1) {      
+    public function deleteOtherDegree($user_id, $degree_id, $page = 1) {
+      if (!$this->model->canClean()) {
+        $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
+        redirect('enumerator/cleaning_disabled');
+      }    
       $user_id2 = $this->session->userdata('user_id');
       if (!$this->model->isAlumniUnderEnumerator($user_id2, $user_id)) {
         $this->session->set_flashdata("alert", "The alumni is not under you scope!");        
@@ -561,6 +569,17 @@
         // echo '<pre>MESSAGE SENDING FAILED</pre>';
         return false;
       }
+    }
+
+    public function search() {
+      $key = trim($_GET['query']);
+      $canView = 0;
+      $viewStatPrev = $this->model->getEnumeratorStatistics($this->session->userdata('user_id'));                
+      if ($viewStatPrev) {
+        $canView = $viewStatPrev[0]->statistics;
+      }
+      $data = array('result' => $this->model->seach($key, $this->session->userdata('user_id')), 'key' => $key, 'view_stat' => $canView);      
+      $this->load->view("enumerator/search_results", $data);
     }    
 
   }

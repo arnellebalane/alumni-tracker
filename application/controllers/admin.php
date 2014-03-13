@@ -691,7 +691,7 @@
       do {
         $pass = "";
         for ($ctr = 0; $ctr < 6; $ctr++) {          
-          $pass .= $values[rand(0,strlen($values))];
+          $pass .= $values[rand(0,strlen($values) - 1)];
         }
       } while($this->alumni->getUsersByPassword($pass) != null);     
       return $pass;

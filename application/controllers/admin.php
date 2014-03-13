@@ -405,7 +405,7 @@
     private function validateEmail($email, $user_id) {      
       $index = strpos($email, '@');     
       if ($index) {
-        $index2 = strpos($email, '.');
+        $index2 = strrpos($email, '.');
         if ($index2 && ($index2 > $index)) {
           $user = $this->alumni->getUserByEmail($email);
           if (!$user || $user[0]->id == $user_id) {
@@ -656,8 +656,10 @@
         $pass = $this->generatePassword();
         $this->load->model('enumerator_model');
         $id = $this->enumerator_model->addEnumerator($_POST['email'], $pass, $_POST['name']);        
-        foreach ($_POST['degree_program'] as $key => $value) {               
-          $this->enumerator_model->addEnumeratorProgram($id, $key);
+        if (isset($_POST['degree_program'])) {
+          foreach ($_POST['degree_program'] as $key => $value) {               
+            $this->enumerator_model->addEnumeratorProgram($id, $key);
+          }
         }
         $this->enumerator_model->updateEnumeratorStatistics($id, isset($_POST['analysis_access']) ? 1 : 0);        
         $res = $this->mailer($id, 'enumerator');

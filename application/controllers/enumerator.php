@@ -330,7 +330,7 @@
     private function validateEmail($email, $user_id) {      
       $index = strpos($email, '@');     
       if ($index) {
-        $index2 = strpos($email, '.');
+        $index2 = strrpos($email, '.');
         if ($index2 && ($index2 > $index)) {
           $user = $this->alumni->getUserByEmail($email);
           if (!$user || $user[0]->id == $user_id) {

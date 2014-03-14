@@ -44,7 +44,7 @@ var questionnaire = {
       e.preventDefault();
       $('input[name="personal_information[permanent_address]"]').val($('input[name="personal_information[present_address]"]').val());
     });
-    $('a[data-behavior="same-contact-number').on('click', function(e) {
+    $('a[data-behavior="same-contact-number"]').on('click', function(e) {
       e.preventDefault();
       $('input[name="personal_information[permanent_address_contact_number]"]').val($('input[name="personal_information[present_address_contact_number]"]').val());
     });

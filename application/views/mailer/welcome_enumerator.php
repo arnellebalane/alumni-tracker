@@ -16,7 +16,7 @@
           <li style="font: normal 14px 'Arial'; color: #333333;"><?=$prog->name?></li>
         <? endforeach; ?>        
       </ul>
-      <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You may login to your enumerator account through this link: <a href="http://localhost/alumni-tracker/index.php/session/index" style="display: inline-block;">Alumni Tracker account login</a></p>
+      <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">You may login to your enumerator account through this link: <a href="<?= site_url('session/index'); ?>" style="display: inline-block;">Alumni Tracker account login</a></p>
       <p style="font: normal 14px 'Arial'; color: #333333; margin: 0 0 10px 0;">Your login information can be found below:</p>
       <div style="margin: 15px 0 15px 25px;">
         <p style="font: normal 14px 'Arial'; color: #333333; margin: 0;"><span style="display: inline-block; width: 100px;">Username:</span><?=$account_info[0]->username?></p>

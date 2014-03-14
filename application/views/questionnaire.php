@@ -55,7 +55,7 @@
             <label class="required">Country/State of Present Address</label>
             <select name="personal_information[country]" class="specifiable">
               <?foreach ($countries as $var) : ?>
-                <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?> ><?=$var->name?></option>
+                <option value="<?=$var->id?>" <?=is_selected('personal_information', 'country', null, null, $var->id);?><?=is_phil($var->name);?> ><?=$var->name?></option>
               <? endforeach; ?>              
               <!-- <option value="others" <?=is_selected('personal_information', 'country', null, null, 'others');?> >Others</option> -->
             </select>          
@@ -275,7 +275,7 @@
                 <option value="12" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 12)?>>December</option>
               </select>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
-                <option value="100000" <?=is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>ongoing</option>
+                <option value="100000" <?=is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>present</option>
                 <?php 
                   $year = date('Y');
                   while ($year >= 1980) { 

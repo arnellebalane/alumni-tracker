@@ -373,7 +373,7 @@
                 <option value="12">December</option>
               </select>
               <select name="employment_history[0][employment_duration][end_year]" class="narrow">
-                <option value="100000" <?=pop_is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>ongoing</option>
+                <option value="100000" <?=pop_is_selected('employment_history', '0', 'employment_duration', "end_year", 100000); ?>>present</option>
                 <?php 
                   $year = date('Y');
                   while ($year >= 1980) { 

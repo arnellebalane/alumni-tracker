@@ -127,9 +127,13 @@
 
 				$useful_topics = explode(',', $info['useful_topics']);
 				foreach ($useful_topics as $key => $value) {
-					$this->model->addMajors($comment_id, $value);
-				}
+					$value = trim($value);
+					if (strlen($value) > 0) {
+						$this->model->addMajors($comment_id, $value);
+					}
+				}				
 			}
+			return;
 
 			// if ($info['jobs_related'] == 'yes') {
 			// 	$comment_id = $this->model->addComment($user_id);
@@ -155,14 +159,14 @@
 		// ADD EDUCATIONAL BACKGROUND
 		private function addEducationBackground($info, $email) {			
 			$username = '';
-			if ($info['student_number'] != '') {
-				$username = $info['student_number'];
+			if (trim($info['student_number']) != '') {
+				$username = trim($info['student_number']);
 			}
 			$pass = $this->generatePassword();
 			$user_id = $this->model->addUser(addslashes($username), $pass);
-			$ctr=0;
+			$ctr = 0;	
 			while($user_id == null) {
-				$user_id = $this->model->addUser(addslashes($username.$ctr), $pass);
+				$user_id = $this->model->addUser(addslashes($username.$ctr), $pass);				
 				$ctr++;
 			}
 			$this->model->addEducationalBackground($user_id, addslashes($info['student_number']), addslashes($info['degree_program']), 

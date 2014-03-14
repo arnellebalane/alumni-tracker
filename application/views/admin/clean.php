@@ -333,7 +333,7 @@
             </div>
             <div class="field" data-field="employment-duration">
               <label>Employment Duration</label>
-              <h4><?=to_month($job->month_started)." ".$job->year_started?> - <?=($job->year_ended != 100000) ? to_month($job->month_ended)." ".$job->year_ended: "ongoing";?></h4>
+              <h4><?=to_month($job->month_started)." ".$job->year_started?> - <?=($job->year_ended != 100000) ? to_month($job->month_ended)." ".$job->year_ended: "present";?></h4>
               <div class="editable hidden">
                 <select name="jobs[<?=$job->id?>][employment_duration][start_month]" data-current="<?=$job->month_started?>">
                   <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
@@ -359,7 +359,7 @@
                 </select>
                 <select name="jobs[<?=$job->id?>][employment_duration][end_year]" class="narrow" data-current="<?=$job->year_ended?>">
                   <? if ($job->current_job == 1) { ?>
-                    <option value="100000" <?=is_selected(100000, $job->year_ended)?>>ongoing</option>
+                    <option value="100000" <?=is_selected(100000, $job->year_ended)?>>present</option>
                   <?}?>
                   <?php 
                     $year = date('Y');
@@ -474,7 +474,7 @@
             <?php } ?>
           </select>
           <select name="another_job[{{index}}][employment_duration][end_year]" class="auto">            
-            <option value="100000"> ongoing</option>
+            <option value="100000"> present</option>
             
             <?php 
               $year = date('Y');

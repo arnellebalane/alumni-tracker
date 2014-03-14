@@ -31,6 +31,16 @@
 		}
 	}
 
+	function is_phil($country) {
+		$CI =& get_instance();
+		$post = $CI->session->flashdata('inputs');
+		if (!$post) {
+			if (strcmp($country, "Philippines") == 0) {
+				return "selected";
+			}
+		}
+	}
+
 	function is_checked($field, $sub_field_1, $sub_field_2, $sub_field_3, $value) {
 		$CI =& get_instance();
 		$post = $CI->session->flashdata('inputs');

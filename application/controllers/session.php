@@ -7,7 +7,7 @@
 			$this->load->model("user_model", "model");
 		}
 
-		public function index() {
+		public function index() {			
 			if ($this->session->userdata('user_id')) {
 				if ($this->session->userdata('user_type') == 'alumni') {
 					redirect('/alumni/home');

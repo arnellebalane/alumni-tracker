@@ -394,3 +394,7 @@ aside li:after {
   float: left;
   margin-left: 278px;
 }
+
+.alumni.home .field label {
+  vertical-align: top;
+}

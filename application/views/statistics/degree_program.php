@@ -68,7 +68,6 @@
     };
     var tableOptions = {
       width: 450,
-      height: 450,
       sort: 'disable',
       allowHtml: true
     };

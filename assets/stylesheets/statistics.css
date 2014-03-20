@@ -116,7 +116,6 @@ header input[type="button"]:focus {
 .statistical-table {
   float: left;
   width: 500px;
-  max-height: 450px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   -o-box-sizing: border-box;

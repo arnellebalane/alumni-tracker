@@ -42,7 +42,7 @@
           <span class="chart table" data-label="Magna Cum Laude" data-frequency="<?=$honors[0]->magna?>" data-percentage="<?=($total > 0)? ($honors[0]->magna / $total) * 100 : 0?>"></span>
           <span class="chart table" data-label="Cum Laude" data-frequency="<?=$honors[0]->cum?>" data-percentage="<?=($total > 0)? ($honors[0]->cum / $total) * 100 : 0?>"></span>
           <!-- <span class="chart table" data-label="No Honors" data-frequency="<?=$honors[0]->none?>" data-percentage="<?=($total > 0)? ($honors[0]->none / $total) * 100 : 0?>"></span> -->
-          <?php $per = ($total > 0) ? (($honors[0]->suma + $honors[0]->magna + $honors[0]->cur) / $total) * 100 : 0; ?>
+          <?php $per = ($total > 0) ? (($honors[0]->suma + $honors[0]->magna + $honors[0]->cum) / $total) * 100 : 0; ?>
           <span class="table" data-label="<b>Total</b>" data-frequency="<b><?=$honors[0]->suma + $honors[0]->magna + $honors[0]->cum?></b>" data-percentage="<b><?=$per?></b>" ></span>
         </div>
       <?php endif; ?>

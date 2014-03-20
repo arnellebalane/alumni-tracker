@@ -66,7 +66,7 @@
       <ul class="list">
         <?php foreach ($alumni as $alumnus): ?>
           <li>
-            <?= anchor('enumerator/clean/'.$alumnus->id.'/'.$page, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+            <?= anchor('enumerator/clean/'.$alumnus->id.'/'.$page, humanize($alumnus->firstname) . " " . humanize($alumnus->lastname), array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
             <div class="actions">
               <?= anchor('enumerator/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
             </div>

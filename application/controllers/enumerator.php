@@ -9,7 +9,8 @@
       }
       $this->load->model("values_model", "values");
       $this->load->model("alumni_model", "alumni");
-      $this->load->model("enumerator_model", "model");      
+      $this->load->model("enumerator_model", "model");
+      $this->load->helper('inflector');  
     }
 
     public function index() {

@@ -43,9 +43,9 @@
         <?php if ($result) { ?>
           <?php foreach ($result as $alumnus): ?>
             <li>
-              <?= anchor('admin/clean/'.$alumnus->id.'/1', $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+              <?= anchor('enumerator/clean/'.$alumnus->id.'/1', humanize($alumnus->firstname) . " " . humanize($alumnus->lastname), array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
               <div class="actions">
-                <?= anchor('admin/deleteAlumni/'.$alumnus->id.'/1', 'Discard'); ?>
+                <?= anchor('enumerator/deleteAlumni/'.$alumnus->id.'/1', 'Discard'); ?>
               </div>
             </li>
           <?php endforeach; ?>

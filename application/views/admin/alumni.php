@@ -68,7 +68,7 @@
         <?php if ($alumni) { ?>
           <?php foreach ($alumni as $alumnus): ?>
             <li>
-              <?= anchor('admin/clean/'.$alumnus->id.'/'.$page, $alumnus->firstname . " " . $alumnus->lastname, array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+              <?= anchor('admin/clean/'.$alumnus->id.'/'.$page, humanize($alumnus->firstname) . " " . humanize($alumnus->lastname), array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
               <div class="actions">
                 <?= anchor('admin/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
               </div>

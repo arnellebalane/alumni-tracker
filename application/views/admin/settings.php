@@ -53,7 +53,7 @@
           <input type="password" name="confirm_new_password" />
         </div>
         <div class="field actions">
-          <input type="submit" value="Update Password" class="button" />
+          <input type="submit" value="Update Account" class="button" />
         </div>
       <?= form_close(); ?>
     </div>

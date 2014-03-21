@@ -404,12 +404,33 @@
 
     // VALIDATE EMAIL ADDRESS
     private function validateEmail($email, $user_id) {      
-      $index = strpos($email, '@');     
+      $index = strpos($email, '@');
       if ($index) {
         $index2 = strrpos($email, '.');
         if ($index2 && ($index2 > $index)) {
           $user = $this->alumni->getUserByEmail($email);
           if (!$user || $user[0]->id == $user_id) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    private function validateEnumeratorEmail($email) {
+      $index = strpos($email, '@');
+      if ($index) {
+        $index2 = strrpos($email, '.');
+        if ($index2 && ($index2 > $index)) {
+          $user = $this->alumni->getUserByEmail($email);
+          if (!$user) {
+            return true;
+          } else {
+            foreach ($user as $u) {
+              if ($user[0]->user_type == "moderator") {
+                return false;
+              }              
+            }
             return true;
           }
         }
@@ -653,7 +674,7 @@
       $_POST['email'] = trim($_POST['email']);
       if ($_POST['name'] == "" || $_POST['email'] == "") {
         $this->session->set_flashdata("alert", "The name and email should not be blank!");
-      } else if ($this->validateEmail($_POST['email'], 0)) {
+      } else if ($this->validateEnumeratorEmail($_POST['email'])) {
         $pass = $this->generatePassword();
         $this->load->model('enumerator_model');
         $id = $this->enumerator_model->addEnumerator($_POST['email'], $pass, $_POST['name']);        
@@ -666,6 +687,8 @@
         $res = $this->mailer($id, 'enumerator');
         $message = "New enumerator added!" . (($res) ? " Email sent!" : " Failed to send email!");
         $this->session->set_flashdata("notice", $message);
+      } else {
+        $this->session->set_flashdata("alert", "Email not available!");
       }
       redirect('admin/enumerators');
     }

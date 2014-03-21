@@ -186,7 +186,7 @@
           <p>Rest assured that these information will be treated with high confidentiality.</p>
           <span class="note">* --- these fields are required</span>
 
-          <div class="job-form" data-job-form="current-job">
+          <div class="job-form validate" data-job-form="current-job">
             <span>Current Job Information</span>
             <div class="field indented">
               <label class="required">Are you employed?</label>

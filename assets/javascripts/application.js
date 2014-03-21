@@ -17,8 +17,8 @@ var questionnaire = {
   initializeSlides: function() {
     $('.slide .button.continue').on('click', function() {
       var validation = questionnaire.validateSlide[$(".slide.current").data('name')]();
-      // if (validation.valid) {
-      if (true) {
+      if (validation.valid) {
+      // if (true) {
         $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
         $('aside li.current').removeClass('current').next('li').addClass('current visited');
       } else {
@@ -82,6 +82,18 @@ var questionnaire = {
         last.find('label:first-of-type').text('Did you have a job before?');
         last.find('#fj-yes').val('no').prop('checked', otherJobFormsPresent);
         last.find('#fj-no').val('yes').prop('checked', !otherJobFormsPresent);
+      }
+    });
+
+    $('.slide[data-name="employment-history"]').on('keyup', '.job-form:not([data-job-form="current-job"]) input[type="text"], .job-form:not([data-job-form="current-job"]) textarea', function() {
+      var form = $(this).closest('.job-form');
+      if (form.find('input[type="text"][name$="[employer]"]').val().trim().length > 0
+        || form.find('input[type="text"][name$="[business_name]"]').val().trim().length > 0
+        || form.find('input[type="text"][name$="[job_title]"]').val().trim().length > 0
+        || form.find('textarea[name$="[satisfaction_reason]"]').val().trim().length > 0) {
+        form.addClass('validate');
+      } else {
+        form.removeClass('validate');
       }
     });
 
@@ -184,20 +196,20 @@ var questionnaire = {
       return {valid: true};
     },
     'employment-history': function() {
-      for (var i = 0; i < $('.job-form').length; i++) {
-        if (($('input[name="employment_history[' + i + '][business_name]"]').val().trim().length > 0
-            || $('input[name="employment_history[' + i + '][employer]"]').val().trim().length > 0)
-          && ($('select[name="employment_history[' + i + '][employer_type]"]').val() != 'others'
-            || $('input[name="employment_history[' + i + '][specified_employer_type]"]').val().trim().length > 0)
-          && ($('input[name="employment_history[' + i + '][job_title]"]').val().trim().length > 0)
-          && (parseInt($('select[name="employment_history[' + i + '][employment_duration][start_year]"]').val()) 
-            <= parseInt($('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))) {
+      console.log($('.slide[data-name="employment-history"] .job-form.validate:not(.hidden)'));
+      for (var i = 0; i < $('.slide[data-name="employment-history"] .job-form.validate:not(.hidden)').length; i++) {
+        var form = $('.slide[data-name="employment-history"] .job-form.validate:not(.hidden)').eq(i);
+        console.log(form);
+        if ((form.find('input[name="employment_history[' + i + '][business_name]"]').val().trim().length > 0
+            || form.find('input[name="employment_history[' + i + '][employer]"]').val().trim().length > 0)
+          && (form.find('select[name="employment_history[' + i + '][employer_type]"]').val() != 'others'
+            || form.find('input[name="employment_history[' + i + '][specified_employer_type]"]').val().trim().length > 0)
+          && (form.find('input[name="employment_history[' + i + '][job_title]"]').val().trim().length > 0)
+          && (parseInt(form.find('select[name="employment_history[' + i + '][employment_duration][start_year]"]').val()) 
+            <= parseInt(form.find('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))) {
           
         } else {
           return {valid: false, error: "Please fill up all required fields."};
-        }
-        if ($('input[data-behavior="toggle-first-job"]').val() == 'yes') {
-          break;
         }
       }
       return {valid: true};

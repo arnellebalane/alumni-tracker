@@ -17,8 +17,8 @@ var questionnaire = {
   initializeSlides: function() {
     $('.slide .button.continue').on('click', function() {
       var validation = questionnaire.validateSlide[$(".slide.current").data('name')]();
-      if (validation.valid) {
-      // if (true) {
+      // if (validation.valid) {
+      if (true) {
         $('.slide.current').toggleClass('current hidden').next('.slide').toggleClass('current hidden');
         $('aside li.current').removeClass('current').next('li').addClass('current visited');
       } else {
@@ -67,6 +67,24 @@ var questionnaire = {
     });
   },
   initializeEmploymentHistory: function() {
+    $('input[type="radio"][data-behavior="toggle-employed"]').on('change', function() {
+      var parent = $(this).closest('.field');
+      var last = parent.siblings('.field:last-of-type');
+      var otherJobFormsPresent = $('.slide[data-name="employment-history"] .job-form:not([data-job-form="current-job"]):not(.hidden)').length > 0;
+      console.log(otherJobFormsPresent);
+      if ($(this).val() == '1') {
+        parent.siblings('.field').not(':last-of-type').removeClass('hidden');
+        last.find('label:first-of-type').text('Is this your first job?');
+        last.find('#fj-yes').val('yes').prop('checked', !otherJobFormsPresent);
+        last.find('#fj-no').val('no').prop('checked', otherJobFormsPresent);
+      } else if ($(this).val() == '0') {
+        parent.siblings('.field').not(':last-of-type').addClass('hidden');
+        last.find('label:first-of-type').text('Did you have a job before?');
+        last.find('#fj-yes').val('no').prop('checked', otherJobFormsPresent);
+        last.find('#fj-no').val('yes').prop('checked', !otherJobFormsPresent);
+      }
+    });
+
     $('input[type="radio"][data-behavior="toggle-self-employed"]').on('change', function() {
       $(this).closest('.job-form').find('.field[data-field="business-name"], .field[data-field="employer"]').toggleClass('hidden');
     });

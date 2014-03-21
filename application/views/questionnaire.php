@@ -189,6 +189,11 @@
           <div class="job-form" data-job-form="current-job">
             <span>Current Job Information</span>
             <div class="field indented">
+              <label class="required">Are you employed?</label>
+              <input type="radio" name="employment_history[0][employed]" value="1" id="employment_history[0][e-yes]" data-behavior="toggle-employed" checked /><label for="employment_history[0][e-yes]">Yes</label>
+              <input type="radio" name="employment_history[0][employed]" value="0" id="employment_history[0][e-no]" data-behavior="toggle-employed" /><label for="employment_history[0][e-no]">No</label>
+            </div>
+            <div class="field indented">
               <label class="required">Are you self-employed?</label>
               <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?= is_checked("employment_history", '0', "self_employed", null, 1); ?> /><label for="employment_history[0][se-yes]">Yes</label>
               <input type="radio" name="employment_history[0][self_employed]" value="0" id="employment_history[0][se-no]" data-behavior="toggle-self-employed" <?= (is_checked("employment_history", '0', "self_employed", null, 1) != 'checked') ? 'checked' : ''; ?> /><label for="employment_history[0][se-no]">No</label>

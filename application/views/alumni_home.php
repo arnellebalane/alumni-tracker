@@ -182,8 +182,8 @@
           <div class="field">
             <label>Did you finish any other degree?</label>
             <h2><?=($other_degree) ? 'Yes' : 'No'?></h2>
-            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" class="editable hidden" data-behavior="took-another-degree" data-current="<?=($other_degree) ? 'true' : 'false'?>" <?=($other_degree) ? 'checked' : ''?>/><label for="od-yes">Yes</label>
-            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" class="editable hidden" data-behavior="took-another-degree" data-current="<?=($other_degree) ? 'false' : 'true'?>" <?=($other_degree) ? '' : 'checked'?>/><label for="od-no">No</label>
+            <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" class="editable hidden" data-behavior="took-another-degree" data-current="<?=($other_degree) ? 'checked' : ''?>" <?=($other_degree) ? 'checked' : ''?>/><label for="od-yes">Yes</label>
+            <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" class="editable hidden" data-behavior="took-another-degree" data-current="<?=($other_degree) ? '' : 'checked'?>" <?=($other_degree) ? '' : 'checked'?>/><label for="od-no">No</label>
             <a href="#" data-behavior="edit">[edit]</a>
           </div>
           <div class="educational-history-list">

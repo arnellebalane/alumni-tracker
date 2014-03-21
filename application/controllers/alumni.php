@@ -191,44 +191,43 @@
 				redirect('home/index');
 			}  			
 
-			if ($this->validateNewEducationalBackground($_POST['educational_background'])) {				
-				$addnote = '';
-				$stud = $this->model->getEducationalBackground($this->session->userdata('user_id'));
-				if (($stud != null && $stud[0]->student_number != '') && $_POST['educational_background']['student_number'] == '') {
-					$_POST['educational_background']['student_number'] = $stud[0]->student_number;
-					$addnote = ' (w/ student number unchanged)';
-				}
-			} else {				
-				$stud = $this->model->getUserByStudentNumber(addslashes($_POST['educational_background']['student_number']));
-				if (($stud != null) && ($stud[0]->user_id != $this->session->userdata('user_id'))) {
-					$this->session->set_flashdata('alert', "Student number not available!");					
-					redirect('alumni/home');
-				}	else {
-					if ($_POST['educational_background']['another_degree'] == 'yes') {
-						$info = $_POST['educational_background'];
-						if (isset($info['educational_history'])) {							
-							foreach ($info['educational_history'] as $key => $value) {				
-								$value['degree'] = trim($value['degree']);
-								$value['school_taken'] = trim($value['school_taken']);
-								if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
-									$this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
-									redirect('alumni/home');
-								}
-							}
-						}
-						if (isset($info['new_educational_history'])) {
-							foreach ($info['new_educational_history'] as $key => $value) {	
-								$value['degree'] = trim($value['degree']);
-								$value['school_taken'] = trim($value['school_taken']);			
-								if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
-									$this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
-									redirect('alumni/home');
-								}
-							}
-						}
-					}
-				}
-			}
+			if (!$this->validateNewEducationalBackground($_POST['educational_background'],$this->session->userdata('user_id'))) {
+				redirect('alumni/home');
+			}				
+								
+			// } else {
+			// 	$this->session->set_flashdata("alert", "invalid student number");
+			// 	redirect('alumni/home');
+			// 	$stud = $this->model->getUserByStudentNumber(addslashes($_POST['educational_background']['student_number']));
+			// 	if (($stud != null) && ($stud[0]->user_id != $this->session->userdata('user_id'))) {
+			// 		$this->session->set_flashdata('alert', "Student number not available!");					
+
+			// 	}	else {
+			// 		if ($_POST['educational_background']['another_degree'] == 'yes') {
+			// 			$info = $_POST['educational_background'];
+			// 			if (isset($info['educational_history'])) {							
+			// 				foreach ($info['educational_history'] as $key => $value) {				
+			// 					$value['degree'] = trim($value['degree']);
+			// 					$value['school_taken'] = trim($value['school_taken']);
+			// 					if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+			// 						$this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+			// 						redirect('alumni/home');
+			// 					}
+			// 				}
+			// 			}
+			// 			if (isset($info['new_educational_history'])) {
+			// 				foreach ($info['new_educational_history'] as $key => $value) {	
+			// 					$value['degree'] = trim($value['degree']);
+			// 					$value['school_taken'] = trim($value['school_taken']);			
+			// 					if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+			// 						$this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+			// 						redirect('alumni/home');
+			// 					}
+			// 				}
+			// 			}
+			// 		}
+			// 	}
+			// }
 
 			$this->model->updateEducationalBackground($this->session->userdata('user_id'), $_POST['educational_background']);
 			$this->model->updateUserStudentNumber($this->session->userdata('user_id'), $_POST['educational_background']['student_number']);
@@ -256,7 +255,7 @@
 				$this->model->deleteAllOtherDegree($this->session->userdata('user_id'));
 			}
 			$res = $this->mailer($this->session->userdata('user_id'));			
-			$message = 'Update successful!'.$addnote . (($res) ? " Email Sent!" : " Failed to send email!");
+			$message = 'Update successful!' . (($res) ? " Email Sent!" : " Failed to send email!");
 			$this->session->set_flashdata('notice', $message);
 			redirect('alumni/home');
 		}
@@ -459,7 +458,7 @@
 			return true;
 		}
 
-		private function validateNewEducationalBackground($info) {
+		private function validateNewEducationalBackground($info, $user_id) {
 			$info['student_number'] = trim($info['student_number']);
 			if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {
 				$this->session->set_flashdata('alert', "Invalid student number.");
@@ -480,10 +479,36 @@
 					}
 				}
 			}
-			if ($info['student_number'] != '' && $this->model->getUserByStudentNumber(addslashes($info['student_number']))) {
-				$this->session->set_flashdata('alert', "Student number not available.");
-				return false;
-			}			
+			$number = $number = $this->model->getEducationalBackground($user_id);
+			if ($number && $number[0]->student_number != "" && $info['student_number'] == "") {
+				$this->session->set_flashdata("alert", "Student number must not be blank!");
+        return false;
+			}
+			$stud = $this->model->getUserByStudentNumber(addslashes($info['student_number']));
+			if ($stud && ($stud[0]->user_id != $user_id && $info['student_number'] != '')) {
+        $this->session->set_flashdata('alert', "Student number not available.");
+        return false;
+      }
+      if ((isset($info['another_degree'])) && $info['another_degree'] == 'yes') {
+	      if (isset($info['educational_history'])) {        
+	        foreach ($info['educational_history'] as $key => $value) {       
+	          $value['degree'] = trim($value['degree']);
+	          $value['school_taken'] = trim($value['school_taken']);
+	          if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+	            $this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+	            return false;
+	          }
+	        }
+	      }
+	      if (isset($info['new_educational_history'])) {
+	        foreach ($info['new_educational_history'] as $key => $value) {        
+	          if (($value['degree'] != '' && $value['school_taken'] == '') || ($value['degree'] == '' && $value['school_taken'] != '')) {
+	            $this->session->set_flashdata("alert", "Please fill-up all the fields for your other degree!");
+	            return false;
+	          }
+	        }
+	      }
+    	}
 			return true;
 		}
 

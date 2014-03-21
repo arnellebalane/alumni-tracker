@@ -381,7 +381,7 @@
 					($info['country'] == 'others' && $info['specified_country'] == '') ||
 					($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
 					$info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
-					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address'], $user_id))) {
+					$info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateAlumniEmail($info['email_address'], $user_id))) {
 				$this->session->set_flashdata('alert', "You are missing a field in your Personal Information or your email is invalid.");
 				return false;
 			}
@@ -402,6 +402,27 @@
 			}
 			return false;
 		}
+
+		private function validateAlumniEmail($email, $user_id) {      
+      $index = strpos($email, '@');
+      if ($index) {
+        $index2 = strrpos($email, '.');
+        if ($index2 && ($index2 > $index)) {
+          $user = $this->model->getUserByEmail($email);
+          if (!$user) {
+            return true;
+          } else {
+            foreach ($user as $u) {
+              if (($u->user_id != $user_id) && ($u->user_type == "alumni")) {
+                return false;
+              }              
+            }
+            return true;
+          }
+        }
+      }
+      return false;
+    }
 
 		// VALIDATE OTHER INFORMATION
 		// private function validateOthers($info) {

@@ -63,13 +63,15 @@
     	}	else {
     		$userInfo = $this->model->getUserByEmail($email);
     		if ($userInfo) {
-    			if ($this->mailer($userInfo[0]->id, $userInfo[0]->user_type)) {
-    				$this->session->set_flashdata("notice", "Your account information has been sent to your email!");
-    				echo "sent";
-    			}	else {
-    				$this->session->set_flashdata("alert", "Sorry! We were NOT able to send the email. Please try again later!");
-    				echo "not sent";
-    			}
+          foreach($userInfo as $u) {
+      			if ($this->mailer($u->id, $u->user_type)) {
+      				$this->session->set_flashdata("notice", "Your account information has been sent to your email!");
+      				echo "sent";
+      			}	else {
+      				$this->session->set_flashdata("alert", "Sorry! We were NOT able to send the email. Please try again later!");
+      				echo "not sent";
+      			}
+          }
     		}	else {
     			$this->session->set_flashdata("alert", "Wrong email address!");
     			echo "no such account!";    			

@@ -64,14 +64,18 @@
       <?= form_close(); ?>
 
       <ul class="list">
-        <?php foreach ($alumni as $alumnus): ?>
-          <li>
-            <?= anchor('enumerator/clean/'.$alumnus->id.'/'.$page, humanize($alumnus->firstname) . " " . humanize($alumnus->lastname), array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
-            <div class="actions">
-              <?= anchor('enumerator/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
-            </div>
-          </li>
-        <?php endforeach; ?>
+        <?php if ($alumni) { ?>
+          <?php foreach ($alumni as $alumnus): ?>
+            <li>
+              <?= anchor('enumerator/clean/'.$alumnus->id.'/'.$page, humanize($alumnus->firstname) . " " . humanize($alumnus->lastname), array('class' => ($alumnus->cleaned == 1) ? "cleaned" : "")); ?>
+              <div class="actions">
+                <?= anchor('enumerator/deleteAlumni/'.$alumnus->id.'/'.$page, 'Discard'); ?>
+              </div>
+            </li>
+          <?php endforeach; ?>
+        <?php } else { ?>
+          <li><p>No results found!</p><li>
+        <?php } ?>
       </ul>
       <?= $paginator->paginate(); ?>
     </div>

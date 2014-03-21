@@ -272,7 +272,7 @@
       if (!$this->validatePersonalInformation($_POST['personal_information'], $id)) {        
         $this->session->set_flashdata("alert", "There are errors in the new personal information!");
       } else if (!$this->validateEducationalBackground($id,$_POST['educational_background'])) {
-        $this->session->set_flashdata("alert", "There are errors in the new educational background!");
+        // $this->session->set_flashdata("alert", "There are errors in the new educational background!");
       }  else if (!$this->validateJobs($_POST['jobs'])) {
         $this->session->set_flashdata("alert", "Some information about the jobs are missing!");
       } else if ((isset($_POST['another_job'])) && !$this->validateJobs($_POST['another_job'])) {
@@ -320,7 +320,7 @@
           // ($info['country'] == 'others' && $info['specified_country'] == '') ||
           ($info['country'] != 'others' && !$this->values->isCountry(addslashes($info['country']))) ||
           $info['present_address_contact_number'] == '' || $info['permanent_address'] == '' || 
-          $info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateEmail($info['email_address'], $user_id))) {
+          $info['permanent_address_contact_number'] == '' || $info['email_address'] == '' || (!$this->validateAlumniEmail($info['email_address'], $user_id))) {
         $this->session->set_flashdata('alert', "You are missing a field in your Personal Information or your email is invalid.");
         return false;
       }
@@ -335,6 +335,27 @@
         if ($index2 && ($index2 > $index)) {
           $user = $this->alumni->getUserByEmail($email);
           if (!$user || $user[0]->id == $user_id) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    private function validateAlumniEmail($email, $user_id) {      
+      $index = strpos($email, '@');
+      if ($index) {
+        $index2 = strrpos($email, '.');
+        if ($index2 && ($index2 > $index)) {
+          $user = $this->alumni->getUserByEmail($email);
+          if (!$user) {
+            return true;
+          } else {
+            foreach ($user as $u) {
+              if (($u->user_id != $user_id) && ($u->user_type == "alumni")) {
+                return false;
+              }              
+            }
             return true;
           }
         }
@@ -376,7 +397,8 @@
     // VALIDATE NEW ALUMNI EDUCATIONAL BACKGROUND
     private function validateEducationalBackground($user_id, $info) {
       $info['student_number'] = trim($info['student_number']);
-      if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {    
+      if ((strlen($info['student_number']) != 10 && $info['student_number'] != '')) {
+        $this->session->set_flashdata('alert', "Invalid student number.");
         return false;
       }
       if ($info['student_number'] != '') {

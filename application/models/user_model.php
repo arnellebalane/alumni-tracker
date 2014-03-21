@@ -17,7 +17,7 @@ class user_model extends CI_Model {
 	}
 
 	function getUserByEmail($email) {
-		$query = $this->db->query("SELECT * FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE personal_infos.email = '".trim(addslashes($email))."' LIMIT 1");
+		$query = $this->db->query("SELECT users.* FROM users INNER JOIN personal_infos ON personal_infos.user_id = users.id WHERE personal_infos.email = '".trim(addslashes($email))."'");
 		return $query->result();
 	}
 

@@ -135,7 +135,7 @@ class values_model extends CI_Model {
 	}
 
 	function getEmployerTypes() {
-		$query = $this->db->query("SELECT * from employer_types");
+		$query = $this->db->query("SELECT * from employer_types order by name asc");
 		return $query->result();
 	}
 

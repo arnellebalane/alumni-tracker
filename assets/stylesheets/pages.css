@@ -49,16 +49,18 @@ p {
 }
 
 .pages.login #site-logo {
-  font-size: 5.5rem;
+  font-size: 6rem;
   line-height: 1;
   margin-bottom: 20px;
 }
 
-.pages.login .error {
+.pages.login .error,
+.pages.retrieve_password .error {
   margin-bottom: 20px;
 }
 
-.pages.login .field label {
+.pages.login .field label,
+.pages.retrieve_password .field label {
   display: inline-block;
   width: 90px;
   font: normal 1.5rem "Open Sans Light", "OpenSansLight";
@@ -68,7 +70,8 @@ p {
 }
 
 .pages.login input[type="text"], 
-.pages.login input[type="password"] {
+.pages.login input[type="password"],
+.pages.retrieve_password input[type="email"] {
   width: 220px;
   font: normal 1.5rem "Open Sans Light", "OpenSansLight";
   padding: 6px;
@@ -78,8 +81,25 @@ p {
 }
 
 .pages.login input[type="text"]:focus, 
-.pages.login input[type="password"]:focus {
+.pages.login input[type="password"]:focus,
+.pages.retrieve_password input[type="email"]:focus {
   box-shadow: 0 0 3px #30FC0D;
+}
+
+.pages.login .field.actions a,
+.pages.retrieve_password .field.actions a {
+  display: block;
+  font: normal 1.4rem "Open Sans Light", "OpenSansLight";
+  color: #26681B;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.pages.login .field.actions a:hover,
+.pages.login .field.actions a:focus,
+.pages.retrieve_password .field.actions a:hover,
+.pages.retrieve_password .field.actions a:focus {
+  color: #308023;
 }
 
 .pages.login .button {
@@ -87,7 +107,25 @@ p {
   margin-left: 256px;
 }
 
-.pages.login p.error {
+.pages.login p.error,
+.pages.retrieve_password p.error {
   font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
   color: #AA151E;
+}
+
+.pages.retrieve_password #site-logo {
+  font-size: 6rem;
+  line-height: 1;
+}
+
+.pages.retrieve_password p {
+  width: 350px;
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
+  color: #777777;
+  margin: 10px auto 20px auto;
+}
+
+.pages.retrieve_password .button {
+  padding: 4px 15px;
+  margin-left: 240px;
 }

@@ -44,14 +44,14 @@
         <select name="included">
           <option disabled selected>--filter by time submitted--</option>
           <option value="-1" <?=is_selected(-1, $included)?>>All Entries</option>
-          <option value="1" <?=is_selected(1, $included)?>>Included in Analysis</option>
-          <option value="0" <?=is_selected(0, $included)?>>Excluded from Analysis</option>
+          <option value="2" <?=is_selected(2, $included)?>>Included in Analysis</option>
+          <option value="1" <?=is_selected(1, $included)?>>Excluded from Analysis</option>
         </select>
         <select name="cleaned">
           <option disabled selected>--filter by cleanliness--</option>
           <option value="-1" <?=is_selected(-1, $cleaned)?>>All Entries</option>
-          <option value="1" <?=is_selected(1, $cleaned)?>>Cleaned Entries</option>
-          <option value="0" <?=is_selected(0, $cleaned)?>>Uncleaned Entries</option>
+          <option value="2" <?=is_selected(2, $cleaned)?>>Cleaned Entries</option>
+          <option value="1" <?=is_selected(1, $cleaned)?>>Uncleaned Entries</option>
         </select>
         <select name="program_id">
           <option disabled selected>--filter by degree program--</option>

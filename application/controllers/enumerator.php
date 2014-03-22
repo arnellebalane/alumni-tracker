@@ -17,30 +17,31 @@
       // if (!$this->model->canClean()) {
       //   $this->session->set_flashdata("alert", "Cleaning is currently not allowed!");
       //   redirect('enumerator/cleaning_disabled');
-      // }
+      // }      
       $canView = 0;
       $viewStatPrev = $this->model->getEnumeratorStatistics($this->session->userdata('user_id'));                
       if ($viewStatPrev) {
         $canView = $viewStatPrev[0]->statistics;
       }
       $user_id = $this->session->userdata('user_id');
-      if ($this->session->userdata('cleaned') == 0 || ($this->session->userdata('cleaned') == 1) || ($this->session->userdata('cleaned') == -1)) {
-        $prev_cleaned = $this->session->userdata('cleaned');
+      if ($this->session->userdata('cleaned') == 2 || ($this->session->userdata('cleaned') == 1) || ($this->session->userdata('cleaned') == -1)) {
+        $prev_cleaned = $this->session->userdata('cleaned');        
       } else {
-        $prev_cleaned = 1;
+        $prev_cleaned = 2;        
       }
       if ($this->session->userdata('program_id') > 0 || $this->session->userdata('program_id') == -1) {
         $prev_program_id = $this->session->userdata('program_id');
       } else {
-        $prev_program_id = 0;
+        $prev_program_id = -1;
       } 
-      if (($this->session->userdata('included') == 0) || ($this->session->userdata('included') == 1) || ($this->session->userdata('included') == -1)) {
+      if (($this->session->userdata('included') == 2) || ($this->session->userdata('included') == 1) || ($this->session->userdata('included') == -1)) {
         $prev_included = $this->session->userdata('included');
       } else {
-        $prev_included = 1;
-      }
+        $prev_included = 2;
+      }      
 
       $limit = 20;
+      $offset = 0;
       if (isset($_GET['page'])) {
         $offset = ($_GET['page'] - 1) * $limit;
         $page = $_GET['page'];
@@ -49,43 +50,43 @@
         $page = 1;
       }
 
-      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;
+      $cleaned = isset($_GET['cleaned']) ? $_GET['cleaned'] : $prev_cleaned;      
       $program_id = isset($_GET['program_id']) ? $_GET['program_id'] : $prev_program_id;
-      $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;      
+      $included = isset($_GET['included']) ? $_GET['included'] : $prev_included;         
       $this->session->set_userdata('cleaned', $cleaned);
       $this->session->set_userdata('program_id', $program_id);
       $this->session->set_userdata('included', $included);
-      if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included < 0)) {
+      if (($cleaned < 0) && $program_id < 0 && ($included < 0)) {
         $alumni = $this->model->getAllAlumniPaginate($user_id, $offset, $limit);
         $count = $this->model->countAllAlumni($user_id);
         $count = ($count) ? $count[0]->count : 0;
-      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included < 0)) {
-        $alumni = $this->model->getAlumniByCleanStatusPaginate($cleaned, $user_id, $offset, $limit);
-        $count = $this->model->countAlumniByCleanStatus($cleaned, $user_id);
+      } else if (($cleaned > 0) && $program_id < 0 && ($included < 0)) {
+        $alumni = $this->model->getAlumniByCleanStatusPaginate($cleaned-1, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByCleanStatus($cleaned-1, $user_id);
         $count = ($count) ? $count[0]->count : 0;
-      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included < 0)) {
+      } else if (($cleaned < 0) && $program_id > 0 && ($included < 0)) {
         $alumni = $this->model->getAlumniByProgramPaginate($program_id, $user_id, $offset, $limit);    
         $count = $this->model->countAlumniByProgram($program_id, $user_id);
         $count = ($count) ? $count[0]->count : 0;
-      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id > 0 && ($included < 0)){
-        $alumni = $this->model->getAlumniByCleanStatusAndProgramPaginate($cleaned, $program_id, $user_id, $offset, $limit);
-        $count = $this->model->countAlumniByCleanStatusAndProgram($cleaned, $program_id, $user_id);
+      } else if (($cleaned > 0) && $program_id > 0 && ($included < 0)){
+        $alumni = $this->model->getAlumniByCleanStatusAndProgramPaginate($cleaned-1, $program_id, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByCleanStatusAndProgram($cleaned-1, $program_id, $user_id);
         $count = ($count) ? $count[0]->count : 0;
-      } else if (($cleaned > 1 || $cleaned < 0) && $program_id <= 0 && ($included >= 0)) {
-        $alumni = $this->model->getAlumniByInclusionPaginate($included, $user_id, $offset, $limit);
-        $count = $this->model->countAlumniByInclusion($included, $user_id, $offset);
+      } else if (($cleaned < 0) && $program_id < 0 && ($included > 0)) {
+        $alumni = $this->model->getAlumniByInclusionPaginate($included-1, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusion($included-1, $user_id);
         $count = ($count) ? $count[0]->count : 0;
-      } else if (($cleaned <= 1 && $cleaned >= 0) && $program_id <= 0 && ($included >= 0)) {
-        $alumni = $this->model->getAlumniByInclusionAndStatusPaginate($included, $cleaned, $user_id, $offset, $limit);
-        $count = $this->model->countAlumniByInclusionAndStatus($included, $cleaned, $user_id);
+      } else if (($cleaned > 0) && $program_id < 0 && ($included > 0)) {
+        $alumni = $this->model->getAlumniByInclusionAndStatusPaginate($included-1, $cleaned-1, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusionAndStatus($included-1, $cleaned-1, $user_id);
         $count = ($count) ? $count[0]->count : 0;
-      } else if (($cleaned > 1 || $cleaned < 0) && $program_id > 0 && ($included >= 0)) {
-        $alumni = $this->model->getAlumniByInclusionAndProgramPaginate($included, $program_id, $user_id, $offset, $limit);
-        $count = $this->model->countAlumniByInclusionAndProgram($included, $program_id, $user_id);
+      } else if (($cleaned < 0) && $program_id > 0 && ($included > 0)) {
+        $alumni = $this->model->getAlumniByInclusionAndProgramPaginate($included-1, $program_id, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusionAndProgram($included-1, $program_id, $user_id);
         $count = ($count) ? $count[0]->count : 0;
       } else {
-        $alumni = $this->model->getAlumniByInclusionAndStatusAndProgramPaginate($included, $cleaned, $program_id, $offset, $limit);
-        $count = $this->model->countAlumniByInclusionAndStatusAndProgram($included, $cleaned, $program_id);
+        $alumni = $this->model->getAlumniByInclusionAndStatusAndProgramPaginate($included-1, $cleaned-1, $program_id, $user_id, $offset, $limit);
+        $count = $this->model->countAlumniByInclusionAndStatusAndProgram($included-1, $cleaned-1, $program_id, $user_id);
         $count = ($count) ? $count[0]->count : 0;
       }
 
@@ -596,6 +597,9 @@
 
     public function search() {
       $key = trim($_GET['query']);
+      if ($key == "") {
+        redirect('enumerator/index');
+      }
       $canView = 0;
       $viewStatPrev = $this->model->getEnumeratorStatistics($this->session->userdata('user_id'));                
       if ($viewStatPrev) {

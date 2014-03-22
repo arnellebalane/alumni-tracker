@@ -68,8 +68,8 @@
 				redirect('/home/questionnaire');
 			} 
 			// else if (!$this->validateOthers($_POST['others'])) {
-			// 	$this->session->set_flashdata('inputs', $_POST);
-			// 	redirect('/home/questionnaire');
+			// 	 $this->session->set_flashdata('inputs', $_POST);
+			// 	 redirect('/home/questionnaire');
 			// }
 
 			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);	

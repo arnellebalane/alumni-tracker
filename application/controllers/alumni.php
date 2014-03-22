@@ -72,7 +72,7 @@
 			// 	redirect('/home/questionnaire');
 			// }
 
-			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);	
+			$user_id = $this->addEducationBackground($_POST['educational_background'], $_POST['personal_information']['email_address']);
 			$this->addPersonalInformation($user_id, $_POST['personal_information']);
 			$this->addEmploymentHistory($user_id, $_POST['employment_history']);
 			$this->addOthers($user_id, $_POST['others']);
@@ -295,40 +295,42 @@
 			}
 			$ctr = 0;
 			foreach ($info as $var) :
-				$var['business_name'] = trim($var['business_name']);
-				$var['employer'] = trim($var['employer']);
-				if ($var['business_name'] != "" || $var['employer'] != "") { 					
-					if ($var['employer_type'] == "others") {
-						$var['specified_employer_type'] = trim($var['specified_employer_type']);
-						if ($var['specified_employer_type'] != "") {
-							$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
+				if (!($ctr == 0 && $info[0]['employed'] == 0)) {
+					$var['business_name'] = trim($var['business_name']);
+					$var['employer'] = trim($var['employer']);
+					if ($var['business_name'] != "" || $var['employer'] != "") { 					
+						if ($var['employer_type'] == "others") {
+							$var['specified_employer_type'] = trim($var['specified_employer_type']);
+							if ($var['specified_employer_type'] != "") {
+								$employer_id = $this->values->addEmployerType($var['specified_employer_type']);
+							}	else {
+								continue;
+							}
 						}	else {
-							continue;
+							$employer_id = $var['employer_type'];
 						}
-					}	else {
-						$employer_id = $var['employer_type'];
-					}
-					if ($var['job_satisfaction'] < 1) {
-						$var['job_satisfaction'] = 1;
-					}	else if ($var['job_satisfaction'] > 7) {
-						$var['job_satisfaction'] = 7;
-					}
-					$history_id = $this->model->addEmploymentDetails($employer_id, $var);					
-					if ($ctr == 0) {						
-						$current_job = 1;
-						if (isset($var['first_job']) && ($var['first_job'] == "no")) {							
-							$first_job = 0;
-						}	else {
+						if ($var['job_satisfaction'] < 1) {
+							$var['job_satisfaction'] = 1;
+						}	else if ($var['job_satisfaction'] > 7) {
+							$var['job_satisfaction'] = 7;
+						}
+						$history_id = $this->model->addEmploymentDetails($employer_id, $var);					
+						if ($ctr == 0) {						
+							$current_job = 1;
+							if (isset($var['first_job']) && ($var['first_job'] == "no")) {							
+								$first_job = 0;
+							}	else {
+								$first_job = 1;
+							}					
+						}	else if ($ctr == 1) {
+							$current_job = 0;
 							$first_job = 1;
-						}					
-					}	else if ($ctr == 1) {
-						$current_job = 0;
-						$first_job = 1;
-					}	else {
-						$first_job = 0;
-						$current_job = 0;
-					}
-					$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);					
+						}	else {
+							$first_job = 0;
+							$current_job = 0;
+						}
+						$this->model->addUserEmploymentHistory($user_id, $history_id, $current_job, $first_job);					
+					}	
 				}
 				$ctr++;
 			endforeach;
@@ -535,7 +537,7 @@
 
 		private function validateEmploymentHistory($info) {
 			$job_count = count($info);
-			if ($this->hasEmptyFieldInEmploymentHistory($info[0])) {					
+			if ($this->hasEmptyFieldInEmploymentHistory($info[0]) && $info[0]['employed'] == 1) {					
 				$this->session->set_flashdata('alert', "Please fill-up all the fields in your employment history!");
 				return false;	
 			}

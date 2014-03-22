@@ -55,6 +55,10 @@
       redirect('/session/index');
     }
 
+    public function retrieve_password() {
+      $this->load->view('password_retrieval');
+    }
+
     public function retrieveAccount() {    	
     	$email = trim($_POST['email']);
 
@@ -66,18 +70,15 @@
           foreach($userInfo as $u) {
       			if ($this->mailer($u->id, $u->user_type)) {
       				$this->session->set_flashdata("notice", "Your account information has been sent to your email!");
-      				echo "sent";
       			}	else {
       				$this->session->set_flashdata("alert", "Sorry! We were NOT able to send the email. Please try again later!");
-      				echo "not sent";
       			}
           }
     		}	else {
-    			$this->session->set_flashdata("alert", "Wrong email address!");
-    			echo "no such account!";    			
+    			$this->session->set_flashdata("alert", "Wrong email address!");		
     		}    		
     	}
-    	redirect();
+    	redirect('session/retrieve_password');
     }
 
     private function mailer($user_id, $type) {

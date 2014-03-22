@@ -12,23 +12,20 @@
   <title>Alumni Tracker</title>
 </head>
 
-<body class="pages login">
-  <?= form_open('session/login', 'POST'); ?>
+<body class="pages retrieve_password">
+  <?= form_open('session/retrieveAccount', 'POST'); ?>
     <a href="<?= base_url(); ?>" id="site-logo">Alumni Tracker</a>
+    <p>Please enter your email address below and we will email you your login credentials.</p>
     <? if ($this->session->flashdata('alert')) { ?>
-      <p class="error">Incorrect username or password.</p>
+      <p class="error"><?= $this->session->flashdata('alert'); ?></p>
     <? } ?>
     <div class="field">
-      <label>Username</label>
-      <input type="text" name="username" autofocus="true" value="<? set_field_value('username', null, null, null); ?>"/>
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <input type="password" name="password" />
+      <label>Email</label>
+      <input type="email" name="email" autofocus="true" />
     </div>
     <div class="field actions">
-      <a href="<?= site_url('session/retrieve_password'); ?>">Forgot Your Password?</a>
-      <input type="submit" value="Login" class="button" />
+      <a href="<?= site_url('session/login'); ?>">Sign In to your account</a>
+      <input type="submit" value="Submit" class="button" />
     </div>
   <?= form_close(); ?>
 </body>

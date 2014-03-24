@@ -378,6 +378,13 @@ aside li:after {
   float: left;
 }
 
+.alumni .content .field.actions a.button {
+  font: normal 1.5rem "Open Sans Light", "OpenSansLight";
+  color: #ffffff;
+  text-transform: none;
+  margin-left: 278px;
+}
+
 .alumni .content .field .editable.hidden + label {
   display: none;
 }

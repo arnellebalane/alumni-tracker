@@ -77,11 +77,13 @@ var questionnaire = {
         last.find('label:first-of-type').text('Is this your first job?');
         last.find('#fj-yes').val('yes').prop('checked', !otherJobFormsPresent);
         last.find('#fj-no').val('no').prop('checked', otherJobFormsPresent);
+        $('.job-form[data-job-form="current-job"]').addClass('validate');
       } else if ($(this).val() == '0') {
         parent.siblings('.field').not(':last-of-type').addClass('hidden');
         last.find('label:first-of-type').text('Did you have a job before?');
         last.find('#fj-yes').val('no').prop('checked', otherJobFormsPresent);
         last.find('#fj-no').val('yes').prop('checked', !otherJobFormsPresent);
+        $('.job-form[data-job-form="current-job"]').removeClass('validate');
       }
     });
 

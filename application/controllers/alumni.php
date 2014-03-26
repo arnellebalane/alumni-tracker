@@ -627,5 +627,14 @@
 			}
 			redirect('alumni/home');
 		}
+
+		public function iAmNowUnemployed() {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
+				redirect('home/index');
+			}			
+			$this->model->unemployAlumni($user_id = $this->session->userdata('user_id'));			
+			$this->session->set_flashdata("notice", "You are now unemployed!");			
+			redirect('alumni/home');	
+		}
 	}
 ?>

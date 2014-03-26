@@ -402,7 +402,7 @@
           </div>
           <div class="field actions">
             <input type="button" value="Update Current Job" class="button" data-behavior="update-current-job" />
-            <a href="#" class="button">I Am Now Unemployed</a>
+            <?=anchor('alumni/iAmNowUnemployed','I Am Now Unemployed',array('class'=>'button'))?>
             <input type="submit" value="Submit" class="button hidden" />
             <a href="#" class="hidden" data-behavior="cancel">[cancel]</a>
           </div>

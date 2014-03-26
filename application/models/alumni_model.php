@@ -602,6 +602,10 @@ class alumni_model extends CI_Model {
 		return $query->result();
 	}
 
+	function unemployAlumni($user_id) {
+		$query = $this->db->query("UPDATE user_employment_histories SET current_job = '0' WHERE user_id = '".addslashes($user_id)."'");
+	}
+
 }
 
 ?>

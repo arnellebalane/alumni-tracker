@@ -24,7 +24,7 @@
       <input type="email" name="email" autofocus="true" />
     </div>
     <div class="field actions">
-      <a href="<?= site_url('session/login'); ?>">Sign In to your account</a>
+      <a href="<?= site_url('session/index'); ?>">Sign In to your account</a>
       <input type="submit" value="Submit" class="button" />
     </div>
   <?= form_close(); ?>

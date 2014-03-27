@@ -55,7 +55,8 @@ p {
 }
 
 .pages.login .error,
-.pages.retrieve_password .error {
+.pages.retrieve_password .error,
+.pages.retrieve_password .success {
   margin-bottom: 20px;
 }
 
@@ -111,6 +112,11 @@ p {
 .pages.retrieve_password p.error {
   font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
   color: #AA151E;
+}
+
+.pages.retrieve_password p.success {
+  font: normal 1.5rem/1 "Open Sans Light", "OpenSansLight";
+  color: #399B28;
 }
 
 .pages.retrieve_password #site-logo {

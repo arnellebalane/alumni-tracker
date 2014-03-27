@@ -16,9 +16,12 @@
   <?= form_open('session/retrieveAccount', 'POST'); ?>
     <a href="<?= base_url(); ?>" id="site-logo">Alumni Tracker</a>
     <p>Please enter your email address below and we will email you your login credentials.</p>
-    <? if ($this->session->flashdata('alert')) { ?>
+    <? if ($this->session->flashdata('alert')): ?>
       <p class="error"><?= $this->session->flashdata('alert'); ?></p>
-    <? } ?>
+    <? endif; ?>
+    <? if ($this->session->flashdata('notice')): ?>
+      <p class="success"><?= $this->session->flashdata('notice'); ?></p>
+    <? endif; ?>
     <div class="field">
       <label>Email</label>
       <input type="email" name="email" autofocus="true" />

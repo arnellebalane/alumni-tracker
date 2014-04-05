@@ -261,7 +261,7 @@ var alumni = {
       if ($(this).siblings('.editable').first().is('input[type="text"]')) {
         $(this).siblings('.editable').first().focus();
       }
-      $(this).closest('.slide').find('.actions input[type="submit"]').removeClass('hidden');
+      $(this).closest('form').find('.actions input[type="submit"]').removeClass('hidden');
     });
     $('.field').not('.actions').delegate('a[data-behavior="cancel"]', 'click', function(e) {
       e.preventDefault();

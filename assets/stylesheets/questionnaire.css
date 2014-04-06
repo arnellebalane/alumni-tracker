@@ -297,6 +297,10 @@ aside li:after {
   margin-left: 278px;
 }
 
+.content .slide[data-name="employment-history"] .field.actions input[type="submit"] {
+  margin-bottom: 3px;
+}
+
 .content .slide[data-name="others"] .field {
   margin-bottom: 30px;
 }
@@ -405,3 +409,4 @@ aside li:after {
 .alumni.home .field label {
   vertical-align: top;
 }
+

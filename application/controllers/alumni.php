@@ -266,7 +266,7 @@
 			do {
 				$pass = "";
 				for ($ctr = 0; $ctr < 6; $ctr++) {					
-					$pass .= $values[rand(0,strlen($values)-1)];
+					$pass .= $values[rand(0,strlen($values) - 1)];
 				}
 			} while($this->model->getUsersByPassword($pass) != null);			
 			return $pass;

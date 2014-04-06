@@ -136,7 +136,7 @@
             </select>
           </div>
           <div class="field">
-            <label class="required">Did you finish any other degree?</label>
+            <label class="required">Have you finished another degree or currently taking one?</label>
             <input type="radio" name="educational_background[another_degree]" value="yes" id="od-yes" data-behavior="took-another-degree"  <?=is_checked('educational_background','another_degree',null,null,'yes')?>/><label for="od-yes">Yes</label>
             <input type="radio" name="educational_background[another_degree]" value="no" id="od-no" data-behavior="took-another-degree" <?=(isset($post) && $post['educational_background']['another_degree'] == 'yes') ? '' : 'checked'?> /><label for="od-no">No</label>
           </div>          

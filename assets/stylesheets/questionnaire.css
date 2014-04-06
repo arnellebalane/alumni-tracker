@@ -410,3 +410,18 @@ aside li:after {
   vertical-align: top;
 }
 
+.alumni.home .field input[type="range"] {
+  margin: 0;
+}
+
+.alumni.home .field input[type="range"] + span {
+  margin: 0 0 0 5px;
+}
+
+.alumni.home .field input[type="checkbox"] + label {
+  margin: 0;
+}
+
+.alumni.home .slide[data-name="employment-history"] .field .editable + a {
+  margin: 3px 0 0 5px;
+}

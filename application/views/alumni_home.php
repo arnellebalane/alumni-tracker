@@ -237,11 +237,20 @@
           <?php foreach ($jobs as $job) : ?>          
             <div class="job-form previous-job">
               <?php if ($job->current_job == 1) : ?>
-                <span>Current Job information</span>
+                <span>
+                  Current Job information
+                  <a href="#">[delete this job]</a>
+                </span>
               <?php elseif($job->first_job == 1) : ?>
-                <span>First Job information</span>  
+                <span>
+                  First Job information
+                  <a href="#">[delete this job]</a>
+                </span>
               <?php else : ?>
-                <span>Job information</span>  
+                <span>
+                  Job information
+                  <a href="#">[delete this job]</a>
+                </span>
               <?php endif;?>
               <div class="field indented">
                 <label>Are you self-employed?</label>

@@ -111,6 +111,16 @@ aside li:after {
   margin-bottom: 5px;
 }
 
+.content span a {
+  display: inline-block;
+  vertical-align: top;
+  font: normal 1rem "Open Sans Light", "OpenSansLight";
+  color: #005BC2;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 3px 0 0 10px;
+}
+
 .content .field input[type="text"], 
 .content .field input[type="email"], 
 .content .field input[type="password"],

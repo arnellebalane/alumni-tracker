@@ -347,7 +347,7 @@
                 <label>Job Satisfaction</label>
                 <h2><?= job_satisfaction_label($job->job_satisfaction); ?></h2>
                 <input type="range" name="employment_history[<?=$job->id?>][job_satisfaction]" min="1" max="7" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" class="editable hidden">
-                <span class="editable hidden"><?=job_satisfaction_label($job->job_satisfaction)?></span>
+                <span class="editable hidden" data-current="<?= job_satisfaction_label($job->job_satisfaction); ?>"><?=job_satisfaction_label($job->job_satisfaction)?></span>
                 <i class="editable hidden">[1 - lowest, 7 - highest]</i>
                 <a href="#" data-behavior="edit">[edit]</a>
               </div>

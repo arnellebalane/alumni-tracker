@@ -266,11 +266,14 @@ var alumni = {
     $('.field').not('.actions').delegate('a[data-behavior="cancel"]', 'click', function(e) {
       e.preventDefault();
       $(this).text('[edit]').attr('data-behavior', 'edit').siblings('h2').removeClass('hidden').siblings('.editable, .specify').addClass('hidden');
-      $(this).siblings('input[type="text"].editable, input[type="email"].editable, select.editable, textarea.editable').each(function() {
+      $(this).siblings('input[type="text"].editable, input[type="email"].editable, input[type="range"].editable, select.editable, textarea.editable').each(function() {
         $(this).val($(this).data('current'));
       });
       $(this).siblings('input[type="radio"].editable').each(function() {
         $(this).prop('checked', $(this).data('current') == 'checked');
+      });
+      $(this).siblings('span.editable').each(function() {
+        $(this).text($(this).data('current'));
       });
       if ($(this).closest('.slide').find('.editable').not('.hidden').length == 0
         && $(this).closest('.slide').find('.educational-history').filter(function() {

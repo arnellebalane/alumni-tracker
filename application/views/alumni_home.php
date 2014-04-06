@@ -377,7 +377,12 @@
 
         <?= form_open('alumni/updateCurrentJob', 'post'); ?>
           <div class="job-form hidden" data-job-form="current-job">
-            <span>Current Job Information</span>
+            <span>Job Information</span>
+            <div class="field indented">
+              <label>Is this your first job and/or current job?</label>
+              <input type="checkbox" name="employment_history[0][job_type][first_job]" value="first-job" id="jt-fj"><label for="jt-fj">First Job</label>
+              <input type="checkbox" name="employment_history[0][job_type][current_job]" value="current-job" id="jt-cj"><label for="jt-cj">Current Job</label>
+            </div>
             <div class="field indented">
               <label>Are you self-employed?</label>
               <input type="radio" name="employment_history[0][self_employed]" value="1" id="employment_history[0][se-yes]" data-behavior="toggle-self-employed" <?= pop_is_checked("employment_history", '0', "self_employed", null, 1); ?> /><label for="employment_history[0][se-yes]">Yes</label>
@@ -493,7 +498,7 @@
             </div>
           </div>
           <div class="field actions">
-            <input type="button" value="Update Current Job" class="button" data-behavior="update-current-job" />
+            <input type="button" value="Add Another Job" class="button" data-behavior="update-current-job" />
             <?=anchor('alumni/iAmNowUnemployed','I Am Now Unemployed',array('class'=>'button'))?>
             <input type="submit" value="Submit" class="button hidden" />
             <a href="#" class="hidden" data-behavior="cancel">[cancel]</a>

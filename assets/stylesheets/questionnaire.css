@@ -435,3 +435,8 @@ aside li:after {
 .alumni.home .slide[data-name="employment-history"] .field .editable + a {
   margin: 3px 0 0 5px;
 }
+
+.alumni.home .slide[data-name="employment-history"] input[type="checkbox"] + label {
+  width: auto;
+  margin-right: 17px;
+}

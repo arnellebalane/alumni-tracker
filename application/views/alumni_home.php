@@ -230,7 +230,7 @@
       <?= form_close(); ?>
 
       <div class="slide hidden" data-name="employment-history">
-        <?= form_open(); ?>
+        <?= form_open('alumni/updateJobs'); ?>
 
           <h1>Employment History</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
@@ -261,11 +261,9 @@
               </div>
               <?php if ($job->business) : ?>
                 <div class="field indented">
-                  <label>What is your business/work?</label>
-                  <h2><?= $job->business; ?></h2>
-                  <div class="editable">
-                    <input type="text" name="employment_history[<?=$job->id?>][business]" value="<?= $job->business; ?>" data-current="<?= $job->business; ?>" class="editable hidden">
-                  </div>
+                  <label>Business/Work</label>
+                  <h2><?= $job->business; ?></h2>                  
+                  <input type="text" name="employment_history[<?=$job->id?>][employer]" value="<?= $job->business; ?>" data-current="<?= $job->business; ?>" class="editable hidden">                  
                   <a href="#" data-behavior="edit">[edit]</a>
                 </div>
               <? endif; ?>
@@ -303,7 +301,7 @@
                               echo $job->minimum . " - " . $job->maximum;
                       }?>
                 </h2>
-                <select name="employment_history[<?=$job->id?>][salary]" data-current="<?= $job->monthly_salary_id; ?>" class="editable hidden">
+                <select name="employment_history[<?=$job->id?>][monthly_salary]" data-current="<?= $job->monthly_salary_id; ?>" class="editable hidden">
                   <?php foreach ($salaries as $sal) :?>
                     <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
                         <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}

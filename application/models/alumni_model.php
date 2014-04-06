@@ -51,6 +51,15 @@ class alumni_model extends CI_Model {
 	function updateUserStudentNumber($user_id, $student_number) {
 		if (trim($student_number) != "") {
 			$query = $this->db->query("UPDATE users SET username = '".addslashes(trim($student_number))."' WHERE id = '$user_id'");
+		}	else {
+			$query2 = $this->db->query("SELECT * FROM users WHERE id = '".addslashes($user_id)."'");
+			$res = $query2->result();
+			foreach ($res as $user) {
+				if (trim($user->username) == "") {
+					$name = "Alumni-".$user_id;
+					$query = $this->db->query("UPDATE users SET username = '".addslashes(trim($name))."' WHERE id = '$user_id'");
+				}
+			}
 		}
 	}
 	

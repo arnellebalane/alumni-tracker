@@ -255,6 +255,11 @@ var alumni = {
     });
   },
   initializeEditableFields: function() {
+    $('.field input[data-behavior="alumni-toggle-self-employed"]').on('change', function() {
+      var label = $(this).closest('.field').next('.field').find('> label');
+      label.text($(this).val() == '1' ? 'What is your business/work?' : 'Employer');
+    });
+
     $('.field').delegate('a[data-behavior="edit"]', 'click', function(e) {
       e.preventDefault();
       $(this).text('[cancel]').attr('data-behavior', 'cancel').siblings('h2').addClass('hidden').siblings('.editable').removeClass('hidden');

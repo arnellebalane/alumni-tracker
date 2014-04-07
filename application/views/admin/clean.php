@@ -232,9 +232,10 @@
                 </div>
                 <div class="field">
                   <label>Year Finished</label>
-                  <h4><?=$other->year_finished?></h4>
+                  <h4><?=($other->year_finished == 100000) ? "Currently Studying" : $other->year_finished ?></h4>
                   <div class="editable hidden">
                     <select name="educational_background[educational_history][<?=$other->other_degree_id?>][year_finished]" data-current="<?=$other->year_finished?>">
+                      <option value="100000" <?=is_selected(100000, $other->year_finished); ?>>Currently Studying</option>
                       <?php 
                       $year = date('Y');
                       while ($year >= 1980) { 
@@ -516,6 +517,7 @@
           <div class="field">
             <label>Year Finished</label>
             <select name="educational_background[new_educational_history][#{index}][year_finished]">
+              <option value="100000">Currently Studying</option>
               <?php 
                 $year = date('Y');
                 while ($year >= 1980) { 

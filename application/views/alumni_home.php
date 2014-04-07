@@ -204,8 +204,9 @@
                 </div>
                 <div class="field indented">
                   <label>Year Finished</label>
-                  <h2><?=$other->year_finished?></h2>
+                  <h2><?=($other->year_finished == 100000) ? "Currently Studying" : $other->year_finished ?></h2>
                   <select name="educational_background[educational_history][<?=$other->other_degree_id?>][year_finished]" class="editable hidden" data-current="<?=$other->year_finished?>">
+                    <option value="100000" <?=is_selected(100000, $other->year_finished); ?>>Currently Studying</option>
                     <?php 
                     $year = date('Y');
                     while ($year >= 1980) { 
@@ -230,109 +231,137 @@
 
       <div class="slide hidden" data-name="employment-history">
         <?= form_open(); ?>
+
           <h1>Employment History</h1>
           <p>Rest assured that these information will be treated with high confidentiality.</p>
-          <?php if ($current_job) : ?>
-          <div class="job-form previous-job">
-            <span>Job information</span>
-            <div class="field indented">
-              <label>Are you self-employed?</label>
-              <h2><?=($current_job[0]->self_employed == 1)? "Yes" : "No"; ?></h2>
-            </div>
-            <?php if ($current_job[0]->business) : ?>
+          <?php foreach ($jobs as $job) : ?>          
+            <div class="job-form previous-job">
+              <?php if ($job->current_job == 1) : ?>
+                <span>Current Job information</span>
+              <?php elseif($job->first_job == 1) : ?>
+                <span>First Job information</span>  
+              <?php else : ?>
+                <span>Job information</span>  
+              <?php endif;?>
               <div class="field indented">
-                <label>What is your business/work?</label>
-                <h2><?= $current_job[0]->business; ?></h2>
-                <div class="editable">
-                  <input type="text" name="employment_history[0][business]" value="<?= $current_job[0]->business; ?>" data-current="<?= $current_job[0]->business; ?>" class="editable hidden">
+                <label>Are you self-employed?</label>
+                <h2><?=($job->self_employed == 1)? "Yes" : "No"; ?></h2>
+              </div>
+              <?php if ($job->business) : ?>
+                <div class="field indented">
+                  <label>What is your business/work?</label>
+                  <h2><?= $job->business; ?></h2>
+                  <div class="editable">
+                    <input type="text" name="employment_history[<?=$job->id?>][business]" value="<?= $job->business; ?>" data-current="<?= $job->business; ?>" class="editable hidden">
+                  </div>
+                  <a href="#" data-behavior="edit">[edit]</a>
                 </div>
-                <a href="#" data-behavior="edit">[edit]</a>
-              </div>
-            <? endif; ?>
-            <?php if ($current_job[0]->employer): ?>
+              <? endif; ?>
+              <?php if ($job->employer): ?>
+                <div class="field indented">
+                  <label>Employer</label>
+                  <h2><?= $job->employer; ?></h2>
+                  <input type="text" name="employment_history[<?=$job->id?>][employer]" value="<?= $job->employer; ?>" data-current="<?= $job->employer; ?>" class="editable hidden">
+                  <a href="#" data-behavior="edit">[edit]</a>
+                </div>
+              <? endif; ?>
               <div class="field indented">
-                <label>Employer</label>
-                <h2><?= $current_job[0]->employer; ?></h2>
-                <input type="text" name="employment_history[0][employer]" value="<?= $current_job[0]->employer; ?>" data-current="<?= $current_job[0]->employer; ?>" class="editable hidden">
+                <label>Employer/Business Type</label>
+                <h2><?=$job->employer_type?></h2>
+                <select name="employment_history[<?=$job->id?>][employer_type]" data-current="<?= $job->employer_type_id; ?>" class="editable hidden">
+                  <?php foreach ($employer_types as $type): ?>
+                    <option value="<?= $type->id; ?>" <?= is_selected($type->id, $job->employer_type_id); ?>><?=$type->name?></option>
+                  <?php endforeach; ?>
+                </select>
                 <a href="#" data-behavior="edit">[edit]</a>
               </div>
-            <? endif; ?>
-            <div class="field indented">
-              <label>Employer/Business Type</label>
-              <h2><?=$current_job[0]->employer_type?></h2>
-              <select name="employment_history[0][employer_type]" data-current="<?= $current_job[0]->employer_type; ?>" class="editable hidden">
-                <?php foreach ($employer_types as $type): ?>
-                  <option value="<?= $type->id; ?>" <?= pop_is_selected('employment_history', '0', 'employer_type', null, $type->id); ?>><?=$type->name?></option>
-                <?php endforeach; ?>
-              </select>
-              <a href="#" data-behavior="edit">[edit]</a>
+              <div class="field indented">
+                <label>Job Title/Position</label>
+                <h2><?=$job->job_title?></h2>
+                <input type="text" name="employment_history[<?=$job->id?>][job_title]" value="<?= $job->job_title; ?>" data-current="<?= $job->job_title; ?>" class="editable hidden">
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field indented">
+                <label>Monthly Salary (in Philippine Peso)</label>
+                <h2> <?php if (!$job->minimum) {
+                              echo "below " . $job->maximum; 
+                      } else if (!$job->maximum) {
+                              echo "above " . $job->minimum;
+                      } else {
+                              echo $job->minimum . " - " . $job->maximum;
+                      }?>
+                </h2>
+                <select name="employment_history[<?=$job->id?>][salary]" data-current="<?= $job->monthly_salary_id; ?>" class="editable hidden">
+                  <?php foreach ($salaries as $sal) :?>
+                    <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
+                        <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
+                         elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
+                         else {echo $sal->minimum . " - " . $sal->maximum;} ?>
+                    </option>                  
+                  <?php endforeach; ?>   
+                </select>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field indented" data-field="employment-duration">
+                <label>Employment Duration</label>
+                <h2><?php echo to_month($job->month_started)." ".$job->year_started; echo ($job->year_ended == 100000)? " until now" : " - " . to_month($job->month_ended)." ".$job->year_ended; ?></h2>
+                <select name="employment_history[<?=$job->id?>][employment_duration][start_month]" data-current="<?=$job->month_started?>"  class="narrow editable hidden">
+                  <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
+                    <option value="<?=$ctr?>" <?=is_selected($ctr, $job->month_started)?>><?=to_month($ctr)?></option>
+                  <?php } ?>
+                </select>
+                <select name="employment_history[<?=$job->id?>][employment_duration][start_year]" data-current="2011" class="narrow editable hidden">
+                  <?php 
+                    $year = date('Y');
+                    while ($year >= 1980) { 
+                  ?>
+                    <option value="<?=$year?>" <?=is_selected($year, $job->year_started); ?>><?=$year?></option>
+                  <?    
+                      $year--;
+                    }
+                  ?>
+                </select>
+                <i class="editable hidden">to</i>
+                <select name="employment_history[<?=$job->id?>][employment_duration][end_month]" data-current="1" class="narrow editable hidden">
+                  <?php for($ctr = 1; $ctr <= 12; $ctr++) { ?>
+                    <option value="<?=$ctr?>" <?=is_selected($ctr, $job->month_ended)?>><?=to_month($ctr)?></option>
+                  <?php } ?>
+                </select>
+                <select name="employment_history[<?=$job->id?>][employment_duration][end_year]" data-current="2011" class="narrow editable hidden">
+                  <? if ($job->current_job == 1) { ?>
+                    <option value="100000" <?=is_selected(100000, $job->year_ended)?>>present</option>
+                  <?}?>
+                  <?php 
+                    $year = date('Y');
+                    while ($year >= 1980) { 
+                  ?>
+                    <option value="<?=$year?>" <?=is_selected($year, $job->year_ended); ?>><?=$year?></option>
+                  <?    
+                      $year--;
+                    }
+                  ?>
+                </select>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field indented">
+                <label>Job Satisfaction</label>
+                <h2><?= job_satisfaction_label($job->job_satisfaction); ?></h2>
+                <input type="range" name="employment_history[<?=$job->id?>][job_satisfaction]" min="1" max="7" step="1" value="<?=$job->job_satisfaction?>" data-current="<?=$job->job_satisfaction?>" class="editable hidden">
+                <span class="editable hidden"><?=job_satisfaction_label($job->job_satisfaction)?></span>
+                <i class="editable hidden">[1 - lowest, 7 - highest]</i>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
+              <div class="field indented">
+                <label>Why or why not satisfied?</label>
+                <h2><?= ($job->reason)? $job->reason : "No reason!"; ?></h2>
+                <textarea name="employment_history[<?=$job->id?>][satisfaction_reason]" data-current="<?=$job->reason?>" class="editable hidden"><?=$job->reason?></textarea>
+                <a href="#" data-behavior="edit">[edit]</a>
+              </div>
             </div>
-            <div class="field indented">
-              <label>Job Title/Position</label>
-              <h2><?=$current_job[0]->job_title?></h2>
-              <input type="text" name="employment_history[0][job_title]" value="<?= $current_job[0]->job_title; ?>" data-current="<?= $current_job[0]->job_title; ?>" class="editable hidden">
-              <a href="#" data-behavior="edit">[edit]</a>
+            <div class="field actions clearfix">
+              <input type="submit" value="Submit" class="button hidden" />
             </div>
-            <div class="field indented">
-              <label>Monthly Salary (in Philippine Peso)</label>
-              <h2> <?php if (!$current_job[0]->minimum) {
-                            echo "below " . $current_job[0]->maximum; 
-                    } else if (!$current_job[0]->maximum) {
-                            echo "above " . $current_job[0]->minimum;
-                    } else {
-                            echo $current_job[0]->minimum . " - " . $current_job[0]->maximum;
-                    }?>
-              </h2>
-              <select name="employment_history[0][salary]" data-current="10000-20000" class="editable hidden">
-                <option value="10000-20000">10,000 - 20,000</option>
-                <option value="10000-20000">10,000 - 20,000</option>
-                <option value="10000-20000">10,000 - 20,000</option>
-              </select>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field indented" data-field="employment-duration">
-              <label>Employment Duration</label>
-              <h2><?php echo to_month($current_job[0]->month_started)." ".$current_job[0]->year_started; echo ($current_job[0]->year_ended == 100000)? " until now" : " - " . to_month($current_job[0]->month_ended)." ".$current_job[0]->year_ended; ?></h2>
-              <select name="employment_history[0][employment_duration][start_month]" data-current="2"  class="narrow editable hidden">
-                <option value="1" <?=is_selected('employment_history', '0', 'employment_duraion', 'start_month', 1)?>>January</option>
-                <option value="2" <?=is_selected('employment_history', '0', 'employment_duration', 'start_month', 2)?>>February</option>
-              </select>
-              <select name="employment_history[0][employment_duration][start_year]" data-current="2011" class="narrow editable hidden">
-                <option value="2001">2001</option>
-                <option value="2001">2001</option>
-                <option value="2001">2001</option>
-              </select>
-              <i class="editable hidden">to</i>
-              <select name="employment_history[0][employment_duration][end_month]" data-current="1" class="narrow editable hidden">
-                <option value="1" <?=is_selected('employment_history', '0', 'employment_duraion', 'end_month', 1)?>>January</option>
-                <option value="2" <?=is_selected('employment_history', '0', 'employment_duration', 'end_month', 2)?>>February</option>
-              </select>
-              <select name="employment_history[0][employment_duration][end_year]" data-current="2011" class="narrow editable hidden">
-                <option value="2001">2001</option>
-                <option value="2001">2001</option>
-                <option value="2001">2001</option>
-              </select>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field indented">
-              <label>Job Satisfaction</label>
-              <h2><?= job_satisfaction_label($current_job[0]->job_satisfaction); ?></h2>
-              <input type="range" name="employment_history[0][job_satisfaction]" min="1" max="7" step="1" value="4" data-current="3" class="editable hidden">
-              <span class="editable hidden">4 - neutral</span>
-              <i class="editable hidden">[1 - lowest, 7 - highest]</i>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-            <div class="field indented">
-              <label>Why or why not satisfied?</label>
-              <h2><?= ($current_job[0]->reason)? $current_job[0]->reason : "No reason!"; ?></h2>
-              <textarea name="employment_history[0][satisfaction_reason]" data-current="Lorem ipsum Ut incididunt minim consequat Excepteur." class="editable hidden">Lorem ipsum Minim adipisicing cupidatat occaecat veniam est.</textarea>
-              <a href="#" data-behavior="edit">[edit]</a>
-            </div>
-          </div>
-          <div class="field actions clearfix">
-            <input type="submit" value="Submit" class="button hidden" />
-          </div>
-          <? endif; ?>
+          <? endforeach; ?>
         <?= form_close(); ?>
 
 
@@ -501,6 +530,7 @@
       <div class="field indented">
         <label>Year Finished</label>
         <select name="educational_background[new_educational_history][#{index}][year_finished]">
+          <option value="100000">Currently Studying</option>
           <?php 
           $year = date('Y');
           while ($year >= 1980) { 

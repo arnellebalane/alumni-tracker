@@ -20,8 +20,9 @@
                     'user_info'=> $this->model->getUserInfoById($this->session->userdata('user_id')),
                     'user_social_networks'=>$this->model->getUserSocialNetworksById($this->session->userdata('user_id')),
                     'social_networks'=>$this->model->getOtherSocialNetworksById($this->session->userdata('user_id')),
-                    'current_job'=>$this->model->getUserCurrentJob($this->session->userdata('user_id')),
-                    'other_degree'=>$this->model->getOtherDegreeByUserId($this->session->userdata('user_id'))
+//                    'current_job'=>$this->model->getUserCurrentJob($this->session->userdata('user_id')),
+                    'other_degree'=>$this->model->getOtherDegreeByUserId($this->session->userdata('user_id')),
+                    'jobs'=>$this->model->getUserAllJobs($this->session->userdata('user_id'))
   									);
       $this->load->helper('edit_info_helper.php');
       $this->load->helper('inflector');      

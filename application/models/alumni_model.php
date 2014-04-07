@@ -49,7 +49,9 @@ class alumni_model extends CI_Model {
 	}
 
 	function updateUserStudentNumber($user_id, $student_number) {
-		$query = $this->db->query("UPDATE users SET username = '".addslashes(trim($student_number))."' WHERE id = '$user_id'");
+		if (trim($student_number) != "") {
+			$query = $this->db->query("UPDATE users SET username = '".addslashes(trim($student_number))."' WHERE id = '$user_id'");
+		}
 	}
 	
 	function addCountry($name) {

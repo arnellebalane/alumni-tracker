@@ -358,10 +358,10 @@
                 <a href="#" data-behavior="edit">[edit]</a>
               </div>
             </div>
+            <? endforeach; ?>
             <div class="field actions clearfix">
               <input type="submit" value="Submit" class="button hidden" />
-            </div>
-          <? endforeach; ?>
+            </div>          
         <?= form_close(); ?>
 
 

@@ -368,6 +368,45 @@
 			redirect('/alumni/home');
 		}
 
+		public function updateJobs() {
+			if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
+				redirect('home/index');
+			}  
+			if (!$this->validateJobs($_POST['employment_history'])) {
+				$this->session->set_flashdata("alert", "Please fill-out all required fields in your employment history!");
+				redirect('alumni/home');
+			} 
+			$info = $_POST['employment_history'];
+			foreach ($info as $key => $value) {      
+        if (!$this->hasFilledFieldsInEmploymentHistoryUpdate($value)) {        
+          $this->model->deleteEmploymentDetails($key);
+        } else {          
+          $value['job_satisfaction'] = ($value['job_satisfaction'] <= 0) ? 1 : $value['job_satisfaction'];
+          $value['job_satisfaction'] = ($value['job_satisfaction'] > 7) ? 7 : $value['job_satisfaction'];
+          $this->model->updateEmploymentDetails($key, $value);          
+        }
+      }
+    }
+
+    private function validateJobs($jobs) {
+      foreach ($jobs as $job) {        
+        if ($this->hasEmptyFieldInEmploymentHistoryUpdate($job) && $this->hasFilledFieldsInEmploymentHistoryUpdate($job)) {          
+          return false;
+        }
+      }
+      return true;
+    }
+
+    public function deleteJob($id) {
+    	if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
+				redirect('home/index');
+			}  
+      $this->alumni->deleteEmploymentDetails($id);
+      $this->session->set_flashdata("notice", "Job deleted!");
+      redirect('home/index');
+    }
+
+
 		// VALIDATE PERSONLAL INFORMATION
 		private function validatePersonalInformation($info, $user_id) {
 			$info['firstname'] = trim($info['firstname']);
@@ -583,11 +622,29 @@
 			return false;
 		}
 
+		private function hasEmptyFieldInEmploymentHistoryUpdate($info) {			
+			$info['employer'] = trim($info['employer']);
+			$info['job_title'] = trim($info['job_title']);
+			if (($info['employer'] == "") || ($info['job_title'] == "")) {
+				return true;
+			}
+			return false;
+		}
+
 		private function hasFilledFieldsInEmploymentHistory($info) {
 			$info['business_name'] = trim($info['business_name']);
 			$info['employer'] = trim($info['employer']);
 			$info['job_title'] = trim($info['job_title']);
 			if (($info['business_name'] != "" && $info['self_employed'] == '1') || ($info['employer'] != "" && $info['self_employed'] == '0') || ($info['job_title'] != "")) {
+				return true;
+			}
+			return false;
+		}
+
+		private function hasFilledFieldsInEmploymentHistoryUpdate($info) {			
+			$info['employer'] = trim($info['employer']);
+			$info['job_title'] = trim($info['job_title']);
+			if (($info['employer'] != "") || ($info['job_title'] != "")) {
 				return true;
 			}
 			return false;

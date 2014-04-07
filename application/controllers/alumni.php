@@ -358,12 +358,14 @@
 				$info['job_satisfaction'] = 7;
 			}
 			$history_id = $this->model->addEmploymentDetails($employer_id, $info);
-			$first_job = $this->model->getUserFirstJob($this->session->userdata('user_id'));
-			$first = 0;
-			if (!$first_job) {
-				$first = 1;
-			}
-			$this->model->addUserEmploymentHistory($this->session->userdata('user_id'), $history_id, 1, $first);
+			// $first_job = $this->model->getUserFirstJob($this->session->userdata('user_id'));
+			// $first = 0;
+			// if (!$first_job) {
+			// 	$first = 1;
+			// }
+			$current_job = isset($info['job_type']['current_job']) ? 1 : 0;
+      $first_job = isset($info['job_type']['first_job']) ? 1 : 0;
+			$this->model->addUserEmploymentHistory($this->session->userdata('user_id'), $history_id, $current_job, $first_job);
 			$this->session->set_flashdata('notice', 'Update successful!');
 			redirect('/alumni/home');
 		}

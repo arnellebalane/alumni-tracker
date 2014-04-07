@@ -111,6 +111,16 @@ aside li:after {
   margin-bottom: 5px;
 }
 
+.content span a {
+  display: inline-block;
+  vertical-align: top;
+  font: normal 1rem "Open Sans Light", "OpenSansLight";
+  color: #005BC2;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 3px 0 0 10px;
+}
+
 .content .field input[type="text"], 
 .content .field input[type="email"], 
 .content .field input[type="password"],
@@ -410,3 +420,18 @@ aside li:after {
   vertical-align: top;
 }
 
+.alumni.home .field input[type="range"] {
+  margin: 0;
+}
+
+.alumni.home .field input[type="range"] + span {
+  margin: 0 0 0 5px;
+}
+
+.alumni.home .field input[type="checkbox"] + label {
+  margin: 0;
+}
+
+.alumni.home .slide[data-name="employment-history"] .field .editable + a {
+  margin: 3px 0 0 5px;
+}

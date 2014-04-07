@@ -239,24 +239,24 @@
               <?php if ($job->current_job == 1) : ?>
                 <span>
                   Current Job information
-                  <a href="#">[delete this job]</a>
+                  <?=anchor('alumni/deleteJob/'.$job->id, '[delete this job]')?>
                 </span>
               <?php elseif($job->first_job == 1) : ?>
                 <span>
                   First Job information
-                  <a href="#">[delete this job]</a>
+                  <?=anchor('alumni/deleteJob/'.$job->id, '[delete this job]')?>
                 </span>
               <?php else : ?>
                 <span>
                   Job information
-                  <a href="#">[delete this job]</a>
+                  <?=anchor('alumni/deleteJob/'.$job->id, '[delete this job]')?>                  
                 </span>
               <?php endif;?>
               <div class="field indented">
                 <label>Are you self-employed?</label>
                 <h2><?=($job->self_employed == 1) ? "Yes" : "No"; ?></h2>
-                <input type="radio" name="employment_history[<?= $job->id; ?>][self_employed]" value="1" data-behavior="alumni-toggle-self-employed" data-current="<?= ($job->self_employed == 1) ? 'checked' : 'unchecked'; ?>" id="se-yes-<?= $job->id; ?>" class="editable hidden" checked><label class="editable hidden" for="se-yes-<?= $job->id; ?>">Yes</label>
-                <input type="radio" name="employment_history[<?= $job->id; ?>][self_employed]" value="0" data-behavior="alumni-toggle-self-employed" data-current="<?= ($job->self_employed == 1) ? 'unchecked' : 'checked'; ?>" id="se-no-<?= $job->id; ?>" class="editable hidden" checked><label class="editable hidden" for="se-no-<?= $job->id; ?>">No</label>
+                <input type="radio" name="employment_history[<?= $job->id; ?>][self_employed]" value="1" data-behavior="alumni-toggle-self-employed" data-current="<?= ($job->self_employed == 1) ? 'checked' : 'unchecked'; ?>" id="se-yes-<?= $job->id; ?>" class="editable hidden" <?=is_checked(1, $job->self_employed)?>><label class="editable hidden" for="se-yes-<?= $job->id; ?>">Yes</label>
+                <input type="radio" name="employment_history[<?= $job->id; ?>][self_employed]" value="0" data-behavior="alumni-toggle-self-employed" data-current="<?= ($job->self_employed == 1) ? 'unchecked' : 'checked'; ?>" id="se-no-<?= $job->id; ?>" class="editable hidden" <?=is_checked(0, $job->self_employed)?>><label class="editable hidden" for="se-no-<?= $job->id; ?>">No</label>
                 <a href="#" data-behavior="edit">[edit]</a>
               </div>
               <?php if ($job->business) : ?>

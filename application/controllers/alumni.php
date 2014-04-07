@@ -386,6 +386,8 @@
           $this->model->updateEmploymentDetails($key, $value);          
         }
       }
+      $this->session->set_flashdata("notice", "Update Successful!");
+      redirect('alumni/home');
     }
 
     private function validateJobs($jobs) {
@@ -401,9 +403,13 @@
     	if (!$this->session->userdata('user_id') || $this->session->userdata('user_type') != 'alumni') {
 				redirect('home/index');
 			}  
-      $this->alumni->deleteEmploymentDetails($id);
-      $this->session->set_flashdata("notice", "Job deleted!");
-      redirect('home/index');
+			if ($this->model->verifyUserEmployment($this->session->userdata('user_id'), $id)) {
+      	$this->model->deleteEmploymentDetails($id);
+      	$this->session->set_flashdata('notice', 'Job Deleted!');
+    	}	else {
+    		$this->session->set_flashdata("alert", "Cannot delete job!");
+    	}
+    	redirect('alumni/home');
     }
 
 

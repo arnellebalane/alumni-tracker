@@ -198,20 +198,21 @@ var questionnaire = {
       return {valid: true};
     },
     'employment-history': function() {
-      console.log($('.slide[data-name="employment-history"] .job-form.validate:not(.hidden)'));
-      for (var i = 0; i < $('.slide[data-name="employment-history"] .job-form.validate:not(.hidden)').length; i++) {
-        var form = $('.slide[data-name="employment-history"] .job-form.validate:not(.hidden)').eq(i);
-        console.log(form);
-        if ((form.find('input[name="employment_history[' + i + '][business_name]"]').val().trim().length > 0
-            || form.find('input[name="employment_history[' + i + '][employer]"]').val().trim().length > 0)
-          && (form.find('select[name="employment_history[' + i + '][employer_type]"]').val() != 'others'
-            || form.find('input[name="employment_history[' + i + '][specified_employer_type]"]').val().trim().length > 0)
-          && (form.find('input[name="employment_history[' + i + '][job_title]"]').val().trim().length > 0)
-          && (parseInt(form.find('select[name="employment_history[' + i + '][employment_duration][start_year]"]').val()) 
-            <= parseInt(form.find('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))) {
-          
-        } else {
-          return {valid: false, error: "Please fill up all required fields."};
+      for (var i = 0; i < $('.slide[data-name="employment-history"] .job-form').length; i++) {
+        var form = $('.slide[data-name="employment-history"] .job-form').eq(i);
+        if (form.hasClass('validate') && !form.is(':hidden')) {
+          console.log(form.find('input[name="employment_history[' + i + '][business_name]"]'));
+          if ((form.find('input[name="employment_history[' + i + '][business_name]"]').val().trim().length > 0
+              || form.find('input[name="employment_history[' + i + '][employer]"]').val().trim().length > 0)
+            && (form.find('select[name="employment_history[' + i + '][employer_type]"]').val() != 'others'
+              || form.find('input[name="employment_history[' + i + '][specified_employer_type]"]').val().trim().length > 0)
+            && (form.find('input[name="employment_history[' + i + '][job_title]"]').val().trim().length > 0)
+            && (parseInt(form.find('select[name="employment_history[' + i + '][employment_duration][start_year]"]').val()) 
+              <= parseInt(form.find('select[name="employment_history[' + i + '][employment_duration][end_year]"]').val()))) {
+            
+          } else {
+            return {valid: false, error: "Please fill up all required fields."};
+          }
         }
       }
       return {valid: true};

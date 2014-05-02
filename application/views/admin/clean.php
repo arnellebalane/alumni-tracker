@@ -311,7 +311,9 @@
             <div class="field">
               <label>Monthly Salary (in Philippine Peso)</label>
               <h4>
-                <?php if (!$job->minimum) {
+                <?php if (!$job->minimum && !$job->maximum) {
+                  echo "Not disclose!";
+                } else if (!$job->minimum) {
                         echo "below " . $job->maximum; 
                 } else if (!$job->maximum) {
                         echo "above " . $job->minimum;
@@ -323,7 +325,8 @@
                 <select name="jobs[<?=$job->id?>][monthly_salary]" data-current="<?=$job->monthly_salary_id?>">
                   <?php foreach ($salaries as $sal) :?>
                     <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
-                        <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
+                        <?php if ($sal->minimum == NULL && $sal->maximum == NULL) {echo "I don't want to disclose!";}
+                         elseif ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
                          elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
                          else {echo $sal->minimum . " - " . $sal->maximum;} ?>
                     </option>                  
@@ -443,7 +446,8 @@
           <select name="another_job[{{index}}][monthly_salary]">
             <?php foreach ($salaries as $sal) :?>
               <option value="<?=$sal->id?>" >
-              <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
+              <?php if ($sal->minimum == NULL && $sal->maximum == NULL) {echo "I don't want to disclose!";}
+                elseif ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
                 elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
                 else {echo $sal->minimum . " - " . $sal->maximum;} ?>
               </option>                  

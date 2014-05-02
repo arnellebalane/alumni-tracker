@@ -41,7 +41,9 @@
           <div class="statistical-data hidden">
             <? foreach($salaries as $salary) : ?>           
               <?php $sal = "";
-              if ($salary->minimum == null && $salary->maximum != null) {
+              if ($salary->minimum == null && $salary->maximum == null) {
+                $sal = "Not disclosed!";
+              } else if ($salary->minimum == null && $salary->maximum != null) {
                 $sal = $salary->maximum . " and below";
               } else if ($salary->minimum != null && $salary->maximum == null) {
                 $sal = $salary->minimum . " and above";
@@ -64,7 +66,9 @@
           <div class="statistical-data hidden">
             <? foreach($salaries as $salary) : ?> 
               <?php $sal = "";
-              if ($salary->minimum == null && $salary->maximum != null) {
+              if ($salary->minimum == null && $salary->maximum == null) {
+                $sal = "Not disclosed!";
+              } else if ($salary->minimum == null && $salary->maximum != null) {
                 $sal = $salary->maximum . " and below";
               } else if ($salary->minimum != null && $salary->maximum == null) {
                 $sal = $salary->minimum . " and above";

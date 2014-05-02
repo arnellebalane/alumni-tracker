@@ -293,18 +293,22 @@
               </div>
               <div class="field indented">
                 <label>Monthly Salary (in Philippine Peso)</label>
-                <h2> <?php if (!$job->minimum) {
-                              echo "below " . $job->maximum; 
+                <h2> <?php if (!$job->minimum && !$job->maximum) {
+                        echo "Not disclosed!";
+                      }
+                      else if (!$job->minimum) {
+                        echo "below " . $job->maximum; 
                       } else if (!$job->maximum) {
-                              echo "above " . $job->minimum;
+                        echo "above " . $job->minimum;
                       } else {
-                              echo $job->minimum . " - " . $job->maximum;
+                        echo $job->minimum . " - " . $job->maximum;
                       }?>
                 </h2>
                 <select name="employment_history[<?=$job->id?>][monthly_salary]" data-current="<?= $job->monthly_salary_id; ?>" class="editable hidden">
                   <?php foreach ($salaries as $sal) :?>
                     <option value="<?=$sal->id?>" <?=is_selected($sal->id, $job->monthly_salary_id)?> >
-                        <?php if ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
+                        <?php if ($sal->minimum == NULL && $sal->maximum == NULL) {echo "I don't want to disclose!";} 
+                         elseif ($sal->minimum == NULL) {echo $sal->maximum . " and below";}
                          elseif ($sal->maximum == NULL) {echo $sal->minimum . " and above";}
                          else {echo $sal->minimum . " - " . $sal->maximum;} ?>
                     </option>                  
@@ -416,7 +420,9 @@
                 <?php foreach ($salaries as $val) : ?>
                   <option value="<?=$val->id?>" <?=pop_is_selected('employment_history', '0', 'monthly_salary', null, $val->id); ?>>
                     <?php
-                      if ($val->minimum == null)
+                      if ($val->minimum == null && $val->maximum == null)
+                        echo "I don't want to disclose!";
+                      else if ($val->minimum == null)
                         echo $val->maximum." and below";
                       else if ($val->maximum == null)
                         echo $val->minimum." and above";

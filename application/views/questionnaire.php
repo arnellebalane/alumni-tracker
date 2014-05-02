@@ -227,7 +227,9 @@
                 <?php foreach ($salaries as $val) : ?>
                   <option value="<?=$val->id?>" <?=is_selected('employment_history', '0', 'monthly_salary', null, $val->id); ?>>
                     <?php
-                      if ($val->minimum == null)
+                      if ($val->minimum == null && $val->maximum == null)
+                        echo "I don't want to disclose!"; 
+                      else if ($val->minimum == null)
                         echo $val->maximum." and below";
                       else if ($val->maximum == null)
                         echo $val->minimum." and above";
@@ -349,7 +351,9 @@
                   <?php foreach ($salaries as $val) : ?>
                     <option value="<?=$val->id?>" <?=is_selected('employment_history', $i, 'monthly_salary', null, $val->id)?>>
                       <?php
-                        if ($val->minimum == null)
+                        if ($val->minimum == null && $val->maximum == null)
+                          echo "I don't want to disclose!"; 
+                        else if ($val->minimum == null)                        
                           echo $val->maximum." and below";
                         else if ($val->maximum == null)
                           echo $val->minimum." and above";
@@ -527,7 +531,9 @@
               <label class="required">Monthly Salary (in Philippine Peso)</label>
               <select name="employment_history[#{index}][monthly_salary]">
                 <?php foreach ($salaries as $val): ?>
-                  <?php if ($val->minimum == null): ?>
+                  <?php if ($val->minimum == null && $val->maximum == null) : ?>                        
+                    <option value="<?= $val->id; ?>">I don't want to disclose!</option>
+                  <?php elseif ($val->minimum == null): ?>
                     <option value="<?= $val->id; ?>"><?= $val->maximum . ' and below'; ?></option>
                   <?php elseif ($val->maximum == null): ?>
                     <option value="<?= $val->id; ?>"><?= $val->minimum . ' and above'; ?></option>

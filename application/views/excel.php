@@ -96,27 +96,41 @@ header("Content-Disposition: attachment;Filename=Alumni Data.xls");
 					<td></td>
 				<?php endif; ?>
 
-				<?php $job = $jobs[$count][0]; ?>
-				<td><?= ($job->current_job == '1') ? 'yes': 'no'; ?></td>
-				<td><?= ($job->first_job == '1') ? 'yes': 'no'; ?></td>
-				<td><?= ($job->self_employed == '1') ? 'yes': 'no'; ?></td>
-				<td><?= $job->business ?></td>
-				<td><?= $job->employer ?></td>
-				<td><?= $job->employer_type ?></td>
-				<td><?= $job->job_title ?></td>
-				<td>
-				<?php if ($job->minimum == NULL) : ?>
-					<?= $job->maximum.' and below' ?>
-				<?php elseif ($job->maximum == NULL) : ?>
-					<?= $job->minimum.' and above' ?>
-				<?php else: ?>
-					<?= $job->minimum.' - '.$job->maximum ?>
+				<?php if (isset($jobs[$count][0])) : ?>
+					<?php $job = $jobs[$count][0]; ?>
+					<td><?= ($job->current_job == '1') ? 'yes': 'no'; ?></td>
+					<td><?= ($job->first_job == '1') ? 'yes': 'no'; ?></td>
+					<td><?= ($job->self_employed == '1') ? 'yes': 'no'; ?></td>
+					<td><?= $job->business ?></td>
+					<td><?= $job->employer ?></td>
+					<td><?= $job->employer_type ?></td>
+					<td><?= $job->job_title ?></td>
+					<td>
+					<?php if ($job->minimum == NULL) : ?>
+						<?= $job->maximum.' and below' ?>
+					<?php elseif ($job->maximum == NULL) : ?>
+						<?= $job->minimum.' and above' ?>
+					<?php else: ?>
+						<?= $job->minimum.' - '.$job->maximum ?>
+					<?php endif; ?>
+					</td>
+					<?php $year_ended = ($job->year_ended == '100000') ? 'ongoing' : $job->year_ended; ?>
+					<td><?= $job->year_started.' - '.$year_ended ?></td>
+					<td><?= $job->job_satisfaction ?></td>
+					<td><?= $job->reason ?></td>
+				<?php else : ?>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				<?php endif; ?>
-				</td>
-				<?php $year_ended = ($job->year_ended == '100000') ? 'ongoing' : $job->year_ended; ?>
-				<td><?= $job->year_started.' - '.$year_ended ?></td>
-				<td><?= $job->job_satisfaction ?></td>
-				<td><?= $job->reason ?></td>
 
 				<td rowspan="<?= $rows ?>"><?= date('F j, Y', strtotime($var->created_at)) ?></td>
 				<td rowspan="<?= $rows ?>"><?= ($var->cleaned == '1') ? 'yes':'no' ?></td>
